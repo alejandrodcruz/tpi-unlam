@@ -1,0 +1,44 @@
+name: ci_cd
+run-name: ${{ github.actor }} está probando GitHub Actions 🚀
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Descargar el código
+        uses: actions/checkout@v3
+
+      - name: Navegar a la carpeta del servidor
+        run: cd server
+
+      - name: Cachear paquetes de Maven
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('server/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Verificar la versión de Java
+        run: java -version
+
+      - name: Compilar con Maven
+        run: |
+          cd server
+          mvn clean install
+
+      - name: Ejecutar pruebas
+        run: |
+          cd server
+          mvn test
+
+      - run: echo "🍏 El estado de la tarea es ${{ job.status }}."
