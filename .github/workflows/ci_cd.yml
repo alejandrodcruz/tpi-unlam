@@ -40,5 +40,20 @@ jobs:
         run: |
           cd server
           mvn test
+      
+      - name: Configurar Node.js para Angular
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias de Angular
+        run: |
+          cd frontend
+          npm install
+
+      - name: Ejecutar pruebas de Angular
+        run: |
+          cd frontend
+          ng test
 
       - run: echo "🍏 El estado de la tarea es ${{ job.status }}."
