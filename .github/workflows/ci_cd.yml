@@ -50,6 +50,7 @@ jobs:
         run: |
           cd frontend
           npm install
+          npm install -g @angular/cli
 
       - name: Ejecutar pruebas de Angular
         run: |
