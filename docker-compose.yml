@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  #Configuracion servicio MySQL
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Contraseña
+      MYSQL_DATABASE: tpifinal  # Nombre de la base de datos
+    volumes:
+      - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql  # Ejecutar archivo inicial db.sql
+      - mysql_data:/var/lib/mysql  # Volumen para persistir datos
+    ports:
+      - "3306:3306"
+  #Configuracion servicio PHPAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root  # Usuario phpMyAdmin
+      PMA_PASSWORD: root  # Contraseña phpMyAdmin
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+volumes:
+  mysql_data:
+
