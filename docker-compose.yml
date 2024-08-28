@@ -28,6 +28,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - ./server:/app
+      - ~/.m2:/root/.m2
     depends_on:
       - mysql
   # Configuración servicio Angular

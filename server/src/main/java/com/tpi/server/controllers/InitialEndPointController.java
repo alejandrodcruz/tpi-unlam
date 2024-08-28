@@ -8,6 +8,12 @@ public class InitialEndPointController {
 
     @RequestMapping("/HelloTpiFinal")
     public String initialEndPoint() {
-        return "Hello tpi final";
+        return "Hello Tpi Final";
+    }
+
+    @RequestMapping("/")
+    public String tesOKEndPoint() {
+        String key = "Spring esta OK";
+        return key;
     }
 }
