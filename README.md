@@ -24,6 +24,9 @@ docker system prune -a --volumes
 docker ps
 ```
 ### Spring tiene activado el modo DevTools que detecta los cambios.
+####  Activar en el proyecto las siguientes opciones
+![Activar Opcion](img/setting001.png)
+![Activar Opcion](img/setting002.png)
 #### En caso que no detecte los cambios, se puede solo recargar Spring sin necesidad de reconstrur todo el proyecto.
 ```bash
 docker-compose restart spring-boot-app 
