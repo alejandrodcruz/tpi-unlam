@@ -1,5 +1,6 @@
 package com.tpi.server.application.services.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -14,12 +15,13 @@ import java.util.Date;
 import java.util.HashMap;
 
 import java.security.Key;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
 
-    private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256); // returns a secure random key
-
+    //todo move it to env
+    private static final String SECRET_KEY="SEEDTEST586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
     public String getToken(UserDetails user) {
         return getToken(new HashMap<>(), user);
@@ -37,11 +39,39 @@ public class JwtService {
     }
 
     private Key getKey() {
-        byte[] keyBytes = new byte[32];
-        new SecureRandom().nextBytes(keyBytes);
-        String SECRET_KEY = Encoders.BASE64.encode(keyBytes);
+        byte[] keyBytes=Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 
-        byte[] decodedKeyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(decodedKeyBytes);
+    public String getUsernameFromToken(String token) {
+        // Subject = username
+        return getClaim(token, Claims::getSubject);
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = getUsernameFromToken(token);
+        return userDetails.getUsername().equals(username) && !isTokenExpired(token);
+    }
+
+    private Claims getClaimsFromToken(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Date getExpirationDateFromToken(String token) {
+        return getClaim(token, Claims::getExpiration);
+    }
+
+    private boolean isTokenExpired(String token) {
+        return getExpirationDateFromToken(token).before(new Date());
     }
 }

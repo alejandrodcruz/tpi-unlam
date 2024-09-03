@@ -7,6 +7,7 @@ import com.tpi.server.infrastructure.dtos.AuthResponse;
 import com.tpi.server.infrastructure.dtos.RegisterRequest;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,11 +16,12 @@ public class AuthRegister {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthResponse register(RegisterRequest registerRequest) {
         User user = User.builder()
                 .username(registerRequest.getUsername())
-                .password(registerRequest.getPassword())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .email(registerRequest.getEmail())
                 .role(Role.USER)
                 .build();
