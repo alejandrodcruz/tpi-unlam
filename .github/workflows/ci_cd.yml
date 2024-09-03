@@ -26,7 +26,16 @@ jobs:
 
       - name: Descargar el código
         uses: actions/checkout@v3
-
+        
+      - name: Listar contenido del directorio db
+        run: |
+          echo "Listando contenido del directorio db:"
+          ls -la $GITHUB_WORKSPACE/db
+          
+      - name: Ejecutar queries SQL
+        run: |
+          mysql -h127.0.0.1 -P3307 -uroot -p${{ secrets.MYSQL_ROOT_PASSWORD }} tpifinal < $GITHUB_WORKSPACE/db/db.sql
+          
       - name: Navegar a la carpeta del servidor
         run: cd server
 
