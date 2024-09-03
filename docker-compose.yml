@@ -9,7 +9,7 @@ services:
       - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql  # Ejecutar archivo inicial db.sql
       - mysql_data:/var/lib/mysql  # Volumen para persistir datos
     ports:
-      - "3306:3306"
+      - "3307:3307"
   #Configuracion servicio PHPAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
