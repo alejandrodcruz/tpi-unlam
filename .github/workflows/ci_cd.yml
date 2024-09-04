@@ -34,7 +34,7 @@ jobs:
           
       - name: Ejecutar queries SQL
         run: |
-          mysql -h127.0.0.1 -P3307 -uroot -p${{ secrets.MYSQL_ROOT_PASSWORD }} tpifinal < $GITHUB_WORKSPACE/db/db.sql
+          mysql -h127.0.0.1 -P3307 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
           
       - name: Navegar a la carpeta del servidor
         run: cd server
