@@ -1,11 +1,10 @@
-version: '3'
 services:
   mosquitto:
     image: eclipse-mosquitto
     container_name: mosquitto
     ports:
       - "1883:1883"  # Puerto para conexiones MQTT
-      - "9001:9001"  # Puerto para WebSockets (opcional)
+      - "9001:9001"  # Puerto para WebSockets
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
@@ -14,3 +13,5 @@ services:
       - LOG_DESTINATION=stdout
       - ALLOW_ANONYMOUS=true
     restart: always
+
+  # Verificar con software MQTT Explorer
