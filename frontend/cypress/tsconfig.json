@@ -3,6 +3,11 @@
     "transpileOnly": true,
     "compilerOptions": {
       "module": "ES2015"
-    }
+    },
+    "include": [
+      "**/*.ts",
+      "../cypress.config.ts"
+    ],
+    "exclude": []
   }
 }
