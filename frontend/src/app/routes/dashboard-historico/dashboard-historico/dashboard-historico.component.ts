@@ -6,14 +6,11 @@ import { HistorialService } from "../../../shared/services/historial.service";
 @Component({
   selector: 'app-dashboard-historico',
   standalone: true,
-  imports: [
-    SidebarComponent
-  ],
+  imports: [SidebarComponent],
   templateUrl: './dashboard-historico.component.html',
   styleUrl: './dashboard-historico.component.css'
 })
 export class DashboardHistoricoComponent implements OnInit {
-
   meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   consumoMensual: number[] = [];
   consumoDiario: { value: number, name: string }[] = [];
@@ -21,16 +18,27 @@ export class DashboardHistoricoComponent implements OnInit {
   constructor(private historialService: HistorialService) { }
 
   ngOnInit(): void {
+    this.loadConsumoMensual();
+    this.loadConsumoDiario();
+  }
 
-    this.historialService.getConsumoMensual().subscribe(data => {
-      this.consumoMensual = data;
-      this.initBarChart();
+  loadConsumoMensual(): void {
+    this.historialService.getConsumoMensual().subscribe({
+      next: (data) => {
+        this.consumoMensual = data;
+        this.initBarChart();
+      },
+      error: (err) => console.error('Error fetching consumo mensual:', err)
     });
+  }
 
-
-    this.historialService.getConsumoDiario().subscribe(data => {
-      this.consumoDiario = data;
-      this.initPieChart();
+  loadConsumoDiario(): void {
+    this.historialService.getConsumoDiario().subscribe({
+      next: (data) => {
+        this.consumoDiario = data;
+        this.initPieChart();
+      },
+      error: (err) => console.error('Error fetching consumo diario:', err)
     });
   }
 
@@ -61,7 +69,7 @@ export class DashboardHistoricoComponent implements OnInit {
           name: 'Consumo',
           type: 'bar',
           barWidth: '60%',
-          data: this.consumoMensual,  // Uso de los datos obtenidos del servicio
+          data: this.consumoMensual,
           itemStyle: { color: '#3E92CC' }
         }
       ],
@@ -106,9 +114,7 @@ export class DashboardHistoricoComponent implements OnInit {
         }
       ],
       toolbox: {
-        feature: {
-          saveAsImage: { show: true }
-        }
+        feature: { saveAsImage: { show: true } }
       }
     };
 

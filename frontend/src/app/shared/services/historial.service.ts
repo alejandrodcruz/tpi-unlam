@@ -8,13 +8,13 @@ export class HistorialService {
 
   constructor() { }
 
-  // Simulación de la obtención de los datos de consumo mensual
+
   getConsumoMensual(): Observable<number[]> {
     const consumoMensual = [320, 280, 300, 350, 370, 420, 500, 450, 400, 390, 360, 340];
     return of(consumoMensual);
   }
 
-  // Simulación de la obtención de los datos de consumo diario
+
   getConsumoDiario(): Observable<{ value: number, name: string }[]> {
     const consumoDiario = [
       { value: 15, name: '00:00-02:00' },
@@ -33,3 +33,28 @@ export class HistorialService {
     return of(consumoDiario);
   }
 }
+
+/*
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HistorialService {
+  private API_URL = 'http://localhost:8080/historial';
+
+  constructor(private http: HttpClient) { }
+
+  getConsumoMensual(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.API_URL}/consumo-mensual`);
+  }
+
+  getConsumoDiario(): Observable<{ value: number, name: string }[]> {
+    return this.http.get<{ value: number, name: string }[]>(`${this.API_URL}/consumo-diario`);
+  }
+}
+
+ */
