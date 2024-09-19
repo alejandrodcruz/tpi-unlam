@@ -1,30 +1,211 @@
 <body class="bg-gray-50">
-  <div class="relative overflow-hidden">
-    <!-- Header with logo and navigation buttons -->
-    <header class="absolute inset-x-0 top-0 z-50 px-6 py-4 flex justify-between items-center bg-white shadow-md">
-      <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
-      <div class="space-x-4">
-        <a [routerLink]="['/login']" class="text-primary hover:text-primaryhover font-semibold">Log in</a>
-        <a [routerLink]="['/register']" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover">Sign up</a>
-      </div>
-    </header>
+<div class="relative overflow-hidden">
 
-    <!-- Main content area -->
-    <main class="flex flex-col lg:flex-row items-center justify-between px-6 py-16 lg:py-24 lg:px-16">
-      <!-- Product presentation -->
-      <div class="lg:w-1/2 space-y-6">
-        <h1 class="text-4xl font-bold leading-tight text-gray-900">Transform Your Business with Our Product</h1>
-        <p class="text-lg text-gray-700 p-3">Our innovative solution helps you streamline your operations, enhance productivity, and achieve remarkable results. Discover the power of our product today and see how it can make a difference for your business.</p>
-        <div class="text-left">
+  <header class="absolute inset-x-0 top-0 z-50 px-6 py-4 flex justify-between items-center bg-white shadow-md">
+    <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <div class="space-x-4">
+      <a [routerLink]="['/login']" class="text-primary hover:bg-secondaryhover font-semibold px-4 py-2 rounded-md">Log in</a>
+      <a [routerLink]="['/register']" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover">Sign up</a>
+    </div>
+  </header>
+
+
+  <main class="flex flex-col lg:flex-row items-center justify-between px-6 py-16 lg:py-24 lg:px-16">
+
+    <div class="lg:w-1/2 space-y-6">
+      <h1 class="text-4xl font-bold leading-tight text-gray-900">Transforme su negocio con nuestro producto</h1>
+      <p class="text-lg text-gray-700 p-3">Nuestra innovadora solución le ayuda a optimizar sus operaciones, mejorar la productividad y lograr resultados notables. Descubra el poder de nuestro producto hoy y vea cómo puede marcar la diferencia para su negocio.</p>
+      <div class="text-left">
         <a href="#" class="bg-primary mt-5 text-white px-6 py-3 rounded-md shadow-sm hover:bg-primaryhover">Get Started</a>
+      </div>
+    </div>
+
+
+    <div class="lg:w-1/2 mt-10 lg:mt-0">
+      <img class="w-full h-auto rounded-lg shadow-lg" src="https://via.placeholder.com/500x400" alt="Product Image">
+    </div>
+  </main>
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold leading-tight text-gray-900">Principales ventajas de nuestro producto</h2>
+        <p class="text-lg text-gray-700 mt-4">Explore las principales características que hacen de nuestro producto la mejor opción para su negocio.</p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row justify-between items-center lg:space-x-6">
+
+        <div class="lg:w-1/3 space-y-4 text-center">
+          <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+              <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900">Aumento de la eficiencia</h3>
+          <p class="text-gray-700">Nuestra herramienta aumenta su productividad y garantiza que logre más en menos tiempo.</p>
+        </div>
+
+
+        <div class="lg:w-1/3 space-y-4 text-center mt-8 lg:mt-0">
+          <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+              <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900">Ahorro de costos</h3>
+          <p class="text-gray-700">Al automatizar las tareas clave, ahorra dinero y tiempo a la vez que reduce los costes operativos.</p>
+        </div>
+
+
+        <div class="lg:w-1/3 space-y-4 text-center mt-8 lg:mt-0">
+          <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+              <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900">Fácil de usar</h3>
+          <p class="text-gray-700">Nuestro producto está diseñado pensando en el usuario, lo que garantiza la facilidad de uso y la rápida implementación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between">
+
+      <div class="lg:w-1/2 space-y-6">
+        <h2 class="text-3xl font-bold leading-tight text-gray-900">Pedi una cita</h2>
+        <p class="text-lg text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="bg-primary text-white px-6 py-3 rounded-md shadow-sm hover:bg-primaryhover">Lorem Ipsum</a>
+          <a href="#" class="bg-secondary text-white px-6 py-3 rounded-md shadow-sm hover:bg-secondaryhover">Sit Dolor</a>
         </div>
       </div>
 
-      <!-- Image on the right -->
-      <div class="lg:w-1/2 mt-10 lg:mt-0">
-        <img class="w-full h-auto rounded-lg shadow-lg" src="https://via.placeholder.com/500x400" alt="Product Image">
-      </div>
-    </main>
-  </div>
-</body>
 
+      <div class="lg:w-1/2 mt-10 lg:mt-0 bg-gradient-to-r from-blue-400 to-blue-500 p-8 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold text-white mb-6">Es Rapido y Facil</h3>
+
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">¿Descargate nuestros metodos de ahorro?</h3>
+        <p class="text-lg text-gray-700 mb-4">Descarga esta guía con 10 consejos para ahorrar en casa. Te lo envío en PDF.</p>
+
+
+        <form>
+          <input type="text" placeholder="Nombre" class="w-full mb-4 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+          <input type="email" placeholder="Correo electrónico" class="w-full mb-4 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+
+
+
+
+          <button type="submit" class="bg-yellow-500 text-white w-full py-3 rounded-md shadow-sm hover:bg-yellow-600 font-semibold">
+            Envíar
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="mt-12 grid grid-cols-4 gap-6 text-center">
+
+      <div class="space-y-2">
+        <div class="w-12 h-12 mx-auto bg-primary-light text-primary rounded-full flex items-center justify-center">
+
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+            <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-700">Click Here</p>
+      </div>
+
+
+
+      <div class="space-y-2">
+        <div class="w-12 h-12 mx-auto bg-primary-light text-primary rounded-full flex items-center justify-center">
+
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+            <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-700">Click Here</p>
+      </div>
+
+
+
+      <div class="space-y-2">
+        <div class="w-12 h-12 mx-auto bg-primary-light text-primary rounded-full flex items-center justify-center">
+
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+            <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-700">Click Here</p>
+      </div>
+
+
+      <div class="space-y-2">
+        <div class="w-12 h-12 mx-auto bg-primary-light text-primary rounded-full flex items-center justify-center">
+
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+            <path d="M12 2l4 10-9 1 7 7-3-10h8z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-700">Click Here</p>
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="bg-blue-900 text-white py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div>
+          <img class="h-10 mb-4" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Logo">
+          <p class="text-gray-400">Tu Empresa © 2024</p>
+          <p class="text-gray-400">Todos los derechos reservados.</p>
+        </div>
+
+        <div>
+          <h3 class="text-white font-semibold mb-4">Navegación</h3>
+          <ul>
+            <li class="mb-2"><a href="#" class="text-gray-300 hover:text-white">Inicio</a></li>
+            <li class="mb-2"><a href="#" class="text-gray-300 hover:text-white">Servicios</a></li>
+            <li class="mb-2"><a href="#" class="text-gray-300 hover:text-white">Nosotros</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-white font-semibold mb-4">Síguenos</h3>
+          <p class="text-gray-300 mb-4">Conéctate con nosotros en nuestras redes sociales:</p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                <path d="M18 2h-3c-1.657 0-3 1.343-3 3v3H9v4h3v12h4V12h3.223l.777-4H16V5c0-.552.448-1 1-1h3V2z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                <path d="M24 4.557a10 10 0 01-2.825.775 4.938 4.938 0 002.165-2.723 9.985 9.985 0 01-3.127 1.195 4.916 4.916 0 00-8.385 4.482A13.944 13.944 0 011.671 3.15 4.822 4.822 0 003.149 9.72a4.906 4.906 0 01-2.229-.616v.061a4.915 4.915 0 003.946 4.827 4.902 4.902 0 01-2.224.084 4.917 4.917 0 004.593 3.42 9.868 9.868 0 01-6.102 2.105c-.396 0-.785-.023-1.17-.069a13.945 13.945 0 007.557 2.212c9.054 0 14-7.496 14-13.986 0-.213-.004-.426-.014-.637A10.024 10.024 0 0024 4.557z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                <path d="M12 0C5.372 0 0 5.373 0 12c0 5.292 3.438 9.709 8.207 11.385-.113-.97-.215-2.46.045-3.518.237-.999 1.527-6.387 1.527-6.387s-.389-.779-.389-1.927c0-1.805 1.047-3.149 2.353-3.149 1.11 0 1.647.832 1.647 1.83 0 1.113-.707 2.775-1.072 4.314-.305 1.292.646 2.345 1.912 2.345 2.294 0 3.976-2.42 3.976-5.906 0-2.708-1.945-4.607-4.721-4.607-3.218 0-5.11 2.415-5.11 4.91 0 .974.377 2.017.849 2.584a.34.34 0 01.077.324c-.085.357-.278 1.132-.317 1.293-.05.196-.162.24-.378.146-1.41-.583-2.288-2.41-2.288-3.887 0-3.16 2.297-6.064 6.628-6.064 3.473 0 6.176 2.477 6.176 5.788 0 3.451-2.174 6.229-5.186 6.229-1.012 0-1.965-.526-2.292-1.146l-.621 2.36c-.225.856-.835 1.93-1.243 2.588.934.287 1.918.441 2.946.441 6.628 0 12-5.373 12-12S18.628 0 12 0z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-400">
+        <p>Hecho con ❤️ por Tu Empresa.</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
