@@ -16,10 +16,11 @@ export class DashboardHistoricoComponent implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    this.initChart();
+    this.initBarChart();  // Inicializa gráfico de barras
+    this.initPieChart();  // Inicializa gráfico circular
   }
 
-  initChart(): void {
+  initBarChart(): void {
     const chartDom = document.getElementById('consumption-chart') as HTMLElement;
     const myChart = echarts.init(chartDom);
 
@@ -30,9 +31,7 @@ export class DashboardHistoricoComponent implements OnInit{
       },
       tooltip: {
         trigger: 'axis',
-        axisPointer: {  // Añadido para mejorar la interacción con barras
-          type: 'shadow'
-        }
+        axisPointer: { type: 'shadow' }
       },
       xAxis: {
         type: 'category',
@@ -46,11 +45,62 @@ export class DashboardHistoricoComponent implements OnInit{
       series: [
         {
           name: 'Consumo',
-          type: 'bar',  // Cambiado a 'bar' para gráfico de barras
-          barWidth: '60%',  // Ancho de las barras
+          type: 'bar',
+          barWidth: '60%',
           data: [320, 280, 300, 350, 370, 420, 500, 450, 400, 390, 360, 340],
-          itemStyle: {
-            color: '#3E92CC'  // Color personalizado para las barras
+          itemStyle: { color: '#3E92CC' }
+        }
+      ],
+      toolbox: {
+        feature: { saveAsImage: { show: true } }
+      }
+    };
+
+    myChart.setOption(option);
+  }
+
+  initPieChart(): void {
+    const pieChartDom = document.getElementById('daily-consumption-chart') as HTMLElement;
+    const pieChart = echarts.init(pieChartDom);
+
+    const option = {
+      title: {
+        text: 'Consumo Energético Mensual',
+        subtext: 'Por hora (kWh)',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: 'Consumo',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: 15, name: '00:00-02:00' },
+            { value: 12, name: '02:00-04:00' },
+            { value: 8, name: '04:00-06:00' },
+            { value: 10, name: '06:00-08:00' },
+            { value: 18, name: '08:00-10:00' },
+            { value: 25, name: '10:00-12:00' },
+            { value: 35, name: '12:00-14:00' },
+            { value: 30, name: '14:00-16:00' },
+            { value: 28, name: '16:00-18:00' },
+            { value: 20, name: '18:00-20:00' },
+            { value: 22, name: '20:00-22:00' },
+            { value: 15, name: '22:00-00:00' }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
         }
       ],
@@ -61,7 +111,7 @@ export class DashboardHistoricoComponent implements OnInit{
       }
     };
 
-    myChart.setOption(option);
+    pieChart.setOption(option);
   }
 }
 
