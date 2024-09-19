@@ -1,19 +1,40 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
-import {SidebarComponent} from "../../sidebar/sidebar.component";
+import { SidebarComponent } from "../../sidebar/sidebar.component";
+import { HistorialService } from "../../../shared/services/historial.service";
 
 @Component({
   selector: 'app-dashboard-historico',
   standalone: true,
   imports: [
     SidebarComponent
-
   ],
   templateUrl: './dashboard-historico.component.html',
   styleUrl: './dashboard-historico.component.css'
 })
-export class DashboardHistoricoComponent implements OnInit{
-  constructor() { }
+export class DashboardHistoricoComponent implements OnInit {
+
+
+  meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  consumoMensual: number[] = [320, 280, 300, 350, 370, 420, 500, 450, 400, 390, 360, 340];
+
+
+  consumoDiario: { value: number, name: string }[] = [
+    { value: 15, name: '00:00-02:00' },
+    { value: 12, name: '02:00-04:00' },
+    { value: 8, name: '04:00-06:00' },
+    { value: 10, name: '06:00-08:00' },
+    { value: 18, name: '08:00-10:00' },
+    { value: 25, name: '10:00-12:00' },
+    { value: 35, name: '12:00-14:00' },
+    { value: 30, name: '14:00-16:00' },
+    { value: 28, name: '16:00-18:00' },
+    { value: 20, name: '18:00-20:00' },
+    { value: 22, name: '20:00-22:00' },
+    { value: 15, name: '22:00-00:00' }
+  ];
+
+  constructor(private historialService: HistorialService) { }
 
   ngOnInit(): void {
     this.initBarChart();  // Inicializa gráfico de barras
@@ -35,7 +56,7 @@ export class DashboardHistoricoComponent implements OnInit{
       },
       xAxis: {
         type: 'category',
-        data: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        data: this.meses,  // Uso de la variable meses
         axisTick: { alignWithLabel: true }
       },
       yAxis: {
@@ -47,7 +68,7 @@ export class DashboardHistoricoComponent implements OnInit{
           name: 'Consumo',
           type: 'bar',
           barWidth: '60%',
-          data: [320, 280, 300, 350, 370, 420, 500, 450, 400, 390, 360, 340],
+          data: this.consumoMensual,
           itemStyle: { color: '#3E92CC' }
         }
       ],
@@ -65,7 +86,7 @@ export class DashboardHistoricoComponent implements OnInit{
 
     const option = {
       title: {
-        text: 'Consumo Energético Mensual',
+        text: 'Consumo Energético Diario',
         subtext: 'Por hora (kWh)',
         left: 'center'
       },
@@ -81,20 +102,7 @@ export class DashboardHistoricoComponent implements OnInit{
           name: 'Consumo',
           type: 'pie',
           radius: '50%',
-          data: [
-            { value: 15, name: '00:00-02:00' },
-            { value: 12, name: '02:00-04:00' },
-            { value: 8, name: '04:00-06:00' },
-            { value: 10, name: '06:00-08:00' },
-            { value: 18, name: '08:00-10:00' },
-            { value: 25, name: '10:00-12:00' },
-            { value: 35, name: '12:00-14:00' },
-            { value: 30, name: '14:00-16:00' },
-            { value: 28, name: '16:00-18:00' },
-            { value: 20, name: '18:00-20:00' },
-            { value: 22, name: '20:00-22:00' },
-            { value: 15, name: '22:00-00:00' }
-          ],
+          data: this.consumoDiario,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
@@ -114,4 +122,3 @@ export class DashboardHistoricoComponent implements OnInit{
     pieChart.setOption(option);
   }
 }
-
