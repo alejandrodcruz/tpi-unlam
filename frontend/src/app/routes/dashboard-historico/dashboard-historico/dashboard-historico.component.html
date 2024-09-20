@@ -1,0 +1,20 @@
+<div class="flex h-screen">
+  <app-sidebar class="w-1/4 bg-gray-800 text-white"></app-sidebar>
+
+  <div class="flex-1 p-4 flex flex-col">
+    <div id="consumption-chart" class="w-full h-1/2"></div>
+    <div id="daily-consumption-chart" class="w-full h-1/2 mt-4"></div>
+
+    <h4 class="text-lg font-bold mb-4">Alertas Históricas</h4>
+    <div class="mt-4">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let alerta of alertasHistoricas"
+             class="bg-white p-4 rounded-lg shadow-lg transition-colors duration-300 hover:bg-rose-300 hover:text-white">
+          <p class="text-gray-700">{{ alerta }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
