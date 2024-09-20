@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {Injectable} from "@angular/core";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,10 @@ export class HistorialService {
 
   constructor() { }
 
-
   getConsumoMensual(): Observable<number[]> {
     const consumoMensual = [320, 280, 300, 350, 370, 420, 500, 450, 400, 390, 360, 340];
     return of(consumoMensual);
   }
-
 
   getConsumoDiario(): Observable<{ value: number, name: string }[]> {
     const consumoDiario = [
@@ -32,7 +30,20 @@ export class HistorialService {
     ];
     return of(consumoDiario);
   }
+
+
+  getAlertasHistoricas(): Observable<string[]> {
+    const alertas = [
+      'Corte de energía registrado el 12/09/2024 a las 14:00',
+      'Nuevo dispositivo agregado el 05/08/2024: Aire Acondicionado',
+      'Corte de energía registrado el 22/07/2024 a las 10:30',
+      'Nuevo dispositivo agregado el 18/06/2024: Lámpara LED',
+      'Nuevo dispositivo agregado el 11/06/2024: Microondas'
+    ];
+    return of(alertas);
+  }
 }
+
 
 /*
 
