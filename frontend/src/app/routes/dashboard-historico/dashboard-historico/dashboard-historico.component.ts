@@ -1,33 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
-import {HistorialService} from "../../../shared/services/historial.service";
-
+import { HistorialService } from "../../../shared/services/historial.service";
 
 @Component({
   selector: 'app-dashboard-historico',
   standalone: true,
-  imports: [SidebarComponent],
+  imports: [CommonModule, SidebarComponent],
   templateUrl: './dashboard-historico.component.html',
-  styleUrl: './dashboard-historico.component.css'
+  styleUrls: ['./dashboard-historico.component.css']
 })
 export class DashboardHistoricoComponent implements OnInit {
   meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   consumoMensual: number[] = [];
   consumoDiario: { value: number, name: string }[] = [];
+  alertasHistoricas: string[] = [];
 
   constructor(private historialService: HistorialService) { }
 
   ngOnInit(): void {
     this.loadConsumoMensual();
     this.loadConsumoDiario();
+    this.loadAlertasHistoricas();
   }
 
   loadConsumoMensual(): void {
     this.historialService.getConsumoMensual().subscribe({
+
       next: (data) => {
         this.consumoMensual = data;
         this.initBarChart();
+        console.log(data);
       },
       error: (err) => console.error('Error fetching consumo mensual:', err)
     });
@@ -40,6 +44,16 @@ export class DashboardHistoricoComponent implements OnInit {
         this.initPieChart();
       },
       error: (err) => console.error('Error fetching consumo diario:', err)
+    });
+  }
+
+
+  loadAlertasHistoricas(): void {
+    this.historialService.getAlertasHistoricas().subscribe({
+      next: (data) => {
+        this.alertasHistoricas = data;
+      },
+      error: (err) => console.error('Error fetching alertas historicas:', err)
     });
   }
 
