@@ -32,18 +32,16 @@ export class HistorialService {
   }
 
 
-  getAlertasHistoricas(): Observable<string[]> {
+  getAlertasHistoricas(): Observable<{ tipo: string, descripcion: string }[]> {
     const alertas = [
-      'Corte de energía registrado el 12/09/2024 a las 14:00',
-      'Nuevo dispositivo agregado el 05/08/2024: Aire Acondicionado',
-      'Corte de energía registrado el 22/07/2024 a las 10:30',
-      'Nuevo dispositivo agregado el 18/06/2024: Lámpara LED',
-      'Nuevo dispositivo agregado el 11/06/2024: Microondas'
+      {tipo: 'corte', descripcion: 'Corte de energía registrado el 12/09/2024 a las 14:00'},
+      {tipo: 'dispositivo', descripcion: 'Nuevo dispositivo agregado el 05/08/2024: Aire Acondicionado'},
+      {tipo: 'corte', descripcion: 'Corte de energía registrado el 22/07/2024 a las 10:30'},
+      {tipo: 'dispositivo', descripcion: 'Nuevo dispositivo agregado el 18/06/2024: Lámpara LED'},
+      {tipo: 'dispositivo', descripcion: 'Nuevo dispositivo agregado el 11/06/2024: Microondas'}
     ];
     return of(alertas);
-  }
-}
-
+  }}
 
 /*
 
