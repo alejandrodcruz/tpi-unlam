@@ -64,6 +64,13 @@ export class HistorialService {
   getConsumoDiario(): Observable<{ value: number, name: string }[]> {
     return this.http.get<{ value: number, name: string }[]>(`${this.API_URL}/consumo-diario`);
   }
+
+
+  getAlertasHistoricas(): Observable<{ tipo: string, descripcion: string }[]> {
+    return this.http.get<{ tipo: string, descripcion: string }[]>(`${this.API_URL}/alertas-historicas`);
+  }
+
 }
+
 
  */
