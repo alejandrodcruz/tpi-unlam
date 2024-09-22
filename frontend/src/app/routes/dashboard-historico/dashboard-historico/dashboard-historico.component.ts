@@ -53,31 +53,6 @@ export class DashboardHistoricoComponent implements OnInit {
   }
 
 
-
-  loadAlertasHistoricas(): void {
-    this.historialService.getAlertasHistoricas().subscribe({
-      next: (data) => {
-        this.alertasHistoricas = data;
-      },
-      error: (err) => console.error('Error fetching alertas historicas:', err)
-    });
-  }
-
-  aplicarFiltro(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.filtroSeleccionado = selectElement.value;
-  }
-
-
-  getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
-    if (this.filtroSeleccionado === 'todos') {
-      return this.alertasHistoricas;
-    }
-    return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
-  }
-
-
-
   initBarChart(): void {
     const chartDom = document.getElementById('consumption-chart') as HTMLElement;
     const myChart = echarts.init(chartDom);
@@ -123,7 +98,7 @@ export class DashboardHistoricoComponent implements OnInit {
 
     const option = {
       title: {
-        text: 'Consumo Energético Diario por Franja Horaria',
+        text: 'Consumo Energético Mensual por Franja Horaria',
         subtext: 'Por hora (kWh)',
         left: 'center'
       },
@@ -156,5 +131,28 @@ export class DashboardHistoricoComponent implements OnInit {
 
     pieChart.setOption(option);
   }
+
+  loadAlertasHistoricas(): void {
+    this.historialService.getAlertasHistoricas().subscribe({
+      next: (data) => {
+        this.alertasHistoricas = data;
+      },
+      error: (err) => console.error('Error fetching alertas historicas:', err)
+    });
+  }
+
+  aplicarFiltro(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.filtroSeleccionado = selectElement.value;
+  }
+
+
+  getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
+    if (this.filtroSeleccionado === 'todos') {
+      return this.alertasHistoricas;
+    }
+    return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
+  }
+
 }
 
