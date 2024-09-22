@@ -21,7 +21,7 @@ public class DevicePairingUseCase {
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
             device.setUser(user);
             device.setAssigned(true);
-            device.setPairingCode(null); // Eliminar el código después del emparejamiento desactivado
+            device.setPairingCode(null);
             deviceRepository.save(device);
             return true;
         } else {
