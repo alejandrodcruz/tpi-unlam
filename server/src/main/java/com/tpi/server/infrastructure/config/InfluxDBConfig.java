@@ -11,7 +11,7 @@ public class InfluxDBConfig {
     private static final String TOKEN = "grupo10token";
     private static final String ORG = "grupo10";
     private static final String BUCKET = "grupo10bucket";
-    private static final String URL = "http://localhost:8086"; // Esta usando el Docker
+    private static final String URL = "http://influxdb:8086"; // Esta usando el interno del Docker, cuando cmabiemos a produccion deberia ir la ip real
 
     @Bean
     public InfluxDBClient influxDBClient() {

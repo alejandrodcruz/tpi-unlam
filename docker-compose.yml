@@ -34,7 +34,7 @@ services:
       - ./server:/app
       - ~/.m2:/root/.m2
     depends_on:
-      - mysql
+      - influxdb
   # Configuración servicio Angular
   angular-app:
     build:
