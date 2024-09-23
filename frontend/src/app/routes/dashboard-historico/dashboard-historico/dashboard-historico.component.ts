@@ -11,11 +11,13 @@ import { HistorialService } from "../../../shared/services/historial.service";
   templateUrl: './dashboard-historico.component.html',
   styleUrls: ['./dashboard-historico.component.css']
 })
+
 export class DashboardHistoricoComponent implements OnInit {
   meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   consumoMensual: number[] = [];
   consumoDiario: { value: number, name: string }[] = [];
-  alertasHistoricas: string[] = [];
+  alertasHistoricas: { tipo: string, descripcion: string }[] = [];
+  filtroSeleccionado: string = 'todos';
 
   constructor(private historialService: HistorialService) { }
 
@@ -23,6 +25,8 @@ export class DashboardHistoricoComponent implements OnInit {
     this.loadConsumoMensual();
     this.loadConsumoDiario();
     this.loadAlertasHistoricas();
+
+
   }
 
   loadConsumoMensual(): void {
@@ -37,6 +41,7 @@ export class DashboardHistoricoComponent implements OnInit {
     });
   }
 
+
   loadConsumoDiario(): void {
     this.historialService.getConsumoDiario().subscribe({
       next: (data) => {
@@ -47,15 +52,6 @@ export class DashboardHistoricoComponent implements OnInit {
     });
   }
 
-
-  loadAlertasHistoricas(): void {
-    this.historialService.getAlertasHistoricas().subscribe({
-      next: (data) => {
-        this.alertasHistoricas = data;
-      },
-      error: (err) => console.error('Error fetching alertas historicas:', err)
-    });
-  }
 
   initBarChart(): void {
     const chartDom = document.getElementById('consumption-chart') as HTMLElement;
@@ -102,7 +98,7 @@ export class DashboardHistoricoComponent implements OnInit {
 
     const option = {
       title: {
-        text: 'Consumo Energético Diario por Franja Horaria',
+        text: 'Consumo Energético Mensual por Franja Horaria',
         subtext: 'Por hora (kWh)',
         left: 'center'
       },
@@ -135,5 +131,28 @@ export class DashboardHistoricoComponent implements OnInit {
 
     pieChart.setOption(option);
   }
+
+  loadAlertasHistoricas(): void {
+    this.historialService.getAlertasHistoricas().subscribe({
+      next: (data) => {
+        this.alertasHistoricas = data;
+      },
+      error: (err) => console.error('Error fetching alertas historicas:', err)
+    });
+  }
+
+  aplicarFiltro(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.filtroSeleccionado = selectElement.value;
+  }
+
+
+  getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
+    if (this.filtroSeleccionado === 'todos') {
+      return this.alertasHistoricas;
+    }
+    return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
+  }
+
 }
 
