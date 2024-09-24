@@ -1,0 +1,30 @@
+
+<div class="flex h-screen">
+  <app-sidebar class="w-1/4 bg-gray-800 text-white"></app-sidebar>
+
+  <div class="flex-1 p-4 flex flex-col">
+    <div id="consumption-chart" class="w-full h-1/2"></div>
+    <div id="daily-consumption-chart" class="w-full h-1/2 mt-4"></div>
+
+
+    <h4 class="text-lg font-bold mt-6 mb-4">Alertas Históricas</h4>
+
+    <select class="p-2 border rounded w-1/3 sm:w-1/4" (change)="aplicarFiltro($event)">
+      <option value="todos">Todos</option>
+      <option value="corte">Corte de energía</option>
+      <option value="dispositivo">Nuevo dispositivo</option>
+      <option value="consumo">Alerta de alto consumo</option>
+    </select>
+
+    <div class="mt-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let alerta of getAlertasFiltradas()"
+             class="bg-white p-4 rounded-lg shadow-lg transition-colors duration-300 hover:bg-blue-300 hover:text-white">
+          <p class="text-gray-700">{{ alerta.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

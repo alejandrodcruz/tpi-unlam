@@ -7,6 +7,9 @@ import { SidebarComponent } from './routes/sidebar/sidebar.component';
 import { ReportesComponent } from './routes/reportes/reportes.component';
 import { ReportesHistoricosComponent } from './routes/reportes/reportes-historicos/reportes-historicos.component';
 import { ConfiguracionComponent } from './routes/configuracion/configuracion.component';
+import {
+  DashboardHistoricoComponent
+} from "./routes/dashboard-historico/dashboard-historico/dashboard-historico.component";
 
 
 export const routes: Routes = [
@@ -19,5 +22,6 @@ export const routes: Routes = [
   {path: 'reportesHistoricos', component:ReportesHistoricosComponent},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
+  {path: 'historico', component: DashboardHistoricoComponent },
   {path: '',redirectTo:'/home', pathMatch:'full'}
 ];

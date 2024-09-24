@@ -4,3 +4,8 @@ mvnw
 mvnw.cmd
 *.iml
 .DS_Store
+ci_cd.yml
+frontend/.angular
+frontend/node_modules
+node_modules/
+server/target

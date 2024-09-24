@@ -1,0 +1,31 @@
+services:
+  #Configuracion servicio MySQL
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Contraseña
+      MYSQL_DATABASE: tpifinal  # Nombre de la base de datos
+    volumes:
+      - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql  # Ejecutar archivo inicial db.sql
+      - mysql_data:/var/lib/mysql  # Volumen para persistir datos
+    ports:
+      - "3307:3306"
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - "1883:1883"  # Puerto para conexiones MQTT
+      - "9001:9001"  # Puerto para WebSockets
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    environment:
+      - LOG_DESTINATION=stdout
+      - ALLOW_ANONYMOUS=true
+    restart: always
+  # Verificar con software MQTT Explorer
+  #docker-compose -f docker-compose_server_mqtt.yml up --build -d
+  #docker-compose -f docker-compose_server_mqtt.yml down -v
+  #docker-compose -f docker-compose_server_mqtt.yml stop
+  #docker-compose -f docker-compose_server_mqtt.yml restart

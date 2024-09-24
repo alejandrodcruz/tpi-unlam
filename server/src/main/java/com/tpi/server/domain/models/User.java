@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -29,6 +30,8 @@ public class User implements UserDetails {
     String email;
     @Enumerated(EnumType.STRING)
     Role role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Device> devices;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
