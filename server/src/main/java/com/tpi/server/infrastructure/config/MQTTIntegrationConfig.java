@@ -34,9 +34,11 @@ public class MQTTIntegrationConfig {
         options.setPassword("Mosquitto+2023".toCharArray());
         options.setSocketFactory(SslUtil.getSocketFactory(null, null, null)); // SslUtil
 
+        options.setCleanSession(false);
+        options.setAutomaticReconnect(true); // Reconexión automática
+
         options.setConnectionTimeout(10);
         options.setKeepAliveInterval(20);
-        options.setCleanSession(true);
 
         factory.setConnectionOptions(options);
         return factory;

@@ -3,11 +3,12 @@ services:
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Contraseña
-      MYSQL_DATABASE: tpifinal  # Nombre de la base de datos
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tpifinal
     volumes:
-      - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql  # Ejecutar archivo inicial db.sql
-      - mysql_data:/var/lib/mysql  # Volumen para persistir datos
+  # Ejecutar archivo inicial db.sql
+      - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - mysql_data:/var/lib/mysql
     ports:
       - "3307:3306"
   #Configuracion servicio PHPAdmin
