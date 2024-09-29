@@ -9,5 +9,4 @@ FROM maven:3.9.5-amazoncorretto-17
 WORKDIR /app
 COPY --from=build /app /app
 EXPOSE 8080
-ENV SPRING_PROFILES_ACTIVE=docker
 CMD ["mvn", "spring-boot:run"]
