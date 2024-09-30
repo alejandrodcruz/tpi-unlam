@@ -1,6 +1,5 @@
-<body class="bg-gray-50">
+<!-- <body class="bg-gray-50">
   <div class="relative overflow-hidden">
-    <!-- Header with logo and navigation buttons -->
     <header class="absolute inset-x-0 top-0 z-50 px-6 py-4 flex justify-between items-center bg-white shadow-md">
       <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
       <div class="space-x-4">
@@ -9,9 +8,7 @@
       </div>
     </header>
 
-    <!-- Main content area -->
     <main class="flex flex-col lg:flex-row items-center justify-between px-6 py-16 lg:py-24 lg:px-16">
-      <!-- Product presentation -->
       <div class="lg:w-1/2 space-y-6">
         <h1 class="text-4xl font-bold leading-tight text-gray-900">Transform Your Business with Our Product</h1>
         <p class="text-lg text-gray-700 p-3">Our innovative solution helps you streamline your operations, enhance productivity, and achieve remarkable results. Discover the power of our product today and see how it can make a difference for your business.</p>
@@ -20,11 +17,33 @@
         </div>
       </div>
 
-      <!-- Image on the right -->
       <div class="lg:w-1/2 mt-10 lg:mt-0">
         <img class="w-full h-auto rounded-lg shadow-lg" src="https://via.placeholder.com/500x400" alt="Product Image">
       </div>
     </main>
   </div>
-</body>
+</body> -->
 
+<div class="flex h-screen">
+ 
+  <app-sidebar></app-sidebar>
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col">
+    <!-- Toolbar   Pasar esto al componente toolbar que esta vacio-->
+    <header class="navbar bg-base-100 shadow-md p-4">
+      <div class="flex-1">
+        <span class="text-xl font-bold">Agregar dos select</span>
+      </div>
+      <div class="flex-none">
+        <!-- Puedes agregar íconos, menús, o botones en el toolbar -->
+        <button class="btn btn-ghost">Agregar notificación</button>
+        <button class="btn btn-ghost">agregar card usuario</button>
+      </div>
+    </header>
+
+    <!-- Main content area where components will be rendered -->
+    <main class="p-4 flex-grow">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
