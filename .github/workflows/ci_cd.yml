@@ -26,7 +26,7 @@ jobs:
 
       - name: Descargar el código
         uses: actions/checkout@v3
-
+        
       - name: Listar contenido del directorio db
         run: |
           echo "Listando contenido del directorio db:"
@@ -35,6 +35,9 @@ jobs:
       - name: Ejecutar queries SQL
         run: |
           mysql -h127.0.0.1 -P3307 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
+          
+      - name: Navegar a la carpeta del servidor
+        run: cd server
 
       - name: Cachear paquetes de Maven
         uses: actions/cache@v3
@@ -47,41 +50,16 @@ jobs:
       - name: Verificar la versión de Java
         run: java -version
 
-      # Configurar variables de entorno ANTES de compilar con Maven
-      - name: Configurar JWT_SECRET
-        run: |
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
-
-      - name: Configurar variables del Broker MQTT
-        run: |
-          echo "MQTT_BROKER=${{ secrets.MQTT_BROKER }}" >> $GITHUB_ENV
-          echo "MQTT_CLIENT_ID=${{ secrets.MQTT_CLIENT_ID }}" >> $GITHUB_ENV
-          echo "MQTT_USERNAME=${{ secrets.MQTT_USERNAME }}" >> $GITHUB_ENV
-          echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD }}" >> $GITHUB_ENV
-
-      - name: Configurar variables de entorno de InfluxDB
-        run: |
-          echo "INFLUXDB_TOKEN=${{ secrets.INFLUXDB_TOKEN }}" >> $GITHUB_ENV
-          echo "INFLUXDB_ORG=${{ secrets.INFLUXDB_ORG }}" >> $GITHUB_ENV
-          echo "INFLUXDB_BUCKET=${{ secrets.INFLUXDB_BUCKET }}" >> $GITHUB_ENV
-          echo "INFLUXDB_URL=${{ secrets.INFLUXDB_URL }}" >> $GITHUB_ENV
-        
-      - name: Configurar variables de entorno de Spring Boot
-        run: |
-          echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
-
       - name: Compilar con Maven
         run: |
           cd server
           mvn clean install
 
-      - name: Ejecutar pruebas de Maven
+      - name: Ejecutar pruebas
         run: |
           cd server
           mvn test
-
+      
       - name: Configurar Node.js para Angular
         uses: actions/setup-node@v3
         with:
