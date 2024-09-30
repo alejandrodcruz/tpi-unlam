@@ -1,34 +1,47 @@
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+<div class="bg-gray-50 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
   </div>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-8 shadow-lg rounded-lg">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">User Name</label>
         <div class="mt-2">
-          <input [(ngModel)]="email" id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-50 sm:text-sm sm:leading-6">
+          <input formControlName="email" id="email" name="email" type="email" autocomplete="email" required  class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+            <span class="text-red-500" *ngIf="loginForm.get('email')?.errors?.['required']">
+              El campo  no puede quedar vacío.
+            </span>
+            <span class="text-red-500" *ngIf="loginForm.get('email')?.errors?.['email']">
+              El campo User Name no tiene un formato válido.
+            </span>
+          </div>
         </div>
       </div>
 
       <div>
         <div class="flex items-center justify-between">
           <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-          <div class="text-sm">
-            <a href="#" class="font-semibold text-primary hover:text-primaryhover">Forgot password?</a>
-          </div>
         </div>
         <div class="mt-2">
-          <input [(ngModel)]="password" id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-50 sm:text-sm sm:leading-6">
+          <input formControlName="password" id="password" name="password" type="password" autocomplete="current-password" required class="w-full border border-gray-300 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+            <span class="text-red-500" *ngIf="loginForm.get('password')?.errors?.['required']">
+              El campo password no puede quedar vacío.
+            </span>
+          </div>
+        </div>
+        <div class="text-sm">
+          <a href="#" class="font-semibold text-primary hover:text-primaryhover">Forgot password?</a>
         </div>
       </div>
 
       <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm
+        <button type="submit" class="mt-2 flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm
          hover:bg-primaryhover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-          focus-visible:outline-primary">Sign in</button>
+          focus-visible:outline-primary" [disabled]="loginForm.invalid">Sign in</button>
       </div>
     </form>
 
@@ -40,5 +53,8 @@
       Already have an account?
       <a [routerLink]="['/register']" class="font-semibold leading-6 text-primary hover:text-primaryhover">Sign in</a>
     </p>
+
+    <div *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="text-green-600">{{ successMessage }}</div>
   </div>
 </div>
