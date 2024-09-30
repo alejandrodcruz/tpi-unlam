@@ -35,17 +35,6 @@ jobs:
       - name: Ejecutar queries SQL
         run: |
           mysql -h127.0.0.1 -P3307 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
-          
-      - name: Cachear paquetes de Maven
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('server/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Verificar la versión de Java
-        run: java -version
 
       - name: Configurar variables de entorno
         run: |
@@ -61,6 +50,20 @@ jobs:
           echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Navegar a la carpeta del servidor
+        run: cd server
+        
+      - name: Cachear paquetes de Maven
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('server/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Verificar la versión de Java
+        run: java -version
 
       - name: Compilar con Maven
         run: |
