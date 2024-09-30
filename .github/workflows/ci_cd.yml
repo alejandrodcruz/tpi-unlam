@@ -15,7 +15,7 @@ jobs:
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=10
         ports:
-          - "3307:3306" 
+          - "3306:3306" 
           
     steps:
       - name: Configurar JDK 17
@@ -26,7 +26,28 @@ jobs:
 
       - name: Descargar el código
         uses: actions/checkout@v3
-        
+
+      # Configura todas las variables de entorno aquí
+      - name: Configurar variables de entorno
+        run: |
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
+          echo "MQTT_BROKER=${{ secrets.MQTT_BROKER }}" >> $GITHUB_ENV
+          echo "MQTT_CLIENT_ID=${{ secrets.MQTT_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "MQTT_USERNAME=${{ secrets.MQTT_USERNAME }}" >> $GITHUB_ENV
+          echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD }}" >> $GITHUB_ENV
+          echo "INFLUXDB_TOKEN=${{ secrets.INFLUXDB_TOKEN }}" >> $GITHUB_ENV
+          echo "INFLUXDB_ORG=${{ secrets.INFLUXDB_ORG }}" >> $GITHUB_ENV
+          echo "INFLUXDB_BUCKET=${{ secrets.INFLUXDB_BUCKET }}" >> $GITHUB_ENV
+          echo "INFLUXDB_URL=${{ secrets.INFLUXDB_URL }}" >> $GITHUB_ENV
+          echo "SPRING_APPLICATION_NAME=${{ secrets.SPRING_APPLICATION_NAME }}" >> $GITHUB_ENV
+          echo "SPRING_DEVTOOLS_RESTART_STATUS=${{ secrets.SPRING_DEVTOOLS_RESTART_STATUS }}" >> $GITHUB_ENV
+          echo "SPRING_DEVTOOLS_LIVERELOAD_STATUS=${{ secrets.SPRING_DEVTOOLS_LIVERELOAD_STATUS }}" >> $GITHUB_ENV
+          echo "SPRING_JPA_HIBERNATE_DDL_AUTO=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" >> $GITHUB_ENV
+          echo "SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${{ secrets.SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT }}" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
+
       - name: Listar contenido del directorio db
         run: |
           echo "Listando contenido del directorio db:"
@@ -34,10 +55,7 @@ jobs:
           
       - name: Ejecutar queries SQL
         run: |
-          mysql -h127.0.0.1 -P3307 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
-          
-      - name: Navegar a la carpeta del servidor
-        run: cd server
+          mysql -h127.0.0.1 -P3306 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
 
       - name: Cachear paquetes de Maven
         uses: actions/cache@v3
