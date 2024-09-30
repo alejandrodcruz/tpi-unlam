@@ -8,6 +8,10 @@ A continuación se detallan los comandos para gestionar los contenedores Docker 
 * phpMyAdmin (aunque pueden usar DBeaver,Workbench,etc)
 * Spring Boot (modo DEV)
 * Angular
+* InfluxDB
+* Grafana
+* Mosquitto
+
 ### Levantar los Contenedores
 Levanta y construir los servicios definidos en el archivo `docker-compose.yml`:
 
