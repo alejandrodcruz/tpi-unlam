@@ -26,7 +26,7 @@ jobs:
 
       - name: Descargar el código
         uses: actions/checkout@v3
-        
+
       - name: Listar contenido del directorio db
         run: |
           echo "Listando contenido del directorio db:"
@@ -34,7 +34,7 @@ jobs:
           
       - name: Ejecutar queries SQL
         run: |
-          mysql -h127.0.0.1 -P3307 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
+          mysql -h127.0.0.1 -P3306 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
 
       - name: Cachear paquetes de Maven
         uses: actions/cache@v3
@@ -47,32 +47,7 @@ jobs:
       - name: Verificar la versión de Java
         run: java -version
 
-      - name: Compilar con Maven
-        run: |
-          cd server
-          mvn clean install
-
-      - name: Ejecutar pruebas de Maven
-        run: |
-          cd server
-          mvn test
-
-      - name: Configurar Node.js para Angular
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Instalar dependencias de Angular
-        run: |
-          cd frontend
-          npm install
-          npm install -g @angular/cli
-
-      - name: Ejecutar pruebas de Angular
-        run: |
-          cd frontend
-          # ng test --watch=false --browsers=ChromeHeadless
-
+      # Configurar variables de entorno ANTES de compilar con Maven
       - name: Configurar JWT_SECRET
         run: |
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
@@ -101,5 +76,31 @@ jobs:
           echo "SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${{ secrets.SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Compilar con Maven
+        run: |
+          cd server
+          mvn clean install
+
+      - name: Ejecutar pruebas de Maven
+        run: |
+          cd server
+          mvn test
+
+      - name: Configurar Node.js para Angular
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias de Angular
+        run: |
+          cd frontend
+          npm install
+          npm install -g @angular/cli
+
+      - name: Ejecutar pruebas de Angular
+        run: |
+          cd frontend
+          # ng test --watch=false --browsers=ChromeHeadless
 
       - run: echo "🍏 El estado de la tarea es ${{ job.status }}."
