@@ -11,7 +11,6 @@ A continuación se detallan los comandos para gestionar los contenedores Docker 
 * InfluxDB
 * Grafana
 * Mosquitto
-* TestMQTT
 
 ### Levantar los Contenedores
 Levanta y construir los servicios definidos en el archivo `docker-compose.yml`:
