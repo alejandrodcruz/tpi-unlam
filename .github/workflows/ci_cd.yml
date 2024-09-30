@@ -15,7 +15,7 @@ jobs:
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=10
         ports:
-          - "3306:3306" 
+          - "3307:3306" 
           
     steps:
       - name: Configurar JDK 17
@@ -34,7 +34,7 @@ jobs:
           
       - name: Ejecutar queries SQL
         run: |
-          mysql -h127.0.0.1 -P3306 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
+          mysql -h127.0.0.1 -P3307 -u${{ secrets.MYSQL_ROOT_PASSWORD }} -p${{ secrets.MYSQL_ROOT_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < $GITHUB_WORKSPACE/db/db.sql
 
       - name: Cachear paquetes de Maven
         uses: actions/cache@v3
