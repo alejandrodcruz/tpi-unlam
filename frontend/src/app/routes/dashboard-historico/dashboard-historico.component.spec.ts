@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardHistoricoComponent } from './dashboard-historico.component';
-import { HistorialService } from "../../../shared/services/historial.service";
+import { HistorialService } from "../../shared/services/historial.service";
 import { of, throwError } from "rxjs";
 
 
