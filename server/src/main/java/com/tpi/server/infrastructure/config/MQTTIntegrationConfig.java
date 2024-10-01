@@ -5,6 +5,7 @@ import com.tpi.server.application.usecases.mqtt.MeasurementUseCase;
 import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.infrastructure.config.security.SslUtil;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -21,17 +22,23 @@ import java.io.IOException;
 @Configuration
 public class MQTTIntegrationConfig {
 
-    private static final String MQTT_BROKER = "ssl://9b25823fe85840dfa7b0afa24977a140.s1.eu.hivemq.cloud:8883";
-    private static final String MQTT_CLIENT_ID = "SpringBootClient";
+    @Value("${MQTT_BROKER}")
+    private String mqttBroker;
+    @Value("${MQTT_CLIENT_ID}")
+    private String mqttClientId;
+    @Value("${MQTT_USERNAME}")
+    private String mqttUsername;
+    @Value("${MQTT_PASSWORD}")
+    private String mqttPassword;
 
     @Bean
     public MqttPahoClientFactory mqttClientFactory() throws Exception {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
 
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[]{MQTT_BROKER});
-        options.setUserName("alejandro");
-        options.setPassword("Mosquitto+2023".toCharArray());
+        options.setServerURIs(new String[]{mqttBroker});
+        options.setUserName(mqttUsername);
+        options.setPassword(mqttPassword.toCharArray());
         options.setSocketFactory(SslUtil.getSocketFactory(null, null, null)); // SslUtil
 
         options.setCleanSession(false);
@@ -52,7 +59,7 @@ public class MQTTIntegrationConfig {
     @Bean
     public MqttPahoMessageDrivenChannelAdapter inbound() throws Exception {
         MqttPahoMessageDrivenChannelAdapter adapter =
-                new MqttPahoMessageDrivenChannelAdapter(MQTT_CLIENT_ID, mqttClientFactory(), "sensor/measurements");
+                new MqttPahoMessageDrivenChannelAdapter(mqttClientId, mqttClientFactory(), "sensor/measurements");
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);

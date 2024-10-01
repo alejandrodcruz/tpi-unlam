@@ -4,24 +4,23 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
-import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
-
 import java.security.Key;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
 
-    //todo move it to env
-    private static final String SECRET_KEY="SEEDTEST586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
+    private final String SECRET_KEY;
+
+    public JwtService(@Value("${JWT_SECRET}") String secretKey) {
+        this.SECRET_KEY = secretKey;
+    }
 
     public String getToken(UserDetails user) {
         return getToken(new HashMap<>(), user);

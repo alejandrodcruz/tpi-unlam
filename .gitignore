@@ -9,3 +9,5 @@ frontend/.angular
 frontend/node_modules
 node_modules/
 server/target
+env
+.env
