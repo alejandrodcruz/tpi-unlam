@@ -43,6 +43,7 @@
     "autoprefixer": "^10.4.20",
     "cypress": "^13.13.3",
     "cypress-visual-regression": "^5.1.0",
+    "daisyui": "^4.12.10",
     "jasmine-core": "~5.2.0",
     "jasmine-spec-reporter": "^7.0.0",
     "karma": "~6.4.0",

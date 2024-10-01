@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
-import { SidebarComponent } from "../../sidebar/sidebar.component";
+import { SidebarComponent } from "../../../core/sidebar/sidebar.component";
 import { HistorialService } from "../../../shared/services/historial.service";
 
 @Component({
