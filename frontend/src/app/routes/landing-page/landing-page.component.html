@@ -1,0 +1,352 @@
+<body class="bg-gray-50">
+  <div class="relative overflow-hidden">
+    <!-- Header -->
+    <header class="absolute inset-x-0 top-0 z-50 px-6 py-4 bg-white shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <img class="h-10 w-20 sm:w-24 lg:w-auto" src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Your Company">
+
+        <div class="space-x-4">
+          <a [routerLink]="['/login']" class="text-primary hover:bg-primaryhover hover:text-white font-semibold px-4 py-2 rounded-md">Log in</a>
+          <a [routerLink]="['/register']" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover">Sign up</a>
+        </div>
+      </div>
+    </header>
+    <!-- Sección principal -->
+    <section id="primary" class="bg-gray-50 py-10">
+      <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between px-6 py-16 lg:py-24 lg:px-16">
+
+        <div class="lg:w-1/2 space-y-6 text-center lg:text-left prose">
+          <h1 class="font-bold leading-tight text-gray-900">Transforma tu hogar, optimiza tu energía.</h1>
+          <p class="mt-4 text-gray-700">Obtén alertas personalizadas y recomendaciones para reducir tu huella de carbono y ahorrar en costos de energía. Aprende a optimizar el uso de tus electrodomésticos y proyecta tus futuros gastos con base en tus hábitos actuales.</p>
+          <a href="#Services" class="mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover">Quiero saber más</a>
+        </div>
+        <div class="lg:w-1/2 mt-10 lg:mt-0">
+          <img class="w-full h-auto rounded-tl-[50px] rounded-br-lg shadow-lg" src="https://via.placeholder.com/500x400" alt="Product Image">
+        </div>
+      </div>
+    </section>
+
+    <!-- Nuestros Servicios -->
+    <section id="Services" class="bg-gray-50 py-10">
+      <div class="container mx-auto px-6 lg:px-8 text-center flex flex-col items-center justify-center">
+        <h5 class="font-bold text-primary mb-8">Nuestros Servicios</h5>
+        <h2 class="text-3xl font-extrabold text-black mb-8">Lo que ofrecemos</h2>
+        <!-- Centramos el párrafo -->
+        <p class="text-lg text-gray-700 p-1 max-w-3xl prose">Descubre cómo nuestra aplicación te ayuda a monitorear el consumo energético de tu hogar en tiempo real.</p> <!-- Tarjetas de beneficios -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+
+          <div class="bg-white p-6 rounded-lg shadow-lg prose transform transition-transform hover:scale-105">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 font-semibold text-gray-900">Proyección de costos</h3>
+            <p class="mt-2 text-gray-600">Proyecta tus gastos futuros y descubre cómo pequeños cambios pueden generar grandes ahorros a largo plazo.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg prose transform transition-transform hover:scale-105">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 font-semibold text-gray-900">Reducción de la huella de carbono</h3>
+            <p class="mt-2 text-gray-600">Identifica áreas de mejora para reducir tu impacto ambiental sin sacrificar comodidad.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg prose transform transition-transform hover:scale-105">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 font-semibold text-gray-900">Optimización del uso de dispositivos</h3>
+            <p class="mt-2 text-gray-600">Aprovecha las horas de menor consumo energético para ahorrar aún más.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg prose transform transition-transform hover:scale-105">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
+              </svg>
+            </div>
+            <h3 class="mt-6 font-semibold text-gray-900">Monitoreo en tiempo real</h3>
+            <p class="mt-2 text-gray-600">Visualiza al instante el consumo energético de todos tus dispositivos desde cualquier lugar.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg prose transform transition-transform hover:scale-105">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 font-semibold text-gray-900">Historial de consumo</h3>
+            <p class="mt-2 text-gray-600">Accede a un registro completo de los consumos energéticos de tus dispositivos a lo largo del tiempo.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg prose transform transition-transform hover:scale-105">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 font-semibold text-gray-900">Reportes detallados</h3>
+            <p class="mt-2 text-gray-600">Genera reportes que muestran el consumo de cada dispositivo en gráficos claros y fáciles de interpretar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dispositivos -->
+    <section id="dispo" class="bg-gray-50 py-10">
+      <div class="container mx-auto px-6 lg:px-8 text-center flex flex-col items-center justify-center">
+        <h5 class="font-bold text-primary mb-8">¿Cómo hacemos esto?</h5>
+        <h2 class="text-3xl font-extrabold text-black mb-8">Dispositivos</h2>
+        <!-- Centramos el párrafo -->
+        <p class="text-lg text-gray-700 p-1 max-w-3xl prose">Necesitas uno de Nuestros dispositivos de monitoreo para seguir tranformando tu hogar.</p> <!-- Tarjetas de beneficios -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-4 max-w-4xl mx-auto">
+
+
+          <div class="bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 relative">
+            <img src="https://via.placeholder.com/150" alt="Dispositivo 1" class="w-full h-auto rounded-lg">
+            <h5 class="font-bold text-primary mb-1">Modelo</h5>
+            <h4 class="mt-1 font-semibold text-gray-900 text-lg">No Invasivo</h4>
+            <a href="#" class="mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover">Comprar</a>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 relative">
+            <img src="https://via.placeholder.com/150" alt="Dispositivo 2" class="w-full h-auto rounded-lg">
+            <h5 class="font-bold text-primary mb-1">Modelo</h5>
+            <h4 class="mt-1 font-semibold text-gray-900 text-lg">Invasivo</h4>
+            <a href="#" class="mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover">Comprar</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contac" class="bg-gray-50 py-10">
+      <div class="container p-4 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h5 class="text-primary text-sm font-semibold">Contacto</h5>
+          <h2 class=" font-bold text-gray-900 mt-1">Contáctate con nosotros</h2>
+          <p class=" text-gray-700">Nuestro horario de atención es de lunes a viernes, de 5 a 1 hs. Los sábados, domingos y feriados, de 6 a 22 hs.</p>
+
+          <div class="mt-6 space-y-4">
+            <div class="flex items-start">
+              <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-slate-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#007bff" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="font-semibold text-gray-900">Nuestra Ubicación</p>
+                <p class="text-gray-600">Florencio Varela 1903, B1754 San Justo, Provincia de Buenos Aires</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-slate-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#007bff" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="font-semibold text-gray-900">Número de teléfono</p>
+                <p class="text-gray-600">(+54) 011 4480-8900</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-slate-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#007bff" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <p class="font-semibold text-gray-900">Dirección de correo electrónico</p>
+                <p class="text-gray-600">info&#64;lytics.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna del formulario -->
+        <div class="p-4 sm:p-6 lg:p-8">
+          <form action="#" method="POST" class="bg-white p-8 shadow-lg rounded-lg">
+            <div class="grid grid-cols-1 gap-6">
+              <input class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                     type="text" placeholder="Su nombre" required>
+              <input class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                     type="email" placeholder="Tu correo electrónico" required>
+              <input class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                     type="tel" placeholder="Tu teléfono" required>
+              <textarea class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                        placeholder="Tu mensaje" rows="4" required></textarea>
+              <button class="w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-primaryhover" type="submit">Enviar mensaje</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Preguntas Frecuentes -->
+    <section id="pregun" class="bg-gray-50 py-12">
+      <div class=" p-4 container mx-auto text-center">
+        <!-- Títulos de la sección -->
+        <h5 class="text-primary font-bold text-lg">Preguntas Frecuentes</h5>
+        <h2 class="font-extrabold text-black text-3xl mt-4">Resolvemos tus dudas</h2>
+
+        <!-- Contenedor de preguntas frecuentes con colapsables -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <div>
+              <input type="checkbox" id="faq1" class="hidden peer">
+              <label for="faq1" class="block text-left cursor-pointer text-gray-900 font-semibold peer-checked:text-primary">
+                ¿Puedo usar la aplicación sin tener un dispositivo instalado?
+              </label>
+              <div class="max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-40 prose">
+                <p class="mt-2 text-left text-gray-600">No, para poder usar la aplicación necesitas tener un dispositivo compatible que monitoree el consumo energético de tus electrodomésticos.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <div>
+              <input type="checkbox" id="faq2" class="hidden peer">
+              <label for="faq2" class="block text-left cursor-pointer text-gray-900 font-semibold peer-checked:text-primary">
+                ¿Necesito un electricista para instalar el dispositivo?
+              </label>
+              <div class="max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-40 ">
+                <p class="mt-2 text-left text-gray-600">Sí, es recomendable que lo realice un electricista calificado. La instalación en sí es rápida y fácil, pero requiere abrir el tablero eléctrico y conectar sensores de corriente a la red de servicio, hay cables activos.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <div>
+              <input type="checkbox" id="faq3" class="hidden peer">
+              <label for="faq3" class="block text-left cursor-pointer text-gray-900 font-semibold peer-checked:text-primary">
+                ¿Funciona a 220v o 110v?
+              </label>
+              <div class="max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-40 prose">
+                <p class="mt-2 text-left text-gray-600">El dispositivo es compatible tanto con 220v como con 110v, adaptándose a diferentes regiones del mundo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <div>
+              <input type="checkbox" id="faq4" class="hidden peer">
+              <label for="faq4" class="block text-left cursor-pointer text-gray-900 font-semibold peer-checked:text-primary">
+                Mi dispositivo no se conecta al WiFi
+              </label>
+              <div class="max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-40 prose">
+                <p class="mt-2 text-left text-gray-600">Revisa que el dispositivo esté dentro del rango de cobertura WiFi y que tu red esté funcionando correctamente.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg shadow-lg">
+            <div>
+              <input type="checkbox" id="faq5" class="hidden peer">
+              <label for="faq5" class="block text-left cursor-pointer text-gray-900 font-semibold peer-checked:text-primary">
+                ¿Puedo tener mas de un dispositivo en mi hogar.?
+              </label>
+              <div class="max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-40 prose">
+                <p class="mt-2 text-left text-gray-600">Si.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="bg-gray-50 py-16">
+  <div class="p-4 container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div>
+      <a href="#" class="flex items-center mb-4">
+        <img class="h-10 w-auto" src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Your Company">
+      </a>
+      <p class="text-gray-500">Transforma tu hogar, optimiza tu energia.</p>
+      <p class="mt-4 flex items-center text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/>
+        </svg>
+        (+54) 011 4480-8900
+      </p>
+    </div>
+
+    <div>
+      <h6 class="text-gray-900 font-semibold mb-4">Recursos</h6>
+      <ul class="space-y-2">
+        <li><a href="#" class="text-gray-500 hover:text-primary">Nuestros Servicios</a></li>
+        <li><a href="#" class="text-gray-500 hover:text-primary">Nuestros Dispositivos</a></li>
+        <li><a href="#" class="text-gray-500 hover:text-primary">Estrategia de Usuario</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h6 class="text-gray-900 font-semibold mb-4">Nosotros</h6>
+      <ul class="space-y-2">
+        <li><a href="#" class="text-gray-500 hover:text-primary">Sobre Lytics</a></li>
+        <li><a href="#" class="text-gray-500 hover:text-primary">Contacto & Soporte</a></li>
+        <li><a href="#" class="text-gray-500 hover:text-primary">Preguntas Frecuentes</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h6 class="text-gray-900 font-semibold mb-4">Enlaces a nuestras redes</h6>
+      <ul class="flex space-x-4">
+        <!-- Instagram -->
+        <li>
+          <a href="https://www.instagram.com" target="_blank" class="text-gray-500 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.307.975.975 1.245 2.242 1.307 3.608.058 1.266.07 1.646.07 4.851 0 3.205-.012 3.585-.07 4.85-.062 1.366-.332 2.633-1.307 3.608-.975.975-2.242 1.245-3.608 1.307-1.266.058-1.646.07-4.85.07-3.205 0-3.585-.012-4.851-.07-1.366-.062-2.633-.332-3.608-1.307-.975-.975-1.245-2.242-1.307-3.608-.058-1.266-.07-1.646-.07-4.85 0-3.205.012-3.585.07-4.851.062-1.366.332-2.633 1.307-3.608.975-.975 2.242-1.245 3.608-1.307 1.266-.058 1.646-.07 4.851-.07zM12 0C8.741 0 8.332.014 7.052.072 5.765.13 4.678.422 3.762 1.338 2.846 2.254 2.555 3.34 2.497 4.628.439 5.91.425 9.35.425 12c0 2.651.014 6.091.072 7.371.058 1.288.35 2.374 1.266 3.29.916.916 2.002 1.208 3.29 1.266 1.28.058 1.689.072 4.948.072 3.26 0 3.668-.014 4.949-.072 1.288-.058 2.374-.35 3.29-1.266.916-.916 1.208-2.002 1.266-3.29.058-1.28.072-1.689.072-4.949 0-3.26-.014-3.668-.072-4.949-.058-1.288-.35-2.374-1.266-3.29-.916-.916-2.002-1.208-3.29-1.266C15.668.014 15.259 0 12 0zm0 5.838c-3.406 0-6.162 2.756-6.162 6.162s2.756 6.162 6.162 6.162 6.162-2.756 6.162-6.162S15.406 5.838 12 5.838zm0 10.162c-2.207 0-4-1.793-4-4s1.793-4 4-4 4 1.793 4 4-1.793 4-4 4zm6.406-11.845c-.796 0-1.44-.644-1.44-1.44s.644-1.44 1.44-1.44 1.44.644 1.44 1.44-.644 1.44-1.44 1.44z"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- YouTube -->
+        <li>
+          <a href="https://www.youtube.com" target="_blank" class="text-gray-500 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M23.499 6.186c-.273-1.03-1.084-1.84-2.114-2.113-1.866-.504-9.349-.504-9.349-.504s-7.483 0-9.35.504c-1.03.273-1.84 1.083-2.113 2.113C.072 8.052.072 12.004.072 12.004s0 3.952.501 5.818c.273 1.03 1.083 1.84 2.113 2.113 1.867.504 9.349.504 9.349.504s7.483 0 9.349-.504c1.03-.273 1.84-1.083 2.114-2.113.504-1.866.504-5.818.504-5.818s0-3.952-.504-5.818zm-13.8 9.115V8.695l6.494 3.303-6.494 3.303z"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- X (Twitter) -->
+        <li>
+          <a href="https://www.twitter.com" target="_blank" class="text-gray-500 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M23.447 4.958c-.885.392-1.834.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.955-2.178-1.552-3.594-1.552-2.717 0-4.92 2.202-4.92 4.92 0 .386.044.761.128 1.122-4.088-.205-7.719-2.165-10.148-5.144-.424.729-.667 1.577-.667 2.478 0 1.71.87 3.217 2.191 4.101-.807-.026-1.566-.248-2.23-.617v.062c0 2.388 1.698 4.384 3.95 4.837-.414.113-.849.173-1.297.173-.317 0-.626-.03-.928-.086.627 1.955 2.445 3.38 4.6 3.421-1.685 1.32-3.808 2.107-6.114 2.107-.398 0-.79-.023-1.175-.068 2.179 1.396 4.768 2.212 7.548 2.212 9.058 0 14.01-7.506 14.01-14.01 0-.213-.005-.426-.014-.637.964-.695 1.8-1.562 2.46-2.549z"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- LinkedIn -->
+        <li>
+          <a href="https://www.linkedin.com" target="_blank" class="text-gray-500 hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M4.984 3.5c0 1.382-1.124 2.5-2.484 2.5S0 4.882 0 3.5C0 2.12 1.124 1 2.5 1s2.484 1.12 2.484 2.5zM0 24h4.967V7.953H0V24zm8.246-16.047V24h4.974V16.53c0-3.769 4.923-4.081 4.923 0V24h4.967v-9.6c0-8.466-9.625-8.163-9.625 0v9.6H8.246z"/>
+            </svg>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</footer>
+
+  </div>
+</body>
