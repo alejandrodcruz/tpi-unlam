@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tpifinal
+    volumes:
+      - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+volumes:
+  mysql_data:
+  #docker-compose -f docker-compose_db_local.yml up --build -d
+  #docker-compose -f docker-compose_db_local.yml down -v
+  #docker-compose -f docker-compose_db_local.yml stop
+  #docker-compose -f docker-compose_db_local.yml restart
