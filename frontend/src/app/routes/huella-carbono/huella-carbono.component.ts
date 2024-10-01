@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {CardInfoComponent} from "../../core/components/card/card-info/card-info.component";
 import {SidebarComponent} from "../../core/sidebar/sidebar.component";
+import { CardInfoComponent } from '../../core/card/card-info.component';
 
 @Component({
   selector: 'app-huella-carbono',

@@ -14,16 +14,19 @@ import {HuellaCarbonoComponent} from "./routes/huella-carbono/huella-carbono.com
 
 
 export const routes: Routes = [
-
-  {path: 'dashboard', component:DashboardComponent},
-  {path: 'home', component:HomeComponent},
-  {path: 'configuracion', component:ConfiguracionComponent},
-  {path: 'sidebar', component:SidebarComponent},
-  {path: 'reportes', component:ReportesComponent},
-  {path: 'reportesHistoricos', component:ReportesHistoricosComponent},
-  {path: 'login', component: LoginComponent },
-  {path: 'register', component: RegisterComponent },
-  {path: 'historico', component: DashboardHistoricoComponent },
-  {path: 'huella', component:  HuellaCarbonoComponent},
-  {path: '',redirectTo:'/home', pathMatch:'full'}
+  {
+    path: '',
+    component: HomeComponent,  // HomeComponent actúa como layout principal
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'configuracion', component: ConfiguracionComponent },
+      { path: 'reportes', component: ReportesComponent },
+      { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
+      { path: 'historico', component: DashboardHistoricoComponent },
+      { path: 'huella', component: HuellaCarbonoComponent },
+    ]
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
