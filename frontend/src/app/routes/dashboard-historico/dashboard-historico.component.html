@@ -7,23 +7,55 @@
       <p> selecciones el grafico que desee visualizar</p>
     </div>
 
+    <div class="flex flex-row mb-4 space-x-2">
+      <div class="flex flex-col space-y-2 w-1/5 border border-gray-500 bg-[#f9fbff]">
+        <label class="flex items-center justify-between pt-4 px-4">
+          Consumo Mensual
+          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked/>
+        </label>
 
-    <div class="flex flex-col mb-4 space-y-2">
-      <label class="flex items-center">
-        Consumo Mensual
-        <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-2" checked/>
-      </label>
-      <label class="flex items-center">
-        Consumo Diario
-        <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-2" />
-      </label>
+        <label class="flex items-center justify-between py-1 px-4">
+          Consumo Diario
+          <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-2" />
+        </label>
+
+        <label class="flex items-center justify-between py-1 px-4">
+          Intensidad de amperaje
+          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked/>
+        </label>
+
+        <label class="flex items-center justify-between py-1 px-4">
+          Potencia
+          <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-auto" checked/>
+        </label>
+
+        <label class="flex items-center justify-between py-1 px-4">
+          Frecuencia
+          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked/>
+        </label>
+      </div>
+
+      <div *ngIf="mostrarConsumoMensual" id="consumption-chart" class="w-full h-1/2 py-8 px-4" style="height: 600px;"></div>
+      <div *ngIf="mostrarConsumoDiario" id="daily-consumption-chart" class="w-full h-1/2 py-8 px-4" style="height: 600px;"></div>
+
     </div>
 
 
+    <!--
+        <div class="flex flex-col mb-4 space-y-2">
+          <label class="flex items-center">
+            Consumo Mensual
+            <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-2" checked/>
+          </label>
+          <label class="flex items-center">
+            Consumo Diario
+            <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-2" />
+          </label>
+        </div>
 
-    <div *ngIf="mostrarConsumoMensual" id="consumption-chart" class="w-full h-1/2" style="height: 600px;"></div>
-    <div *ngIf="mostrarConsumoDiario" id="daily-consumption-chart" class="w-full h-1/2" style="height: 600px;"></div>
-
+        <div *ngIf="mostrarConsumoMensual" id="consumption-chart" class="w-full h-1/2" style="height: 600px;"></div>
+        <div *ngIf="mostrarConsumoDiario" id="daily-consumption-chart" class="w-full h-1/2" style="height: 600px;"></div>
+    -->
 
     <h4 class="text-lg font-bold mt-6 mb-4">Alertas Históricas</h4>
 
