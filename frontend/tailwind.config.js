@@ -6,14 +6,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#007bff', // Color principal
-        primaryhover: '#05AFF2', // Color hover
+        primary: '#41B8D6', // Color principal
+        primaryhover: '#3690d9', // Color hover
         secondary: '#1BA63D', // Color secundario
         secondaryhover: '#1BA63D', // Color secundario hover
       },
       fontFamily: {
         sans: ['sans-serif', 'Inter'],
         serif: ['Merriweather', 'serif'],
+      },
+      animation: {
+        'electric': 'electricity 50s infinite',  // Define el nombre de la animación
+      },
+      keyframes: {
+        electricity: {
+          '0%, 100%': { textShadow: '0 0 1px #1BA63D, 0 0 1px #1BA63D, 0 0 1px #1BA63D, 0 0 1px #1BA63D' },
+          '50%': { textShadow: '0 0 1px #41B8D6, 0 0 1px #41B8D6, 0 0 1px #41B8D6, 0 0 80px #41B8D6' },
+        },
       },
     },
   },
