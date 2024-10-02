@@ -11,13 +11,20 @@ import {
   DashboardHistoricoComponent
 } from "./routes/dashboard-historico/dashboard-historico/dashboard-historico.component";
 import {HuellaCarbonoComponent} from "./routes/huella-carbono/huella-carbono.component";
+import { LandingPageComponent } from './routes/landing-page/landing-page.component';
 
 
 export const routes: Routes = [
+
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'landing', component:  LandingPageComponent},
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,  // HomeComponent actúa como layout principal
     children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'configuracion', component: ConfiguracionComponent },
       { path: 'reportes', component: ReportesComponent },
@@ -26,7 +33,4 @@ export const routes: Routes = [
       { path: 'huella', component: HuellaCarbonoComponent },
     ]
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
