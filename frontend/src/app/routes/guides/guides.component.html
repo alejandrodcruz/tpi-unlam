@@ -2,22 +2,88 @@
 <div class="flex h-screen">
   <app-sidebar class="w-1/4 bg-gray-800 text-white"></app-sidebar>
 
-  <div class="flex-1 p-4 flex flex-col">
-    <div class="guide-container">
-      <h2>Cómo hacer tu casa más eficiente</h2>
-      <p>
-        Para mejorar la eficiencia energética de tu hogar, es importante considerar varias medidas, como optimizar el uso de electrodomésticos, utilizar iluminación LED y aislar correctamente las ventanas y puertas. Estos pequeños cambios pueden ayudarte a reducir el consumo de energía y ahorrar en tus facturas.
-      </p>
+    <div class="p-4">
+        <!-- Filtros de Locación y Dispositivo -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="flex space-x-4">
+                <select class="p-2 bg-white border rounded">
+                    <option>Casa 1</option>
+                    <option>Casa 2</option>
+                </select>
+                <select class="p-2 bg-white border rounded">
+                    <option>rxv45000</option>
+                    <option>rxv45001</option>
+                </select>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span>Usuario</span>
+                <img class="w-10 h-10 rounded-full" src="path/to/user-image" alt="Usuario">
+            </div>
+        </div>
+
+        <!-- Título de la Sección -->
+        <h2 class="text-xl font-bold mb-6">Guías y Tutoriales</h2>
+
+        <!-- Panel de Archivos -->
+        <div class="grid grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded shadow">
+                <img src="path/to/image1" alt="Instalaciones Domóticas" class="h-20 w-full object-cover mb-2">
+                <p>Instalaciones Domóticas.pdf</p>
+                <p class="text-sm">589KB</p>
+                <button class="text-blue-500">Descargar</button>
+            </div>
+            <!-- Repetir para otros archivos -->
+        </div>
+
+        <!-- Bloque de Video -->
+        <div class="mt-8 p-6 bg-teal-50 rounded shadow flex items-center space-x-4">
+            <div>
+                <h3 class="text-xl font-bold">Domótica, aprender a crear tu casa inteligente.</h3>
+                <p class="text-sm text-gray-600">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at quam fringilla,
+                    scelerisque nisi in, accumsan diam.
+                </p>
+                <button class="mt-4 bg-teal-500 text-white py-2 px-4 rounded">Consejos</button>
+            </div>
+            <div>
+                <img src="path/to/building-image" alt="Video Thumbnail" class="w-64 h-auto rounded">
+                <button class="mt-2 text-teal-500">Ver Video</button>
+            </div>
+        </div>
+    </div>
+    <div class="p-6 bg-white rounded-lg shadow-lg">
+        <!-- Encabezado -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold">Cómo hacer tu casa más eficiente</h2>
+        </div>
+
+        <!-- Contenedor principal -->
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Columna de Imágenes -->
+            <div class="flex flex-col space-y-4">
+                <img src="path/to/image1.jpg" alt="Persona trabajando" class="rounded-lg object-cover h-40 w-full">
+                <img src="path/to/image2.jpg" alt="Persona trabajando" class="rounded-lg object-cover h-40 w-full">
+                <img src="path/to/image3.jpg" alt="Persona trabajando" class="rounded-lg object-cover h-40 w-full">
+            </div>
+
+            <!-- Columna de Texto -->
+            <div>
+                <p class="text-lg mb-4">
+                    Para mejorar la eficiencia energética de tu hogar, es importante considerar varias medidas, como optimizar el uso de electrodomésticos, utilizar iluminación LED y aislar correctamente las ventanas y puertas. Estos pequeños cambios pueden ayudarte a reducir el consumo de energía y ahorrar en tus facturas.
+                </p>
+                <p class="text-lg mb-4">
+                    Mantener tus electrodomésticos en buen estado, desconectar los que no utilices y optar por modelos de bajo consumo son algunas de las maneras más efectivas de reducir el consumo de energía en casa.
+                </p>
+                <p class="text-lg mb-4">
+                    Asegúrate de que las ventanas y puertas de tu hogar estén correctamente selladas. Un buen aislamiento evita la pérdida de calor en invierno y reduce la necesidad de aire acondicionado en verano, optimizando el consumo energético.
+                </p>
+                <p class="text-lg">
+                    Sustituir las bombillas incandescentes por LED puede reducir significativamente el consumo de energía en iluminación. Además, las bombillas LED tienen una mayor durabilidad, lo que te ayudará a ahorrar en el largo plazo.
+                </p>
+            </div>
+        </div>
     </div>
 
-
-
-
-
-
-
-
-  </div>
 </div>
 
 

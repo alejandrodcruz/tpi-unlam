@@ -14,7 +14,7 @@ import {
 } from "./routes/dashboard-historico/dashboard-historico/dashboard-historico.component";
 import {HuellaCarbonoComponent} from "./routes/huella-carbono/huella-carbono.component";
 import { LandingPageComponent } from './routes/landing-page/landing-page.component';
-} from './routes/dashboard-historico/dashboard-historico/dashboard-historico.component';
+
 
 
 export const routes: Routes = [
