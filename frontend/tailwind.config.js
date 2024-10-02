@@ -12,11 +12,11 @@ module.exports = {
         secondaryhover: '#1BA63D', // Color secundario hover
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['sans-serif', 'Inter'],
         serif: ['Merriweather', 'serif'],
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography"), require('daisyui'),],
 }
 
