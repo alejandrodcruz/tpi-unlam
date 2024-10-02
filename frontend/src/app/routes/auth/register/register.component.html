@@ -1,6 +1,6 @@
 <div class="bg-gray-50 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <img class="mx-auto h-10 w-auto" src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Your Company">
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create your account</h2>
   </div>
 
@@ -9,7 +9,7 @@
       <div>
         <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Full Name</label>
         <div class="mt-2">
-          <input id="username" formControlName="username" type="text" required class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input id="username" formControlName="username" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
           <span class="text-red-500 text-sm" *ngIf="registerForm.get('username')?.errors?.['required']">
@@ -21,7 +21,7 @@
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div class="mt-2">
-          <input id="email" formControlName="email" type="email" required class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input id="email" formControlName="email" type="email" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
           <span class="text-red-500 text-sm" *ngIf="registerForm.get('email')?.errors?.['required']">
@@ -36,7 +36,7 @@
       <div>
         <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
         <div class="mt-2">
-          <input id="password" formControlName="password" type="password" required class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input id="password" formControlName="password" type="password" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
           <span class="text-red-500 text-sm" *ngIf="registerForm.get('password')?.errors?.['required']">
@@ -48,7 +48,7 @@
       <div>
         <label for="passwordConfirm" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
         <div class="mt-2">
-          <input id="passwordConfirm" formControlName="passwordConfirm" type="password" required  class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input id="passwordConfirm" formControlName="passwordConfirm" type="password" required  class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div *ngIf="registerForm.get('passwordConfirm')?.touched && registerForm.get('passwordConfirm')?.invalid">
           <span class="text-red-500 text-sm" *ngIf="registerForm.get('passwordConfirm')?.errors?.['required']">

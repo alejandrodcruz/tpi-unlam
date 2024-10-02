@@ -1,0 +1,9 @@
+
+/* landing-page.component.css */
+.electric-button {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.electric-button:hover {
+  background-color: #41B8D6;
+}
