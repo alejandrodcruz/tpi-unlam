@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
-import { SidebarComponent } from "../sidebar/sidebar.component";
 import { HistorialService } from "../../shared/services/historial.service";
+import {SidebarComponent} from "../../core/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-dashboard-historico',
