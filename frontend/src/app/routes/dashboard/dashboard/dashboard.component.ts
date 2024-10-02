@@ -4,8 +4,6 @@ import {ReportesHistoricosComponent} from "../../reportes/reportes-historicos/re
 import {NavbarComponent} from "../navbar/navbar.component";
 import {CardInfoComponent} from "../../../core/card/card-info.component";
 import {NgClass} from "@angular/common";
-import { ChartConfiguration, ChartOptions } from 'chart.js';
-import {BaseChartDirective} from "ng2-charts";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +13,7 @@ import {BaseChartDirective} from "ng2-charts";
     ReportesHistoricosComponent,
     NavbarComponent,
     CardInfoComponent,
-    NgClass,
-    BaseChartDirective
+    NgClass
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
