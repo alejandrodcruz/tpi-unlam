@@ -6,4 +6,4 @@ RUN apk add --no-cache python3 build-base
 RUN npm install -g @angular/cli@18 && npm install
 COPY frontend/. .
 EXPOSE 4200
-CMD ["npm", "start"]
+CMD ["sh", "-c", "ng serve --host 0.0.0.0 --port $PORT"]
