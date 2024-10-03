@@ -5,5 +5,5 @@ COPY frontend/package-lock.json ./
 RUN apk add --no-cache python3 build-base
 RUN npm install -g @angular/cli@18 && npm install
 COPY frontend/. .
-EXPOSE 80
+EXPOSE 4200
 CMD ["sh", "-c", "ng serve --host 0.0.0.0 --port $PORT"]
