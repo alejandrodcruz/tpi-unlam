@@ -1,0 +1,5 @@
+1727914772: mosquitto version 2.0.18 starting
+1727914772: Config loaded from /mosquitto/config/mosquitto.conf.
+1727914772: Opening ipv4 listen socket on port 1883.
+1727914772: Opening ipv6 listen socket on port 1883.
+1727914772: mosquitto version 2.0.18 running
