@@ -22,17 +22,37 @@ describe('Basic e2e path', () => {
     cy.compareSnapshot("33-log-in-page-submit-credentials");
 
     // cy.url().should('include', '/home');
-    cy.visit('/home');
+    cy.visit('/dashboard');
     cy.compareSnapshot("34-home-page");
   });
 
-  it('4 - Log-out function', () => {
-    cy.visit('/home');
-    cy.compareSnapshot("41-before-click-desloguearse");
+  it('4 - Huella de carbono page', () => {
+    cy.visit('/huella');
+    cy.compareSnapshot("41-huella-de-carbono-page");
+  })
+
+  it('5 - Dashboard historico page', () => {
+    cy.visit('/historico');
+    cy.compareSnapshot("51-dashboard-historico-page");
+  })
+
+  it('6 - Reportes page', () => {
+    cy.visit('/reportes');
+    cy.compareSnapshot("61-reportes-page");
+  })
+
+  it('7 - Configuracion page', () => {
+    cy.visit('/configuracion');
+    cy.compareSnapshot("71-reportes-page");
+  })
+
+  it('9 - Log-out function', () => {
+    cy.visit('/dashboard');
+    cy.compareSnapshot("91-before-click-desloguearse");
     cy.contains('Desloguearse').click();
 
     cy.url().should('include', '/');
-    cy.compareSnapshot("42-after-click-desloguearse");
+    cy.compareSnapshot("92-after-click-desloguearse");
   })
 
 })

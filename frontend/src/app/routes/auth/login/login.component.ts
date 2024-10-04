@@ -35,7 +35,7 @@ export class LoginComponent {
     ).subscribe({
       next: () => {
         this.successMessage = 'Inicio de sesión exitoso';
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Login failed', err);
