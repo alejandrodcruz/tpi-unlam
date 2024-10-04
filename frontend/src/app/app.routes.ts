@@ -17,9 +17,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'landing', component:  LandingPageComponent},
-  { path: '', redirectTo: '/landing', pathMatch: 'full' },
+  /*{ path: '', redirectTo: '/landing', pathMatch: 'full' },*/
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,  // HomeComponent actúa como layout principal
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
