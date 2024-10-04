@@ -4,8 +4,8 @@ import { configureVisualRegression } from 'cypress-visual-regression'
 export default defineConfig({
   e2e: {
     env: {
-      visualRegressionType: 'base',
-      //visualRegressionType: 'regression',
+      //visualRegressionType: 'base',
+      visualRegressionType: 'regression',
       visualRegressionBaseDirectory: 'cypress/screenshots/base',
       visualRegressionDiffDirectory: 'cypress/screenshots/diff',
       visualRegressionGenerateDiff: 'always',
