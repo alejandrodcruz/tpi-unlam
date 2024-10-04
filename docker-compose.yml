@@ -52,7 +52,18 @@ services:
     depends_on:
       - influxdb
       - mosquitto
-
+      
+  angular-app:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "${ANGULAR_PORT}:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
 
   influxdb:
     image: influxdb:2.4
