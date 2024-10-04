@@ -57,14 +57,25 @@ export class HistorialService {
 
   constructor(private http: HttpClient) { }
 
-  getConsumoMensual(): Observable<number[]> {
-    return this.http.get<number[]>(`${this.API_URL}/consumo-mensual`);
+  getConsumoMensual(): Observable<string> {
+    return this.http.get(`${this.API_URL}/consumo-mensual`);
   }
 
-  getConsumoDiario(): Observable<{ value: number, name: string }[]> {
-    return this.http.get<{ value: number, name: string }[]>(`${this.API_URL}/consumo-diario`);
+  getConsumoDiario(): Observable<string> {
+    return this.http.get(`${this.API_URL}/consumo-diario`);
   }
 
+  getIntensidadAmperaje(): Observable<string> {
+    return this.http.get(`${this.API_URL}/intensidad-amperaje`);
+  }
+
+  getPotencia(): Observable<string> {
+    return this.http.get(`${this.API_URL}/potencia`);
+  }
+
+  getFrecuencia(): Observable<string> {
+    return this.http.get(`${this.API_URL}/frecuencia`);
+  }
 
   getAlertasHistoricas(): Observable<{ tipo: string, descripcion: string }[]> {
     return this.http.get<{ tipo: string, descripcion: string }[]>(`${this.API_URL}/alertas-historicas`);

@@ -1,18 +1,96 @@
-<div class="flex h-screen">
-  <!-- Sidebar -->
-  <app-sidebar class="w-1/5 bg-gray-800 text-white"></app-sidebar>
+<div class="flex justify-center mt-4">
+  <div class="flex space-x-4">
+    <button
+      (click)="toggleSelection('consumo')"
+      [class.bg-blue-500]="isConsumoSelected"
+      [class.text-white]="isConsumoSelected"
+      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
+    >
+      <i class="fa-solid fa-bolt"></i> Consumo
+    </button>
 
-  <!-- Main Content -->
+    <button
+      (click)="toggleSelection('amperaje')"
+      [class.bg-blue-500]="isAmperajeSelected"
+      [class.text-white]="isAmperajeSelected"
+      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
+    >
+      <i class="fas fa-gauge-high"></i> Intensidad de Amperaje
+    </button>
+
+    <button
+      (click)="toggleSelection('potencia')"
+      [class.bg-blue-500]="isPotenciaSelected"
+      [class.text-white]="isPotenciaSelected"
+      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
+    >
+      <i class="fas fa-plug"></i> Potencia
+    </button>
+
+    <button
+      (click)="toggleSelection('frecuencia')"
+      [class.bg-blue-500]="isFrecuenciaSelected"
+      [class.text-white]="isFrecuenciaSelected"
+      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
+    >
+      <i class="fas fa-wave-square"></i> Frecuencia
+    </button>
+  </div>
+</div>
+
+
+
+<div class="flex items-start justify-between p-4">
+  <div class="flex w-full">
+    <div>
+      <h2 class="text-xl font-bold mb-2">Selecciona el rango de fechas</h2>
+
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Fecha de Inicio</mat-label>
+        <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" (dateChange)="onDateChange()" />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Fecha de Fin</mat-label>
+        <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" (dateChange)="onDateChange()" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+
+      <div *ngIf="dateError" class="text-red-500 mt-2">
+        {{ dateError }}
+      </div>
+    </div>
+
+    <div class="w-3/4 p-2">
+      <h2 class="text-xl font-bold mb-2">Gráfico</h2>
+      <div class="border rounded-lg h-64 flex items-center justify-center">
+        <p class="text-gray-500">Gráfico aquí</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--
+<div class="flex h-screen">
+
+
+  <!- Main Content ->
   <section class="flex-1 text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
-      <!-- Heading -->
+      <!- Heading ->
       <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
         <h1 class="text-4xl font-bold leading-tight text-gray-900">Reportes Generales</h1>
       </div>
 
-      <!-- Report Cards -->
+      <!- Report Cards ->
       <div class="flex flex-wrap -m-4">
-        <!-- Report Card 1 -->
+        <!- Report Card 1 ->
         <div class="xl:w-1/3 md:w-1/2 p-4">
           <div class="border border-gray-300 p-6 rounded-lg">
             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
@@ -24,7 +102,7 @@
             <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
           </div>
         </div>
-        <!-- Report Card 2 -->
+        <!- Report Card 2 ->
         <div class="xl:w-1/3 md:w-1/2 p-4">
           <div class="border border-gray-300 p-6 rounded-lg">
             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
@@ -38,7 +116,7 @@
             <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
           </div>
         </div>
-        <!-- Report Card 3 -->
+        <!- Report Card 3 ->
         <div class="xl:w-1/3 md:w-1/2 p-4">
           <div class="border border-gray-300 p-6 rounded-lg">
             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
@@ -51,7 +129,7 @@
             <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
           </div>
         </div>
-        <!-- Report Card 4 -->
+        <!- Report Card 4 ->
         <div class="xl:w-1/3 md:w-1/2 p-4">
           <div class="border border-gray-300 p-6 rounded-lg">
             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
@@ -63,7 +141,7 @@
             <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
           </div>
         </div>
-        <!-- Report Card 5 -->
+        <!- Report Card 5 ->
         <div class="xl:w-1/3 md:w-1/2 p-4">
           <div class="border border-gray-300 p-6 rounded-lg">
             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
@@ -75,7 +153,7 @@
             <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
           </div>
         </div>
-        <!-- Report Card 6 -->
+        <!- Report Card 6 ->
         <div class="xl:w-1/3 md:w-1/2 p-4">
           <div class="border border-gray-300 p-6 rounded-lg">
             <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
@@ -91,3 +169,4 @@
     </div>
   </section>
 </div>
+-->
