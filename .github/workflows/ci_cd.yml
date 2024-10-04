@@ -47,6 +47,8 @@ jobs:
           echo "SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${{ secrets.SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
+          echo "SPRING_EMAIL_USERNAME=${{ secrets.SPRING_EMAIL_USERNAME }}" >> $GITHUB_ENV
+          echo "SPRING_EMAIL_PASSWORD=${{ secrets.SPRING_EMAIL_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Listar contenido del directorio db
         run: |
