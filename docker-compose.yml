@@ -50,7 +50,6 @@ services:
     depends_on:
       - influxdb
       - mosquitto
-      - mysql
 
   angular-app:
     build:
