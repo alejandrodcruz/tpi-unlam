@@ -7,14 +7,7 @@
 
   <!-- Lista de dispositivos -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div *ngFor="let dispositivo of dispositivos" class="bg-gray-200 p-4 rounded shadow flex items-center">
-      <div class="text-3xl mr-4">{{ getIconoPorTipo(dispositivo.tipo) }}</div>
-      <div>
-        <h3 class="text-lg font-semibold">{{ dispositivo.nombre }}</h3>
-        <p>Tipo: {{ dispositivo.tipo }}</p>
-        <p>Estado: {{ dispositivo.estado }}</p>
-      </div>
-    </div>
+
   </div>
 
   <div *ngIf="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -47,3 +40,33 @@
     </div>
   </div>
 </div>
+
+
+<section id="dispo" class="py-10 bg-gray-100">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+      <!-- Dispositivo de casa -->
+      <div *ngFor="let dispositivo of dispositivos" class="bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 relative">
+        <div class="flex items-center mb-4">
+          <div class="text-3xl mr-4">{{ getIconoPorTipo(dispositivo.tipo) }}</div>
+          <div>
+            <h3 class="text-lg font-semibold">{{ dispositivo.nombre }}</h3>
+            <p class="text-sm text-gray-600">Tipo: {{ dispositivo.tipo }}</p>
+            <p class="text-sm text-gray-600">Estado: {{ dispositivo.estado }}</p>
+          </div>
+        </div>
+        <!-- Aca podria ir la imagen de los dispositivos
+         <img src="../../../assets/img/Dispositivo 1.webp" alt="Dispositivo 1" class="w-full h-auto rounded-lg">
+        <h5 class="font-bold text-primary mb-1">Modelo</h5>
+        <h4 class="mt-1 font-semibold text-gray-900 text-lg">No Invasivo</h4>-->
+      </div>
+
+
+      <div class="bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 relative">
+        <img src="../../../assets/img/Dispositivo.webp" alt="Dispositivo 2" class="w-full h-auto rounded-lg mb-4">
+       </div>
+
+    </div>
+  </div>
+</section>
