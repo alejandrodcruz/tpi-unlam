@@ -10,6 +10,7 @@ import { ConfiguracionComponent } from './routes/configuracion/configuracion.com
 import { HuellaCarbonoComponent } from "./routes/huella-carbono/huella-carbono.component";
 import { LandingPageComponent } from './routes/landing-page/landing-page.component';
 import { DashboardHistoricoComponent } from './routes/dashboard-historico/dashboard-historico.component';
+import {AlertsComponent} from "./routes/alerts/alerts.component";
 
 
 export const routes: Routes = [
@@ -29,6 +30,7 @@ export const routes: Routes = [
       { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
       { path: 'historico', component: DashboardHistoricoComponent },
       { path: 'huella', component: HuellaCarbonoComponent },
+      { path: 'alerts', component: AlertsComponent },
     ]
   },
 ];
