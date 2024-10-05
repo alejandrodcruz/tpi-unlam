@@ -1,8 +1,8 @@
-<div class="flex h-screen bg-gray-50">
-  <app-sidebar></app-sidebar>
-  <div class="flex-1 flex flex-col">
+<div class="flex h-screen">
+  <app-sidebar class="fixed inset-y-0 w-64 bg-gray-200"></app-sidebar>
+  <div class="flex-1 flex flex-col pl-64 ">
      <app-toolbar></app-toolbar>
-    <main class="p-4 flex-grow">
+    <main class="flex-grow bg-gray-50 pt-2">
       <router-outlet></router-outlet>
     </main>
   </div>
