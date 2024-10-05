@@ -67,7 +67,12 @@
     <div class="w-3/4 p-2">
       <h2 class="text-xl font-bold mb-2">Gráfico</h2>
       <div class="border rounded-lg h-64 flex items-center justify-center">
-        <p class="text-gray-500">Gráfico aquí</p>
+        <iframe
+          [src]="graficoUrl | safeUrl"
+          width="600"
+          height="400"
+          frameborder="0">
+        </iframe>
       </div>
     </div>
   </div>
