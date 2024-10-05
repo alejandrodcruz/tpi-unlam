@@ -1,60 +1,58 @@
-<div class="flex h-screen">
- <!-- <app-sidebar class="w-1/5 bg-gray-800 text-white"></app-sidebar>  -->
+<div class="flex flex-col lg:flex-row h-screen">
 
   <div class="flex-1 p-4 flex flex-col">
-    <div class="p-2 border-b border-color: rgb(248 250 252);; px-6">
-    <h3>Históricos</h3>
-      <p> Seleccione el gráfico que desee visualizar</p>
+    <!-- Título y descripción -->
+    <div class="p-2 border-b border-gray-200 px-6">
+      <h3 class="text-lg font-bold">Históricos</h3>
+      <p class="text-sm">Seleccione el gráfico que desee visualizar</p>
     </div>
 
-    <div class="flex flex-row mb-4 space-x-2">
-      <div class="flex flex-col space-y-2 w-1/5  bg-[#f9fbff]">
-        <label class="flex items-center justify-between pt-4 px-4">
+
+    <div class="flex flex-col lg:flex-row mb-4 space-y-4 lg:space-y-0 lg:space-x-4">
+
+      <div class="flex flex-col space-y-2 w-full lg:w-1/5 bg-[#f9fbff] p-4 rounded-md">
+        <label class="flex items-center justify-between">
           Consumo Mensual
-          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked/>
+          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked />
         </label>
-
-        <label class="flex items-center justify-between py-1 px-4">
+        <label class="flex items-center justify-between">
           Consumo Diario
-          <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-2" />
+          <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-auto" />
         </label>
-
-        <label class="flex items-center justify-between py-1 px-4">
+        <label class="flex items-center justify-between">
           Intensidad de amperaje
-          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked/>
+          <input type="radio" name="grafico" (change)="toggleGrafico('amperage', $event)" class="ml-auto" />
         </label>
-
-        <label class="flex items-center justify-between py-1 px-4">
+        <label class="flex items-center justify-between">
           Potencia
-          <input type="radio" name="grafico" (change)="toggleGrafico('daily', $event)" class="ml-auto" checked/>
+          <input type="radio" name="grafico" (change)="toggleGrafico('power', $event)" class="ml-auto" />
         </label>
-
-        <label class="flex items-center justify-between py-1 px-4">
+        <label class="flex items-center justify-between">
           Frecuencia
-          <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked/>
+          <input type="radio" name="grafico" (change)="toggleGrafico('frequency', $event)" class="ml-auto" />
         </label>
       </div>
 
-      <div *ngIf="mostrarConsumoMensual" id="consumption-chart" class="w-full h-1/2 py-8 px-4" style="height: 600px;"></div>
-      <div *ngIf="mostrarConsumoDiario" id="daily-consumption-chart" class="w-full h-1/2 py-8 px-4" style="height: 600px;"></div>
-
+      <!-- Gráficos -->
+      <div class="flex-1 lg:flex lg:justify-center">
+        <div *ngIf="mostrarConsumoMensual" id="consumption-chart" class="w-full h-64 lg:h-96 py-8"></div>
+        <div *ngIf="mostrarConsumoDiario" id="daily-consumption-chart" class="w-full h-64 lg:h-96 py-8"></div>
+      </div>
     </div>
 
     <h4 class="text-lg font-bold mt-6 mb-4">Alertas Históricas</h4>
 
-    <select class="p-2 border rounded w-1/3 sm:w-1/4" (change)="aplicarFiltro($event)">
+    <select class="p-2 border rounded w-full sm:w-1/3 lg:w-1/4 mb-4" (change)="aplicarFiltro($event)">
       <option value="todos">Todos</option>
       <option value="corte">Corte de energía</option>
       <option value="dispositivo">Nuevo dispositivo</option>
       <option value="consumo">Alerta de alto consumo</option>
     </select>
 
-    <div class="mt-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div *ngFor="let alerta of getAlertasFiltradas()"
-             class="bg-white p-4 rounded-lg shadow-lg transition-colors duration-300 hover:bg-blue-300 hover:text-white">
-          <p class="text-gray-700">{{ alerta.descripcion }}</p>
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let alerta of getAlertasFiltradas()"
+           class="bg-white p-4 rounded-lg shadow-lg transition-colors duration-300 hover:bg-blue-300 hover:text-white">
+        <p class="text-gray-700">{{ alerta.descripcion }}</p>
       </div>
     </div>
   </div>
