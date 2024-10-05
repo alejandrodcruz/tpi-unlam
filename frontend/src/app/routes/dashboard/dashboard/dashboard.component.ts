@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {SidebarComponent} from "../../../core/sidebar/sidebar.component";
 import {ReportesHistoricosComponent} from "../../reportes/reportes-historicos/reportes-historicos.component";
-import {NavbarComponent} from "../navbar/navbar.component";
 import {CardInfoComponent} from "../../../core/card/card-info.component";
 import {NgClass} from "@angular/common";
 
@@ -11,7 +10,6 @@ import {NgClass} from "@angular/common";
   imports: [
     SidebarComponent,
     ReportesHistoricosComponent,
-    NavbarComponent,
     CardInfoComponent,
     NgClass
   ],

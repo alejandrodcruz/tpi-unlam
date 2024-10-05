@@ -21,33 +21,42 @@ describe('Basic e2e path', () => {
     cy.get('form').submit();
     cy.compareSnapshot("33-log-in-page-submit-credentials");
 
-    // cy.url().should('include', '/home');
-    cy.visit('/dashboard');
+    cy.url().should('include', '/home/dashboard');
     cy.compareSnapshot("34-home-page");
   });
 
   it('4 - Huella de carbono page', () => {
-    cy.visit('/huella');
+    cy.visit('home/huella');
     cy.compareSnapshot("41-huella-de-carbono-page");
   })
 
   it('5 - Dashboard historico page', () => {
-    cy.visit('/historico');
-    cy.compareSnapshot("51-dashboard-historico-page");
+    cy.visit('home/dispositivos');
+    cy.compareSnapshot("51-dispositivos-page");
   })
 
-  it('6 - Reportes page', () => {
-    cy.visit('/reportes');
-    cy.compareSnapshot("61-reportes-page");
+  it('6 - Dashboard historico page', () => {
+    cy.visit('/home/historico');
+    cy.compareSnapshot("61-dashboard-historico-page");
   })
 
-  it('7 - Configuracion page', () => {
-    cy.visit('/configuracion');
+  it('7 - Reportes page', () => {
+    cy.visit('/home/reportes');
     cy.compareSnapshot("71-reportes-page");
   })
 
+  it('8 - Guides page', () => {
+    cy.visit('home/guides');
+    cy.compareSnapshot("81-guides-page");
+  })
+
+  it('9 - Configuracion page', () => {
+    cy.visit('home/configuracion');
+    cy.compareSnapshot("91-configuracion-page");
+  })
+
   it('9 - Log-out function', () => {
-    cy.visit('/dashboard');
+    cy.visit('/home/dashboard');
     cy.compareSnapshot("91-before-click-desloguearse");
     cy.contains('Desloguearse').click();
 
