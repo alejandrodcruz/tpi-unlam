@@ -6,10 +6,10 @@ import { DashboardComponent } from './routes/dashboard/dashboard/dashboard.compo
 import { ReportesComponent } from './routes/reportes/reportes.component';
 import { ReportesHistoricosComponent } from './routes/reportes/reportes-historicos/reportes-historicos.component';
 import { ConfiguracionComponent } from './routes/configuracion/configuracion.component';
-import { HuellaCarbonoComponent } from "./routes/huella-carbono/huella-carbono.component";
+import { GuidesComponent } from './routes/guides/guides.component';
+import {HuellaCarbonoComponent} from "./routes/huella-carbono/huella-carbono.component";
 import { LandingPageComponent } from './routes/landing-page/landing-page.component';
 import { DashboardHistoricoComponent } from './routes/dashboard-historico/dashboard-historico.component';
-
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -28,6 +28,7 @@ export const routes: Routes = [
       { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
       { path: 'historico', component: DashboardHistoricoComponent },
       { path: 'huella', component: HuellaCarbonoComponent },
+      {path: 'guides', component: GuidesComponent},
     ]
   },
 ];
