@@ -1,31 +1,44 @@
- <!-- Sidebar / Sidenav -->
- <aside class="w-64 bg-base-100 h-full shadow-md flex flex-col justify-between">
-  <!-- Contenedor superior -->
-  <div >
-    <div class="p-4">
-      <!-- Logo de la marca -->
-      <img src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Logo de la marca" class="w-45 h-auto mx-auto">
-    </div>
-    <div class="my-auto">
-      <ul class="menu menu-sm bg-base-100 rounded-box z-[1] p-2">
-        <li class="p-1"><a [routerLink]="['dashboard']" class="block p-2 rounded hover:bg-gray-300 transition">Dashboard</a></li>
-        <li class="p-1"><a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition">Huella de carbono</a></li>
-        <li class="p-1"><a [routerLink]="['dispositivos']" class="block p-2 rounded hover:bg-gray-300 transition">Mis Dispositivos</a></li>
-        <li class="p-1"><a [routerLink]="['historico']" class="block p-2 rounded hover:bg-gray-300 transition">Históricos</a></li>
-        <li class="p-1"><a [routerLink]="['reportes']" class="block p-2 rounded hover:bg-gray-300 transition">Reportes</a></li>
-        <li class="p-1"><a [routerLink]="['alertas']" class="block p-2 rounded hover:bg-gray-300 transition">Alertas</a></li>
-        <li class="p-1"><a [routerLink]="['guides']" class="block p-2 rounded hover:bg-gray-300 transition">Guias y tutoriales</a></li>
-      </ul>
-    </div>
+<aside class="h-full bg-base-100 shadow-md flex flex-col justify-between transition-width"
+  [class.w-16]="!isSidebarOpen"
+  [class.w-64]="isSidebarOpen">
 
+  <!-- Logo de la marca (visible solo si el sidebar está expandido) -->
+  <div class="p-4" *ngIf="isSidebarOpen">
+    <img src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Logo de la marca" class="w-45 h-auto mx-auto">
+  </div>
+
+  <!-- Menú de navegación -->
+  <div class="my-auto">
+    <ul class="menu menu-sm bg-base-100 rounded-box z-[1] p-2">
+      <li class="p-1">
+        <a [routerLink]="['dashboard']" class="block p-2 rounded hover:bg-gray-300 transition">
+          <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- Icono de dashboard -->
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+          <span *ngIf="isSidebarOpen" class="ml-2">Dashboard</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition">
+          <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- Icono de Huella de carbono -->
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          <span *ngIf="isSidebarOpen" class="ml-2">Huella de carbono</span>
+        </a>
+      </li>
+      <!-- Repite el mismo patrón para los demás links -->
+    </ul>
   </div>
 
   <!-- Contenedor inferior -->
-  <div>
-    <ul class="menu menu-sm  rounded-box z-[1] p-2 shadow">
-      <li class="p-1"><a href="" class="block p-2 rounded hover:bg-gray-300 transition">Mi suscripción</a></li>
-      <li class="p-1"><a href="configuracion" class="block p-2 rounded hover:bg-gray-300 transition">Configuraciones</a></li>
-      <li class="p-1"><a href="" class="block p-2 rounded hover:bg-gray-300 transition">Desloguearse</a></li>
+  <div *ngIf="isSidebarOpen" class="p-4">
+    <ul class="menu menu-sm bg-base-100 rounded-box z-[1] shadow">
+      <li class="p-1"><a [routerLink]="['mySubscription']" class="block p-2 rounded hover:bg-gray-300 transition">Mi Suscripcion</a></li>
+      <li class="p-1"><a [routerLink]="['configuracion']" class="block p-2 rounded hover:bg-gray-300 transition">Configuracion</a></li>
+      <li class="p-1"><a [routerLink]="['Desloguearse']" class="block p-2 rounded hover:bg-gray-300 transition">Desloguearse</a></li>
     </ul>
   </div>
 </aside>
+

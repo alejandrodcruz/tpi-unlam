@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 
 @Component({
@@ -16,4 +16,5 @@ export class ToolbarComponent {
       incrementNotifications() {
         this.notificationCount++;
       }
+      @Output() toggleSidebar = new EventEmitter<void>();
 }

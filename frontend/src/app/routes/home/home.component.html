@@ -1,8 +1,18 @@
 <div class="flex h-screen">
-  <app-sidebar class="fixed inset-y-0 w-64 bg-gray-200"></app-sidebar>
-  <div class="flex-1 flex flex-col pl-64 ">
-     <app-toolbar></app-toolbar>
-    <main class="flex-grow bg-gray-50 pt-2">
+  <!-- Sidebar -->
+  <app-sidebar
+    class="fixed inset-y-0 transition-all duration-300 bg-gray-200 z-20"
+    [isSidebarOpen]="isSidebarOpen"
+  ></app-sidebar>
+
+  <!-- Contenido principal -->
+  <div class="flex-1 flex flex-col transition-width duration-1500"
+       [ngClass]="{'pl-16': !isSidebarOpen, 'pl-64': isSidebarOpen}">
+    <!-- Toolbar -->
+    <app-toolbar (toggleSidebar)="toggleSidebar()"></app-toolbar>
+
+    <!-- Main content (router-outlet) -->
+    <main class="flex-grow bg-gray-50 pt-2 transition-all duration-300">
       <router-outlet></router-outlet>
     </main>
   </div>
