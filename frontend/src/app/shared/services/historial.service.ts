@@ -1,4 +1,46 @@
 
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HistorialService {
+  private API_URL = 'http://localhost:8080/historial';
+
+  constructor(private http: HttpClient) { }
+
+  getConsumoMensual(): Observable<string> {
+    return this.http.get<string>(`${this.API_URL}/consumo-mensual`);
+  }
+
+  getConsumoDiario(): Observable<string> {
+    return this.http.get<string>(`${this.API_URL}/consumo-diario`);
+  }
+
+  getIntensidadAmperaje(): Observable<string> {
+    return this.http.get<string>(`${this.API_URL}/intensidad-amperaje`);
+  }
+
+  getPotencia(): Observable<string> {
+    return this.http.get<string>(`${this.API_URL}/potencia`);
+  }
+
+  getFrecuencia(): Observable<string> {
+    return this.http.get<string>(`${this.API_URL}/frecuencia`);
+  }
+
+  getAlertasHistoricas(): Observable<{ tipo: string, descripcion: string }[]> {
+    return this.http.get<{ tipo: string, descripcion: string }[]>(`${this.API_URL}/alertas-historicas`);
+  }
+
+}
+
+
+
+/*
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 
@@ -43,48 +85,4 @@ export class HistorialService {
     ];
     return of(alertas);
   }}
-
-
-//--------------------------------------------------------
-/*
-
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class HistorialService {
-  private API_URL = 'http://localhost:8080/historial';
-
-  constructor(private http: HttpClient) { }
-
-  getConsumoMensual(): Observable<string> {
-    return this.http.get(`${this.API_URL}/consumo-mensual`);
-  }
-
-  getConsumoDiario(): Observable<string> {
-    return this.http.get(`${this.API_URL}/consumo-diario`);
-  }
-
-  getIntensidadAmperaje(): Observable<string> {
-    return this.http.get(`${this.API_URL}/intensidad-amperaje`);
-  }
-
-  getPotencia(): Observable<string> {
-    return this.http.get(`${this.API_URL}/potencia`);
-  }
-
-  getFrecuencia(): Observable<string> {
-    return this.http.get(`${this.API_URL}/frecuencia`);
-  }
-
-  getAlertasHistoricas(): Observable<{ tipo: string, descripcion: string }[]> {
-    return this.http.get<{ tipo: string, descripcion: string }[]>(`${this.API_URL}/alertas-historicas`);
-  }
-
-}
-
-
- */
+*/
