@@ -15,4 +15,8 @@ export class AlertsService {
     console.log( 'paso por el servicio ', alertSettings );
     return this.http.post(`${this.apiUrl}/update-alerts`, alertSettings);
   }
+
+  getAlertSettings(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/get-alerts`);
+  }
 }

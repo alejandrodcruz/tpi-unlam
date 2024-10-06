@@ -27,8 +27,14 @@ export class AlertsComponent {
 
   constructor(private alertService: AlertsService) {}
 
-  onAlertChange() {
+  ngOnInit(): void {
+    this.alertService.getAlertSettings().subscribe(response => {
+      this.alertSettings = response;
+      console.log('Configuración de alertas cargada:', this.alertSettings);
+    });
+  }
 
+  onAlertChange() {
     this.alertService.updateAlertSettings(this.alertSettings).subscribe(response => {
       console.log('Configuración de alertas actualizada:', response);
     });
