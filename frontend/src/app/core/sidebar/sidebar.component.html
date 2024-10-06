@@ -2,42 +2,81 @@
   [class.w-16]="!isSidebarOpen"
   [class.w-64]="isSidebarOpen">
 
-  <!-- Logo de la marca (visible solo si el sidebar está expandido) -->
-  <div class="p-4" *ngIf="isSidebarOpen">
-    <img src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Logo de la marca" class="w-45 h-auto mx-auto">
+  <div class="p-8" *ngIf="isSidebarOpen">
+    <img src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Logo de la marca" >
+  </div>
+  <div class="p-4" *ngIf="!isSidebarOpen">
+    <img src="../../../assets/img/lytics_logo_Grilla.png" alt="Logo de la marca" >
   </div>
 
   <!-- Menú de navegación -->
-  <div class="my-auto">
+  <div class="mb-auto">
     <ul class="menu menu-sm bg-base-100 rounded-box z-[1] p-2">
       <li class="p-1">
-        <a [routerLink]="['dashboard']" class="block p-2 rounded hover:bg-gray-300 transition">
-          <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <!-- Icono de dashboard -->
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-          <span *ngIf="isSidebarOpen" class="ml-2">Dashboard</span>
+        <a [routerLink]="['dashboard']" class="block p-2 rounded hover:bg-gray-300 transition" title="Dashboard">
+          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-gauge-high" ></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Dashboard</span>
         </a>
       </li>
       <li class="p-1">
-        <a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition">
-          <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <!-- Icono de Huella de carbono -->
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-          <span *ngIf="isSidebarOpen" class="ml-2">Huella de carbono</span>
+        <a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition" title="Huella de carbono">
+          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-shoe-prints"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Huella de carbono</span>
         </a>
       </li>
-      <!-- Repite el mismo patrón para los demás links -->
+      <li class="p-1">
+        <a [routerLink]="['dispositivos']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mis Dispositivos">
+          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-plug"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mis Dispositivos</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['historico']" class="block p-2 rounded hover:bg-gray-300 transition" title="Históricos">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-chart-column"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Históricos</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['reportes']" class="block p-2 rounded hover:bg-gray-300 transition" title="Reportes">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-file-lines"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Reportes</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['alertas']" class="block p-2 rounded hover:bg-gray-300 transition" title="Alertas">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-bell"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Alertas</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['guides']" class="block p-2 rounded hover:bg-gray-300 transition" title="Guias y tutoriales">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-book"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Guias y tutoriales</span>
+        </a>
+      </li>
     </ul>
   </div>
 
-  <!-- Contenedor inferior -->
-  <div *ngIf="isSidebarOpen" class="p-4">
-    <ul class="menu menu-sm bg-base-100 rounded-box z-[1] shadow">
-      <li class="p-1"><a [routerLink]="['mySubscription']" class="block p-2 rounded hover:bg-gray-300 transition">Mi Suscripcion</a></li>
-      <li class="p-1"><a [routerLink]="['configuracion']" class="block p-2 rounded hover:bg-gray-300 transition">Configuracion</a></li>
-      <li class="p-1"><a [routerLink]="['Desloguearse']" class="block p-2 rounded hover:bg-gray-300 transition">Desloguearse</a></li>
+  <div>
+    <ul class="menu menu-sm bg-base-100 rounded-box z-[1]">
+      <li class="p-1">
+        <a [routerLink]="['mySubscription']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mi Suscripcion">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-credit-card"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mi Suscripcion</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['configuracion']" class="block p-2 rounded hover:bg-gray-300 transition" title="Configuracion">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-cog"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Configuracion</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['configuracion']" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-right-from-bracket"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Desloguearse</span>
+        </a>
+      </li>
     </ul>
   </div>
 </aside>
