@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   isSidebarOpen = true;
-  screenWidth: number = window.innerWidth;
+  screenWidth: number = 1024;
 
   ngOnInit() {
     this.onResize();  // Aseguramos que el estado inicial dependa del tamaño de la pantalla

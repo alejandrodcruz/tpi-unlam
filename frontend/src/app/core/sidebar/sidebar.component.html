@@ -1,9 +1,11 @@
 <aside class="h-full bg-base-100 shadow-md flex flex-col justify-between transition-width"
-  [class.w-16]="!isSidebarOpen"
+  [class.w-14]="!isSidebarOpen"
   [class.w-64]="isSidebarOpen">
 
   <div class="p-8" *ngIf="isSidebarOpen">
     <img src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Logo de la marca" >
+    <button class="sm:hidden absolute top-1 ml-52 btn btn-circle"
+    (click)="closeCart()"><i class="fa-lg fa-regular fa-circle-xmark"></i></button>
   </div>
   <div class="p-4" *ngIf="!isSidebarOpen">
     <img src="../../../assets/img/lytics_logo_Grilla.png" alt="Logo de la marca" >

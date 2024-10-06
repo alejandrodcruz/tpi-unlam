@@ -8,8 +8,12 @@ import { RouterLink } from "@angular/router";
   standalone: true,
   imports: [MatListModule, RouterLink, CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']  // Corrige: es "styleUrls", no "styleUrl"
+  styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
- @Input() isSidebarOpen = true;  // Recibe el estado desde el componente padre (home)
+ @Input() isSidebarOpen = true;
+
+ closeCart() {
+  this.isSidebarOpen = false;
+}
 }
