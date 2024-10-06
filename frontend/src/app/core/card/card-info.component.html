@@ -1,16 +1,27 @@
-<div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
+<!-- <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
   <div class="flex items-center mb-4">
-    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-green-600">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-      </svg>
-
+    <div class="flex items-center justify-center h-12 w-12 rounded-l">
+       <i [ngClass]="iconClasses" class="w-full h-full"></i> 
     </div>
       <div class="ml-4">
-        <h2 class="card-title">Consumo</h2>
-        <p class="text-sm sm:text-base text-pretty">Mes actual</p>
+        <h2 class="card-title">{{titleCard}}</h2>
+        <p class="text-sm sm:text-base text-pretty">{{actualMonth}}</p>
       </div>
   </div>
-  <h2 class="card-title p-1">300 Kwh</h2>
-  <progress class="progress progress-success w-full" value="70" max="100"></progress>
+  <h2 class="card-title p-1">{{titleCardProgress}}</h2>
+  <progress class="progress progress-success w-full" value="{{valueProgress}}" max="{{maxProgress}}"></progress>
+</div> -->
+
+<div class="card bg-base-100 shadow-xl p-4 transform transition-transform hover:scale-105">
+  <div class="flex items-center mb-2">
+    <div class="flex items-center justify-center h-8 w-8 rounded-l">
+      <i [ngClass]="iconClasses" class="w-full h-full"></i> 
+    </div>
+    <div class="ml-2">
+      <h2 class="card-title text-sm">{{titleCard}}</h2>
+      <p class="text-xs sm:text-sm text-pretty">{{actualMonth}}</p>
+    </div>
+  </div>
+  <h2 class="card-title text-sm p-1">{{titleCardProgress}}</h2>
+  <progress class="progress progress-success w-full" value="{{valueProgress}}" max="{{maxProgress}}"></progress>
 </div>

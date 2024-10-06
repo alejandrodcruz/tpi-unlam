@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HuellaCarbonoComponent } from './huella-carbono.component';
+import { CarbonFootprintComponent } from './carbon-footprint.component';
 
-describe('HuellaCarbonoComponent', () => {
-  let component: HuellaCarbonoComponent;
-  let fixture: ComponentFixture<HuellaCarbonoComponent>;
+describe('CarbonFootprintComponent', () => {
+  let component: CarbonFootprintComponent;
+  let fixture: ComponentFixture<CarbonFootprintComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HuellaCarbonoComponent]
+      imports: [CarbonFootprintComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(HuellaCarbonoComponent);
+
+    fixture = TestBed.createComponent(CarbonFootprintComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
