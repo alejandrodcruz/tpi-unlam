@@ -1,16 +1,13 @@
-<div class="flex flex-col lg:flex-row h-screen px-4">
-
-  <div class="flex-1 p-4 flex flex-col">
+<div class="py-1 px-3">
     <!-- Título y descripción -->
-    <div class="p-2 border-b border-gray-200 px-6">
-      <h3 class="text-lg font-bold">Históricos</h3>
+    <div class="rounded shadow-lg p-2">
+      <h1 class="text-lg font-bold mb-4">Históricos</h1>
       <p class="text-sm">Seleccione el gráfico que desee visualizar</p>
     </div>
 
+    <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 mt-1">
 
-    <div class="flex flex-col lg:flex-row mb-4 space-y-4 lg:space-y-0 lg:space-x-4">
-
-      <div class="flex flex-col space-y-2 w-full lg:w-1/5 bg-[#f9fbff] p-4 rounded-md">
+      <div class="flex flex-col space-y-2 w-full lg:w-1/5 bg-[#f9fbff] p-4 rounded-sm">
         <label class="flex items-center justify-between">
           Consumo Mensual
           <input type="radio" name="grafico" (change)="toggleGrafico('consumption', $event)" class="ml-auto" checked />
@@ -40,9 +37,11 @@
       </div>
     </div>
 
-    <h4 class="text-lg font-bold mt-6 mb-4">Alertas Históricas</h4>
+    <div class="rounded shadow-lg">
+      <h1 class="text-lg font-bold mb-4 mx-2">Alertas Históricas</h1>
+      <p class="text-sm mx-2">Seleccione el tipo de alerta que desee visualizar</p>
 
-    <select class="p-2 border rounded w-full sm:w-1/3 lg:w-1/4 mb-4" (change)="aplicarFiltro($event)">
+    <select class="p-2 border rounded w-full sm:w-1/3 lg:w-1/4 my-2" (change)="aplicarFiltro($event)">
       <option value="todos">Todos</option>
       <option value="corte">Corte de energía</option>
       <option value="dispositivo">Nuevo dispositivo</option>
@@ -55,7 +54,7 @@
         <p class="text-gray-700">{{ alerta.descripcion }}</p>
       </div>
     </div>
-  </div>
+    </div>
 </div>
 
 
