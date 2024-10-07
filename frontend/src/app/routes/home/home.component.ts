@@ -16,19 +16,20 @@ export class HomeComponent implements OnInit {
   screenWidth: number = 1024;
 
   ngOnInit() {
-    this.onResize();  // Aseguramos que el estado inicial dependa del tamaño de la pantalla
+    this.onResize();
   }
 
-  // Método para alternar el estado del sidebar manualmente
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
+  onSidebarClosed() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 
-  // Detectar cuando cambia el tamaño de la pantalla
   @HostListener('window:resize', ['$event'])
   onResize() {
     if (typeof window !== 'undefined') {
-      this.screenWidth = window.innerWidth;  // Actualiza el ancho de pantalla si estamos en el navegador
+      this.screenWidth = window.innerWidth;
     }
 
     if (this.screenWidth < 1024) {

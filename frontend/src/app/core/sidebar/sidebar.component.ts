@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink } from "@angular/router";
 
@@ -12,8 +12,10 @@ import { RouterLink } from "@angular/router";
 })
 export class SidebarComponent {
  @Input() isSidebarOpen = true;
+ @Output() closeSidebar = new EventEmitter<void>();
 
  closeCart() {
   this.isSidebarOpen = false;
+  this.closeSidebar.emit();
 }
 }
