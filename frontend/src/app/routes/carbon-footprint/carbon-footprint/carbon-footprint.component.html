@@ -1,0 +1,95 @@
+<div class="bg-base-100 p-2">
+    <div class="flex-1">
+      <h1 class="text-xl">Tu Huella de Carbono</h1>
+    </div>
+    <div class="flex-1">
+        <p class="mt-4 text-gray-700 ml-3">Descubre el impacto de tu consumo energético en el medio ambiente y aprende cómo reducir tu huella de carbono para un futuro más sostenible.</p>
+      </div>
+</div>
+<div class="container mx-auto py-4 ">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      <app-card-info
+      [iconClasses]="'fa-solid fa-tree'"
+      [titleCard]="'Arboles'"
+      [titleCardProgress]="'Kg de CO2'"
+      [actualMonth]="'Mes actual'"
+      [valueProgress]="10"
+      [maxProgress]="100"
+      ></app-card-info>
+      <app-card-info
+      [iconClasses]="'fa-solid fa-plane'"
+      [titleCard]="'Horas de vuelo'"
+      [titleCardProgress]="'km en avion'"
+      [actualMonth]="'Mes actual'"
+      [valueProgress]="40"
+      [maxProgress]="100"
+      ></app-card-info>
+      <app-card-info
+      [iconClasses]="'fa-solid fa-car'"
+      [titleCard]="'Autos'"
+      [titleCardProgress]="'Kg de CO2'"
+      [actualMonth]="'Mes actual'"
+      [valueProgress]="50"
+      [maxProgress]="100"
+      ></app-card-info>
+      <app-card-info
+      [iconClasses]="'fa-solid fa-car'"
+      [titleCard]="'CO2 emitido'"
+      [titleCardProgress]="'blabla'"
+      [actualMonth]="'Mes actual'"
+      [valueProgress]="50"
+      [maxProgress]="100"
+      ></app-card-info>
+    </div>
+   
+  </div>
+
+  <div class="container mx-auto py-4">
+    <div>
+        <h1 class="text-center">Consejos</h1>
+    </div>
+    <div class="flex justify-center p-3 ">
+        <div class="card card-compact bg-base-100 w-96 shadow-xl m-3">
+            <figure>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PNblzbHwiscfazhGYDPInct4EpBSxTNO1A&s"
+                alt="Shoes" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">¿Qué es la huella de carbono?</h2>
+              <p>Explicación clara y concisa sobre qué es la huella de carbono, cómo se genera y cómo el consumo eléctrico contribuye a ella.</p>
+              <div class="card-actions justify-start">
+                <a  class="btn btn-primary" href="https://espanol.epa.gov/la-energia-y-el-medioambiente/emisiones-de-dioxido-de-carbono" target="_blank">Ver</a>
+              </div>
+            </div>
+          </div>
+          <div class="card card-compact bg-base-100 w-96 shadow-xl m-3">
+            <figure>
+              <img
+                src="https://www.infocampo.com.ar/wp-content/uploads/2024/10/WhatsApp-Image-2024-10-03-at-17.51.56.jpeg"
+                alt="Shoes" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Sustentabilidad</h2>
+              <p>Sustentabilidad: en el campo argentino, reducir la huella de carbono ya es una “especialidad”</p>
+              <div class="card-actions justify-start">
+                <a  class="btn btn-primary" href="https://www.infocampo.com.ar/sustentabilidad-en-el-campo-argentino-reducir-la-huella-de-carbono-ya-es-una-especialidad/" target="_blank">Ver</a>
+              </div>
+            </div>
+          </div>
+          <div class="card card-compact bg-base-100 w-96 shadow-xl m-3">
+            <figure>
+              <img
+                src="https://www.65ymas.com/uploads/s1/13/55/32/8/bigstock-one-old-senior-couple-at-home-470532111.jpeg"
+                alt="Shoes" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Cómo leer mi factura</h2>
+              <p>Cómo leer las facturas de luz y gas para saber cuánto SUBSIDIO recibo.</p>
+              <div class="card-actions justify-start">
+                <a  class="btn btn-primary" href="https://www.baenegocios.com/economia/Como-leer-las-facturas-de-luz-y-gas-para-saber-cuanto-SUBSIDIO-recibo-20240722-0016.html" target="_blank">Ver</a>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>

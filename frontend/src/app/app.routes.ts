@@ -8,9 +8,9 @@ import { ReportesHistoricosComponent } from './routes/reportes/reportes-historic
 import { ConfiguracionComponent } from './routes/configuracion/configuracion.component';
 import { MisDispositivosComponent} from './routes/mis-dispositivos/mis-dispositivos.component';
 import { GuidesComponent } from './routes/guides/guides.component';
-import {HuellaCarbonoComponent} from "./routes/huella-carbono/huella-carbono.component";
 import { LandingPageComponent } from './routes/landing-page/landing-page.component';
 import { DashboardHistoricoComponent } from './routes/dashboard-historico/dashboard-historico.component';
+import { CarbonFootprintComponent } from './routes/carbon-footprint/carbon-footprint/carbon-footprint.component';
 
 export const routes: Routes = [
 
@@ -29,8 +29,8 @@ export const routes: Routes = [
       { path: 'reportes', component: ReportesComponent },
       { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
       { path: 'historico', component: DashboardHistoricoComponent },
-      { path: 'huella', component: HuellaCarbonoComponent },
       {path: 'guides', component: GuidesComponent},
+      {path:'huella',component:CarbonFootprintComponent}
     ]
   },
 ];
