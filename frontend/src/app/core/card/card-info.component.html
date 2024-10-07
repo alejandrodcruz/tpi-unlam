@@ -19,9 +19,9 @@
     </div>
     <div class="ml-2">
       <h2 class="card-title text-sm">{{titleCard}}</h2>
-      <p class="text-xs sm:text-sm text-pretty">{{actualMonth}}</p>
+      <p class="text-xs sm:text-sm text-pretty">{{subtitleCard}}</p>
     </div>
   </div>
-  <h2 class="card-title text-sm p-1">{{titleCardProgress}}</h2>
-  <progress class="progress progress-success w-full" value="{{valueProgress}}" max="{{maxProgress}}"></progress>
+  <h2 class="card-title text-sm p-1">{{dataCardProgress}}</h2>
+  <progress [ngClass]="colorProgress" value="{{valueProgress}}" max="{{maxProgress}}"></progress>
 </div>
