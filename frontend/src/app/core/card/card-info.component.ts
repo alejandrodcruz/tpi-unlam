@@ -12,9 +12,10 @@ export class CardInfoComponent {
 
   @Input() iconClasses: string = '';
   @Input() titleCard: string = '';
-  @Input() titleCardProgress: string = '';
-  @Input() actualMonth: string = '';
+  @Input() dataCardProgress: string = '';
+  @Input() subtitleCard: string = '';
   @Input() valueProgress: number = 0;
   @Input() maxProgress: number = 100;
+  @Input() colorProgress: string = '';
 
 }
