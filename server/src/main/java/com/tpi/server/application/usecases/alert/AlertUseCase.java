@@ -1,6 +1,5 @@
 package com.tpi.server.application.usecases.alert;
 
-import com.tpi.server.domain.enums.AlertType;
 import com.tpi.server.domain.models.Alert;
 import com.tpi.server.infrastructure.dtos.AlertDTO;
 import com.tpi.server.infrastructure.repositories.AlertRepository;
