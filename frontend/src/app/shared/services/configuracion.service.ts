@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ConfiguracionService {
-  private apiUrl = 'http://localhost:8080/configuracionperfil';
+  private apiUrl = 'http://localhost:8080/setperfil';
 
   constructor(private http: HttpClient) {}
 
@@ -15,4 +15,7 @@ export class ConfiguracionService {
     return this.http.post<any>(this.apiUrl, { profile });
   }
 
+  getStoredProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getperfil`);
+  }
 }
