@@ -1,5 +1,7 @@
+<h2 class="text-2xl mb-4 font-bold leading-tight text-gray-900">Reportes</h2>
+<hr class="my-4">
 <div class="flex justify-center mt-4">
-  <div class="flex space-x-4">
+    <div class="flex space-x-4">
     <button
       (click)="toggleSelection('consumo')"
       [class.bg-blue-500]="isConsumoSelected"
@@ -40,7 +42,7 @@
 
 
 
-<div class="flex items-start justify-between p-4">
+<div class="flex items-start justify-between py-6 px-10">
   <div class="flex w-full">
     <div>
       <h2 class="text-xl font-bold mb-2">Selecciona el rango de fechas</h2>
@@ -67,7 +69,12 @@
     <div class="w-3/4 p-2">
       <h2 class="text-xl font-bold mb-2">Gráfico</h2>
       <div class="border rounded-lg h-64 flex items-center justify-center">
-        <p class="text-gray-500">Gráfico aquí</p>
+        <iframe
+          [src]="graficoUrl | safeUrl"
+          width="600"
+          height="400"
+          frameborder="1">
+        </iframe>
       </div>
     </div>
   </div>

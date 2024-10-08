@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from "../../core/sidebar/sidebar.component";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatInputModule} from "@angular/material/input";
-import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
-import {NgClass, NgIf} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatInputModule } from "@angular/material/input";
+import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
+import { NgClass, NgIf } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { ReportesService } from "../../shared/services/reportes.service";
+import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
+
 registerLocaleData(localeEs);
 
 @Component({
@@ -18,7 +21,8 @@ registerLocaleData(localeEs);
     MatInputModule,
     MatNativeDateModule,
     FormsModule,
-    NgIf
+    NgIf,
+    SafeUrlPipe
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
@@ -28,9 +32,17 @@ registerLocaleData(localeEs);
 })
 export class ReportesComponent {
 
+  constructor(private reportesService: ReportesService) {
+  }
+
   startDate: Date | null = null;
   endDate: Date | null = null;
   dateError: string = '';
+  graficoUrl: string = '';
+
+  ngOnInit(): void{
+    this.graficoUrl = this.reportesService.getGrafico();
+  }
 
   onDateChange() {
     const today = new Date();
@@ -58,12 +70,10 @@ export class ReportesComponent {
   isFrecuenciaSelected: boolean = false;
 
   toggleSelection(type: string) {
-
     this.isConsumoSelected = false;
     this.isAmperajeSelected = false;
     this.isPotenciaSelected = false;
     this.isFrecuenciaSelected = false;
-
 
     switch (type) {
       case 'consumo':
@@ -80,7 +90,6 @@ export class ReportesComponent {
         break;
     }
   }
-
 }
 
 

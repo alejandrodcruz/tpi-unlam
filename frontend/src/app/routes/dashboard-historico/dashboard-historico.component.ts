@@ -1,4 +1,4 @@
-
+/*
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
@@ -157,7 +157,7 @@ export class DashboardHistoricoComponent implements OnInit {
     if (tipo === 'consumption') {
       this.mostrarConsumoMensual = true;
       this.mostrarConsumoDiario = false;
-      setTimeout(() => this.initBarChart(), 0); // Asegura que el gráfico se renderice
+      setTimeout(() => this.initBarChart(), 0);
     } else if (tipo === 'daily') {
       this.mostrarConsumoMensual = false;
       this.mostrarConsumoDiario = true;
@@ -165,15 +165,24 @@ export class DashboardHistoricoComponent implements OnInit {
     }
   }
 
-}
+}    */
 
-/*
+
 import { Component, OnInit } from '@angular/core';
-import { HistorialService } from './historial.service';
+import {HistorialService} from "../../shared/services/historial.service";
+import {SafeUrlPipe} from "../../shared/pipes/safe-url.pipe";
+import { CommonModule } from '@angular/common';
+
 
 @Component({
+
   selector: 'app-dashboard-historico',
   templateUrl: './dashboard-historico.component.html',
+  standalone: true,
+  imports: [
+    SafeUrlPipe,
+    CommonModule
+  ],
   styleUrls: ['./dashboard-historico.component.css']
 })
 export class DashboardHistoricoComponent implements OnInit {
@@ -183,6 +192,13 @@ export class DashboardHistoricoComponent implements OnInit {
   potencia: string = '';
   frecuencia: string = '';
   alertasHistoricas: { tipo: string, descripcion: string }[] = [];
+  filtroSeleccionado: string = 'todos';
+
+  mostrarConsumoMensual: boolean = true;
+  mostrarConsumoDiario: boolean = false;
+  mostrarAmperaje: boolean = false;
+  mostrarPotencia: boolean = false;
+  mostrarFrecuencia: boolean = false;
 
   constructor(private historialService: HistorialService) {}
 
@@ -230,7 +246,34 @@ export class DashboardHistoricoComponent implements OnInit {
       this.alertasHistoricas = alertas;
     });
   }
+
+  loadAlertasHistoricas(): void {
+    this.historialService.getAlertasHistoricas().subscribe({
+      next: (data) => {
+        this.alertasHistoricas = data;
+      },
+      error: (err) => console.error('Error fetching alertas historicas:', err)
+    });
+  }
+
+  aplicarFiltro(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.filtroSeleccionado = selectElement.value;
+  }
+
+  getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
+    if (this.filtroSeleccionado === 'todos') {
+      return this.alertasHistoricas;
+    }
+    return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
+  }
+
+  toggleGrafico(type: string): void {
+    this.mostrarConsumoMensual = type === 'consumption';
+    this.mostrarConsumoDiario = type === 'daily';
+    this.mostrarAmperaje = type === 'amperage';
+    this.mostrarPotencia = type === 'power';
+    this.mostrarFrecuencia = type === 'frequency';
+  }
 }
 
-
- */

@@ -1,5 +1,5 @@
-<div class="container mx-auto py-4">
-  <div class="grid grid-cols-5 gap-4">
+<div class="container mx-auto py-1">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3">
     <app-card-info></app-card-info>
     <app-card-info></app-card-info>
     <app-card-info></app-card-info>
@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3 ">
   <!-- Consumo (Voltaje) -->
   <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded1, 'relative': !isExpanded1 }" class="bg-white p-6 rounded-lg shadow-md">
     <div class="flex justify-between items-center">
@@ -85,6 +85,11 @@
         </svg>
       </button>
     </div>
-    <iframe src="http://192.168.0.158:3000/dashboard/snapshot/OgFBwIWhgIrBad8C38BVO25hv3PcCFpZ?orgId=0" width="450" height="200" frameborder="0"></iframe>
+    <div class="mt-4">
+      <iframe src="http://192.168.0.158:3000/dashboard/snapshot/OgFBwIWhgIrBad8C38BVO25hv3PcCFpZ?orgId=0"
+              width="100%"
+              height="300"
+              frameborder="0"></iframe>
+    </div>
   </div>
 </div>

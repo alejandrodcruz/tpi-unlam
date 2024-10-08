@@ -1,9 +1,11 @@
-<div class="p-4">
-  <h1 class="text-xl font-bold mb-4">Mis Dispositivos</h1>
-  <button class="bg-secondary text-white px-4 py-2 rounded mb-4" (click)="openCodeModal()">Agregar Lytics</button>
-  <br>
-  <button class="bg-primary text-white px-4 py-2 rounded mb-4" (click)="openModal()">Agregar Dispositivo de casa</button>
-  <br>
+<div class="py-1 px-3">
+
+  <div class="rounded shadow-lg p-2">
+    <h1 class="text-lg font-bold mb-4">Mis Dispositivos</h1>
+    <button class="bg-secondary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openCodeModal()">Agregar Lytics</button>
+    <button class="bg-primary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openModal()">Agregar Dispositivo de casa</button>
+  </div>
+
 
   <!-- Lista de dispositivos -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -42,8 +44,8 @@
 </div>
 
 
-<section id="dispo" class="py-10 bg-gray-100">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<section id="dispo" class="py-4 bg-gray-100">
+  <div class="container mx-auto px-4 text-center">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
 
       <!-- Dispositivo de casa -->

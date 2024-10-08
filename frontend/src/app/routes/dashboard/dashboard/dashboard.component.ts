@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import {SidebarComponent} from "../../../core/sidebar/sidebar.component";
 import {ReportesHistoricosComponent} from "../../reportes/reportes-historicos/reportes-historicos.component";
-import {NavbarComponent} from "../navbar/navbar.component";
 import {CardInfoComponent} from "../../../core/card/card-info.component";
-import {NgClass} from "@angular/common";
+import {CommonModule, NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,9 +10,9 @@ import {NgClass} from "@angular/common";
   imports: [
     SidebarComponent,
     ReportesHistoricosComponent,
-    NavbarComponent,
     CardInfoComponent,
-    NgClass
+    NgClass,
+    CommonModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

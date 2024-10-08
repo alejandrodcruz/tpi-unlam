@@ -1,10 +1,69 @@
-<header class="navbar bg-base-100 shadow-md p-4">
-    <div class="flex-1">
-      <span class="text-xl font-bold">Agregar dos select</span>
+<header class="navbar bg-base-100 shadow-lg p-4 flex items-center justify-between">
+
+  <div>
+    <button (click)="toggleSidebar.emit()" class="btn btn-ghost">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <div class="select-container flex items-center bg-white rounded-lg p-4 shadow">
+      <img src="https://i.pinimg.com/736x/e6/86/70/e686703efbf7b2e7b70c243de81d9189.jpg" alt="Locación" class="w-6 h-6 mr-2">
+      <div>
+        <span class="text-sm font-semibold">Locacion</span>
+        <select class="border-none outline-none bg-transparent text-gray-500">
+          <option>Casa 1</option>
+          <option>Oficina</option>
+        </select>
+      </div>
     </div>
-    <div class="flex-none">
-      <!-- Puedes agregar íconos, menús, o botones en el toolbar -->
-      <button class="btn btn-ghost">Agregar notificación</button>
-      <button class="btn btn-ghost">agregar card usuario</button>
+
+    <div class="select-container flex items-center bg-white rounded-lg p-4 shadow">
+      <img src="https://assets-jpcust.jwpsrv.com/thumbnails/pvwp0p9y-720.jpg" alt="Dispositivo" class="w-6 h-6 mr-2">
+      <div>
+        <span class="text-sm font-semibold">Dispositivo</span>
+        <select class="border-none outline-none bg-transparent text-gray-500">
+          <option>rtxv45000</option>
+          <option>Dispositivo 2</option>
+        </select>
+      </div>
     </div>
-  </header>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <!-- Notificación con contador -->
+    <div class="relative">
+      <button class="btn btn-ghost relative">
+        <!-- Ícono de notificación -->
+        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0018 14.158V11a6.002 6.002 0 00-5-5.917V5a2 2 0 10-4 0v.083A6.002 6.002 0 004 11v3.159c0 .538-.214 1.055-.595 1.436L2 17h5m5 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
+        <!-- Globo de notificación con contador -->
+        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+  {{ notificationCount }}
+</span>
+
+      </button>
+      <br>
+      <span class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-xs text-red-600">NOTIFICACIÓN</span>
+    </div>
+
+    <div class="relative">
+      <button class="flex items-center space-x-2">
+        <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Usuario" class="w-8 h-8 rounded-full">
+        <span>Usuario</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+
+
+      <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block">
+        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a>
+        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</header>

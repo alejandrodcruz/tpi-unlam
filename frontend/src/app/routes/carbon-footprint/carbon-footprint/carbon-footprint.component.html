@@ -1,0 +1,103 @@
+<div class="py-1 px-3">
+ <div class="rounded shadow-lg px-3 mb-2">
+    <h1 class="text-lg font-bold mb-2">Tu Huella de Carbono</h1>
+    <p class="text-sm mx-2">Descubre el impacto de tu consumo energético en el medio ambiente y aprende cómo reducir tu huella de carbono para un futuro más sostenible.</p>
+  </div>
+    <div class="container mx-auto py-2">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3" >
+          <app-card-info
+          [iconClasses]="'fa-solid fa-tree'"
+          [titleCard]="'Arboles'"
+          [dataCardProgress]="'5 unidades'"
+          [subtitleCard]="'Cantidad a plantar'"
+          [valueProgress]="10"
+          [maxProgress]="100"
+          [colorProgress]="'progress progress-success w-ful'"
+          ></app-card-info>
+          <app-card-info
+          [iconClasses]="'fa-solid fa-plane'"
+          [titleCard]="'Horas de vuelo'"
+          [dataCardProgress]="'500 km'"
+          [subtitleCard]="'km en avion'"
+          [valueProgress]="40"
+          [maxProgress]="100"
+          [colorProgress]="'progress progress-error w-ful'"
+          ></app-card-info>
+          <app-card-info
+          [iconClasses]="'fa-solid fa-car'"
+          [titleCard]="'Autos'"
+          [dataCardProgress]="'200 km'"
+          [subtitleCard]="'Km en auto'"
+          [valueProgress]="50"
+          [maxProgress]="100"
+          [colorProgress]="'progress progress-info w-ful'"
+          ></app-card-info>
+          <app-card-info
+          [iconClasses]="'fa-solid fa-heart-crack'"
+          [titleCard]="'Gases contaminantes'"
+          [dataCardProgress]="'20 kg'"
+          [subtitleCard]="'kg en gases'"
+          [valueProgress]="50"
+          [maxProgress]="100"
+          [colorProgress]="'progress progress-warning w-ful'"
+          ></app-card-info>
+        </div>
+      </div>
+
+        <div class="text-center flex flex-col items-center justify-center">
+          <h2 class="text-3xl font-extrabold my-2">Consejos</h2>
+        <h5 class="font-bold text-primary mb-8">Aquí van tus consejos...</h5>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center p-3">
+          <!-- Card 1 -->
+          <div class="card card-compact bg-base-100 w-full shadow-xl">
+            <figure>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PNblzbHwiscfazhGYDPInct4EpBSxTNO1A&s"
+                alt="Huella de carbono" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">¿Qué es la huella de carbono?</h2>
+              <p>Explicación clara y concisa sobre qué es la huella de carbono, cómo se genera y cómo el consumo eléctrico contribuye a ella.</p>
+              <div class="card-actions justify-start">
+                <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
+                href="https://espanol.epa.gov/la-energia-y-el-medioambiente/emisiones-de-dioxido-de-carbono" target="_blank">Ver</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card card-compact bg-base-100 w-full shadow-xl">
+            <figure>
+              <img
+                src="https://www.infocampo.com.ar/wp-content/uploads/2024/10/WhatsApp-Image-2024-10-03-at-17.51.56.jpeg"
+                alt="Sustentabilidad" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Sustentabilidad</h2>
+              <p>Sustentabilidad: en el campo argentino, reducir la huella de carbono ya es una “especialidad”.</p>
+              <div class="card-actions justify-start">
+                <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
+                href="https://www.infocampo.com.ar/sustentabilidad-en-el-campo-argentino-reducir-la-huella-de-carbono-ya-es-una-especialidad/" target="_blank">Ver</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card card-compact bg-base-100 w-full shadow-xl">
+            <figure>
+              <img
+                src="https://www.65ymas.com/uploads/s1/13/55/32/8/bigstock-one-old-senior-couple-at-home-470532111.jpeg"
+                alt="Factura de luz y gas" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Cómo leer mi factura</h2>
+              <p>Cómo leer las facturas de luz y gas para saber cuánto SUBSIDIO recibo.</p>
+              <div class="card-actions justify-start">
+                <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
+                href="https://www.baenegocios.com/economia/Como-leer-las-facturas-de-luz-y-gas-para-saber-cuanto-SUBSIDIO-recibo-20240722-0016.html" target="_blank">Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
