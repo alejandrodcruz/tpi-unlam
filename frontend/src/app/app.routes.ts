@@ -31,8 +31,8 @@ export const routes: Routes = [
       { path: 'reportes', component: ReportesComponent },
       { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
       { path: 'historico', component: DashboardHistoricoComponent },
-      {path: 'guides', component: GuidesComponent},
-      {path:'huella',component:CarbonFootprintComponent},
+      { path: 'guides', component: GuidesComponent},
+      { path: 'huella', component:CarbonFootprintComponent},
       { path: 'alerts', component: AlertsComponent },
     ]
   },
