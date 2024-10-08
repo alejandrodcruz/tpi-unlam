@@ -34,6 +34,7 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/send-alert").permitAll()
                                 .requestMatchers("/ws/**").permitAll()
+                                .requestMatchers("/alert/**").permitAll()
                                 .requestMatchers("/api/register-device", "/api/pair-device").permitAll() // Esp32
                                 .anyRequest().authenticated()
                         )

@@ -12,9 +12,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlertDTO {
+public class AlertByDeviceRequest {
     private String deviceId;
-    private AlertType type;
-    private String date;
-    private double value;
 }

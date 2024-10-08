@@ -1,5 +1,6 @@
 package com.tpi.server.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tpi.server.domain.enums.AlertType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,11 +21,13 @@ public class Alert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "device_id")
     private String deviceId;
 
     private AlertType type;
 
-    private Date date;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private String date;
 
     private double value;
 

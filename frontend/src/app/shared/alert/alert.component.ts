@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class AlertComponent {
   constructor(private webSocketService: WebSocketService, private toast: ToastrService) {
     this.webSocketService.listenTopic().subscribe((message: any) => {
-      console.log("Escuché una alerta y llegó al componente, muestro:");
+      console.log("Nueva alerta" + message);
       this.toast.error(message.body, 'Alerta');
     });
   }
