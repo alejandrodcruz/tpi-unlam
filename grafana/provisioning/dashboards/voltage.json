@@ -156,6 +156,7 @@
     "from": "now-1m",
     "to": "now"
   },
+  "refresh": "1s",
   "timepicker": {},
   "timezone": "browser",
   "title": "voltage",
