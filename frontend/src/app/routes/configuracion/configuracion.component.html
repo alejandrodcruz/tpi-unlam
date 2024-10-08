@@ -10,7 +10,9 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
 
-    <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
+    <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105"
+      [ngClass]="{'bg-blue-200': selectedProfile === 'small'}"
+      (click)="selectProfile('small')">
       <img src="./assets/img/casapequenia.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
       <div>
         <h2 class="card-title">Apartamento pequeño</h2><br>
@@ -31,7 +33,9 @@
     </div>
 
 
-      <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
+      <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105"
+      [ngClass]="{'bg-blue-200': selectedProfile === 'medium'}"
+      (click)="selectProfile('medium')">
         <img src="./assets/img/casamediana.png" alt="Imagen de casa mediana" class="w-full h-40 object-cover mb-4 rounded-lg">
         <div class="ml-4">
           <h2 class="card-title">Casa Mediana</h2><br>
@@ -54,7 +58,9 @@
       </div>
 
 
-      <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
+      <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105"
+      [ngClass]="{'bg-blue-200': selectedProfile === 'large'}"
+      (click)="selectProfile('large')">
         <img src="./assets/img/casagrande.png" alt="Imagen de casa grande" class="w-full h-40 object-cover mb-4 rounded-lg">
         <div class="ml-4">
           <h2 class="card-title">Casa Grande con Jardín</h2><br>
@@ -78,7 +84,9 @@
       </div>
 
 
-      <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
+      <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105"
+      [ngClass]="{'bg-blue-200': selectedProfile === 'personalized'}"
+      (click)="selectProfile('personalized')">
         <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
         <div class="ml-4">
           <h2 class="card-title">Personalizado</h2><br>
@@ -91,4 +99,5 @@
 
   </div>
 </div>
+
 
