@@ -37,7 +37,7 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
                 .addField("humidity", measurement.getHumidity())
                 .time(System.currentTimeMillis(), WritePrecision.MS);
 
-        influxDBClient.getWriteApiBlocking().writePoint(point);
+        //influxDBClient.getWriteApiBlocking().writePoint(point);
     }
 
     @Override
