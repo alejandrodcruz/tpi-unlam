@@ -16,9 +16,7 @@ public class Device {
 
     @Id
     private String deviceId;
-
     private String pairingCode;
-
     private boolean assigned;
 
     @ManyToOne

@@ -1,4 +1,4 @@
-
+/*
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
@@ -165,12 +165,13 @@ export class DashboardHistoricoComponent implements OnInit {
     }
   }
 
-}
+}    */
 
-/*
+
 import { Component, OnInit } from '@angular/core';
 import {HistorialService} from "../../shared/services/historial.service";
 import {SafeUrlPipe} from "../../shared/pipes/safe-url.pipe";
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -179,7 +180,8 @@ import {SafeUrlPipe} from "../../shared/pipes/safe-url.pipe";
   templateUrl: './dashboard-historico.component.html',
   standalone: true,
   imports: [
-    SafeUrlPipe
+    SafeUrlPipe,
+    CommonModule
   ],
   styleUrls: ['./dashboard-historico.component.css']
 })
@@ -274,4 +276,4 @@ export class DashboardHistoricoComponent implements OnInit {
     this.mostrarFrecuencia = type === 'frequency';
   }
 }
-*/
+
