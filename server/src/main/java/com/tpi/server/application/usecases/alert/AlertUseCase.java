@@ -47,7 +47,7 @@ public class AlertUseCase {
 
 
     public List<AlertResponse> getUserAlertsByDeviceId(String deviceId) {
-        List<Alert> alerts = alertRepository.findTop20ByDeviceIdOrderByDateDesc(deviceId);
+        List<Alert> alerts = alertRepository.findAllByDeviceIdOrderByDateDesc(deviceId);
 
         return alerts.stream()
                 .map(this::convertToDTO)
