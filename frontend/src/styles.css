@@ -17,7 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .introjs-tooltiptext {
-  font-size: 14px; /* Cambiar el tamaño del texto */
+  font-size: 18px; /* Cambiar el tamaño del texto */
 }
 
 .introjs-tooltipbuttons {
