@@ -37,7 +37,7 @@ public class AlertController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "getUserAlerts")
+    @PostMapping(value = "getUserAlerts")
     public ResponseEntity<List<AlertResponse>> getUserAlerts(@RequestBody AlertByDeviceRequest deviceId) {
         List<AlertResponse> alerts = alertUseCase.getUserAlertsByDeviceId(deviceId.getDeviceId());
         return ResponseEntity.ok(alerts);
