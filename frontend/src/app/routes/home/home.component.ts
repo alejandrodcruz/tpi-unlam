@@ -1,13 +1,21 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { SidebarComponent } from '../../core/sidebar/sidebar.component';
 import { ToolbarComponent } from '../../core/toolbar/toolbar.component';
 import { CommonModule } from '@angular/common';
+import {AlertsComponent} from "../alerts/alerts.component";
+import {AlertComponent} from "../../shared/alert/alert.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, SidebarComponent, ToolbarComponent, CommonModule],
+  imports: [
+    RouterModule,
+    SidebarComponent,
+    ToolbarComponent,
+    CommonModule,
+    AlertsComponent,
+    AlertComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
