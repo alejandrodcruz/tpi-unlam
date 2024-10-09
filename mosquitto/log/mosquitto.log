@@ -409,3 +409,8 @@
 1728422002: Opening ipv4 listen socket on port 1883.
 1728422002: Opening ipv6 listen socket on port 1883.
 1728422002: mosquitto version 2.0.19 running
+1728491700: mosquitto version 2.0.19 starting
+1728491700: Config loaded from /mosquitto/config/mosquitto.conf.
+1728491700: Opening ipv4 listen socket on port 1883.
+1728491700: Opening ipv6 listen socket on port 1883.
+1728491700: mosquitto version 2.0.19 running
