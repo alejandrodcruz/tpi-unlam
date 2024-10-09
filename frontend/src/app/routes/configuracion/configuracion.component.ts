@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {NgClass} from "@angular/common";
 import {ConfiguracionService} from "../../shared/services/configuracion.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-configuracion',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    RouterLink
   ],
   templateUrl: './configuracion.component.html',
   styleUrl: './configuracion.component.css'
@@ -22,6 +24,13 @@ export class ConfiguracionComponent implements OnInit{
       console.log('Perfil enviado al backend:', profile);
     });
   }
+  expanded: { [key: string]: boolean } = {};
+  expandedCard: string | null = null;
+
+  toggleExpand(profile: string, event: Event) {
+    event.stopPropagation();
+    this.expanded[profile] = !this.expanded[profile];
+  }
 
   ngOnInit(): void {
     this.configuracionService.getStoredProfile().subscribe(
@@ -35,3 +44,5 @@ export class ConfiguracionComponent implements OnInit{
     );
   }
 }
+
+
