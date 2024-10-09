@@ -9,18 +9,13 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user_configuration")
-public class Configuration {
+public class UserConfiguration {
 
     @Id
     @GeneratedValue
     private Long id;
-
-    @Column(name = "config_key")
-    private String key;
-
-    @Column(name = "config_value")
-    private String value;
+    private String config_key;
+    private String config_value;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
