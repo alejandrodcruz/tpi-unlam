@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
   onPopupClose() {
     this.showPopup = false;
     localStorage.setItem('hasDevice', 'true');//localstorage solo para la presentacion
+    window.location.reload();
   }
 
   toggleSidebar() {
