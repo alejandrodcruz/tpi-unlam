@@ -10,3 +10,28 @@ html, body { height: 100%; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*intro js */
+.introjs-tooltip {
+  background-color: #333; /* Cambiar color de fondo */
+  color: #fff; /* Cambiar color de texto */
+}
+
+.introjs-tooltiptext {
+  font-size: 14px; /* Cambiar el tamaño del texto */
+}
+
+.introjs-tooltipbuttons {
+  background-color: #007bff; /* Cambiar color de botones */
+  color: white;
+}
+
+.introjs-helperLayer {
+  background-color: rgba(0, 123, 255, 0.4); /* Cambiar el color de la capa de fondo */
+}
+.customTooltipClass {
+  background-color: #f0f0f0; /* Color de fondo */
+  color: #333; /* Color de texto */
+  border-radius: 10px;
+  padding: 10px;
+}
+

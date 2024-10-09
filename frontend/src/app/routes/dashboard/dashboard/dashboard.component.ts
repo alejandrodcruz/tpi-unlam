@@ -24,7 +24,8 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
   isExpanded3: boolean = false;
   isExpanded4: boolean = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   // Método para manejar la expansión de tarjetas
   toggleExpand(cardNumber: number) {
@@ -51,30 +52,40 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
 
 
   startTour() {
-    const intro = introJs();
+    const hasSeenTour = localStorage.getItem('hasSeenTour');
 
-    intro.setOptions({
-      steps: [
-        {
-          intro: "Bienvenido al tutorial de la aplicación!"
-        },
-        {
-          element: '#step1',
-          intro: "Este es el primer paso."
-        },
-        {
-          element: '#step2',
-          intro: "Este es el segundo paso."
-        },
-        {
-          element: '#step3',
-          intro: "Este es el tercer paso."
-        }
-      ],
-      showProgress: true,
-      exitOnOverlayClick: false
-    });
+    if (!hasSeenTour) {
+      const intro = introJs();
+      intro.setOptions({
+        steps: [
+          {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."
+          },
+          {element: '#step1', intro: "🕒 Reloj - Este es el horario actual en Buenos Aires."},
+          {element: '#step2', intro: "💧 Humedad - Aquí se muestra la humedad relativa actual."},
+          {element: '#step3', intro: "🌡️ Temperatura - La temperatura en grados Celsius."},
+          {element: '#step4', intro: "🌡️ Temperatura - La temperatura en grados Celsius."},
+          {element: '#step5', intro: "DATOS EN VIVO - DEL DISPOSITIVO"},
+          {element: '#step6', intro: "⚡ Voltaje- El voltaje de la corriente alterna."},
+          {element: '#step7', intro: "🔌 Amperaje - Indica cuánta electricidad está fluyendo por el sistema."},
+          {element: '#step8', intro: "💡 <b>Watts</b> - Indica cuánta energía estás usando."},
+          {element: '#step9', intro: "⚙️ Kilovatios-hora (kWh) - La cantidad de electricidad que usas en un período."},
+          {element: '#step5', intro: "Ya puede visualizar tus consumos"}
 
-    intro.start();
+        ],
+        showProgress: true,
+        exitOnOverlayClick: false
+      });
+
+      intro.start();
+
+      intro.oncomplete(() => {
+        localStorage.setItem('hasSeenTour', 'true');
+      });
+
+      intro.onexit(() => {
+        localStorage.setItem('hasSeenTour', 'true');
+      });
+    }
   }
 }
+
