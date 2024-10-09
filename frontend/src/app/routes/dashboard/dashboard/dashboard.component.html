@@ -1,9 +1,43 @@
 <div class="container mx-auto py-1">
   <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3">
-    <app-card-info id="step1"></app-card-info>
-    <app-card-info id="step2"></app-card-info>
-    <app-card-info id="step3"></app-card-info>
-    <app-card-info></app-card-info>
+    <app-card-info
+      [iconClasses]="'fas fa-clock'"
+      [titleCard]="'Buenos Aires'"
+      [dataCardProgress]="'19:50 Hs'"
+      [subtitleCard]="'San Justo'"
+      [valueProgress]="100"
+      [maxProgress]="100"
+      [colorProgress]="''"
+    ></app-card-info>
+    <app-card-info
+      [iconClasses]="'fas fa-cloud-rain'"
+      [titleCard]="'Humedad'"
+      [dataCardProgress]="'50 g/m3'"
+      [subtitleCard]="'Relativa'"
+      [valueProgress]="50"
+      [maxProgress]="100"
+      [colorProgress]="'progress progress-info w-ful'"
+    ></app-card-info>
+    <app-card-info
+      [iconClasses]="'fas fa-thermometer-half'"
+      [titleCard]="'Temperatura'"
+      [dataCardProgress]="'25°C'"
+      [subtitleCard]="'Grados Celsius'"
+      [valueProgress]="25"
+      [maxProgress]="100"
+      [colorProgress]="'progress progress-error w-ful'"
+    ></app-card-info>
+    <app-card-info
+      [iconClasses]="'fas fa-dollar-sign'"
+      [titleCard]="'Consumo Real'"
+      [dataCardProgress]="'Consumo $'"
+      [subtitleCard]="'Consumo $'"
+      [valueProgress]="25000"
+      [maxProgress]="30000"
+      [colorProgress]="'progress progress-warning w-ful'"
+    ></app-card-info>
+
+
   </div>
 </div>
 
