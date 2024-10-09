@@ -1,0 +1,83 @@
+<div class="modal" [class.modal-open]="isOpen">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Asociar un Dispositivo</h3>
+
+    <!-- Paso 1 -->
+    <div *ngIf="step === 1">
+      <p class="py-4">No tienes un dispositivo asociado. Para asociar uno, sigue estos pasos:</p>
+      <ol class="list-decimal list-inside">
+        <li>Asegúrate de que el dispositivo Lytics esté conectado a la red eléctrica.</li>
+      </ol>
+    </div>
+
+    <!-- Paso 2 -->
+    <div *ngIf="step === 2">
+      <p class="py-4">Conectarlo a tu red:</p>
+      <ol class="list-decimal list-inside">
+        <li>Desde tu celular, busca el dispositivo Lytics en tu red Wi-Fi.</li>
+        <li>Conecta el dispositivo a tu red Wi-Fi.</li>
+      </ol>
+
+      <div class="mt-4 flex justify-center">
+        <div class="w-1/2 pr-2">
+          <img src="../../../assets/img/Dispo1.png" alt="Explicación 1"
+          class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105" />
+        </div>
+        <div class="w-1/2 pl-2">
+          <img src="../../../assets/img/Dispo2.png" alt="Explicación 2"
+          class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105" />
+        </div>
+      </div>
+
+    </div>
+
+     <!-- Paso 3 -->
+     <div *ngIf="step === 3">
+      <p class="py-4">Sigue con el emparejamiento:</p>
+      <ol class="list-decimal list-inside">
+        <li>Verifica la conexión.</li>
+        <li>Obtén el código de emparejamiento.</li>
+      </ol>
+
+      <div class="mt-4 flex justify-center">
+        <div class="w-1/2 pr-2">
+          <img src="../../../assets/img/Dispo3.png" alt="Explicación 1"
+          class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105" />
+        </div>
+        <div class="w-1/2 pl-2">
+          <img src="../../../assets/img/Dispo4.png" alt="Explicación 2"
+          class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105" />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Paso 4 -->
+    <div *ngIf="step === 4">
+      <p class="py-4">Ahora ingresa el código de emparejamiento que obtuviste:</p>
+      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Código de emparejamiento" />
+      <p class="py-4">Puedes darle un nombre a tu dispositivo:</p>
+      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="LyticsHogar1" />
+    </div>
+
+    <!-- Paso 5 -->
+    <div *ngIf="step === 5">
+      <p class="py-4">¡Listo! Has completado el emparejamiento.</p>
+      <p class="py-4">Puedes ver tu dispositivo en la lista de dispositivos asociados.</p>
+    </div>
+
+    <div class="modal-action">
+      <!-- Botón de atrás -->
+      <button class="btn" *ngIf="step > 1 && step < 5" (click)="previousStep()">Atrás</button>
+
+      <!-- Botón de siguiente o enviar -->
+      <button class="btn" *ngIf="step < 4" (click)="nextStep()">Siguiente</button>
+
+      <!-- Botón de finalizar cuando estás en el último paso -->
+      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 4" (click)="submitCode()">Finalizar</button>
+
+      <!-- Botón de cerrar -->
+      <button class="btn" *ngIf="step === 5" (click)="close()">Cerrar</button>
+    </div>
+  </div>
+</div>

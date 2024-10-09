@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
 
 
   ngOnInit() {
-    this.startTour();
+   // this.startTour();
   }
 
 
