@@ -12,26 +12,27 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /*intro js */
 .introjs-tooltip {
-  background-color: #333; /* Cambiar color de fondo */
-  color: #fff; /* Cambiar color de texto */
+  @apply bg-gray-800 text-white p-4 rounded-lg shadow-md;
 }
 
 .introjs-tooltiptext {
-  font-size: 18px; /* Cambiar el tamaño del texto */
+  @apply text-base text-white;
 }
 
 .introjs-tooltipbuttons {
-  background-color: #007bff; /* Cambiar color de botones */
-  color: white;
+  @apply flex justify-between mt-4;
+}
+
+.introjs-button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all;
+}
+
+.introjs-button-back {
+  @apply bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-all;
 }
 
 .introjs-helperLayer {
-  background-color: rgba(0, 123, 255, 0.4); /* Cambiar el color de la capa de fondo */
+  background-color: rgba(0, 123, 255, 0.4); /* No necesita Tailwind */
 }
-.customTooltipClass {
-  background-color: #f0f0f0; /* Color de fondo */
-  color: #333; /* Color de texto */
-  border-radius: 10px;
-  padding: 10px;
-}
+
 
