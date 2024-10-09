@@ -21,6 +21,7 @@ docker-compose up --build -d
 ### Detener y Eliminar Contenedores
 ```bash
 docker-compose down -v
+docker-compose down --volumes --rmi all
 docker system prune -a --volumes 
 ```
 ### Ver los contenedores activos - puertos
