@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 USE tpifinal;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -21,4 +19,3 @@ ALTER TABLE `user`
     ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UKsb8bbouer5wak8vyiiy4pf2bx` (`username`);
 COMMIT;
->>>>>>> origin/enpoint-user-data

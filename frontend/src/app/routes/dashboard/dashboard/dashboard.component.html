@@ -1,15 +1,49 @@
 <div class="container mx-auto py-1">
   <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3">
-    <app-card-info id="step1"></app-card-info>
-    <app-card-info id="step2"></app-card-info>
-    <app-card-info id="step3"></app-card-info>
-    <app-card-info></app-card-info>
+    <app-card-info id="step1"
+      [iconClasses]="'fas fa-clock'"
+      [titleCard]="'Buenos Aires'"
+      [dataCardProgress]="'19:50 Hs'"
+      [subtitleCard]="'San Justo'"
+      [valueProgress]="100"
+      [maxProgress]="100"
+      [colorProgress]="''"
+    ></app-card-info>
+    <app-card-info id="step2"
+      [iconClasses]="'fas fa-cloud-rain'"
+      [titleCard]="'Humedad'"
+      [dataCardProgress]="'50 g/m3'"
+      [subtitleCard]="'Relativa'"
+      [valueProgress]="50"
+      [maxProgress]="100"
+      [colorProgress]="'progress progress-info w-ful'"
+    ></app-card-info>
+    <app-card-info id="step3"
+      [iconClasses]="'fas fa-thermometer-half'"
+      [titleCard]="'Temperatura'"
+      [dataCardProgress]="'25°C'"
+      [subtitleCard]="'Grados Celsius'"
+      [valueProgress]="25"
+      [maxProgress]="100"
+      [colorProgress]="'progress progress-error w-ful'"
+    ></app-card-info>
+    <app-card-info id="step4"
+      [iconClasses]="'fas fa-dollar-sign'"
+      [titleCard]="'Consumo Real'"
+      [dataCardProgress]="'Consumo $'"
+      [subtitleCard]="'Consumo $'"
+      [valueProgress]="25000"
+      [maxProgress]="30000"
+      [colorProgress]="'progress progress-warning w-ful'"
+    ></app-card-info>
+
+
   </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3 ">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3 " id="step5">
   <!-- Consumo (Voltaje) -->
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded1, 'relative': !isExpanded1 }" class="bg-white p-6 rounded-lg shadow-md">
+  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded1, 'relative': !isExpanded1 }" class="bg-white p-6 rounded-lg shadow-md" id="step6">
     <div class="flex justify-between items-center">
       <div>
         <h2 class="text-2xl font-bold">210 Voltaje</h2>
@@ -31,7 +65,7 @@
     </div>
   </div>
 
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded2, 'relative': !isExpanded2 }" class="bg-white p-6 rounded-lg shadow-md">
+  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded2, 'relative': !isExpanded2 }" class="bg-white p-6 rounded-lg shadow-md" id="step7">
     <div class="flex justify-between items-center">
       <div>
         <h2 class="text-2xl font-bold">8.33 Amperaje</h2>
@@ -52,7 +86,7 @@
     </div>
   </div>
 
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded3, 'relative': !isExpanded3 }" class="bg-white p-6 rounded-lg shadow-md">
+  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded3, 'relative': !isExpanded3 }" class="bg-white p-6 rounded-lg shadow-md" id="step8">
     <div class="flex justify-between items-center">
       <div>
         <h2 class="text-2xl font-bold">1680 Watts</h2>
@@ -73,7 +107,7 @@
   </div>
 
   <!--  Factor de Potencia -->
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded4, 'relative': !isExpanded4 }" class="bg-white p-6 rounded-lg shadow-md">
+  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded4, 'relative': !isExpanded4 }" class="bg-white p-6 rounded-lg shadow-md" id="step9">
     <div class="flex justify-between items-center">
       <div>
         <h2 class="text-2xl font-bold">0.90 kWh (Kilovatios-hora)</h2>
