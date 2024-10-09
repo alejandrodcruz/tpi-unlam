@@ -63,11 +63,11 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
           {element: '#step1', intro: "🕒 Reloj - Este es el horario actual en Buenos Aires."},
           {element: '#step2', intro: "💧 Humedad - Aquí se muestra la humedad relativa actual."},
           {element: '#step3', intro: "🌡️ Temperatura - La temperatura en grados Celsius."},
-          {element: '#step4', intro: "🌡️ Temperatura - La temperatura en grados Celsius."},
+          {element: '#step4', intro: "💵 Consumo Real - El gasto actual en consumo eléctrico."},
           {element: '#step5', intro: "DATOS EN VIVO - DEL DISPOSITIVO"},
           {element: '#step6', intro: "⚡ Voltaje- El voltaje de la corriente alterna."},
           {element: '#step7', intro: "🔌 Amperaje - Indica cuánta electricidad está fluyendo por el sistema."},
-          {element: '#step8', intro: "💡 <b>Watts</b> - Indica cuánta energía estás usando."},
+          {element: '#step8', intro: "💡 Watts - Indica cuánta energía estás usando."},
           {element: '#step9', intro: "⚙️ Kilovatios-hora (kWh) - La cantidad de electricidad que usas en un período."},
           {element: '#step5', intro: "Ya puede visualizar tus consumos"}
 
