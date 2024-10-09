@@ -29,7 +29,7 @@ public class MeasurementUseCase {
         alertConditions.put(m -> m.getVoltage() < 110.0, AlertType.LowTension);
         alertConditions.put(m -> m.getVoltage() > 240.0, AlertType.HighTension);
         alertConditions.put(m -> m.getCurrent() > 15.0, AlertType.PeakPowerCurrent);
-        alertConditions.put(m -> m.getPower() > 1000.0, AlertType.HighConsumption);
+        alertConditions.put(m -> m.getPower() > 2400.0, AlertType.HighConsumption);
         alertConditions.put(m -> m.getTemperature() > 50.0, AlertType.HighTemperature);
         alertConditions.put(m -> m.getHumidity() > 80.0, AlertType.HighHumidity);
     }
