@@ -46,9 +46,6 @@ export class HomeComponent implements OnInit {
 
         if (!user.hasDevice) {
           this.openDevicePopup();
-
-          localStorage.setItem('hasDevice', 'true');//localstorage solo para la presentacion
-
         }
       },
       (error) => {
@@ -63,6 +60,7 @@ export class HomeComponent implements OnInit {
 
   onPopupClose() {
     this.showPopup = false;
+    localStorage.setItem('hasDevice', 'true');//localstorage solo para la presentacion
   }
 
   toggleSidebar() {

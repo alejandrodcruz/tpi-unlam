@@ -47,7 +47,9 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
 
 
   ngOnInit() {
-   // this.startTour();
+    const hasDevice = localStorage.getItem('hasDevice');
+   if(hasDevice === 'true') {
+    this.startTour();}
   }
 
 
