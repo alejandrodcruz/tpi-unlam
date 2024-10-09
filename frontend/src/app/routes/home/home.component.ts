@@ -5,8 +5,8 @@ import { ToolbarComponent } from '../../core/toolbar/toolbar.component';
 import { CommonModule } from '@angular/common';
 import {AlertsComponent} from "../alerts/alerts.component";
 import {AlertComponent} from "../../shared/alert/alert.component";
-import { User, UserService } from '../../shared/services/user.service';
 import { DevicePopupComponent } from '../../core/device-popup/device-popup.component';
+import { AuthService, User } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   screenWidth: number = 1024;
   showPopup: boolean = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: AuthService) { }
 
   ngOnInit() {
     this.onResize();
@@ -35,10 +35,20 @@ export class HomeComponent implements OnInit {
     this.checkUserDevice();
   }
   checkUserDevice() {
+    //localstorage solo para la presentacion
+    const hasDevice = localStorage.getItem('hasDevice');
+  if (hasDevice === 'true') {
+    return;
+  }
+
     this.userService.getUser().subscribe(
       (user: User) => {
+
         if (!user.hasDevice) {
           this.openDevicePopup();
+
+          localStorage.setItem('hasDevice', 'true');//localstorage solo para la presentacion
+
         }
       },
       (error) => {
