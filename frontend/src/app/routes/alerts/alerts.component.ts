@@ -4,6 +4,7 @@ import { CardInfoComponent } from "../../core/card/card-info.component";
 import { FormsModule } from "@angular/forms";
 import { AlertsService } from "../../shared/services/alerts.service";
 import { DatePipe, CommonModule } from "@angular/common";
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
 
 @Component({
   selector: 'app-alerts',
@@ -13,6 +14,7 @@ import { DatePipe, CommonModule } from "@angular/common";
     CardInfoComponent,
     FormsModule,
     DatePipe,
+    PanelTitleComponent,
   ],
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.css']  // Cambié 'styleUrl' a 'styleUrls' para evitar error.
