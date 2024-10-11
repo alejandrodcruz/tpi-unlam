@@ -1,13 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { HumidityService } from '../../shared/services/humidity.service';
 import { TemperatureService } from '../../shared/services/temperature.service';
-import {NgClass} from "@angular/common";
+import { CurrenttimeService } from '../../shared/services/currenttime.service';
+import {NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 
 @Component({
   selector: 'app-card-real-time',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault
   ],
   templateUrl: './card-real-time.component.html',
   styleUrl: './card-real-time.component.css'
@@ -23,29 +27,41 @@ export class CardRealTimeComponent implements OnInit {
   @Input() colorProgress: string = '';
   @Input() percentageClass: string = '';
   @Input() temperature: string = 'Cargando...';
-  public isTemperature: boolean = false;
+  @Input() currenTime: string = 'Cargando...';
+
+  public tipoDato: string="";
 
   constructor(private humidityService: HumidityService,
-              private temperatureService: TemperatureService) {}
+              private temperatureService: TemperatureService,
+              private currentTimeService: CurrenttimeService) {}
 
   ngOnInit(): void {
-    // Si es humedad
+    // Asignación de tipoDato según el título de la tarjeta
     if (this.titleCard === 'Humedad') {
       this.humidityService.getHumidity().subscribe((data: any) => {
         this.dataCardProgress = `${data.humidity} g/m3`;
         this.valueProgress = data.humidity;
-        this.isTemperature = false;  // No es temperatura
+        this.tipoDato = 'humidity';  // Se muestra humedad
       });
     }
 
-    // Si es temperatura
     if (this.titleCard === 'Temperatura') {
       this.temperatureService.getTemperature().subscribe((data: any) => {
         this.temperature = `${data.temperature} °C`;
         this.valueProgress = data.temperature;
-        this.isTemperature = true;  // Se muestra temperatura
+        this.tipoDato = 'temperature';  // Se muestra temperatura
       });
     }
+
+    if (this.titleCard === 'Horario') {
+      this.currentTimeService.getHoraActual().subscribe((data: any) => {
+        this.currenTime = new Date(data.datetime).toLocaleTimeString();
+        this.tipoDato = 'horaActual';  // Me falta , que se actualize la hora.
+      });
+    }
+
+   //Falta CALCULO DE CONSUMO
+    }
   }
-}
+
 

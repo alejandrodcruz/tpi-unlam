@@ -12,7 +12,24 @@
 
   <div class="mt-2">
     <h2 class="text-2xl font-bold">
-      {{ isTemperature ? temperature : dataCardProgress }}</h2>
+      <div [ngSwitch]="tipoDato">
+        <!-- Si es humedad -->
+        <h2 *ngSwitchCase="'humidity'" class="text-2xl font-bold">{{ dataCardProgress }}</h2>
+
+        <!-- Si es temperatura -->
+        <h2 *ngSwitchCase="'temperature'" class="text-2xl font-bold">{{ temperature }}</h2>
+
+        <!-- Si es hora actual -->
+        <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold">{{ currenTime }}</h2>
+
+        <!-- Si es consumo
+        <h2 *ngSwitchCase="'consumo'" class="text-2xl font-bold">{{ consumo }}</h2>-->
+
+        <!-- Valor por defecto si no coincide con ninguno -->
+        <h2 *ngSwitchDefault class="text-2xl font-bold">No hay datos disponibles</h2>
+      </div>
+
+    </h2>
     <div class="flex items-center justify-between mt-1">
       <progress [ngClass]="colorProgress" [value]="valueProgress" [max]="100" class="progress-bar"></progress>
       <span class="text-xs ml-2">{{ valueProgress }}%</span>
