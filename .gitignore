@@ -9,5 +9,7 @@ frontend/.angular
 frontend/node_modules
 node_modules/
 server/target
+./mosquitto/*
+mosquitto
 env
 .env
