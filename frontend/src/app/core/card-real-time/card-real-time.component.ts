@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { HumidityService } from '../../shared/services/humidity.service';
+import { TemperatureService } from '../../shared/services/temperature.service';
 import {NgClass} from "@angular/common";
 
 @Component({
@@ -21,14 +22,30 @@ export class CardRealTimeComponent implements OnInit {
   @Input() maxProgress: number = 100;
   @Input() colorProgress: string = '';
   @Input() percentageClass: string = '';
+  @Input() temperature: string = 'Cargando...';
+  public isTemperature: boolean = false;
 
-  constructor(private humidityService: HumidityService) {}
+  constructor(private humidityService: HumidityService,
+              private temperatureService: TemperatureService) {}
 
   ngOnInit(): void {
-    this.humidityService.getHumidity().subscribe((data: any) => {
-      // Aquí deberás adaptar según cómo llegue la respuesta de Grafana
-      this.dataCardProgress = `${data.humidity} g/m3`;
-      this.valueProgress = data.humidity;  // Asume que "humidity" contiene el valor en %.
-    });
+    // Si es humedad
+    if (this.titleCard === 'Humedad') {
+      this.humidityService.getHumidity().subscribe((data: any) => {
+        this.dataCardProgress = `${data.humidity} g/m3`;
+        this.valueProgress = data.humidity;
+        this.isTemperature = false;  // No es temperatura
+      });
+    }
+
+    // Si es temperatura
+    if (this.titleCard === 'Temperatura') {
+      this.temperatureService.getTemperature().subscribe((data: any) => {
+        this.temperature = `${data.temperature} °C`;
+        this.valueProgress = data.temperature;
+        this.isTemperature = true;  // Se muestra temperatura
+      });
+    }
   }
 }
+
