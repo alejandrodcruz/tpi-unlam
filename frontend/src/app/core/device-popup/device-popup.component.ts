@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-device-popup',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,
+            LoadingComponent
+  ],
   templateUrl: './device-popup.component.html',
   styleUrl: './device-popup.component.css'
 })
@@ -13,6 +16,7 @@ export class DevicePopupComponent {
 @Output() closePopup = new EventEmitter<void>();
 
 step:number = 1;
+isLoading: boolean = false;
 
 close() {
   this.closePopup.emit();
@@ -31,6 +35,12 @@ previousStep() {
 }
 
 submitCode() {
+  this.isLoading = true;
+  setTimeout(() => {
+    this.isLoading = false;
+    this.step = 5;
+  }, 4000);
+
   console.log("Código ingresado");
   this.nextStep();
 }

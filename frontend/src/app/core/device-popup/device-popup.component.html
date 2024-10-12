@@ -2,6 +2,9 @@
   <div class="modal-box">
     <h3 class="font-bold text-lg">Asociar un Dispositivo</h3>
 
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div *ngIf="!isLoading">
+
     <!-- Paso 1 -->
     <div *ngIf="step === 1">
       <p class="py-4">No tienes un dispositivo asociado. Para asociar uno, sigue estos pasos:</p>
@@ -79,5 +82,6 @@
       <!-- Botón de cerrar -->
       <button class="btn" *ngIf="step === 5" (click)="close()">Cerrar</button>
     </div>
+  </div>
   </div>
 </div>
