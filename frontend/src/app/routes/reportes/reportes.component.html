@@ -1,11 +1,11 @@
+<app-panel-title title="Reportes" description="Selecciona un tipo de gráfico y un rango de fechas antes de hacer clic en Buscar."></app-panel-title>
 <div class="flex justify-between space-x-4 w-full">
   <div
+
     (click)="setSelectedType('Consumo')"
     class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
     [ngClass]="{'bg-blue-200': selectedType === 'Consumo'}">
-    <div class="flex items-center justify-center h-12 w-12 bg-blue-100 rounded-full">
-
-    </div>
+    <i class='fas fa-lightbulb' style='font-size:42px; color:#fbc102'></i>
     <p class="text-xs">Consumo</p>
   </div>
 
@@ -13,9 +13,7 @@
     (click)="setSelectedType('Amperaje')"
     class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
     [ngClass]="{'bg-blue-200': selectedType === 'Amperaje'}">
-    <div class="flex items-center justify-center h-12 w-12 bg-blue-100 rounded-full">
-
-    </div>
+    <i class='fas fa-plug' style='font-size:42px;color:#71aaef'></i>
     <p class="text-xs">Amperaje</p>
   </div>
 
@@ -23,9 +21,7 @@
     (click)="setSelectedType('Potencia')"
     class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
     [ngClass]="{'bg-blue-200': selectedType === 'Potencia'}">
-    <div class="flex items-center justify-center h-12 w-12 bg-blue-100 rounded-full">
-
-    </div>
+    <i class='fas fa-battery-three-quarters' style='font-size:48px;color:#ea4c4c'></i>
     <p class="text-xs">Potencia</p>
   </div>
 
@@ -33,40 +29,35 @@
     (click)="setSelectedType('Frecuencia')"
     class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
     [ngClass]="{'bg-blue-200': selectedType === 'Frecuencia'}">
-    <div class="flex items-center justify-center h-12 w-12 bg-blue-100 rounded-full">
-
-    </div>
+    <i class='fas fa-poll' style='font-size:48px;color:#2d812b'></i>
     <p class="text-xs">Frecuencia</p>
   </div>
 </div>
 
-<div class="flex items-start justify-between py-6 px-10">
-  <div class="flex w-full">
-    <div>
-      <h2 class="text-xl font-bold mb-2">Selecciona el rango de fechas</h2>
+<div class="mb-6 bg-white">
+  <div class="flex flex-col  space-y-4 py-6 px-10">
+    <h2 >Filtrar por Fecha</h2>
+    <div class="flex space-x-4 ">
+      <input [(ngModel)]="startDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <input [(ngModel)]="endDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <button
+        (click)="generateGraficoUrl()"
+        class="bg-primary text-white p-2 rounded hover:bg-primaryhover"
+      >Buscar</button>
+    </div>
+  </div>
+</div>
 
-      <p class="mb-4 text-gray-600">
-        Por favor, selecciona un tipo de gráfico y un rango de fechas antes de hacer clic en "Buscar".
-      </p>
+<div class="flex justify-center py-6 px-10">
+  <div class="w-full max-w-4xl mx-auto">
+    <p *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</p>
 
-
-      <div class="mb-6">
-        <label class="block text-gray-700">Filtrar por Fecha</label>
-        <div class="flex space-x-4">
-          <input [(ngModel)]="startDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
-          <input [(ngModel)]="endDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
-          <button
-            (click)="generateGraficoUrl()"
-            class="bg-primary text-white p-2 rounded hover:bg-primaryhover"
-            >Buscar</button>
-        </div>
-      </div>
-
-      <p *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</p>
-
-      <div class="w-3/4 p-2">
-        <h2 class="text-xl font-bold mb-2">Gráfico: {{ selectedType }}</h2>
-        <div class="border rounded-lg h-64 flex items-center justify-center">
+    <div class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 mt-1">
+      <div class="card bg-base-100 shadow-xl p-4 w-full lg:w-2/3">
+        <p class="text-mx font-semibold text-gray-700 mb-4">
+          {{ selectedType }}
+        </p>
+        <div class="border rounded-lg h-64 flex items-center justify-center"> <!-- Agregado flex y justify-center -->
           <iframe
             *ngIf="graficoUrl"
             [src]="graficoUrl"
@@ -80,3 +71,4 @@
     </div>
   </div>
 </div>
+

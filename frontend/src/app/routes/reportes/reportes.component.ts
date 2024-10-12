@@ -3,6 +3,7 @@ import { ReportesService } from "../../shared/services/reportes.service";
 import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
 import { FormsModule } from "@angular/forms";
 import { NgClass, NgIf } from "@angular/common";
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
 
 @Component({
   selector: 'app-reportes',
@@ -12,7 +13,8 @@ import { NgClass, NgIf } from "@angular/common";
     SafeUrlPipe,
     FormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    PanelTitleComponent
   ],
   styleUrls: ['./reportes.component.css']
 })
