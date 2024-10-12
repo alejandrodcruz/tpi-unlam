@@ -25,9 +25,6 @@ public class MeasurementController {
             @RequestParam List<String> fields,
             @RequestParam(defaultValue = "1h") String timeRange
     ) {
-        System.out.println("Entrando a getUserMeasurements en MeasurementController con userId: " + userId);
-
-        // Llamar al caso de uso con el userId proporcionado
         return getUserMeasurementsUseCase.execute(userId, fields, timeRange);
     }
 }
