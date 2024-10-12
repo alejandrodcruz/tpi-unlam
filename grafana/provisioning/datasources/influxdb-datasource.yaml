@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    url: http://influxdb:8086
+    access: proxy
+    database: grupo10bucket
+    isDefault: true
+    editable: false
+    jsonData:
+      defaultBucket: grupo10bucket
+      organization: grupo10
+      version: Flux
+      tlsSkipVerify: true
+    secureJsonData:
+      token: grupo10token

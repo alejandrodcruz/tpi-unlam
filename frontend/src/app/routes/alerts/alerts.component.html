@@ -1,0 +1,38 @@
+<app-panel-title title="Alertas" description="Consulta tus alertas siempre que necesites saber más."></app-panel-title>
+<!-- alerts.component.html -->
+<div class="px-6 py-4">
+
+  <div class="mb-4 space-x-2 space-y-2">
+    <button class="btn bg-white" (click)="filterAlertsByType('All')">Todas</button>
+    <button class="btn bg-white" *ngFor="let type of alertTypes" (click)="filterAlertsByType(type.key)">
+      {{ type.label }}
+    </button>
+  </div>
+
+  <div class="overflow-x-auto bg-white">
+    <table class="table w-full hover">
+      <thead>
+      <tr>
+        <th>Dispositivo</th>
+        <th>Fecha</th>
+        <th>Tipo de alerta</th>
+        <th>Valor</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let alert of displayedAlerts" class="hover:bg-gray-100">
+        <td>{{ alert.deviceId }}</td>
+        <td>{{ alert.date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ alert.alertMessage }}</td>
+        <td>{{ alert.value }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 flex justify-center">
+    <button class="btn" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+    <span class="mx-2 mt-3">{{ currentPage }} de {{ totalPages }}</span>
+    <button class="btn" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+  </div>
+</div>

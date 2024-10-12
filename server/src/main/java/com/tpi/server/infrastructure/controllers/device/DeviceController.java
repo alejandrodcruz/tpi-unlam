@@ -1,7 +1,9 @@
 package com.tpi.server.infrastructure.controllers.device;
 
+import com.tpi.server.application.usecases.user.GetUserDevicesUseCase;
 import com.tpi.server.application.usecases.device.DevicePairingUseCase;
 import com.tpi.server.application.usecases.device.DeviceRegistrationUseCase;
+import com.tpi.server.domain.models.Device;
 import com.tpi.server.infrastructure.dtos.DevicePairingRequest;
 import com.tpi.server.infrastructure.dtos.DeviceRegistrationRequest;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -18,6 +22,7 @@ public class DeviceController {
 
     private final DeviceRegistrationUseCase deviceRegistrationUseCase;
     private final DevicePairingUseCase devicePairingUseCase;
+    private final GetUserDevicesUseCase getUserDevicesUseCase;
 
     @PostMapping("/register-device")
     public ResponseEntity<String> registerDevice(@RequestBody DeviceRegistrationRequest request) {
@@ -33,5 +38,10 @@ public class DeviceController {
         } else {
             return ResponseEntity.badRequest().body("Código de emparejamiento inválido o ya utilizado.");
         }
+    }
+
+    @GetMapping("/devices/user/{userId}")
+    public List<Device> getDevicesByUser(@PathVariable Integer userId) {
+        return getUserDevicesUseCase.execute(userId);
     }
 }

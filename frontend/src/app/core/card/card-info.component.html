@@ -1,16 +1,21 @@
-<div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105">
-  <div class="flex items-center mb-4">
-    <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-green-600">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-      </svg>
-
+<div class="card bg-base-100 shadow-xl p-4 transform transition-transform hover:scale-105">
+  <!-- Icono y título -->
+  <div class="flex items-center mb-2">
+    <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-gray-100">
+      <i [ngClass]="iconClasses" class="text-2xl"></i>
     </div>
-      <div class="ml-4">
-        <h2 class="card-title">Consumo</h2>
-        <p class="text-sm sm:text-base text-pretty">Mes actual</p>
-      </div>
+    <div class="ml-3">
+      <h2 class="card-title text-lg font-semibold">{{ titleCard }}</h2>
+      <p class="text-xs text-gray-500">{{ subtitleCard }}</p>
+    </div>
   </div>
-  <h2 class="card-title p-1">300 Kwh</h2>
-  <progress class="progress progress-success w-full" value="70" max="100"></progress>
+
+  <!-- Información principal y progreso -->
+  <div class="mt-2">
+    <h2 class="text-2xl font-bold">{{ dataCardProgress }}</h2>
+    <div class="flex items-center justify-between mt-1">
+      <progress [ngClass]="colorProgress" value="{{ valueProgress }}" max="{{ maxProgress }}" class="progress-bar"></progress>
+      <span class="text-xs ml-2" [ngClass]="percentageClass">{{ valueProgress }}%</span>
+    </div>
+  </div>
 </div>

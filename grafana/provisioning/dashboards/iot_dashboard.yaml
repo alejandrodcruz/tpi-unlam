@@ -1,0 +1,9 @@
+apiVersion: 1
+
+providers:
+  - name: 'IoT Dashboards'
+    orgId: 1
+    folder: 'IoT Dashboards'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards

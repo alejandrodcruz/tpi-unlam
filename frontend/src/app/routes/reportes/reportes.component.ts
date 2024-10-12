@@ -86,6 +86,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { ReportesService } from "../../shared/services/reportes.service";
 import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
 
 registerLocaleData(localeEs);
 
@@ -99,7 +100,8 @@ registerLocaleData(localeEs);
     MatNativeDateModule,
     FormsModule,
     NgIf,
-    SafeUrlPipe
+    SafeUrlPipe,
+    PanelTitleComponent
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
