@@ -13,3 +13,4 @@ server/target
 mosquitto
 env
 .env
+mosquitto.log
