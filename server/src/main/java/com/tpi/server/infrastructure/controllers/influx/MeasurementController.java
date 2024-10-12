@@ -2,7 +2,6 @@ package com.tpi.server.infrastructure.controllers.influx;
 
 import com.tpi.server.application.usecases.influx.GetUserMeasurementsUseCase;
 import com.tpi.server.domain.models.Measurement;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +21,10 @@ public class MeasurementController {
 
     @GetMapping
     public List<Measurement> getUserMeasurements(
+            @RequestParam Integer userId,
             @RequestParam List<String> fields,
-            @RequestParam(defaultValue = "1h") String timeRange,
-            Authentication authentication
+            @RequestParam(defaultValue = "1h") String timeRange
     ) {
-        String username = authentication.getName();
-        return getUserMeasurementsUseCase.execute(username, fields, timeRange);
+        return getUserMeasurementsUseCase.execute(userId, fields, timeRange);
     }
 }

@@ -1,11 +1,9 @@
 package com.tpi.server.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tpi.server.domain.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +12,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +29,8 @@ public class User implements UserDetails {
     String email;
     @Enumerated(EnumType.STRING)
     Role role;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Device> devices;
 
     @Override
