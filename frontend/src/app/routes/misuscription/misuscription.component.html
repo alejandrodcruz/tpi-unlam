@@ -1,6 +1,6 @@
 <app-panel-title title="Mis Suscripciones" description="Administra y revisa tus planes de suscripción aquí."></app-panel-title>
-<div class="content-wrapper py-1 px-3">
-  <div class="content-inner rounded shadow-lg px-3 mb-2">
+<div class="content-wrapper py-4 px-3">
+  <div class="content-inner rounded shadow-lg px-3 mb-6"> <!-- Cambié el margen inferior de 2 a 6 para más espacio -->
     <h2 class="text-2xl font-bold mb-4">Tus Planes Actuales</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <!-- Repetir para cada plan -->
+
       <div class="card card-compact bg-base-100 shadow-xl">
         <div class="card-body">
           <h3 class="card-title text-lg font-bold">Plan Empresarial</h3>
@@ -38,6 +38,13 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Botón de Pago MP-->
+    <div class="text-center mt-10">
+      <button id="checkout-btn" class="btn" style="background-color: #3690d9; color: white; padding: 0.75rem 1.5rem;">
+        Pagar
+      </button>
     </div>
   </div>
 </div>
