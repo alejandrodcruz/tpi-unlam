@@ -1,0 +1,51 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+
+export interface DeviceUser{
+  deviceId: number;
+  pairingCode: string;
+  assigned: true;
+}
+export interface DevicePairingRequest {
+  pairingCode: string;
+  userId: number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DeviceService {
+  private API_URL = 'http://localhost:8080/api';
+  //dispo
+  private devicesSubject = new BehaviorSubject<DeviceUser[]>([]);
+  public devices$ = this.devicesSubject.asObservable();
+
+  constructor(private http: HttpClient, private authService: AuthService ) { }
+
+  getUserDevices(): Observable<DeviceUser[]> {
+    const userId = this.authService.getUserId();
+
+    if (!userId) {
+      throw new Error("No se ha encontrado el userId");
+    }
+
+    return this.http.get<DeviceUser[]>(`${this.API_URL}/devices/user/${userId}`).pipe(
+      tap(devices => this.devicesSubject.next(devices))
+    );
+  }
+
+  pairDevice(pairingCode: string): Observable<string> {
+    const userId = this.authService.getUserId();
+
+    if (userId === null) {
+      throw new Error("No se ha encontrado el userId");
+    }
+    const body: DevicePairingRequest = {
+      pairingCode: pairingCode,
+      userId: userId
+    };
+    return this.http.post<string>(`${this.API_URL}/pair-device`, body)
+  }
+}

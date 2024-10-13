@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import {RouterLink} from "@angular/router";
-import { AuthService } from '../../shared/services/auth.service';
-
 
 @Component({
   selector: 'app-toolbar',
@@ -14,16 +12,10 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class ToolbarComponent {
 
-  username: string | null = null;
-
-  constructor(private authService: AuthService) {}
+  @Output() toggleSidebar = new EventEmitter<void>();
+  constructor() {}
 
   ngOnInit() {
-    this.authService.getUser().subscribe((user) => {
-      this.username = user.username;
-      console.log('User:', this.username);
-
-    });
   }
 
       notificationCount: number = 5;
@@ -32,5 +24,5 @@ export class ToolbarComponent {
       incrementNotifications() {
         this.notificationCount++;
       }
-      @Output() toggleSidebar = new EventEmitter<void>();
+
 }

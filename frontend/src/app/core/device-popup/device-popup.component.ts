@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
+import { FormsModule } from '@angular/forms';
+import { DeviceService } from '../../shared/services/device.service';
 
 @Component({
   selector: 'app-device-popup',
   standalone: true,
   imports: [CommonModule,
-            LoadingComponent
+            LoadingComponent,
+            FormsModule, CommonModule
   ],
   templateUrl: './device-popup.component.html',
   styleUrl: './device-popup.component.css'
@@ -14,9 +17,12 @@ import { LoadingComponent } from '../loading/loading.component';
 export class DevicePopupComponent {
 @Input() isOpen: boolean = false;
 @Output() closePopup = new EventEmitter<void>();
-
+ constructor(private deviceService: DeviceService) { }
 step:number = 1;
 isLoading: boolean = false;
+pairingCode: string = '';
+errorMessage: string = '';
+successMessage: string = '';
 
 close() {
   this.closePopup.emit();
@@ -35,13 +41,33 @@ previousStep() {
 }
 
 submitCode() {
-  this.isLoading = true;
-  setTimeout(() => {
-    this.isLoading = false;
-    this.step = 5;
-  }, 4000);
+  if (!this.pairingCode) {
+    this.errorMessage = 'Por favor, ingresa el código de emparejamiento.';
+    return;
+  }
 
-  console.log("Código ingresado");
+  this.isLoading = true;
+  this.errorMessage = '';
+  this.successMessage = '';
+
+  this.deviceService.pairDevice(this.pairingCode).subscribe({
+    next: (response) => {
+      setTimeout(() => {
+      this.isLoading = false;
+      },3000);
+      this.successMessage = response;
+      console.log('Dispositivo emparejado:', response);
+    },
+    error: (error) => {
+      this.isLoading = false;
+      console.error('Error al emparejar el dispositivo:', error);
+      if (error.status === 400) {
+        this.errorMessage = error.error;
+      } else {
+        this.errorMessage = 'Ocurrió un error al emparejar el dispositivo.';
+      }
+    }
+  });
   this.nextStep();
 }
 }

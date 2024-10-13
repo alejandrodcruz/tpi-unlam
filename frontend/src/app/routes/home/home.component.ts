@@ -7,6 +7,7 @@ import {AlertsComponent} from "../alerts/alerts.component";
 import {AlertComponent} from "../../shared/alert/alert.component";
 import { DevicePopupComponent } from '../../core/device-popup/device-popup.component';
 import { AuthService, User } from '../../shared/services/auth.service';
+import { DeviceService } from '../../shared/services/device.service';
 
 @Component({
   selector: 'app-home',
@@ -27,29 +28,29 @@ export class HomeComponent implements OnInit {
   screenWidth: number = 1024;
   showPopup: boolean = false;
 
-  constructor(private userService: AuthService) { }
+  constructor(private userService: AuthService, private deviceService: DeviceService) { }
 
   ngOnInit() {
     this.onResize();
-
     this.checkUserDevice();
   }
+
   checkUserDevice() {
-    //localstorage solo para la presentacion
-    const hasDevice = localStorage.getItem('hasDevice');
-  if (hasDevice === 'true') {
-    return;
-  }
 
-    this.userService.getUser().subscribe(
-      (user: User) => {
+    this.deviceService.getUserDevices().subscribe(
+      (devices) => {
+        if (devices && devices.length > 0) {
+          // El usuario tiene dispositivos asociados
+          console.log('El usuario tiene dispositivos:', devices);
 
-        if (!user.hasDevice) {
+        } else {
+          // El usuario no tiene dispositivos asociados
+          console.log('El usuario no tiene dispositivos.');
           this.openDevicePopup();
         }
       },
       (error) => {
-        console.error('Error al obtener el usuario:', error);
+        console.error('Error al obtener los dispositivos del usuario:', error);
       }
     );
   }
@@ -60,7 +61,7 @@ export class HomeComponent implements OnInit {
 
   onPopupClose() {
     this.showPopup = false;
-    localStorage.setItem('hasDevice', 'true');//localstorage solo para la presentacion
+    this.checkUserDevice();
     window.location.reload();
   }
 

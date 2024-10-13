@@ -75,7 +75,7 @@
         </a>
       </li>
       <li class="p-1">
-        <a [routerLink]="['']" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
+        <a (click)="logout()" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
           <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-right-from-bracket"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Desloguearse</span>
         </a>
