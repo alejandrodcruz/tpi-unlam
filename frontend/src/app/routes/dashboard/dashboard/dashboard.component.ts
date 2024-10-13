@@ -57,7 +57,18 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
     const hasSeenTour = localStorage.getItem('hasSeenTour');
 
     if (!hasSeenTour) {
+
       const intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Siguiente',
+        prevLabel: 'Atrás',
+        doneLabel: 'Finalizar',
+        exitOnEsc: true,
+        exitOnOverlayClick: false
+      });
+
+      intro.start();
+
       intro.setOptions({
         steps: [
           {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."
