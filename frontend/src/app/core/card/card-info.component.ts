@@ -17,5 +17,5 @@ export class CardInfoComponent {
   @Input() valueProgress: number = 0;
   @Input() maxProgress: number = 100;
   @Input() colorProgress: string = '';
-
+  @Input() percentageClass: string = '';
 }
