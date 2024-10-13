@@ -2,13 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {NgClass} from "@angular/common";
 import {ConfiguracionService} from "../../shared/services/configuracion.service";
 import {RouterLink} from "@angular/router";
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
 
 @Component({
   selector: 'app-configuracion',
   standalone: true,
   imports: [
     NgClass,
-    RouterLink
+    RouterLink,
+    PanelTitleComponent
   ],
   templateUrl: './configuracion.component.html',
   styleUrl: './configuracion.component.css'
