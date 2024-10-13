@@ -202,6 +202,8 @@ export class DashboardHistoricoComponent implements OnInit {
   mostrarPotencia: boolean = false;
   mostrarFrecuencia: boolean = false;
 
+  graficoActual: string = 'Consumo Mensual'; // seleccion por default
+
   constructor(private historialService: HistorialService) {}
 
   ngOnInit(): void {
@@ -270,12 +272,36 @@ export class DashboardHistoricoComponent implements OnInit {
     return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
   }
 
-  toggleGrafico(type: string): void {
-    this.mostrarConsumoMensual = type === 'consumption';
-    this.mostrarConsumoDiario = type === 'daily';
-    this.mostrarAmperaje = type === 'amperage';
-    this.mostrarPotencia = type === 'power';
-    this.mostrarFrecuencia = type === 'frequency';
+  toggleGrafico(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const value = selectElement.value;
+
+    this.graficoActual = this.translateGrafico(value);
+
+    this.mostrarConsumoMensual = value === 'consumption';
+    this.mostrarConsumoDiario = value === 'daily';
+    this.mostrarAmperaje = value === 'amperage';
+    this.mostrarPotencia = value === 'power';
+    this.mostrarFrecuencia = value === 'frequency';
+  }
+
+
+
+  translateGrafico(grafico: string | null): string {
+    switch (grafico) {
+      case 'consumption':
+        return 'Consumo Eléctrico Mensual ';
+      case 'daily':
+        return 'Consumo Eléctrico Distribuido en Franjas Horarias';
+      case 'amperage':
+        return 'Intensidad de Amperaje';
+      case 'power':
+        return 'Potencia';
+      case 'frequency':
+        return 'Frecuencia';
+      default:
+        return 'Gráfico Desconocido';
+    }
   }
 }
 

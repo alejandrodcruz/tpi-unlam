@@ -10,5 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse {
-    String token;
+    private String token;
+    private Integer id;
+    private String message;
+
+    public AuthResponse(String message) {
+        this.message = message;
+    }
 }
