@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import {RouterLink} from "@angular/router";
 
@@ -5,15 +6,21 @@ import {RouterLink} from "@angular/router";
   selector: 'app-toolbar',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css',
 })
 export class ToolbarComponent {
-
+  isSidebarOpen = true;
   @Output() toggleSidebar = new EventEmitter<void>();
   constructor() {}
+
+  toggleSidebarState() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.toggleSidebar.emit();
+  }
 
   ngOnInit() {
   }
