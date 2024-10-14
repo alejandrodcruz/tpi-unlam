@@ -1,7 +1,6 @@
 <div class="modal" [class.modal-open]="isOpen">
   <div class="modal-box">
     <h3 class="font-bold text-lg">Asociar un Dispositivo</h3>
-
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading">
 
@@ -81,7 +80,8 @@
       <button class="btn" *ngIf="step < 4" (click)="nextStep()">Siguiente</button>
 
       <!-- Botón de finalizar cuando estás en el último paso -->
-      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 4" (click)="submitCode()">Finalizar</button>
+      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 4"
+      (click)="submitCode()">Finalizar</button>
 
       <!-- Botón de cerrar -->
       <button class="btn" *ngIf="step === 5" (click)="close()">Cerrar</button>

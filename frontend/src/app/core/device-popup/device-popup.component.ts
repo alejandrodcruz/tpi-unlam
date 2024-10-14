@@ -22,7 +22,6 @@ step:number = 1;
 isLoading: boolean = false;
 pairingCode: string = '';
 errorMessage: string = '';
-successMessage: string = '';
 
 close() {
   this.closePopup.emit();
@@ -48,26 +47,12 @@ submitCode() {
 
   this.isLoading = true;
   this.errorMessage = '';
-  this.successMessage = '';
 
-  this.deviceService.pairDevice(this.pairingCode).subscribe({
-    next: (response) => {
-      setTimeout(() => {
-      this.isLoading = false;
-      },3000);
-      this.successMessage = response;
-      console.log('Dispositivo emparejado:', response);
-    },
-    error: (error) => {
-      this.isLoading = false;
-      console.error('Error al emparejar el dispositivo:', error);
-      if (error.status === 400) {
-        this.errorMessage = error.error;
-      } else {
-        this.errorMessage = 'Ocurrió un error al emparejar el dispositivo.';
-      }
-    }
-  });
-  this.nextStep();
+  this.deviceService.pairDevice(this.pairingCode)
+  setTimeout(() => {
+    this.isLoading = false;
+    this.nextStep();
+    },3000);
+
 }
 }

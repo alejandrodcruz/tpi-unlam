@@ -1,16 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 export interface DeviceUser{
   deviceId: number;
   pairingCode: string;
   assigned: true;
-}
-export interface DevicePairingRequest {
-  pairingCode: string;
-  userId: number;
 }
 
 @Injectable({
@@ -36,16 +32,16 @@ export class DeviceService {
     );
   }
 
-  pairDevice(pairingCode: string): Observable<string> {
+  pairDevice(pairingCode: string): Observable<any> {
     const userId = this.authService.getUserId();
 
     if (userId === null) {
       throw new Error("No se ha encontrado el userId");
     }
-    const body: DevicePairingRequest = {
+    const body = {
       pairingCode: pairingCode,
       userId: userId
     };
-    return this.http.post<string>(`${this.API_URL}/pair-device`, body)
+    return this.http.post<any>(`${this.API_URL}/pair-device`, body);
   }
 }
