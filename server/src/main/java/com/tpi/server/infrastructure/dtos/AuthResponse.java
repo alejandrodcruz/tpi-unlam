@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
     private String token;
     private Integer id;
-    private String message;
 
     public AuthResponse(String message) {
-        this.message = message;
     }
 }
