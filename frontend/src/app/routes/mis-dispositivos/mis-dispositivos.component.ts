@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
 
 @Component({
   selector: 'app-mis-dispositivos',
@@ -10,7 +11,8 @@ import { HttpClient } from '@angular/common/http';
     NgStyle,
     NgForOf,
     NgIf,
-    FormsModule
+    FormsModule,
+    PanelTitleComponent
   ],
   templateUrl: './mis-dispositivos.component.html',
   styleUrl: './mis-dispositivos.component.css'

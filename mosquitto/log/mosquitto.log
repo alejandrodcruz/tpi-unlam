@@ -374,3 +374,71 @@
 1728750826: Opening ipv4 listen socket on port 1883.
 1728750826: Opening ipv6 listen socket on port 1883.
 1728750826: mosquitto version 2.0.19 running
+1728859645: mosquitto version 2.0.19 starting
+1728859645: Config loaded from /mosquitto/config/mosquitto.conf.
+1728859645: Opening ipv4 listen socket on port 1883.
+1728859645: Opening ipv6 listen socket on port 1883.
+1728859645: mosquitto version 2.0.19 running
+1728859812: mosquitto version 2.0.19 terminating
+1728859812: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728859919: mosquitto version 2.0.19 starting
+1728859919: Config loaded from /mosquitto/config/mosquitto.conf.
+1728859919: Opening ipv4 listen socket on port 1883.
+1728859919: Opening ipv6 listen socket on port 1883.
+1728859919: mosquitto version 2.0.19 running
+1728859990: mosquitto version 2.0.19 terminating
+1728859990: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728867375: mosquitto version 2.0.19 starting
+1728867375: Config loaded from /mosquitto/config/mosquitto.conf.
+1728867375: Opening ipv4 listen socket on port 1883.
+1728867375: Opening ipv6 listen socket on port 1883.
+1728867375: mosquitto version 2.0.19 running
+1728868110: mosquitto version 2.0.19 terminating
+1728868110: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728868732: mosquitto version 2.0.19 starting
+1728868732: Config loaded from /mosquitto/config/mosquitto.conf.
+1728868732: Opening ipv4 listen socket on port 1883.
+1728868732: Opening ipv6 listen socket on port 1883.
+1728868732: mosquitto version 2.0.19 running
+1728868920: mosquitto version 2.0.19 terminating
+1728868920: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728868949: mosquitto version 2.0.19 starting
+1728868949: Config loaded from /mosquitto/config/mosquitto.conf.
+1728868949: Opening ipv4 listen socket on port 1883.
+1728868949: Opening ipv6 listen socket on port 1883.
+1728868949: mosquitto version 2.0.19 running
+1728869335: mosquitto version 2.0.19 terminating
+1728869335: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728869375: mosquitto version 2.0.19 starting
+1728869375: Config loaded from /mosquitto/config/mosquitto.conf.
+1728869375: Opening ipv4 listen socket on port 1883.
+1728869375: Opening ipv6 listen socket on port 1883.
+1728869375: mosquitto version 2.0.19 running
+1728869448: mosquitto version 2.0.19 terminating
+1728869448: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728869701: mosquitto version 2.0.19 starting
+1728869701: Config loaded from /mosquitto/config/mosquitto.conf.
+1728869701: Opening ipv4 listen socket on port 1883.
+1728869701: Opening ipv6 listen socket on port 1883.
+1728869701: mosquitto version 2.0.19 running
+1728870160: mosquitto version 2.0.19 terminating
+1728870160: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728870195: mosquitto version 2.0.19 starting
+1728870195: Config loaded from /mosquitto/config/mosquitto.conf.
+1728870195: Opening ipv4 listen socket on port 1883.
+1728870195: Opening ipv6 listen socket on port 1883.
+1728870195: mosquitto version 2.0.19 running
+1728870613: mosquitto version 2.0.19 terminating
+1728870613: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728870641: mosquitto version 2.0.19 starting
+1728870641: Config loaded from /mosquitto/config/mosquitto.conf.
+1728870641: Opening ipv4 listen socket on port 1883.
+1728870641: Opening ipv6 listen socket on port 1883.
+1728870641: mosquitto version 2.0.19 running
+1728870829: mosquitto version 2.0.19 terminating
+1728870829: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1728870857: mosquitto version 2.0.19 starting
+1728870857: Config loaded from /mosquitto/config/mosquitto.conf.
+1728870857: Opening ipv4 listen socket on port 1883.
+1728870857: Opening ipv6 listen socket on port 1883.
+1728870857: mosquitto version 2.0.19 running
