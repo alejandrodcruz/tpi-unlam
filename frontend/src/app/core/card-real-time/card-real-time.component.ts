@@ -54,10 +54,14 @@ export class CardRealTimeComponent implements OnInit {
     }
 
     if (this.titleCard === 'Horario') {
-      this.currentTimeService.getHoraActual().subscribe((data: any) => {
-        this.currenTime = new Date(data.datetime).toLocaleTimeString();
-        this.tipoDato = 'horaActual';  // Me falta , que se actualize la hora.
-      });
+      this.tipoDato = 'horaActual';  // Se muestra la hora actual
+
+      // Crear un intervalo para actualizar la hora cada segundo
+      setInterval(() => {
+        this.currentTimeService.getHoraActual().subscribe((data: any) => {
+          this.currenTime = new Date(data.datetime).toLocaleTimeString();
+        });
+      }, 1000); // Intervalo de 1 segundo (1000 ms)
     }
 
    //Falta CALCULO DE CONSUMO
