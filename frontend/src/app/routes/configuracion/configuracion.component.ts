@@ -28,10 +28,15 @@ export class ConfiguracionComponent implements OnInit{
   }
   expanded: { [key: string]: boolean } = {};
   expandedCard: string | null = null;
+  expandedProfile: string | null = null;
+  toggleExpand(profile: string, event: Event): void {
+    event.preventDefault();
 
-  toggleExpand(profile: string, event: Event) {
-    event.stopPropagation();
-    this.expanded[profile] = !this.expanded[profile];
+    if (this.expandedProfile === profile) {
+      this.expandedProfile = null;
+    } else {
+      this.expandedProfile = profile;
+    }
   }
 
   ngOnInit(): void {

@@ -40,7 +40,7 @@ describe('DashboardHistoricoComponent', () => {
   it('deberia llamar a loadConsumoMensual y setear consumoMensual ', () => {
 
     // --------------- preparacion   ----------------------
-    const mockConsumoMensual = [100, 150, 200];
+    const mockConsumoMensual = 'http://localhost:8080/historial';
 
 
     // ---------------- ejecucion  ----------------------------
@@ -48,7 +48,7 @@ describe('DashboardHistoricoComponent', () => {
     mockHistorialService.getConsumoMensual.and.returnValue(of(mockConsumoMensual));
 
     // el componente cuando se ejecuta llama al servicio  mockHistorialService.getConsumoMensual
-    component.loadConsumoMensual();
+    component.cargarConsumoMensual();
 
 
     // ---------------- verificacion  --------------------------
@@ -70,7 +70,7 @@ describe('DashboardHistoricoComponent', () => {
 
     spyOn(console, 'error');
 
-    component.loadConsumoMensual();
+    component.cargarConsumoMensual();
 
     // ---------------- verificacion  --------------------------
     expect(component.consumoMensual.length).equal(0); // Verificamos que no haya datos
@@ -81,14 +81,12 @@ describe('DashboardHistoricoComponent', () => {
   it('deberia llamar a loadConsumoDiario y setear consumoDiario', ()=>{
 
     // --------------- preparacion   ----------------------
-    const mockConsumoDiario = [
-      { value: 15, name: '00:00-02:00' },
-      { value: 12, name: '02:00-04:00' },
-      { value: 8, name: '04:00-06:00' }]
+    const mockConsumoDiario =
+      'http://localhost:8080/historial';
 
     // ---------------- ejecucion  ----------------------------
     mockHistorialService.getConsumoDiario.and.returnValue(of(mockConsumoDiario));
-    component.loadConsumoDiario();
+    component.cargarConsumoDiario();
 
     // ---------------- verificacion  --------------------------
     expect(component.consumoDiario).equal(mockConsumoDiario);
@@ -106,7 +104,7 @@ describe('DashboardHistoricoComponent', () => {
 
     spyOn(console, 'error');
 
-    component.loadConsumoDiario();
+    component.cargarConsumoDiario();
 
     // ---------------- verificacion  --------------------------
     expect(component.consumoDiario.length).equal(0); // Verificamos que no haya datos

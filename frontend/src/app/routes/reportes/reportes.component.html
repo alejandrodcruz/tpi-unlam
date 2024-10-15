@@ -1,9 +1,8 @@
 <app-panel-title title="Reportes" description="Selecciona un tipo de gráfico y un rango de fechas antes de hacer clic en Buscar."></app-panel-title>
-<div class="flex justify-between space-x-4 w-full">
+<div class="flex justify-between space-x-6 w-full px-4 mb-1">
   <div
-
     (click)="setSelectedType('Consumo')"
-    class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
     [ngClass]="{'bg-blue-200': selectedType === 'Consumo'}">
     <i class='fas fa-lightbulb' style='font-size:42px; color:#fbc102'></i>
     <p class="text-xs">Consumo</p>
@@ -11,7 +10,7 @@
 
   <div
     (click)="setSelectedType('Amperaje')"
-    class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
     [ngClass]="{'bg-blue-200': selectedType === 'Amperaje'}">
     <i class='fas fa-plug' style='font-size:42px;color:#71aaef'></i>
     <p class="text-xs">Amperaje</p>
@@ -19,7 +18,7 @@
 
   <div
     (click)="setSelectedType('Potencia')"
-    class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
     [ngClass]="{'bg-blue-200': selectedType === 'Potencia'}">
     <i class='fas fa-battery-three-quarters' style='font-size:48px;color:#ea4c4c'></i>
     <p class="text-xs">Potencia</p>
@@ -27,12 +26,14 @@
 
   <div
     (click)="setSelectedType('Frecuencia')"
-    class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
     [ngClass]="{'bg-blue-200': selectedType === 'Frecuencia'}">
     <i class='fas fa-poll' style='font-size:48px;color:#2d812b'></i>
     <p class="text-xs">Frecuencia</p>
   </div>
 </div>
+
+
 
 <div class="mb-6 bg-white">
   <div class="flex flex-col  space-y-4 py-6 px-10">

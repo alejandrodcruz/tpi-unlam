@@ -95,11 +95,15 @@
         <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
         <div class="ml-4">
           <h2 class="card-title">Personalizado</h2><br>
+          <div [ngClass]="{'truncate-text': !expanded['personalized']}" class="card-content">
           <p>Descripción: Este perfil es ideal para hogares que no encajan en las categorías anteriores. El usuario
             puede ajustar manualmente el consumo según la cantidad de electrodomésticos y habitaciones.</p>
           <p>Configuración: Permite elegir cuántos ambientes tiene el hogar y cuántos electrodomésticos hay en cada uno, lo que brinda flexibilidad.</p>
           <p>Electrodomésticos típicos: Varía según el usuario.</p>
+          </div>
+          <a [routerLink]="['configuracion']" (click)="toggleExpand('personalized', $event)" class="text-blue-500 underline">{{ expanded['personalized'] ? 'Leer menos' : 'Leer más' }}</a>
         </div>
+
       </div>
 
   </div>
