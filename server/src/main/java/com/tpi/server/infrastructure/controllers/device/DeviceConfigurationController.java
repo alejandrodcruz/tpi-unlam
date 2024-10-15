@@ -1,26 +1,24 @@
 package com.tpi.server.infrastructure.controllers.device;
 
 import com.tpi.server.application.usecases.deviceConfiguration.AddConfigurationUseCase;
-import com.tpi.server.application.usecases.deviceConfiguration.GetUserConfigurationsUseCase;
+import com.tpi.server.application.usecases.deviceConfiguration.GetDeviceConfigurationsUseCase;
 import com.tpi.server.domain.models.DeviceConfiguration;
 import com.tpi.server.infrastructure.dtos.DeviceConfigurationRequest;
 import com.tpi.server.infrastructure.dtos.UpdateDeviceConfigurationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/configurations")
 @RequiredArgsConstructor
 public class DeviceConfigurationController {
 
-    private final GetUserConfigurationsUseCase getUserConfigurationsUseCase;
+    private final GetDeviceConfigurationsUseCase getDeviceConfigurationsUseCase;
     private final AddConfigurationUseCase addConfigurationUseCase;
 
     @PostMapping("/device")
     public DeviceConfiguration getDeviceConfiguration(@RequestBody DeviceConfigurationRequest deviceConfigurationRequest) {
-        return getUserConfigurationsUseCase.execute(deviceConfigurationRequest.getDeviceId());
+        return getDeviceConfigurationsUseCase.execute(deviceConfigurationRequest.getDeviceId());
     }
 
     @PostMapping("/update-device")
