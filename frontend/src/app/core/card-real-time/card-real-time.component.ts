@@ -3,6 +3,8 @@ import { HumidityService } from '../../shared/services/humidity.service';
 import { TemperatureService } from '../../shared/services/temperature.service';
 import { CurrenttimeService } from '../../shared/services/currenttime.service';
 import {NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-card-real-time',
@@ -17,6 +19,7 @@ import {NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common"
   styleUrl: './card-real-time.component.css'
 })
 export class CardRealTimeComponent implements OnInit {
+  measurements: Measurement[] = [];
 
   @Input() iconClasses: string = '';
   @Input() titleCard: string = '';
@@ -36,10 +39,14 @@ export class CardRealTimeComponent implements OnInit {
 
   constructor(private humidityService: HumidityService,
               private temperatureService: TemperatureService,
-              private currentTimeService: CurrenttimeService) {
-  }
+              private currentTimeService: CurrenttimeService,
+              private measurementsService: MeasurementsService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
+
+  this.getMeasurements();
+
     // Asignación de tipoDato según el título de la tarjeta
     if (this.titleCard === 'Humedad') {
       this.humidityService.getHumidity().subscribe((data: any) => {
@@ -66,6 +73,26 @@ export class CardRealTimeComponent implements OnInit {
           })
         );
       }, 30000);  // Cada 1 segundo
+    }
+
+  getMeasurements() {
+    const userId = this.authService.getUserId();
+    const fields = ['humidity', 'temperature', 'timestamp', 'energy']; //campos espesificos
+    const timeRange = '10s';
+
+    if (userId !== null) {
+      this.measurementsService.getUserMeasurements(userId, fields, timeRange)
+        .subscribe(
+          (data) => {
+            this.measurements = data;
+            console.log('Mediciones obtenidas:', this.measurements);
+          },
+          (error) => {
+            console.error('Error al obtener las mediciones', error);
+          }
+        );
+    } else {
+      console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
     }
   }
 

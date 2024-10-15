@@ -1,6 +1,6 @@
 package com.tpi.server.infrastructure.controllers.user;
 
-import com.tpi.server.application.usecases.user.AddConfigurationUseCase;
+import com.tpi.server.application.usecases.user.AddUserConfigurationUseCase;
 import com.tpi.server.application.usecases.user.GetUserConfigurationsUseCase;
 import com.tpi.server.domain.models.UserConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ConfigurationController {
 
     private final GetUserConfigurationsUseCase getUserConfigurationsUseCase;
-    private final AddConfigurationUseCase addConfigurationUseCase;
+    private final AddUserConfigurationUseCase addUserConfigurationUseCase;
 
     @GetMapping("/user/{userId}")
     public List<UserConfiguration> getConfigurationsByUser(@PathVariable Integer userId) {
@@ -23,6 +23,6 @@ public class ConfigurationController {
 
     @PostMapping("/user/{userId}")
     public UserConfiguration addConfiguration(@PathVariable Integer userId, @RequestBody UserConfiguration configuration) {
-        return addConfigurationUseCase.execute(configuration, userId);
+        return addUserConfigurationUseCase.execute(configuration, userId);
     }
 }
