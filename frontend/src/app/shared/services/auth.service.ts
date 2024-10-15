@@ -16,21 +16,23 @@ export interface User {
 })
 export class AuthService {
   private LOGIN_URL = 'http://localhost:8080/auth';
-  private tokenKey = 'authToken';
 
-  private usernameSubject = new BehaviorSubject<string | null>(null);
-  public username$ = this.usernameSubject.asObservable();
+  private tokenSubject = new BehaviorSubject<string | null>(null);
+  public token$ = this.tokenSubject.asObservable();//token
+  private userIdSubject = new BehaviorSubject<number | null>(null);
+  public userId$ = this.userIdSubject.asObservable();//observable que me permite usar el id del usuario
+
 
   constructor(private httpCliente: HttpClient, private router: Router) {
-    this.usernameSubject.next(localStorage.getItem('username'));
   }
+
 
   login(username: string, password: string): Observable<any>{
     return this.httpCliente.post<any>(`${this.LOGIN_URL}/login`, { username, password }).pipe(
       tap(response => {
         if(response.token){
-          console.log(response.token);
           this.setToken(response.token);
+          this.setUserId(response.id);
         }
       })
     )
@@ -44,15 +46,31 @@ export class AuthService {
     );
   }
 
+  logout(): void {
+    this.router.navigate(['/login']);
+  }
+
   private setToken(token: string): void{
-    localStorage.setItem(this.tokenKey, token);
+    this.tokenSubject.next(token);
+  }
+  getToken(): string | null{
+    return this.tokenSubject.getValue();
+    }
+  clearToken(): void {
+      this.tokenSubject.next(null); // Eliminar el token
+    }
+
+  private setUserId(id: number): void {
+    this.userIdSubject.next(id);
+  }
+  getUserId(): number | null {
+    return this.userIdSubject.getValue();// me permite usar el observable sin la necesidad de suscribirme
+  }
+  clearUserId(): void {
+    this.userIdSubject.next(null); // Eliminar el userId
   }
 
-  private getToken(): string | null{
-  return localStorage.getItem(this.tokenKey);
-  }
-
-  isAuthenticated() : boolean {
+ /* isAuthenticated() : boolean {
     const token = this.getToken();
     if(!token){
       return false;
@@ -60,30 +78,6 @@ export class AuthService {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const exp = payload.exp = 1000;
     return Date.now() < exp;
-  }
-//user en local storage
-setUsername(username: string): void {
-  localStorage.setItem('username', username);
-  this.usernameSubject.next(username);
-}
+  }*/
 
-getUser(): Observable<User> {
-  const username = localStorage.getItem('username')|| '';
-
-  const mockUser: User = {
-    id: 1,
-    username: username,
-    password: '123456',
-    email: 'test@gmail.com',
-    hasDevice: false,
-  };
-
-  return of(mockUser);
-}
-
-  logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem('username');
-    this.router.navigate(['/login']);
-  }
 }

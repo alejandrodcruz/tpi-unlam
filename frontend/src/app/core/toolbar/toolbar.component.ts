@@ -1,29 +1,28 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import {RouterLink} from "@angular/router";
-import { AuthService } from '../../shared/services/auth.service';
-
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css',
 })
 export class ToolbarComponent {
+  isSidebarOpen = true;
+  @Output() toggleSidebar = new EventEmitter<void>();
+  constructor() {}
 
-  username: string | null = null;
-
-  constructor(private authService: AuthService) {}
+  toggleSidebarState() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.toggleSidebar.emit();
+  }
 
   ngOnInit() {
-    this.authService.getUser().subscribe((user) => {
-      this.username = user.username;
-      console.log('User:', this.username);
-
-    });
   }
 
       notificationCount: number = 5;
@@ -32,5 +31,5 @@ export class ToolbarComponent {
       incrementNotifications() {
         this.notificationCount++;
       }
-      @Output() toggleSidebar = new EventEmitter<void>();
+
 }

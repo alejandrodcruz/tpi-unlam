@@ -1,6 +1,8 @@
 <div class="modal" [class.modal-open]="isOpen">
   <div class="modal-box">
     <h3 class="font-bold text-lg">Asociar un Dispositivo</h3>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div *ngIf="!isLoading">
 
     <!-- Paso 1 -->
     <div *ngIf="step === 1">
@@ -55,9 +57,13 @@
     <!-- Paso 4 -->
     <div *ngIf="step === 4">
       <p class="py-4">Ahora ingresa el código de emparejamiento que obtuviste:</p>
-      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Código de emparejamiento" />
-      <p class="py-4">Puedes darle un nombre a tu dispositivo:</p>
-      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="LyticsHogar1" />
+      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Código de emparejamiento"
+      [(ngModel)]="pairingCode" name="pairingCode" required />
+      <div *ngIf="errorMessage" class="text-red-500 mt-2">
+        {{ errorMessage }}
+      </div>
+     <!-- <p class="py-4">Puedes darle un nombre a tu dispositivo:</p>
+      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="LyticsHogar1" />-->
     </div>
 
     <!-- Paso 5 -->
@@ -74,10 +80,12 @@
       <button class="btn" *ngIf="step < 4" (click)="nextStep()">Siguiente</button>
 
       <!-- Botón de finalizar cuando estás en el último paso -->
-      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 4" (click)="submitCode()">Finalizar</button>
+      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 4"
+      (click)="submitCode()">Finalizar</button>
 
       <!-- Botón de cerrar -->
       <button class="btn" *ngIf="step === 5" (click)="close()">Cerrar</button>
     </div>
+  </div>
   </div>
 </div>
