@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NgClass } from "@angular/common";
-import { ConfigurationService } from "../../shared/services/configuration.service";
-import { RouterLink } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {NgClass} from "@angular/common";
+
+import {RouterLink} from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
+import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-configuracion',
@@ -10,6 +12,7 @@ import { FormsModule } from "@angular/forms";
   imports: [
     NgClass,
     RouterLink,
+    PanelTitleComponent,
     FormsModule
   ],
   templateUrl: './configuracion.component.html',
@@ -55,13 +58,13 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit(): void {
     const deviceId = this.alertSettings.deviceId;  // Get device Id from session
-    this.configurationService.getAlertSettings(deviceId).subscribe(response => {
+    this.configurationService.getAlertSettings(deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
       this.alertSettings = { ...this.alertSettings, ...response };
     });
   }
 
   onAlertChange() {
-    this.configurationService.updateAlertSettings(this.alertSettings).subscribe(response => {
+    this.configurationService.updateAlertSettings(this.alertSettings).subscribe((response: any) => {
       console.log('Configuración de alertas actualizada:', response);
     });
   }

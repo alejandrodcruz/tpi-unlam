@@ -4,6 +4,7 @@ import { ReportesHistoricosComponent } from "../../reportes/reportes-historicos/
 import { CardInfoComponent } from "../../../core/card/card-info.component";
 import { CommonModule, NgClass } from "@angular/common";
 import introJs from 'intro.js';
+import {CardRealTimeComponent} from "../../../core/card-real-time/card-real-time.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,8 @@ import introJs from 'intro.js';
     ReportesHistoricosComponent,
     CardInfoComponent,
     NgClass,
-    CommonModule
+    CommonModule,
+    CardRealTimeComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'] // Asegúrate de que sea 'styleUrls' (plural) en lugar de 'styleUrl'
@@ -57,7 +59,18 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
     const hasSeenTour = localStorage.getItem('hasSeenTour');
 
     if (!hasSeenTour) {
+
       const intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Siguiente',
+        prevLabel: 'Atrás',
+        doneLabel: 'Finalizar',
+        exitOnEsc: true,
+        exitOnOverlayClick: false
+      });
+
+      intro.start();
+
       intro.setOptions({
         steps: [
           {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."

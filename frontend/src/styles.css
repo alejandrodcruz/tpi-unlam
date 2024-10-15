@@ -10,28 +10,30 @@ html, body { height: 100%; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-/*intro js */
+/* intro js */
 .introjs-tooltip {
-  background-color: #333; /* Cambiar color de fondo */
-  color: #fff; /* Cambiar color de texto */
+  @apply bg-white text-black p-4 rounded-lg shadow-md; /* Fondo blanco y texto negro */
 }
 
 .introjs-tooltiptext {
-  font-size: 18px; /* Cambiar el tamaño del texto */
+  @apply text-base text-black; /* Texto negro */
 }
 
 .introjs-tooltipbuttons {
-  background-color: #007bff; /* Cambiar color de botones */
-  color: white;
+  @apply flex justify-between mt-4; /* Mantén la estructura flex de los botones */
+}
+
+.introjs-button {
+  @apply bg-gray-200 text-black py-2 px-4 rounded-md hover:bg-gray-300 transition-all; /* Botón "Next" en estilo gris */
+}
+
+.introjs-button-back {
+  @apply bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all; /* Botón "Back" estilo azul */
 }
 
 .introjs-helperLayer {
-  background-color: rgba(0, 123, 255, 0.4); /* Cambiar el color de la capa de fondo */
+  background-color: rgba(0, 123, 255, 0.4); /* No necesita cambios */
 }
-.customTooltipClass {
-  background-color: #f0f0f0; /* Color de fondo */
-  color: #333; /* Color de texto */
-  border-radius: 10px;
-  padding: 10px;
-}
+
+
 

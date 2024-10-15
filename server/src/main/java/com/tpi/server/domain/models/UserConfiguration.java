@@ -10,17 +10,15 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Address {
+public class UserConfiguration {
 
     @Id
     @GeneratedValue
     private Long id;
+    private String config_key;
+    private String config_value;
 
-    private String street;
-    private String city;
-    private String country;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;

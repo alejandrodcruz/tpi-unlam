@@ -1,32 +1,27 @@
 <div class="container mx-auto py-1">
   <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3">
-    <app-card-info id="step1"
+    <app-card-real-time id="step1"
       [iconClasses]="'fas fa-clock'"
-      [titleCard]="'Buenos Aires'"
-      [dataCardProgress]="'19:50 Hs'"
+      [titleCard]="'Horario'"
       [subtitleCard]="'San Justo'"
-      [valueProgress]="100"
       [maxProgress]="100"
       [colorProgress]="''"
-    ></app-card-info>
-    <app-card-info id="step2"
+    ></app-card-real-time>
+    <app-card-real-time id="step2"
       [iconClasses]="'fas fa-cloud-rain'"
       [titleCard]="'Humedad'"
-      [dataCardProgress]="'50 g/m3'"
       [subtitleCard]="'Relativa'"
-      [valueProgress]="50"
       [maxProgress]="100"
       [colorProgress]="'progress progress-info w-ful'"
-    ></app-card-info>
-    <app-card-info id="step3"
+    ></app-card-real-time>
+    <app-card-real-time id="step3"
       [iconClasses]="'fas fa-thermometer-half'"
       [titleCard]="'Temperatura'"
-      [dataCardProgress]="'25°C'"
       [subtitleCard]="'Grados Celsius'"
-      [valueProgress]="25"
+      [valueProgress]="10"
       [maxProgress]="100"
       [colorProgress]="'progress progress-error w-ful'"
-    ></app-card-info>
+    ></app-card-real-time>
     <app-card-info id="step4"
       [iconClasses]="'fas fa-dollar-sign'"
       [titleCard]="'Consumo Real'"
@@ -50,9 +45,8 @@
         <p class="text-gray-500">El voltaje estándar es de 220 V y la frecuencia de la corriente alterna es de 50 Hz</p>
       </div>
       <button (click)="toggleExpand(1)" class="text-gray-500 hover:text-gray-800">
-
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
     </div>
