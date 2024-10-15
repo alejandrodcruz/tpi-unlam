@@ -29,11 +29,15 @@ export class CardRealTimeComponent implements OnInit {
   @Input() temperature: string = 'Cargando...';
   @Input() currenTime: string = 'Cargando...';
 
-  public tipoDato: string="";
+
+  public tipoDato: string = "";
+  private intervalId :any;
+  private subscription: any;
 
   constructor(private humidityService: HumidityService,
               private temperatureService: TemperatureService,
-              private currentTimeService: CurrenttimeService) {}
+              private currentTimeService: CurrenttimeService) {
+  }
 
   ngOnInit(): void {
     // Asignación de tipoDato según el título de la tarjeta
@@ -54,18 +58,23 @@ export class CardRealTimeComponent implements OnInit {
     }
 
     if (this.titleCard === 'Horario') {
-      this.tipoDato = 'horaActual';  // Se muestra la hora actual
-
-      // Crear un intervalo para actualizar la hora cada segundo
-      setInterval(() => {
-        this.currentTimeService.getHoraActual().subscribe((data: any) => {
-          this.currenTime = new Date(data.datetime).toLocaleTimeString();
-        });
-      }, 1000); // Intervalo de 1 segundo (1000 ms)
-    }
-
-   //Falta CALCULO DE CONSUMO
+      // Actualizar la hora cada segundo
+      this.intervalId = setInterval(() => {
+        this.subscription.add(
+          this.currentTimeService.getHoraActual().subscribe((data: any) => {
+            this.currenTime = new Date(data.datetime).toLocaleTimeString();
+          })
+        );
+      }, 30000);  // Cada 1 segundo
     }
   }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);  // Limpiar el intervalo cuando se destruye el componente
+    }
+    this.subscription.unsubscribe();  // Limpiar suscripciones cuando se destruye el componente
+  }
+}
 
 
