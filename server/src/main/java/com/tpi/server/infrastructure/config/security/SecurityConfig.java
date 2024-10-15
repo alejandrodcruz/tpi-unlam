@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/ws/**").permitAll()
                                 .requestMatchers("/alert/**").permitAll()
                                 .requestMatchers("/api/**").permitAll()
+                                .requestMatchers("/api/measurements/**").permitAll()
                                 .requestMatchers("/api/register-device", "/api/pair-device").permitAll() // Esp32
                                 .requestMatchers(HttpMethod.POST, "/address/**").authenticated()
                                 .anyRequest().authenticated()

@@ -3,6 +3,7 @@ import { NgClass } from "@angular/common";
 import { ConfigurationService } from "../../shared/services/configuration.service";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { PanelTitleComponent } from '../panel-title/panel-title.component';
 
 @Component({
   selector: 'app-configuracion',
@@ -10,7 +11,9 @@ import { FormsModule } from "@angular/forms";
   imports: [
     NgClass,
     RouterLink,
-    FormsModule
+    FormsModule,
+    PanelTitleComponent
+
   ],
   templateUrl: './configuracion.component.html',
   styleUrl: './configuracion.component.css'
