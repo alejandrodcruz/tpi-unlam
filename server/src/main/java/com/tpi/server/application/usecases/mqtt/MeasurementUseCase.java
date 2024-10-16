@@ -1,11 +1,14 @@
 package com.tpi.server.application.usecases.mqtt;
 
+import com.tpi.server.application.services.deviceConfiguration.DeviceConfigurationService;
 import com.tpi.server.application.usecases.alert.AlertUseCase;
 import com.tpi.server.domain.enums.AlertType;
+import com.tpi.server.domain.models.DeviceConfiguration;
 import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.infrastructure.dtos.AlertDTO;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -16,12 +19,14 @@ public class MeasurementUseCase {
 
     private final MeasurementRepository measurementRepository;
     private final AlertUseCase alertService;
+    private final DeviceConfigurationService deviceConfigurationService;
 
-    private final Map<Predicate<Measurement>, AlertType> alertConditions = new HashMap<>();
+    private Map<Predicate<Measurement>, AlertType> alertConditions = new HashMap<>();
 
-    public MeasurementUseCase(MeasurementRepository measurementRepository, AlertUseCase alertService) {
+    public MeasurementUseCase(MeasurementRepository measurementRepository, AlertUseCase alertService, DeviceConfigurationService deviceConfigurationService) {
         this.measurementRepository = measurementRepository;
         this.alertService = alertService;
+        this.deviceConfigurationService = deviceConfigurationService;
         initializeAlertConditions();
     }
 
@@ -51,15 +56,43 @@ public class MeasurementUseCase {
 
         alertConditions.forEach((condition, alertType) -> {
             if (condition.test(measurement)) {
-                double alertValue = alertValueExtractors.get(alertType).apply(measurement);
+                // Verificar si la alerta está activa
+                String deviceId = measurement.getDeviceId();
+                if (deviceConfigurationService.isAlertActive(deviceId, alertType)) {
+                    double alertValue = alertValueExtractors.get(alertType).apply(measurement);
 
-                alertService.createAlert(AlertDTO.builder()
-                        .type(alertType)
-                        .date(measurement.getTimestamp())
-                        .value(alertValue)
-                        .deviceId(measurement.getDeviceId())
-                        .build());
+                    alertService.createAlert(AlertDTO.builder()
+                            .type(alertType)
+                            .date(measurement.getTimestamp())
+                            .value(alertValue)
+                            .deviceId(deviceId)
+                            .build());
+                }
             }
         });
+    }
+
+    public void updateAlertConditions(DeviceConfiguration deviceConfiguration) {
+        if (deviceConfiguration != null) {
+            alertConditions.clear();
+            if (deviceConfiguration.isLowTensionActive()) {
+                alertConditions.put(m -> m.getVoltage() < deviceConfiguration.getLowTensionValue(), AlertType.LowTension);
+            }
+            if (deviceConfiguration.isHighTensionActive()) {
+                alertConditions.put(m -> m.getVoltage() > deviceConfiguration.getHighTensionValue(), AlertType.HighTension);
+            }
+            if (deviceConfiguration.isPeakPowerCurrentActive()) {
+                alertConditions.put(m -> m.getCurrent() > deviceConfiguration.getPeakPowerCurrentValue(), AlertType.PeakPowerCurrent);
+            }
+            if (deviceConfiguration.isHighConsumptionActive()) {
+                alertConditions.put(m -> m.getPower() > deviceConfiguration.getHighConsumptionValue(), AlertType.HighConsumption);
+            }
+            if (deviceConfiguration.isHighTemperatureActive()) {
+                alertConditions.put(m -> m.getTemperature() > deviceConfiguration.getHighTemperatureValue(), AlertType.HighTemperature);
+            }
+            if (deviceConfiguration.isHighHumidityActive()) {
+                alertConditions.put(m -> m.getHumidity() > deviceConfiguration.getHighHumidityValue(), AlertType.HighHumidity);
+            }
+        }
     }
 }

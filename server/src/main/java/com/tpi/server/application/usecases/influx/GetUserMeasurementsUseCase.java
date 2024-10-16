@@ -6,6 +6,7 @@ import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,27 +23,25 @@ public class GetUserMeasurementsUseCase {
         this.userRepository = userRepository;
     }
 
-    public List<Measurement> execute(String username, List<String> fields, String timeRange) {
-        // Obtener el usuario por username
-        User user = userRepository.findByUsername(username).orElse(null);
+    @Transactional
+    public List<Measurement> execute(Integer userId, List<String> fields, String timeRange) {
+
+        User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
-            // Manejar usuario no encontrado
             return new ArrayList<>();
         }
 
-        // Obtener los deviceIds de los dispositivos del usuario
         Set<Device> devices = user.getDevices();
+
+        if (devices == null || devices.isEmpty()) {
+            return new ArrayList<>();
+        }
+
         List<String> deviceIds = new ArrayList<>();
         for (Device device : devices) {
             deviceIds.add(device.getDeviceId());
         }
 
-        if (deviceIds.isEmpty()) {
-            // No hay dispositivos asociados al usuario
-            return new ArrayList<>();
-        }
-
-        // Obtener las mediciones para los deviceIds y campos especificados
         return measurementRepository.getMeasurements(deviceIds, fields, timeRange);
     }
 }

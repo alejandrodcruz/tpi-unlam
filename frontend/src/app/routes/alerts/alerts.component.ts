@@ -1,10 +1,10 @@
-// alerts.component.ts
 import { Component } from '@angular/core';
 import { CardInfoComponent } from "../../core/card/card-info.component";
 import { FormsModule } from "@angular/forms";
 import { AlertsService } from "../../shared/services/alerts.service";
+import { WebSocketService } from "../../shared/services/web-socket.service"; // Importa el servicio de WebSocket
 import { DatePipe, CommonModule } from "@angular/common";
-import {PanelTitleComponent} from "../panel-title/panel-title.component";
+import { PanelTitleComponent } from "../panel-title/panel-title.component";
 
 @Component({
   selector: 'app-alerts',
@@ -16,8 +16,7 @@ import {PanelTitleComponent} from "../panel-title/panel-title.component";
     DatePipe,
     PanelTitleComponent,
   ],
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.css']  // Cambié 'styleUrl' a 'styleUrls' para evitar error.
+  templateUrl: './alerts.component.html'
 })
 export class AlertsComponent {
   alerts: any[] = [];
@@ -39,19 +38,23 @@ export class AlertsComponent {
   currentPage = 1;
   totalPages = 1;
 
-  constructor(private alertService: AlertsService) {}
+  constructor(private alertService: AlertsService, private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
     this.loadAlerts();
+
+    this.webSocketService.listenTopic().subscribe(() => {
+      this.loadAlerts();
+    });
   }
 
   loadAlerts(): void {
     this.alertService.getAlertsForDeviceId(this.deviceId)
-      .subscribe((alerts) => {
-        this.alerts = alerts;
-        this.filteredAlerts = alerts;
-        this.updatePagination();
-      });
+        .subscribe((alerts) => {
+          this.alerts = alerts;
+          this.filteredAlerts = alerts;
+          this.updatePagination();
+        });
   }
 
   filterAlertsByType(type: string): void {
@@ -60,7 +63,7 @@ export class AlertsComponent {
     } else {
       this.filteredAlerts = this.alerts.filter(alert => alert.type === type);
     }
-    this.currentPage = 1;  // Reiniciar a la primera página después de filtrar
+    this.currentPage = 1;
     this.updatePagination();
   }
 

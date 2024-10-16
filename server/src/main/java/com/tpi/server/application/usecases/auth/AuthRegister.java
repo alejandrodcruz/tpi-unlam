@@ -30,6 +30,7 @@ public class AuthRegister {
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))
+                .id(user.getId())
                 .build();
     }
 }
