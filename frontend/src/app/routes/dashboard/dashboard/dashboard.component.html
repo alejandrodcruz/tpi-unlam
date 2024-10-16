@@ -45,11 +45,29 @@
         </div>
         <p class="text-gray-500">Muestra la fuerza de la electricidad que llega a tus dispositivos.</p>
       </div>
-      <button (click)="toggleExpand(1)" class="text-gray-500 hover:text-gray-800">
+      <button onclick="my_modal_4.showModal()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
+      <dialog id="my_modal_4" class="modal">
+        <div class="modal-box">
+          <h2 class="text-2xl font-bold pb-2">Voltaje</h2>
+          <div class="">
+            <form method="dialog">
+              <iframe src="http://localhost:3000/d-solo/ee09ykb533ncwf/voltage?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
+                      width="100%"
+                      height="300"
+                      frameborder="0"></iframe>
+              <!-- if there is a button in form, it will close the modal -->
+              <p class="py-4">El voltaje representa la fuerza con la que la electricidad se desplaza por los cables para alimentar sus dispositivos. Un nivel estable de voltaje es fundamental para proteger los equipos, ya que ayuda a evitar desperfectos o fallas. Piense en el voltaje como la presión necesaria para mantener la electricidad en movimiento de manera segura.</p>
+              <div class="flex justify-end">
+                <button class="btn">Cerrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
     <!-- Iframe -->
     <div class="mt-4">
@@ -71,11 +89,29 @@
           </div>
         <p class="text-gray-500">Indica cuánta electricidad está pasando por el sistema, como el flujo de agua en una tubería.</p>
       </div>
-      <button (click)="toggleExpand(2)" class="text-gray-500 hover:text-gray-800">
+      <button onclick="my_modal_3.showModal()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
+      <dialog id="my_modal_3" class="modal">
+        <div class="modal-box">
+          <h2 class="text-2xl font-bold pb-2">Amperaje</h2>
+          <div class="">
+            <form method="dialog">
+              <iframe src="http://localhost:3000/d-solo/de09ym86tk2rkf/current?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
+                      width="100%"
+                      height="300"
+                      frameborder="0"></iframe>
+              <!-- if there is a button in form, it will close the modal -->
+              <p class="py-4">El amperaje mide la cantidad de electricidad que fluye hacia sus dispositivos en este instante. Es similar al caudal de agua en una cañería: un mayor amperaje indica un uso más intensivo de la electricidad. Un incremento en el amperaje puede reflejar que más dispositivos están en funcionamiento o que están operando a mayor potencia.</p>
+              <div class="flex justify-end">
+                <button class="btn">Cerrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
 
     </div>
     <div class="mt-4">
@@ -97,12 +133,32 @@
           </div>
         <p class="text-gray-500">Muestra cuánta energía estás usando en este momento, similar al combustible que usan tus dispositivos.</p>
       </div>
-      <button (click)="toggleExpand(3)" class="text-gray-500 hover:text-gray-800">
+
+      <button onclick="my_modal_1.showModal()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
+      <dialog id="my_modal_1" class="modal">
+        <div class="modal-box">
+          <h2 class="text-2xl font-bold pb-2">Watts</h2>
+          <div class="">
+            <form method="dialog">
+              <iframe src="http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
+                      width="100%"
+                      height="300"
+                      frameborder="0"></iframe>
+              <!-- if there is a button in form, it will close the modal -->
+              <p class="py-4">Los watts indican la cantidad de energía que está utilizando en este momento. Es el 'combustible' que requieren sus aparatos para funcionar. A mayor cantidad de watts, mayor será el consumo de energía en tiempo real. Esta medida le permite conocer cuánta electricidad demandan sus dispositivos en el presente.</p>
+              <div class="flex justify-end">
+                <button class="btn">Cerrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
+
     <div class="mt-4">
       <iframe src="http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
               width="100%"
@@ -122,11 +178,29 @@
           </div>
         <p class="text-gray-500">Indica la cantidad de electricidad que has usado durante un período. Es útil para entender tu consumo acumulado.</p>
       </div>
-      <button (click)="toggleExpand(4)" class="text-gray-500 hover:text-gray-800">
+      <button onclick="my_modal_2.showModal()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
+      <dialog id="my_modal_2" class="modal">
+        <div class="modal-box">
+          <h2 class="text-2xl font-bold pb-2">kWh</h2>
+          <div class="">
+            <form method="dialog">
+              <iframe src="http://localhost:3000/d-solo/fe09yozs0bl6od/energy?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
+                      width="100%"
+                      height="300"
+                      frameborder="0"></iframe>
+              <!-- if there is a button in form, it will close the modal -->
+              <p class="py-4">El kilovatio-hora (kWh) es una unidad de medida que refleja el consumo acumulado de electricidad durante un período determinado. Es similar a los kilómetros recorridos por un vehículo: cuanto mayor sea el número de kWh, más energía ha consumido en total. Esta métrica resulta útil para tener un panorama general de su consumo y anticipar el costo de su factura mensual.</p>
+              <div class="flex justify-end">
+                <button class="btn">Cerrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
     <div class="mt-4">
       <iframe src="http://localhost:3000/d-solo/fe09yozs0bl6od/energy?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
