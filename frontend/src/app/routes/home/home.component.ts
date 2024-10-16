@@ -8,6 +8,7 @@ import {AlertComponent} from "../../shared/alert/alert.component";
 import { DevicePopupComponent } from '../../core/device-popup/device-popup.component';
 import { AuthService, User } from '../../shared/services/auth.service';
 import { DeviceService } from '../../shared/services/device.service';
+import introJs from 'intro.js';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,8 @@ export class HomeComponent implements OnInit {
       (devices) => {
         if (devices && devices.length > 0) {
           // El usuario tiene dispositivos asociados
+          localStorage.setItem('hasDevice', 'true')
+          this.startTour();
           console.log('El usuario tiene dispositivos:', devices);
 
         } else {
@@ -62,7 +65,6 @@ export class HomeComponent implements OnInit {
   onPopupClose() {
     this.showPopup = false;
     this.checkUserDevice();
-    window.location.reload();
   }
 
   toggleSidebar() {
@@ -82,6 +84,53 @@ export class HomeComponent implements OnInit {
       this.isSidebarOpen = false;
     } else {
       this.isSidebarOpen = true;
+    }
+  }
+  startTour() {
+    const hasSeenTour = localStorage.getItem('hasSeenTour');
+
+    if (!hasSeenTour) {
+
+      const intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Siguiente',
+        prevLabel: 'Atrás',
+        doneLabel: 'Finalizar',
+        exitOnEsc: true,
+        exitOnOverlayClick: false
+      });
+
+      intro.start();
+
+      intro.setOptions({
+        steps: [
+          {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."
+          },
+          {element: '#step1', intro: "🕒 Reloj - Este es el horario actual en Buenos Aires."},
+          {element: '#step2', intro: "💧 Humedad - Aquí se muestra la humedad relativa actual."},
+          {element: '#step3', intro: "🌡️ Temperatura - La temperatura en grados Celsius."},
+          {element: '#step4', intro: "💵 Consumo Real - El gasto actual en consumo eléctrico."},
+          {element: '#step5', intro: "DATOS EN VIVO - DEL DISPOSITIVO"},
+          {element: '#step6', intro: "⚡ Voltaje- El voltaje de la corriente alterna."},
+          {element: '#step7', intro: "🔌 Amperaje - Indica cuánta electricidad está fluyendo por el sistema."},
+          {element: '#step8', intro: "💡 Watts - Indica cuánta energía estás usando."},
+          {element: '#step9', intro: "⚙️ Kilovatios-hora (kWh) - La cantidad de electricidad que usas en un período."},
+          {element: '#step5', intro: "Ya puede visualizar tus consumos"}
+
+        ],
+        showProgress: true,
+        exitOnOverlayClick: false
+      });
+
+      intro.start();
+
+      intro.oncomplete(() => {
+        localStorage.setItem('hasSeenTour', 'true');
+      });
+
+      intro.onexit(() => {
+        localStorage.setItem('hasSeenTour', 'true');
+      });
     }
   }
 }
