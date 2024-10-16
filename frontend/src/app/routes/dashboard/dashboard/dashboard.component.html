@@ -39,7 +39,12 @@
   <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded1, 'relative': !isExpanded1 }" class="bg-white p-6 rounded-lg shadow-md" id="step6">
     <div class="flex justify-between items-center">
       <div>
+        <div class="flex justify-start items-center space-x-2">
         <h2 class="text-2xl font-bold">Voltaje</h2>
+        <div class="tooltip" data-tip="hello">
+          <i class="fa-lg fa-solid fa-circle-info text-primary"></i>
+        </div>
+        </div>
         <p class="text-gray-500">El voltaje estándar es de 220 V y la frecuencia de la corriente alterna es de 50 Hz</p>
       </div>
       <button (click)="toggleExpand(1)" class="text-gray-500 hover:text-gray-800">
@@ -60,7 +65,12 @@
   <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded2, 'relative': !isExpanded2 }" class="bg-white p-6 rounded-lg shadow-md" id="step7">
     <div class="flex justify-between items-center">
       <div>
-        <h2 class="text-2xl font-bold">Amperaje</h2>
+        <div class="flex justify-start items-center space-x-2">
+          <h2 class="text-2xl font-bold">Voltaje</h2>
+          <div class="tooltip" data-tip="hello">
+            <i class="fa-lg fa-solid fa-circle-info text-primary"></i>
+          </div>
+          </div>
         <p class="text-gray-500">El amperaje es cuanta electricidad esta fluyendo por el sistema. </p>
       </div>
       <button (click)="toggleExpand(2)" class="text-gray-500 hover:text-gray-800">
@@ -81,7 +91,12 @@
   <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded3, 'relative': !isExpanded3 }" class="bg-white p-6 rounded-lg shadow-md" id="step8">
     <div class="flex justify-between items-center">
       <div>
-        <h2 class="text-2xl font-bold">Watts</h2>
+        <div class="flex justify-start items-center space-x-2">
+          <h2 class="text-2xl font-bold">Voltaje</h2>
+          <div class="tooltip" data-tip="hello">
+            <i class="fa-lg fa-solid fa-circle-info text-primary"></i>
+          </div>
+          </div>
         <p class="text-gray-500">Los watts indican cuánta energía estás usando.</p>
       </div>
       <button (click)="toggleExpand(3)" class="text-gray-500 hover:text-gray-800">
@@ -102,7 +117,12 @@
   <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded4, 'relative': !isExpanded4 }" class="bg-white p-6 rounded-lg shadow-md" id="step9">
     <div class="flex justify-between items-center">
       <div>
-        <h2 class="text-2xl font-bold">kWh (Kilovatios-hora)</h2>
+        <div class="flex justify-start items-center space-x-2">
+          <h2 class="text-2xl font-bold">Voltaje</h2>
+          <div class="tooltip" data-tip="hello">
+            <i class="fa-lg fa-solid fa-circle-info text-primary"></i>
+          </div>
+          </div>
         <p class="text-gray-500"> Indicador de cantidad de electricidad que usas durante un tiempo.</p>
       </div>
       <button (click)="toggleExpand(4)" class="text-gray-500 hover:text-gray-800">
