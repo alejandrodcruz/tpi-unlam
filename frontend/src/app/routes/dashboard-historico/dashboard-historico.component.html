@@ -16,15 +16,18 @@
       <p class="text-mx font-semibold text-gray-700 mb-4">
         {{ graficoActual }}
       </p>
-      <div class="border rounded-lg h-64 flex items-center justify-center">
-        <iframe *ngIf="mostrarConsumoMensual" [src]="consumoMensual | safeUrl" class="w-full h-64 lg:h-96 py-8"></iframe>
-        <iframe *ngIf="mostrarConsumoDiario" [src]="consumoDiario | safeUrl" class="w-full h-64 lg:h-96 py-8"></iframe>
-        <iframe *ngIf="mostrarAmperaje" [src]="intensidadAmperaje | safeUrl" class="w-full h-64 lg:h-96 py-8"></iframe>
-        <iframe *ngIf="mostrarPotencia" [src]="potencia | safeUrl" class="w-full h-64 lg:h-96 py-8"></iframe>
-        <iframe *ngIf="mostrarFrecuencia" [src]="frecuencia | safeUrl" class="w-full h-64 lg:h-96 py-8"></iframe>
+      <div class="border rounded-lg flex items-center justify-center bg-black overflow-hidden" style="width: 785px; height: 570px;">
+        <iframe *ngIf="mostrarConsumoMensual" [src]="consumoMensual | safeUrl" class="w-full h-full object-contain"></iframe>
+        <iframe *ngIf="mostrarConsumoDiario" [src]="consumoDiario | safeUrl" class="w-full h-full object-contain"></iframe>
+        <iframe *ngIf="mostrarAmperaje" [src]="intensidadAmperaje | safeUrl" class="w-full h-full object-contain"></iframe>
+        <iframe *ngIf="mostrarPotencia" [src]="potencia | safeUrl" class="w-full h-full object-contain"></iframe>
+        <iframe *ngIf="mostrarFrecuencia" [src]="frecuencia | safeUrl" class="w-full h-full object-contain"></iframe>
       </div>
+
     </div>
   </div>
+
+
 </div>
 
 <div class="mt-4">
