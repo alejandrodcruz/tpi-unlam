@@ -1,30 +1,37 @@
-<div class="card bg-white shadow-xl p-4 transform transition-transform hover:scale-105 hover:shadow-2xl border border-gray-300 rounded-lg">
+<div class="card bg-base-100 shadow-xl p-4 transform transition-transform hover:scale-105">
 
   <div class="flex items-center mb-2">
-    <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-blue-500 text-white">
+    <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-gray-100">
       <i [ngClass]="iconClasses" class="text-2xl"></i>
     </div>
     <div class="ml-3">
-      <h2 class="card-title text-lg font-semibold text-gray-700">{{ titleCard }}</h2>
+      <h2 class="card-title text-lg font-semibold">{{ titleCard }}</h2>
       <p class="text-xs text-gray-500">{{ subtitleCard }}</p>
     </div>
   </div>
 
   <div class="mt-2">
-    <h2 class="text-2xl font-bold text-gray-800">
+    <h2 class="text-2xl font-bold">
       <div [ngSwitch]="tipoDato">
         <!-- Si es humedad -->
-        <div *ngSwitchCase="'humidity'" class="text-2xl font-bold text-blue-500">{{ humidity || 'Cargando...' }}</div>
+        <div *ngSwitchCase="'humidity'" class="text-2xl font-bold">{{ humidity || 'Cargando...' }}</div>
+
 
         <!-- Si es temperatura -->
-        <h2 *ngSwitchCase="'temperature'" class="text-2xl font-bold text-red-500">{{ temperature }}</h2>
+        <h2 *ngSwitchCase="'temperature'" class="text-2xl font-bold">{{ temperature }}</h2>
 
         <!-- Si es hora actual -->
-        <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold text-green-500">{{ currenTime }}</h2>
+        <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold">{{ currenTime }}</h2>
+
+
+        <!-- Si es consumo
+        <h2 *ngSwitchCase="'consumo'" class="text-2xl font-bold">{{ consumo }}</h2>-->
 
         <!-- Valor por defecto si no coincide con ninguno -->
-        <h2 *ngSwitchDefault class="text-2xl font-bold text-gray-400">Cargando</h2>
+        <h2 *ngSwitchDefault class="text-2xl font-bold">No hay datos disponibles</h2>
       </div>
+
     </h2>
+
   </div>
 </div>
