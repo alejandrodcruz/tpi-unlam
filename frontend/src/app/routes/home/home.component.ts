@@ -106,17 +106,16 @@ export class HomeComponent implements OnInit {
         steps: [
           {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."
           },
-          {element: '#step1', intro: "🕒 Reloj - Este es el horario actual en Buenos Aires."},
-          {element: '#step2', intro: "💧 Humedad - Aquí se muestra la humedad relativa actual."},
-          {element: '#step3', intro: "🌡️ Temperatura - La temperatura en grados Celsius."},
-          {element: '#step4', intro: "💵 Consumo Real - El gasto actual en consumo eléctrico."},
-          {element: '#step5', intro: "DATOS EN VIVO - DEL DISPOSITIVO"},
-          {element: '#step6', intro: "⚡ Voltaje- El voltaje de la corriente alterna."},
-          {element: '#step7', intro: "🔌 Amperaje - Indica cuánta electricidad está fluyendo por el sistema."},
-          {element: '#step8', intro: "💡 Watts - Indica cuánta energía estás usando."},
-          {element: '#step9', intro: "⚙️ Kilovatios-hora (kWh) - La cantidad de electricidad que usas en un período."},
-          {element: '#step5', intro: "Ya puede visualizar tus consumos"}
-
+          {element: '#step1', intro: "🕒 Reloj – Indica el horario actual en Buenos Aires."},
+          {element: '#step2', intro: "💧 Humedad – Muestra el nivel actual de humedad relativa en el ambiente."},
+          {element: '#step3', intro: "🌡️ Temperatura – Indica la temperatura ambiente en grados Celsius."},
+          {element: '#step4', intro: "💵 Consumo Real – Visualiza el consumo eléctrico actual expresado en kilovatios-hora."},
+          {element: '#step5', intro: "PANEL – Información en tiempo real proporcionada por tu dispositivo."},
+          {element: '#step6', intro: "⚡ Voltaje – Visualiza la tensión eléctrica que llega a tus dispositivos."},
+          {element: '#step7', intro: "🔌 Amperaje – Refleja la cantidad de corriente eléctrica fluyendo en el sistema.\n"},
+          {element: '#step8', intro: "💡 Watts – Indica el consumo instantáneo de energía, similar al combustible utilizado en tiempo real."},
+          {element: '#step9', intro: "⚙️ Kilovatios-hora (kWh) – Mide el consumo acumulado de electricidad durante un período específico."},
+          {element: '#step5', intro: "Ahora podés visualizar detalladamente tus consumos de energía en tiempo real."}
         ],
         showProgress: true,
         exitOnOverlayClick: false
