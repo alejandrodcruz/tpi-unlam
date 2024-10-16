@@ -13,9 +13,9 @@
   <div class="mt-2">
     <h2 class="text-2xl font-bold">
       <div [ngSwitch]="tipoDato">
-        <h2 *ngSwitchCase="'humidity'" class="text-2xl font-bold">{{ humidity }}</h2>
+        <h2 *ngSwitchCase="'humidity'" class="text-2xl font-bold">{{ humidity }} % </h2>
 
-        <h2 *ngSwitchCase="'temperature'" class="text-2xl font-bold">{{ temperature }}</h2>
+        <h2 *ngSwitchCase="'temperature'" class="text-2xl font-bold">{{ temperature }} °C</h2>
 
         <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold">{{ currenTime }}</h2>
 
