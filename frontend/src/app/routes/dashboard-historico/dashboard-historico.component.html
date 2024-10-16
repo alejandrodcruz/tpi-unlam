@@ -3,7 +3,7 @@
 
   <div class="mb-4 lg:ml-12">
     <select (change)="toggleGrafico($event)" class="p-2 border rounded w-full lg:w-1/5 bg-white">
-      <option value="consumption" selected>Consumo Mensual </option>
+      <option value="consumption" selected>Consumo Mensual</option>
       <option value="daily">Consumo En Franjas Horarias</option>
       <option value="amperage">Intensidad de amperaje</option>
       <option value="power">Potencia</option>
@@ -23,14 +23,13 @@
         <iframe *ngIf="mostrarPotencia" [src]="potencia | safeUrl" class="w-full h-full object-contain"></iframe>
         <iframe *ngIf="mostrarFrecuencia" [src]="frecuencia | safeUrl" class="w-full h-full object-contain"></iframe>
       </div>
-
     </div>
   </div>
 
-
 </div>
 
-<div class="mt-4">
+<!-- Aquí agregamos el espacio -->
+<div class="mt-12 mb-12">
   <app-panel-title title="Alertas Históricas" description="Elija el tipo de alerta disponible."></app-panel-title>
 
   <div class="px-4 lg:ml-12">
@@ -41,6 +40,7 @@
       <option value="consumo">Alerta de alto consumo</option>
     </select>
   </div>
+
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     <div *ngFor="let alerta of getAlertasFiltradas()"
          class="bg-white p-4 rounded-lg shadow-lg transition-colors duration-300 hover:bg-blue-300 hover:text-white">
@@ -48,7 +48,6 @@
     </div>
   </div>
 </div>
-
 
 
 
