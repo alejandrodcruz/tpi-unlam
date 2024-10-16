@@ -55,7 +55,7 @@ submitCode() {
       this.isLoading = false;
       this.successMessage = response;
       console.log('Dispositivo emparejado:', response);
-    },3000);
+    },2500);
     },
     error: (error) => {
       setTimeout(() => {
@@ -66,7 +66,7 @@ submitCode() {
       } else {
         this.errorMessage = 'Ocurrió un error al emparejar el dispositivo.';
       }
-    },3000);
+    },2500);
     }
   });
 
