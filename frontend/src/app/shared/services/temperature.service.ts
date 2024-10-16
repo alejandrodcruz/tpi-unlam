@@ -10,7 +10,7 @@ export class TemperatureService {
   private url = 'http://localhost:8080/api/measurements?fields=temperature&timeRange=24h&userId=1';
 
   // Token del usuario
-  private token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGVqYW5kcm8iLCJpYXQiOjE3MjkxMDQyODAsImV4cCI6MTcyOTEwNTcyMH0.-npWmA4xcknuRumyd6H1rLhoJ6MEbJPxxIdNVT0btfw';
+  //private token = '';
 
 
 
@@ -19,10 +19,10 @@ export class TemperatureService {
 
   // Método que hace la solicitud periódicamente
   getTemperature(): Observable<number> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    //const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 
     return interval(5000).pipe(
-      switchMap(() => this.http.get<any[]>(this.url, {headers})), // Asegúrate de que la respuesta sea un array si es necesario
+      switchMap(() => this.http.get<any[]>(this.url)), // Asegúrate de que la respuesta sea un array si es necesario
 
       map((response: any[]) => {
         if (response && response.length > 0 && response[0].temperature !== undefined) {
