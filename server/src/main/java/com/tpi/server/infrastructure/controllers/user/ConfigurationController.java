@@ -1,8 +1,8 @@
 package com.tpi.server.infrastructure.controllers.user;
 
-import com.tpi.server.application.usecases.user.AddConfigurationUseCase;
+import com.tpi.server.application.usecases.user.AddUserConfigurationUseCase;
 import com.tpi.server.application.usecases.user.GetUserConfigurationsUseCase;
-import com.tpi.server.domain.models.Configuration;
+import com.tpi.server.domain.models.UserConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,15 +14,15 @@ import java.util.List;
 public class ConfigurationController {
 
     private final GetUserConfigurationsUseCase getUserConfigurationsUseCase;
-    private final AddConfigurationUseCase addConfigurationUseCase;
+    private final AddUserConfigurationUseCase addUserConfigurationUseCase;
 
     @GetMapping("/user/{userId}")
-    public List<Configuration> getConfigurationsByUser(@PathVariable Integer userId) {
+    public List<UserConfiguration> getConfigurationsByUser(@PathVariable Integer userId) {
         return getUserConfigurationsUseCase.execute(userId);
     }
 
     @PostMapping("/user/{userId}")
-    public Configuration addConfiguration(@PathVariable Integer userId, @RequestBody Configuration configuration) {
-        return addConfigurationUseCase.execute(configuration, userId);
+    public UserConfiguration addConfiguration(@PathVariable Integer userId, @RequestBody UserConfiguration configuration) {
+        return addUserConfigurationUseCase.execute(configuration, userId);
     }
 }

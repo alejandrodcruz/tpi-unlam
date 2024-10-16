@@ -8,7 +8,7 @@
     (click)="closeCart()"><i class="fa-lg fa-regular fa-circle-xmark"></i></button>
   </div>
   <div class="p-4" *ngIf="!isSidebarOpen">
-    <img src="../../../assets/img/Lytics_new_logo.png" alt="Logo de la marca" >
+    <img src="../../../assets/img/Lytics_new_logo.png" alt="Logo de la marca">
   </div>
 
 
@@ -22,15 +22,15 @@
         </a>
       </li>
       <li class="p-1">
-        <a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition" title="Huella de carbono">
-          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-shoe-prints"></i>
-          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Huella de carbono</span>
-        </a>
-      </li>
-      <li class="p-1">
         <a [routerLink]="['dispositivos']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mis Dispositivos">
           <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-plug"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mis Dispositivos</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['alerts']" class="block p-2 rounded hover:bg-gray-300 transition" title="Alertas">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-bell"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Alertas</span>
         </a>
       </li>
       <li class="p-1">
@@ -46,9 +46,9 @@
         </a>
       </li>
       <li class="p-1">
-        <a [routerLink]="['alerts']" class="block p-2 rounded hover:bg-gray-300 transition" title="Alertas">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-bell"></i>
-          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Alertas</span>
+        <a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition" title="Huella de carbono">
+          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-shoe-prints"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Huella de carbono</span>
         </a>
       </li>
       <li class="p-1">
@@ -75,7 +75,7 @@
         </a>
       </li>
       <li class="p-1">
-        <a [routerLink]="['']" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
+        <a (click)="logout()" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
           <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-right-from-bracket"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Desloguearse</span>
         </a>

@@ -1,10 +1,12 @@
 <header class="navbar bg-base-100 shadow-lg p-4 flex items-center justify-between">
 
   <div>
-    <button (click)="toggleSidebar.emit()" class="btn btn-ghost">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-      </svg>
+    <button (click)="toggleSidebarState()" class="btn btn-ghost hidden lg:block">
+      <i *ngIf="isSidebarOpen" class="fa-lg fa-solid fa-arrow-left"></i>
+      <i *ngIf="!isSidebarOpen" class="fa-lg fa-solid fa-arrow-right"></i>
+    </button>
+    <button (click)="toggleSidebarState()" class="btn btn-ghost sm:block lg:hidden">
+    <i class="fa-lg fa-solid fa-bars "></i>
     </button>
   </div>
 

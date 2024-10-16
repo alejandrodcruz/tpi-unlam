@@ -1,4 +1,83 @@
 import { Component } from '@angular/core';
+import { ReportesService } from "../../shared/services/reportes.service";
+import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
+import { FormsModule } from "@angular/forms";
+import { NgClass, NgIf } from "@angular/common";
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
+
+@Component({
+  selector: 'app-reportes',
+  templateUrl: './reportes.component.html',
+  standalone: true,
+  imports: [
+    SafeUrlPipe,
+    FormsModule,
+    NgClass,
+    NgIf,
+    PanelTitleComponent
+  ],
+  styleUrls: ['./reportes.component.css']
+})
+export class ReportesComponent {
+  selectedType: string | null = null;
+  startDate: string | null = null;
+  endDate: string | null = null;
+  graficoUrl: string | null = null;
+  errorMessage: string | null = null;
+
+  constructor(private reportesService: ReportesService) {}
+
+  setSelectedType(type: string): void {
+    this.selectedType = type;
+    this.graficoUrl = '';
+    this.errorMessage = null;
+  }
+
+  generateGraficoUrl(): void {
+    if (!this.selectedType || !this.startDate || !this.endDate) {
+      this.errorMessage = "Por favor, selecciona un tipo de gráfico y un rango de fechas antes de buscar.";
+      return;
+    }
+
+    this.reportesService.getGraficoUrl(this.selectedType, this.startDate, this.endDate)
+      .subscribe(
+        (url: string) => {
+          if (url.startsWith('Error')) {
+            this.errorMessage = url;
+          } else {
+            this.graficoUrl = url;
+            this.errorMessage = null;
+          }
+        },
+        (error) => {
+          this.errorMessage = 'Error al obtener la URL del gráfico: ' + error;
+        }
+      );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+import { Component } from '@angular/core';
 import { SidebarComponent } from "../../core/sidebar/sidebar.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
@@ -9,6 +88,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { ReportesService } from "../../shared/services/reportes.service";
 import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
+import {PanelTitleComponent} from "../panel-title/panel-title.component";
 
 registerLocaleData(localeEs);
 
@@ -22,7 +102,8 @@ registerLocaleData(localeEs);
     MatNativeDateModule,
     FormsModule,
     NgIf,
-    SafeUrlPipe
+    SafeUrlPipe,
+    PanelTitleComponent
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
@@ -92,7 +173,7 @@ export class ReportesComponent {
   }
 }
 
-
+*/
 
 /*
 import { Component } from '@angular/core';

@@ -1,45 +1,166 @@
-<div class="py-1 px-3">
-  <div class="rounded shadow-lg px-3 mb-2">
-    <h1 class="text-lg font-bold mb-2">Mis Suscripciones</h1>
-    <p class="text-sm mx-2">Administra y revisa tus planes de suscripción aquí.</p>
-  </div>
+<app-panel-title title="Mis Suscripciones" description="Administra y revisa tus planes de suscripción aquí."></app-panel-title>
 
-  <div class="container mx-auto py-2">
+<div class="content-wrapper py-4 px-3">
+  <div class="content-inner rounded shadow-lg px-3 mb-6">
     <h2 class="text-2xl font-bold mb-4">Tus Planes Actuales</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+      <!-- Plan Personal -->
       <div class="card card-compact bg-base-100 shadow-xl">
         <div class="card-body">
-          <h2 class="card-title">Plan Personal</h2>
+          <h3 class="card-title text-lg font-bold">Plan Personal</h3>
           <p class="text-xl font-bold">$59 / año</p>
-          <p>Acceso a todas las funciones básicas.</p>
-          <div class="card-actions justify-end">
-            <a href="#" class="btn" style="background-color: #3690d9; color: white;">Administrar</a>
-
+          <p>Acceso a todas las funciones básicas de Lytics para gestión y optimización del consumo energético.</p>
+          <div class="card-actions justify-center">
+            <label for="modal-plan-personal" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Administrar</label>
           </div>
         </div>
       </div>
 
+      <!-- Modal Plan Personal -->
+      <input type="checkbox" id="modal-plan-personal" class="modal-toggle" />
+      <div class="modal">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Plan Personal - Lytics</h3>
+          <p class="py-4"><strong>Detalles del Plan Personal:</strong></p>
+          <ul class="list-disc pl-6">
+            <li>Acceso completo a la biblioteca de funciones básicas de Lytics.</li>
+            <li>Actualizaciones automáticas para monitoreo de consumo energético.</li>
+            <li>Soporte por email.</li>
+          </ul>
+
+          <!-- Sección de Configuración -->
+          <div class="py-4">
+            <h4 class="font-bold mb-2">Configuración</h4>
+            <label class="block">
+              <span class="text-gray-700">Frecuencia de Pago</span>
+              <select class="form-select mt-1 block w-full">
+                <option>Anual</option>
+                <option>Mensual</option>
+              </select>
+            </label>
+            <label class="block mt-3">
+              <input type="checkbox" class="form-checkbox" />
+              <span class="ml-2">Recibir notificaciones por email</span>
+            </label>
+          </div>
+
+          <!-- Botón de pago para el Plan Personal -->
+          <div class="modal-action">
+            <button id="pay-button-plan-personal" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Pagar Plan Personal</button>
+            <label for="modal-plan-personal" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Cerrar</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Empresarial -->
       <div class="card card-compact bg-base-100 shadow-xl">
         <div class="card-body">
-          <h2 class="card-title">Plan Empresarial</h2>
+          <h3 class="card-title text-lg font-bold">Plan Empresarial</h3>
           <p class="text-xl font-bold">$199 / año</p>
-          <p>Acceso a todas las funciones premium.</p>
-          <div class="card-actions justify-end">
-            <a href="#" class="btn" style="background-color:#3690d9; color: white;">Administrar</a>
+          <p>Acceso a todas las funciones premium para empresas que buscan optimización energética avanzada.</p>
+          <div class="card-actions justify-center">
+            <label for="modal-plan-empresarial" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Administrar</label>
           </div>
         </div>
       </div>
 
-      <div class="card card-compact bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title">Plan Profesional</h2>
-          <p class="text-xl font-bold">$250 / año</p>
-          <p>Soporte completo y acceso a todas las funciones.</p>
-          <div class="card-actions justify-end">
-            <a href="#" class="btn" style="background-color: #3690d9; color: white;">Administrar</a>
+      <!-- Modal Plan Empresarial -->
+      <input type="checkbox" id="modal-plan-empresarial" class="modal-toggle" />
+      <div class="modal">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Plan Empresarial - Lytics</h3>
+          <p class="py-4"><strong>Detalles del Plan Empresarial:</strong></p>
+          <ul class="list-disc pl-6">
+            <li>Acceso a todas las funciones premium.</li>
+            <li>Soporte prioritario para optimización de grandes instalaciones.</li>
+            <li>Actualizaciones avanzadas y reportes detallados.</li>
+          </ul>
+
+          <!-- Sección de Configuración -->
+          <div class="py-4">
+            <h4 class="font-bold mb-2">Configuración</h4>
+            <label class="block">
+              <span class="text-gray-700">Frecuencia de Pago</span>
+              <select class="form-select mt-1 block w-full">
+                <option>Anual</option>
+                <option>Mensual</option>
+              </select>
+            </label>
+            <label class="block mt-3">
+              <input type="checkbox" class="form-checkbox" />
+              <span class="ml-2">Recibir notificaciones por email</span>
+            </label>
+          </div>
+
+          <!-- Botón de pago para el Plan Empresarial -->
+          <div class="modal-action">
+            <button id="pay-button-plan-empresarial" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Pagar Plan Empresarial</button>
+            <label for="modal-plan-empresarial" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Cerrar</label>
           </div>
         </div>
       </div>
+
+      <!-- Plan Profesional -->
+      <div class="card card-compact bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-lg font-bold">Plan Profesional</h3>
+          <p class="text-xl font-bold">$250 / año</p>
+          <p>Acceso completo a todas las funciones y soporte técnico 24/7.</p>
+          <div class="card-actions justify-center">
+            <label for="modal-plan-profesional" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Administrar</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Plan Profesional -->
+      <input type="checkbox" id="modal-plan-profesional" class="modal-toggle" />
+      <div class="modal">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Plan Profesional - Lytics</h3>
+          <p class="py-4"><strong>Detalles del Plan Profesional:</strong></p>
+          <ul class="list-disc pl-6">
+            <li>Soporte técnico 24/7.</li>
+            <li>Acceso completo a todas las funciones.</li>
+            <li>Actualizaciones premium y análisis personalizados.</li>
+          </ul>
+
+          <!-- Sección de Configuración -->
+          <div class="py-4">
+            <h4 class="font-bold mb-2">Configuración</h4>
+            <label class="block">
+              <span class="text-gray-700">Frecuencia de Pago</span>
+              <select class="form-select mt-1 block w-full">
+                <option>Anual</option>
+                <option>Mensual</option>
+              </select>
+            </label>
+            <label class="block mt-3">
+              <input type="checkbox" class="form-checkbox" />
+              <span class="ml-2">Recibir notificaciones por email</span>
+            </label>
+          </div>
+
+          <!-- Botón de pago para el Plan Profesional -->
+          <div class="modal-action">
+            <button id="pay-button-plan-profesional" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Pagar Plan Profesional</button>
+            <label for="modal-plan-profesional" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Cerrar</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de Pago Exitoso (común para todos los planes) -->
+      <input type="checkbox" id="modal-pago-exitoso" class="modal-toggle" />
+      <div class="modal">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">¡Pago Exitoso!</h3>
+          <p class="py-4">Tu transacción ha sido completada exitosamente. Gracias por elegir Lytics.</p>
+          <div class="modal-action">
+            <label for="modal-pago-exitoso" class="btn bg-green-600 text-white">Aceptar</label>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

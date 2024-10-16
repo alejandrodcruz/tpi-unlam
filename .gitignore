@@ -13,3 +13,7 @@ server/target
 mosquitto
 env
 .env
+mosquitto.log
+mosquitto.db
+mosquitto/log/mosquitto.log
+mosquitto/data/mosquitto.db
