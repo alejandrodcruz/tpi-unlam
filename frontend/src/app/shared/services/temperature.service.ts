@@ -10,7 +10,7 @@ export class TemperatureService {
   private url = 'http://localhost:8080/api/measurements?fields=temperature&timeRange=24h&userId=1';
 
   // Token del usuario
-  private token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGVqYW5kcm8iLCJpYXQiOjE3MjkwMzc3MjYsImV4cCI6MTcyOTAzOTE2Nn0.l9p02oH4zyQ2rZOklpSYHTQIQP41tfu4sUcB7ovqBWY';
+  private token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGVqYW5kcm8iLCJpYXQiOjE3MjkxMDQyODAsImV4cCI6MTcyOTEwNTcyMH0.-npWmA4xcknuRumyd6H1rLhoJ6MEbJPxxIdNVT0btfw';
 
 
 

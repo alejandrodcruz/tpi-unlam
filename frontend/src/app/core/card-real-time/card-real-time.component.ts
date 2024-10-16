@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import { HumidityService } from '../../shared/services/humidity.service';
 import { TemperatureService } from '../../shared/services/temperature.service';
 import { CurrenttimeService } from '../../shared/services/currenttime.service';
-import {DatePipe, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import {DatePipe, NgClass, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
 import { AuthService } from '../../shared/services/auth.service';
+import {interval, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-card-real-time',
@@ -14,7 +15,8 @@ import { AuthService } from '../../shared/services/auth.service';
     NgSwitch,
     NgSwitchCase,
     NgSwitchDefault,
-    DatePipe
+    DatePipe,
+    NgIf
   ],
   templateUrl: './card-real-time.component.html',
   styleUrl: './card-real-time.component.css'
@@ -35,6 +37,7 @@ export class CardRealTimeComponent implements OnInit {
 
   public tipoDato: string="";
   public humidity: any;
+  public totalEnergy: any;
 
   constructor(private humidityService: HumidityService,
               private temperatureService: TemperatureService,
@@ -51,8 +54,8 @@ export class CardRealTimeComponent implements OnInit {
     if (this.titleCard === 'Humedad') {
       this.humidityService.getHumidity().subscribe((data: any) => {
         console.log('Datos recibidos:', data);
-           this.dataCardProgress = data;
-        this.humidity=data;
+        this.dataCardProgress = data;
+        this.humidity = data;
         this.tipoDato = 'humidity';
 
       });
@@ -75,8 +78,23 @@ export class CardRealTimeComponent implements OnInit {
         });
       }, 50000); // Intervalo de 1 segundo (1000 ms)
     }
+    if (this.titleCard === 'Consumo') {
 
-    //Falta CALCULO DE CONSUMO
+      interval(10000) // Cambio (30 segundos)
+        .pipe(
+          // Llama a getTotalEnergy en cada intervalo
+          switchMap(() => this.measurementsService.getTotalEnergy(1, ['energy'], '1h'))
+        )
+        .subscribe(
+          (energyTotal: number) => {
+            this.totalEnergy = energyTotal; // Actualizar el valor de totalEnergy
+            this.tipoDato = 'energy';
+          },
+          error => {
+            console.error('Error al obtener el total de energía:', error);
+          }
+        );
+    }
   }
 
 
