@@ -9,7 +9,7 @@ export class HumidityService {
   private url = 'http://localhost:8080/api/measurements?fields=humidity&timeRange=24h&userId=1';
 
   // Token del usuario
-  private token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGVqYW5kcm8iLCJpYXQiOjE3MjkxMDI3ODcsImV4cCI6MTcyOTEwNDIyN30.kiYBXhjdkFb860XwiUNvJMz7tNB4mTflqJ9qbtrTNjs';
+  private token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGVqYW5kcm8iLCJpYXQiOjE3MjkxMDQyODAsImV4cCI6MTcyOTEwNTcyMH0.-npWmA4xcknuRumyd6H1rLhoJ6MEbJPxxIdNVT0btfw';
 
   constructor(private http: HttpClient) {
   }
