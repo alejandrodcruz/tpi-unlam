@@ -38,27 +38,83 @@ export class ConfiguracionComponent implements OnInit {
     highHumidityActive: false,
   };
 
+  alertSmallSettings = {
+    deviceId: '08:A6:F7:24:71:98',
+    highConsumptionValue: 1400,
+    highTensionValue: 140,
+    lowTensionValue: 120,
+    energyLossActive: false,
+    peakPowerCurrentValue: 6,
+    highTemperatureValue: 50,
+    highHumidityValue: 40,
+    lostDeviceActive: false,
+    highConsumptionActive: false,
+    highTensionActive: false,
+    lowTensionActive: false,
+    peakPowerCurrentActive: false,
+    highTemperatureActive: false,
+    highHumidityActive: false,
+  };
+
+  alertMediumSettings = {
+    deviceId: '08:A6:F7:24:71:98',
+    highConsumptionValue: 2200,
+    highTensionValue: 140,
+    lowTensionValue: 120,
+    energyLossActive: false,
+    peakPowerCurrentValue: 6,
+    highTemperatureValue: 50,
+    highHumidityValue: 40,
+    lostDeviceActive: false,
+    highConsumptionActive: false,
+    highTensionActive: false,
+    lowTensionActive: false,
+    peakPowerCurrentActive: false,
+    highTemperatureActive: false,
+    highHumidityActive: false,
+  };
+
+  alertHighSettings = {
+    deviceId: '08:A6:F7:24:71:98',
+    highConsumptionValue: 3000,
+    highTensionValue: 140,
+    lowTensionValue: 120,
+    energyLossActive: false,
+    peakPowerCurrentValue: 6,
+    highTemperatureValue: 50,
+    highHumidityValue: 40,
+    lostDeviceActive: false,
+    highConsumptionActive: false,
+    highTensionActive: false,
+    lowTensionActive: false,
+    peakPowerCurrentActive: false,
+    highTemperatureActive: false,
+    highHumidityActive: false,
+  };
+
   constructor(private configurationService: ConfigurationService) {}
 
   selectProfile(profile: string) {
     this.selectedProfile = profile;
-    /*
-    this.configurationService.sendProfileSelection(profile).subscribe(response => {
-      console.log('Perfil enviado al backend:', profile);
-    });
-    */
-  }
-  expanded: { [key: string]: boolean } = {};
-  expandedCard: string | null = null;
-  expandedProfile: string | null = null;
-  toggleExpand(profile: string, event: Event): void {
-    event.preventDefault();
-
-    if (this.expandedProfile === profile) {
-      this.expandedProfile = null;
-    } else {
-      this.expandedProfile = profile;
+    switch (profile) {
+      case 'small':
+        this.alertSettings = this.alertSmallSettings;
+        break;
+      case 'medium':
+        this.alertSettings = this.alertMediumSettings;
+        break;
+      case 'large':
+        this.alertSettings = this.alertHighSettings;
+        break;
     }
+    this.onAlertChange();
+  }
+
+  expanded: { [key: string]: boolean } = {};
+
+  toggleExpand(profile: string, event: Event) {
+    event.stopPropagation();
+    this.expanded[profile] = !this.expanded[profile];
   }
 
   ngOnInit(): void {
