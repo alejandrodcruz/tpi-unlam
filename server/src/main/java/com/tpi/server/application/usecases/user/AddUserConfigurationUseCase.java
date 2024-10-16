@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AddConfigurationUseCase {
+public class AddUserConfigurationUseCase {
 
     private final ConfigurationRepository configurationRepository;
     private final UserRepository userRepository;

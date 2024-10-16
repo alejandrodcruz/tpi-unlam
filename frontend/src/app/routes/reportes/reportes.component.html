@@ -1,180 +1,75 @@
-<app-panel-title title="Reportes" description="Puedes generar informes con el rango de fechas que necesites."></app-panel-title>
-<h2 class="text-2xl mb-4 font-bold leading-tight text-gray-900"></h2>
-<hr class="my-4">
-<div class="flex justify-center mt-4">
-    <div class="flex space-x-4">
-    <button
-      (click)="toggleSelection('consumo')"
-      [class.bg-blue-500]="isConsumoSelected"
-      [class.text-white]="isConsumoSelected"
-      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
-    >
-      <i class="fa-solid fa-bolt"></i> Consumo
-    </button>
+<app-panel-title title="Reportes" description="Selecciona un tipo de gráfico y un rango de fechas antes de hacer clic en Buscar."></app-panel-title>
+<div class="flex justify-between space-x-6 w-full px-4 mb-1">
+  <div
+    (click)="setSelectedType('Consumo')"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+    [ngClass]="{'bg-blue-200': selectedType === 'Consumo'}">
+    <i class='fas fa-lightbulb' style='font-size:42px; color:#fbc102'></i>
+    <p class="text-xs">Consumo</p>
+  </div>
 
-    <button
-      (click)="toggleSelection('amperaje')"
-      [class.bg-blue-500]="isAmperajeSelected"
-      [class.text-white]="isAmperajeSelected"
-      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
-    >
-      <i class="fas fa-gauge-high"></i> Intensidad de Amperaje
-    </button>
+  <div
+    (click)="setSelectedType('Amperaje')"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+    [ngClass]="{'bg-blue-200': selectedType === 'Amperaje'}">
+    <i class='fas fa-plug' style='font-size:42px;color:#71aaef'></i>
+    <p class="text-xs">Amperaje</p>
+  </div>
 
-    <button
-      (click)="toggleSelection('potencia')"
-      [class.bg-blue-500]="isPotenciaSelected"
-      [class.text-white]="isPotenciaSelected"
-      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
-    >
-      <i class="fas fa-plug"></i> Potencia
-    </button>
+  <div
+    (click)="setSelectedType('Potencia')"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+    [ngClass]="{'bg-blue-200': selectedType === 'Potencia'}">
+    <i class='fas fa-battery-three-quarters' style='font-size:48px;color:#ea4c4c'></i>
+    <p class="text-xs">Potencia</p>
+  </div>
 
-    <button
-      (click)="toggleSelection('frecuencia')"
-      [class.bg-blue-500]="isFrecuenciaSelected"
-      [class.text-white]="isFrecuenciaSelected"
-      class="px-4 py-2 border rounded-lg transition duration-200 ease-in-out hover:bg-blue-200"
-    >
-      <i class="fas fa-wave-square"></i> Frecuencia
-    </button>
+  <div
+    (click)="setSelectedType('Frecuencia')"
+    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+    [ngClass]="{'bg-blue-200': selectedType === 'Frecuencia'}">
+    <i class='fas fa-poll' style='font-size:48px;color:#2d812b'></i>
+    <p class="text-xs">Frecuencia</p>
   </div>
 </div>
 
 
 
-<div class="flex items-start justify-between py-6 px-10">
-  <div class="flex w-full">
-    <div>
-      <h2 class="text-xl font-bold mb-2">Selecciona el rango de fechas</h2>
-
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Fecha de Inicio</mat-label>
-        <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" (dateChange)="onDateChange()" />
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Fecha de Fin</mat-label>
-        <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" (dateChange)="onDateChange()" />
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
-      </mat-form-field>
-
-      <div *ngIf="dateError" class="text-red-500 mt-2">
-        {{ dateError }}
-      </div>
+<div class="mb-6 bg-white">
+  <div class="flex flex-col  space-y-4 py-6 px-10">
+    <h2 >Filtrar por Fecha</h2>
+    <div class="flex space-x-4 ">
+      <input [(ngModel)]="startDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <input [(ngModel)]="endDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <button
+        (click)="generateGraficoUrl()"
+        class="bg-primary text-white p-2 rounded hover:bg-primaryhover"
+      >Buscar</button>
     </div>
+  </div>
+</div>
 
-    <div class="w-3/4 p-2">
-      <h2 class="text-xl font-bold mb-2">Gráfico</h2>
-      <div class="border rounded-lg h-64 flex items-center justify-center">
-        <iframe
-          [src]="graficoUrl | safeUrl"
-          width="600"
-          height="400"
-          frameborder="1">
-        </iframe>
+<div class="flex justify-center py-6 px-10">
+  <div class="w-full max-w-4xl mx-auto">
+    <p *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</p>
+
+    <div class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 mt-1">
+      <div class="card bg-base-100 shadow-xl p-4 w-full lg:w-2/3">
+        <p class="text-mx font-semibold text-gray-700 mb-4">
+          {{ selectedType }}
+        </p>
+        <div class="border rounded-lg h-64 flex items-center justify-center"> <!-- Agregado flex y justify-center -->
+          <iframe
+            *ngIf="graficoUrl"
+            [src]="graficoUrl"
+            width="600"
+            height="400"
+            frameborder="0">
+          </iframe>
+          <p *ngIf="!graficoUrl">Selecciona un tipo de gráfico y un rango de fechas para visualizarlo.</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-<!--
-<div class="flex h-screen">
-
-
-  <!- Main Content ->
-  <section class="flex-1 text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
-      <!- Heading ->
-      <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-        <h1 class="text-4xl font-bold leading-tight text-gray-900">Reportes Generales</h1>
-      </div>
-
-      <!- Report Cards ->
-      <div class="flex flex-wrap -m-4">
-        <!- Report Card 1 ->
-        <div class="xl:w-1/3 md:w-1/2 p-4">
-          <div class="border border-gray-300 p-6 rounded-lg">
-            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-              </svg>
-            </div>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Consumos</h2>
-            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-          </div>
-        </div>
-        <!- Report Card 2 ->
-        <div class="xl:w-1/3 md:w-1/2 p-4">
-          <div class="border border-gray-300 p-6 rounded-lg">
-            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                <circle cx="6" cy="6" r="3"></circle>
-                <circle cx="6" cy="18" r="3"></circle>
-                <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-              </svg>
-            </div>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Sobrecargas</h2>
-            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-          </div>
-        </div>
-        <!- Report Card 3 ->
-        <div class="xl:w-1/3 md:w-1/2 p-4">
-          <div class="border border-gray-300 p-6 rounded-lg">
-            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Report Card Title</h2>
-            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-          </div>
-        </div>
-        <!- Report Card 4 ->
-        <div class="xl:w-1/3 md:w-1/2 p-4">
-          <div class="border border-gray-300 p-6 rounded-lg">
-            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"></path>
-              </svg>
-            </div>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Melanchole</h2>
-            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-          </div>
-        </div>
-        <!- Report Card 5 ->
-        <div class="xl:w-1/3 md:w-1/2 p-4">
-          <div class="border border-gray-300 p-6 rounded-lg">
-            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-              </svg>
-            </div>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Bunker</h2>
-            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-          </div>
-        </div>
-        <!- Report Card 6 ->
-        <div class="xl:w-1/3 md:w-1/2 p-4">
-          <div class="border border-gray-300 p-6 rounded-lg">
-            <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-primary-light text-primary mb-4">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-            </div>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Ramona Falls</h2>
-            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
--->

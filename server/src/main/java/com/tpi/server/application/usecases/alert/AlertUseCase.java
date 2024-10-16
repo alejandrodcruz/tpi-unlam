@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,9 +34,7 @@ public class AlertUseCase {
                     .build();
             alertRepository.save(alert);
             logger.trace("Save alerta:{}", alert);
-            System.out.println("Entro con type:"+ alertData.getType());
             String message = AlertMessageUtils.getAlertMessage(alertData.getType());
-            System.out.println("El mensaje:"+ message);
             messagingTemplate.convertAndSend("/topic/alerts", message);
         } catch (Exception e) {
             logger.error("Error al guardar la alerta", e);

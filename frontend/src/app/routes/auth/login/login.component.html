@@ -1,13 +1,14 @@
-<div class="bg-gray-50 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+
+<div class="bg-gray-50 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-r from-blue-300 via-gray-50 to-blue-400">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img class="mx-auto h-10 w-auto" src="../../../assets/img/Lytics_New.png" alt="Your Company">
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Inicia sesión con tu cuenta</h2>
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-8 shadow-lg rounded-lg">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="bg-white">
       <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">User Name</label>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Nombre de Usuario</label>
         <div class="mt-2">
           <input formControlName="email" id="email" name="email" type="email" autocomplete="email" required  class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
           <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
@@ -34,27 +35,28 @@
           </div>
         </div>
         <div class="text-sm">
-          <a href="#" class="font-semibold text-primary hover:text-primaryhover">Forgot password?</a>
+          <a href="#" class="font-semibold text-primary hover:text-primaryhover">¿Has olvidado tu contraseña?</a>
         </div>
       </div>
 
       <div>
         <button type="submit" class="mt-2 flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm
          hover:bg-primaryhover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-          focus-visible:outline-primary" [disabled]="loginForm.invalid">Sign in</button>
+          focus-visible:outline-primary" [disabled]="loginForm.invalid">Iniciar sesión</button>
       </div>
     </form>
 
-    <p class="mt-10 text-center text-sm text-gray-500">
+   <!-- <p class="mt-10 text-center text-sm text-gray-500">
       Not a member?
       <a href="#" class="font-semibold leading-6 text-primary hover:text-primaryhover">Start a 14 day free trial</a>
-    </p>
+    </p>-->
     <p class="mt-10 text-center text-sm text-gray-500">
-      Already have an account?
-      <a [routerLink]="['/register']" class="font-semibold leading-6 text-primary hover:text-primaryhover">Sign in</a>
+      ¿Ya tienes una cuenta?
+      <a [routerLink]="['/register']" class="font-semibold leading-6 text-primary hover:text-primaryhover">Regístrate</a>
     </p>
 
     <div *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</div>
     <div *ngIf="successMessage" class="text-green-600">{{ successMessage }}</div>
   </div>
 </div>
+
