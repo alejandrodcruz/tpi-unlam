@@ -15,7 +15,7 @@ export class WebSocketService {
   }
 
   initConnectionSocket() {
-    const url = "//localhost:8080/ws";
+    const url = "//lytics.dyndns.org:8080/ws";
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
     this.connect(); // Llama al método connect para establecer la conexión

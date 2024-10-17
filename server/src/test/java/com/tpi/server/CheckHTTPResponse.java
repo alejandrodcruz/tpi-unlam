@@ -18,6 +18,6 @@ public class CheckHTTPResponse {
     @Test
     public void shouldPassIfInitialEndPointIsAlive() {
         ResponseEntity<String> response =
-                restTemplate.getForEntity("http://localhost:" + port + "/", String.class);
+                restTemplate.getForEntity("http://lytics.dyndns.org:" + port + "/", String.class);
     }
 }

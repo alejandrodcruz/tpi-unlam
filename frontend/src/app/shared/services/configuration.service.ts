@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class ConfigurationService {
-  private apiUrl = 'http://localhost:8080/configurations';
+  private apiUrl = 'http://lytics.dyndns.org:8080/configurations';
 
   constructor(private http: HttpClient) {}
 

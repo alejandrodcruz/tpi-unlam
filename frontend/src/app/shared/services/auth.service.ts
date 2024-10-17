@@ -15,7 +15,7 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private LOGIN_URL = 'http://localhost:8080/auth';
+  private LOGIN_URL = 'http://lytics.dyndns.org:8080/auth';
 
   private tokenSubject = new BehaviorSubject<string | null>(null);
   public token$ = this.tokenSubject.asObservable();//token
