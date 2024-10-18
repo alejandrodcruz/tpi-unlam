@@ -30,10 +30,10 @@ export class CardRealTimeComponent implements OnInit {
   @Input() maxProgress: number = 100;
   @Input() colorProgress: string = '';
   @Input() percentageClass: string = '';
-  @Input() temperature: string = 'Cargando...';
+  @Input() temperature: number = 0;
   @Input() currenTime: string = 'Cargando...';
-  @Input() humidity: string = 'Cargando...';
-  @Input() consumo: string = 'Cargando...';
+  @Input() humidity: number = 0;
+  @Input() consumo: number = 0;
   public tipoDato: string="";
   public totalEnergy: any;
 
@@ -59,8 +59,6 @@ export class CardRealTimeComponent implements OnInit {
     }
   }
 
-
-
   getMeasurements() {
     const userId = this.authService.getUserId();
     const fields = ['humidity', 'temperature', 'timestamp', 'energy']; //campos espesificos
@@ -76,19 +74,19 @@ export class CardRealTimeComponent implements OnInit {
 
               // Asignación de tipoDato según el título de la tarjeta
               if (this.titleCard === 'Humedad') {
-                this.humidity = <any>firstMeasurement.humidity;
+                this.humidity = firstMeasurement.humidity;
                 this.dataCardProgress = <any>firstMeasurement.humidity;
                 this.tipoDato = 'humidity';
               }
 
               if (this.titleCard === 'Temperatura') {
-                this.temperature = <any>firstMeasurement.temperature;
+                this.temperature = firstMeasurement.temperature;
                 this.dataCardProgress = <any>firstMeasurement.temperature;
                 this.tipoDato = 'temperature';
               }
 
               if (this.titleCard === 'Consumo') {
-                this.consumo = <any>firstMeasurement.energy;
+                this.consumo = firstMeasurement.energy;
                 this.dataCardProgress = <any>firstMeasurement.energy;
                 this.tipoDato = 'energy';
               }
