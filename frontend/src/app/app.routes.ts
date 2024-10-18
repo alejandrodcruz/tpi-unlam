@@ -12,6 +12,8 @@ import { LandingPageComponent } from './routes/landing-page/landing-page.compone
 import { DashboardHistoricoComponent } from './routes/dashboard-historico/dashboard-historico.component';
 import { CarbonFootprintComponent } from './routes/carbon-footprint/carbon-footprint/carbon-footprint.component';
 import {AlertsComponent} from "./routes/alerts/alerts.component";
+import { MisuscriptionComponent } from "./routes/misuscription/misuscription.component";
+
 
 
 export const routes: Routes = [
@@ -31,9 +33,10 @@ export const routes: Routes = [
       { path: 'reportes', component: ReportesComponent },
       { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
       { path: 'historico', component: DashboardHistoricoComponent },
-      {path: 'guides', component: GuidesComponent},
-      {path:'huella',component:CarbonFootprintComponent},
+      { path: 'guides', component: GuidesComponent},
+      { path: 'huella', component:CarbonFootprintComponent},
       { path: 'alerts', component: AlertsComponent },
+      { path: 'misuscription', component: MisuscriptionComponent },
     ]
   },
 ];

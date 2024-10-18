@@ -11,11 +11,11 @@ import { RouterLink } from "@angular/router";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
- @Input() isSidebarOpen = true;
- @Output() closeSidebar = new EventEmitter<void>();
+   @Input() isSidebarOpen = true;
+   @Output() closeSidebar = new EventEmitter<void>();
 
- closeCart() {
-  this.isSidebarOpen = false;
-  this.closeSidebar.emit();
-}
+   closeCart() {
+      this.isSidebarOpen = false;
+      this.closeSidebar.emit();
+  }
 }

@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, of } from 'rxjs';
 
-interface User {
+export interface User {
+  id?: number;
   username: string;
   password: string;
   email: string;
+  hasDevice?: boolean;
 }
 
 @Injectable({
@@ -16,7 +18,12 @@ export class AuthService {
   private LOGIN_URL = 'http://localhost:8080/auth';
   private tokenKey = 'authToken';
 
-  constructor(private httpCliente: HttpClient, private router: Router) { }
+  private usernameSubject = new BehaviorSubject<string | null>(null);
+  public username$ = this.usernameSubject.asObservable();
+
+  constructor(private httpCliente: HttpClient, private router: Router) {
+    this.usernameSubject.next(localStorage.getItem('username'));
+  }
 
   login(username: string, password: string): Observable<any>{
     return this.httpCliente.post<any>(`${this.LOGIN_URL}/login`, { username, password }).pipe(
@@ -54,9 +61,29 @@ export class AuthService {
     const exp = payload.exp = 1000;
     return Date.now() < exp;
   }
+//user en local storage
+setUsername(username: string): void {
+  localStorage.setItem('username', username);
+  this.usernameSubject.next(username);
+}
+
+getUser(): Observable<User> {
+  const username = localStorage.getItem('username')|| '';
+
+  const mockUser: User = {
+    id: 1,
+    username: username,
+    password: '123456',
+    email: 'test@gmail.com',
+    hasDevice: false,
+  };
+
+  return of(mockUser);
+}
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
 }

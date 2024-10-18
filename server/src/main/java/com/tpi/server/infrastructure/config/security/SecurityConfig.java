@@ -32,6 +32,9 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/send-alert").permitAll()
+                                .requestMatchers("/ws/**").permitAll()
+                                .requestMatchers("/alert/**").permitAll()
                                 .requestMatchers("/api/register-device", "/api/pair-device").permitAll() // Esp32
                                 .anyRequest().authenticated()
                         )
@@ -48,7 +51,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

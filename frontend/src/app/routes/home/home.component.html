@@ -18,6 +18,8 @@
 
     <main class="flex-grow bg-gray-100 pt-2 transition-all duration-300">
       <router-outlet></router-outlet>
+      <app-alert></app-alert>
     </main>
   </div>
+  <app-device-popup [isOpen]="showPopup" (closePopup)="onPopupClose()"></app-device-popup>
 </div>

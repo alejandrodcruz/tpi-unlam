@@ -14,7 +14,7 @@
       <div>
         <span class="text-sm font-semibold">Locacion</span>
         <select class="border-none outline-none bg-transparent text-gray-500">
-          <option>Casa 1</option>
+          <option>Hogar 1</option>
           <option>Oficina</option>
         </select>
       </div>
@@ -25,35 +25,31 @@
       <div>
         <span class="text-sm font-semibold">Dispositivo</span>
         <select class="border-none outline-none bg-transparent text-gray-500">
-          <option>rtxv45000</option>
-          <option>Dispositivo 2</option>
+          <option>LyticsHogar 1</option>
+          <option></option>
         </select>
       </div>
     </div>
   </div>
 
   <div class="flex items-center space-x-4">
-    <!-- Notificación con contador -->
-    <div class="relative">
+    <a [routerLink]="['alerts']"  class="relative">
       <button class="btn btn-ghost relative">
-        <!-- Ícono de notificación -->
         <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0018 14.158V11a6.002 6.002 0 00-5-5.917V5a2 2 0 10-4 0v.083A6.002 6.002 0 004 11v3.159c0 .538-.214 1.055-.595 1.436L2 17h5m5 0v1a3 3 0 11-6 0v-1m6 0H9"/>
         </svg>
-        <!-- Globo de notificación con contador -->
+        <!-- Globo de notificación con contador
         <span class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-  {{ notificationCount }}
-</span>
-
+          {{ notificationCount }}
+        </span>
+         -->
       </button>
-      <br>
-      <span class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-xs text-red-600">NOTIFICACIÓN</span>
-    </div>
+    </a>
 
     <div class="relative">
       <button class="flex items-center space-x-2">
         <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Usuario" class="w-8 h-8 rounded-full">
-        <span>Usuario</span>
+        <span>FabricioY</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>

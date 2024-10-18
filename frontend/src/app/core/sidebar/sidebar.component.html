@@ -3,12 +3,12 @@
   [class.w-64]="isSidebarOpen">
 
   <div class="p-8" *ngIf="isSidebarOpen">
-    <img src="../../../assets/img/IsoTipoLyticsGrilla.png" alt="Logo de la marca" >
+    <img src="../../../assets/img/Lytics_New.png" alt="Logo de la marca" >
     <button class="sm:block lg:hidden absolute top-1 ml-52 btn btn-circle"
     (click)="closeCart()"><i class="fa-lg fa-regular fa-circle-xmark"></i></button>
   </div>
   <div class="p-4" *ngIf="!isSidebarOpen">
-    <img src="../../../assets/img/lytics_logo_Grilla.png" alt="Logo de la marca" >
+    <img src="../../../assets/img/Lytics_new_logo.png" alt="Logo de la marca" >
   </div>
 
 
@@ -63,7 +63,7 @@
   <div>
     <ul class="menu menu-sm bg-base-100 rounded-box z-[1]">
       <li class="p-1">
-        <a [routerLink]="['mySubscription']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mi Suscripcion">
+        <a [routerLink]="['misuscription']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mi Suscripcion">
           <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-credit-card"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mi Suscripcion</span>
         </a>
@@ -72,6 +72,12 @@
         <a [routerLink]="['configuracion']" class="block p-2 rounded hover:bg-gray-300 transition" title="Configuracion">
           <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-cog"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Configuracion</span>
+        </a>
+      </li>
+      <li class="p-1">
+        <a [routerLink]="['']" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
+          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-right-from-bracket"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Desloguearse</span>
         </a>
       </li>
     </ul>
