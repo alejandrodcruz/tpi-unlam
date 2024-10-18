@@ -24,7 +24,7 @@ export class HumidityService {
         if (response && response.length > 0 && response[0].humidity !== undefined) {
           return response[0].humidity;
         } else {
-          console.error('Error: El array de respuesta está vacío o no contiene el campo "humidity".');
+
           return 0; // Valor por defecto si no hay datos
         }
       })

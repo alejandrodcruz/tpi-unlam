@@ -31,8 +31,11 @@ export class AuthService {
     return this.httpCliente.post<any>(`${this.LOGIN_URL}/login`, { username, password }).pipe(
       tap(response => {
         if(response.token){
+          console.log("ESTE ES EL RESPONSE ID");
+          console.log(response.id);
           this.setToken(response.token);
           this.setUserId(response.id);
+          console.log("ESTE ES EL RESPONSE SUBJECT ID", this.getUserId());
         }
       })
     )

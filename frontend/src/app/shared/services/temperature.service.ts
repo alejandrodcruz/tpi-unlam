@@ -28,7 +28,7 @@ export class TemperatureService {
         if (response && response.length > 0 && response[0].temperature !== undefined) {
           return response[0].temperature;
         } else {
-          console.error('Error: El array de respuesta está vacío o no contiene el campo "temperature".');
+
           return 0; // Valor por defecto si no hay datos
         }
       })

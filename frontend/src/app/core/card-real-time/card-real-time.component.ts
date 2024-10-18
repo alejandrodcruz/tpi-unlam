@@ -50,10 +50,8 @@ export class CardRealTimeComponent implements OnInit {
     this.getMeasurements();
     this.getHoraActual();
 
-    // Asignación de tipoDato según el título de la tarjeta
     if (this.titleCard === 'Humedad') {
       this.humidityService.getHumidity().subscribe((data: any) => {
-        console.log('Datos recibidos:', data);
         this.dataCardProgress = data;
         this.humidity = data;
         this.tipoDato = 'humidity';
@@ -62,10 +60,12 @@ export class CardRealTimeComponent implements OnInit {
     }
 
     if (this.titleCard === 'Temperatura') {
+      /*
       this.temperatureService.getTemperature().subscribe((data: any) => {
         this.temperature = data;
         this.tipoDato = 'temperature';  // Se muestra temperatura
       });
+       */
     }
 
     if (this.titleCard === 'Horario') {
@@ -109,7 +109,6 @@ export class CardRealTimeComponent implements OnInit {
         .subscribe(
           (data) => {
             this.measurements = data;
-            console.log('Mediciones obtenidas:', this.measurements);
           },
           (error) => {
             console.error('Error al obtener las mediciones', error);
@@ -120,9 +119,10 @@ export class CardRealTimeComponent implements OnInit {
     }
   }
   getHoraActual(): void {
-    this.currentTimeService.getHoraActual().subscribe(time => {
+    /*this.currentTimeService.getHoraActual().subscribe(time => {
       this.currenTime = time;
     });
+     */
   }
 
 }
