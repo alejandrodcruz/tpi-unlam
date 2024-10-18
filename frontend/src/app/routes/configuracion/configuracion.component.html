@@ -1,8 +1,5 @@
 
-<div class="grid grid-cols-1 gap-4 mb-4 bg-white px-10 py-4">
-  <h2 class="text-2xl font-bold">Selecciona el Perfil de tu casa</h2>
-  <p class="text-pretty">Selecciona el perfil que mejor describe tu hogar para obtener una configuración de consumo de energía personalizada.</p>
-</div>
+<app-panel-title title="Selecciona el Perfil de tu casa" description="Selecciona el perfil que mejor describe tu hogar para obtener una configuración de consumo de energía personalizada."></app-panel-title>
 
 
 <div class="container mx-auto py-4 px-10">
@@ -30,7 +27,13 @@
           </ul>
           <p>Consumo estimado: Bajo, ideal para pequeños espacios con un uso moderado de electrodomésticos.</p>
         </div>
-        <a [routerLink]="['configuracion']" (click)="toggleExpand('small', $event)" class="text-blue-500 underline">{{ expanded['small'] ? 'Leer menos' : 'Leer más' }}</a>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('small', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
+
       </div>
     </div>
 
@@ -58,7 +61,12 @@
           </ul>
           <p>Consumo estimado: Moderado, ya que se usan varios electrodomésticos y el aire acondicionado puede estar encendido por más tiempo.</p>
         </div>
-        <a [routerLink]="['configuracion']" (click)="toggleExpand('medium', $event)" class="text-blue-500 underline">{{ expanded['medium'] ? 'Leer menos' : 'Leer más' }}</a>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('medium', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
       </div>
     </div>
 
@@ -87,23 +95,37 @@
           </ul>
           <p>Consumo estimado: Alto, especialmente por la cantidad de electrodomésticos y el uso de aires acondicionados, calefacción y herramientas de jardín.</p>
         </div>
-        <a [routerLink]="['configuracion']" (click)="toggleExpand('large', $event)" class="text-blue-500 underline">{{ expanded['large'] ? 'Leer menos' : 'Leer más' }}</a>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('large', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
       </div>
     </div>
 
 
     <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105"
-      [ngClass]="{'bg-blue-200': selectedProfile === 'personalized'}"
-      (click)="selectProfile('personalized')">
-        <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
-        <div class="ml-4">
-          <h2 class="card-title">Personalizado</h2><br>
+         [ngClass]="{'bg-blue-200': selectedProfile === 'personalized'}"
+         (click)="selectProfile('personalized')">
+      <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
+      <div class="ml-4">
+        <h2 class="card-title">Personalizado</h2><br>
+        <div [ngClass]="{'truncate-text': !expanded['personalized']}" class="card-content">
           <p>Descripción: Este perfil es ideal para hogares que no encajan en las categorías anteriores. El usuario
             puede ajustar manualmente el consumo según la cantidad de electrodomésticos y habitaciones.</p>
           <p>Configuración: Permite elegir cuántos ambientes tiene el hogar y cuántos electrodomésticos hay en cada uno, lo que brinda flexibilidad.</p>
           <p>Electrodomésticos típicos: Varía según el usuario.</p>
         </div>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('personalized', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
       </div>
+
+    </div>
 
   </div>
 </div>
