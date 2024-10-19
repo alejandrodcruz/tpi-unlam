@@ -13,7 +13,7 @@ import { DashboardHistoricoComponent } from './routes/dashboard-historico/dashbo
 import { CarbonFootprintComponent } from './routes/carbon-footprint/carbon-footprint/carbon-footprint.component';
 import {AlertsComponent} from "./routes/alerts/alerts.component";
 import { MisuscriptionComponent } from "./routes/misuscription/misuscription.component";
-
+import {ControlComponent} from "./core/control/control.component";
 
 
 export const routes: Routes = [
@@ -21,6 +21,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'landing', component:  LandingPageComponent},
+  { path: 'control', component:  ControlComponent},
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
   {
     path: 'home',

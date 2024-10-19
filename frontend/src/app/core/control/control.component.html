@@ -1,0 +1,9 @@
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 p-4">
+  <div *ngFor="let electrodomestico of electrodomesticos" class="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-between">
+    <img [src]="electrodomestico.imagen" alt="{{ electrodomestico.nombre }}" class="h-40 w-full object-cover rounded-md mb-4">
+    <h2 class="text-xl font-semibold text-center">{{ electrodomestico.nombre }}</h2>
+    <button (click)="activarElectrodomestico(electrodomestico.id)" [ngClass]="{'bg-green-500': electrodomestico.activo, 'bg-blue-500': !electrodomestico.activo}" class="mt-4 text-white px-4 py-2 rounded-lg w-full">
+      {{ electrodomestico.activo ? 'Desactivar' : 'Activar' }}
+    </button>
+  </div>
+</div>

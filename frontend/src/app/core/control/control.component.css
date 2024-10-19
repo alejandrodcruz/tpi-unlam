@@ -1,0 +1,4 @@
+/* Opcional: puedes agregar estos estilos para ajustar detalles finos */
+button {
+  transition: background-color 0.3s ease;
+}
