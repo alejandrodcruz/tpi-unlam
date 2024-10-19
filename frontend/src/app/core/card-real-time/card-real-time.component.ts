@@ -1,11 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { HumidityService } from '../../shared/services/humidity.service';
-import { TemperatureService } from '../../shared/services/temperature.service';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { CurrenttimeService } from '../../shared/services/currenttime.service';
 import {DatePipe, NgClass, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
 import { AuthService } from '../../shared/services/auth.service';
-import {interval, switchMap} from "rxjs";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card-real-time',
@@ -22,10 +20,11 @@ import {interval, switchMap} from "rxjs";
   styleUrl: './card-real-time.component.css'
 })
 export class CardRealTimeComponent implements OnInit, OnDestroy {
-  measurements: Measurement[] = [];
 
+  measurements: Measurement[] = [];
   horaActual!: Date;
   private horaSubscription!: Subscription;
+  private measurementsServiceSubscription!: Subscription;
 
   @Input() iconClasses: string = '';
   @Input() titleCard: string = '';
@@ -62,7 +61,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
     const timeRange = '10s';
 
     if (userId !== null) {
-      this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
+      this.measurementsServiceSubscription = this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
         .subscribe(
           (data) => {
             this.measurements = data;
@@ -113,6 +112,9 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.horaSubscription) {
       this.horaSubscription.unsubscribe();
+    }
+    if (this.measurementsServiceSubscription) {
+      this.measurementsServiceSubscription.unsubscribe();
     }
   }
 }
