@@ -1,35 +1,45 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { UserService, Device } from '../../shared/services/user.service';
 import {RouterLink} from "@angular/router";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
+  templateUrl: './toolbar.component.html',
   imports: [
     RouterLink,
-    CommonModule
-  ],
-  templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.css',
+    NgForOf,
+    NgIf
+  ]
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit {
   isSidebarOpen = true;
   @Output() toggleSidebar = new EventEmitter<void>();
-  constructor() {}
 
+  devices: Device[] = [];
+  selectedDevice: string = "";
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.getUserDevices().subscribe((devices) => {
+      this.devices = devices;
+      this.selectedDevice = devices[0].deviceId
+      this.userService.selectDevice(this.selectedDevice);
+    });
+  }
   toggleSidebarState() {
     this.isSidebarOpen = !this.isSidebarOpen;
     this.toggleSidebar.emit();
   }
 
-  ngOnInit() {
+  onDeviceChange(event: any) {
+    var selectedDevice = event.target.value;
+    if (selectedDevice) {
+      this.selectedDevice = selectedDevice;
+      console.log("selectedDevice", selectedDevice);
+      this.userService.selectDevice(selectedDevice);
+    }
   }
-
-      notificationCount: number = 5;
-
-      // Método para incrementar las notificaciones
-      incrementNotifications() {
-        this.notificationCount++;
-      }
-
 }

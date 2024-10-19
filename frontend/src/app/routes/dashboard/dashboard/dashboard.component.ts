@@ -3,8 +3,12 @@ import { SidebarComponent } from "../../../core/sidebar/sidebar.component";
 import { ReportesHistoricosComponent } from "../../reportes/reportes-historicos/reportes-historicos.component";
 import { CardInfoComponent } from "../../../core/card/card-info.component";
 import { CommonModule, NgClass } from "@angular/common";
+// @ts-ignore
 import introJs from 'intro.js';
 import {CardRealTimeComponent} from "../../../core/card-real-time/card-real-time.component";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {UserService} from "../../../shared/services/user.service";
+import {DashboardPanelComponent} from "../../../core/dashboard-panel/dashboard-panel.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,51 +19,58 @@ import {CardRealTimeComponent} from "../../../core/card-real-time/card-real-time
     CardInfoComponent,
     NgClass,
     CommonModule,
-    CardRealTimeComponent
+    CardRealTimeComponent,
+    DashboardPanelComponent
   ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'] // Asegúrate de que sea 'styleUrls' (plural) en lugar de 'styleUrl'
+  styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit { // Implementa OnInit
-  isExpanded1: boolean = false;
-  isExpanded2: boolean = false;
-  isExpanded3: boolean = false;
-  isExpanded4: boolean = false;
+export class DashboardComponent implements OnInit {
+  public selectedDevice: string = '';
+  public hasDeviceId: boolean = false;
+  public voltUrl: SafeResourceUrl | undefined;
+  public ampUrl: SafeResourceUrl | undefined;
+  public wattUrl: SafeResourceUrl | undefined;
+  public kwhUrl: SafeResourceUrl | undefined;
 
-  constructor() {
-  }
-
-  // Método para manejar la expansión de tarjetas
-  toggleExpand(cardNumber: number) {
-    switch (cardNumber) {
-      case 1:
-        this.isExpanded1 = !this.isExpanded1;
-        break;
-      case 2:
-        this.isExpanded2 = !this.isExpanded2;
-        break;
-      case 3:
-        this.isExpanded3 = !this.isExpanded3;
-        break;
-      case 4:
-        this.isExpanded4 = !this.isExpanded4;
-        break;
-    }
-  }
-
+  constructor(private userService: UserService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     const hasDevice = localStorage.getItem('hasDevice');
-   if(hasDevice === 'true') {
-    this.startTour();}
+    if (hasDevice === 'true') {
+      this.startTour();
+    }
+
+    this.userService.selectedDevice$.subscribe(device => {
+      this.selectedDevice = device;
+      if (this.selectedDevice) {
+        this.hasDeviceId = true;
+        this.updateIframeUrl();
+      }
+    });
   }
 
+  updateIframeUrl() {
+    if (this.selectedDevice) {
+      const voltUrl = `http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.voltUrl = this.sanitizer.bypassSecurityTrustResourceUrl(voltUrl);
+
+      const ampUrl = `http://localhost:3000/d-solo/de09ym86tk2rkf/current?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.ampUrl = this.sanitizer.bypassSecurityTrustResourceUrl(ampUrl);
+
+      const wattUrl = `http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.wattUrl = this.sanitizer.bypassSecurityTrustResourceUrl(wattUrl);
+
+      const kwhUrl = `http://localhost:3000/d-solo/fe09yozs0bl6od/energy?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.kwhUrl = this.sanitizer.bypassSecurityTrustResourceUrl(kwhUrl);
+
+    }
+  }
 
   startTour() {
     const hasSeenTour = localStorage.getItem('hasSeenTour');
 
     if (!hasSeenTour) {
-
       const intro = introJs();
       intro.setOptions({
         nextLabel: 'Siguiente',
@@ -103,4 +114,3 @@ export class DashboardComponent implements OnInit { // Implementa OnInit
     }
   }
 }
-

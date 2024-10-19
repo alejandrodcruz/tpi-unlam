@@ -1,10 +1,11 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import { HumidityService } from '../../shared/services/humidity.service';
+import { TemperatureService } from '../../shared/services/temperature.service';
 import { CurrenttimeService } from '../../shared/services/currenttime.service';
 import {DatePipe, NgClass, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
 import { AuthService } from '../../shared/services/auth.service';
-import { interval, Subscription } from 'rxjs';
-
+import {interval, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-card-real-time',

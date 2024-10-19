@@ -5,6 +5,7 @@ import {RouterLink} from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import {PanelTitleComponent} from "../panel-title/panel-title.component";
 import { ConfigurationService } from '../../shared/services/configuration.service';
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-configuracion',
@@ -20,8 +21,10 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
 })
 export class ConfiguracionComponent implements OnInit {
   selectedProfile: string | null = null;
+  public deviceId: string = '';
+  public title: string = '';
   alertSettings = {
-    deviceId: '08:A6:F7:24:71:98',
+    deviceId: this.deviceId,
     highConsumptionValue: 1400,
     highTensionValue: 140,
     lowTensionValue: 120,
@@ -39,7 +42,7 @@ export class ConfiguracionComponent implements OnInit {
   };
 
   alertSmallSettings = {
-    deviceId: '08:A6:F7:24:71:98',
+    deviceId: this.deviceId,
     highConsumptionValue: 1400,
     highTensionValue: 140,
     lowTensionValue: 120,
@@ -57,7 +60,7 @@ export class ConfiguracionComponent implements OnInit {
   };
 
   alertMediumSettings = {
-    deviceId: '08:A6:F7:24:71:98',
+    deviceId: this.deviceId,
     highConsumptionValue: 2200,
     highTensionValue: 140,
     lowTensionValue: 120,
@@ -75,7 +78,7 @@ export class ConfiguracionComponent implements OnInit {
   };
 
   alertHighSettings = {
-    deviceId: '08:A6:F7:24:71:98',
+    deviceId: this.deviceId,
     highConsumptionValue: 3000,
     highTensionValue: 140,
     lowTensionValue: 120,
@@ -92,7 +95,8 @@ export class ConfiguracionComponent implements OnInit {
     highHumidityActive: false,
   };
 
-  constructor(private configurationService: ConfigurationService) {}
+  constructor(private configurationService: ConfigurationService,
+              private userService: UserService) {}
 
   selectProfile(profile: string) {
     this.selectedProfile = profile;
@@ -118,8 +122,12 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const deviceId = this.alertSettings.deviceId;  // Get device Id from session
-    this.configurationService.getAlertSettings(deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
+    this.userService.selectedDevice$.subscribe((device: string) => {
+      this.deviceId = device;
+      this.title = "Selecciona la configuracion para " + this.deviceId;
+    });
+
+    this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
       this.alertSettings = { ...this.alertSettings, ...response };
     });
   }

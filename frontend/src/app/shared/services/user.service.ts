@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import { AuthService } from './auth.service';
 
-export interface User {
-  id: number;
+export interface Device {
+  deviceId: string;
   name: string;
-  hasDevice: boolean;
 }
 
 @Injectable({
@@ -13,16 +13,27 @@ export interface User {
 })
 export class UserService {
 
-  constructor(private httpClient: HttpClient) { }
+  private url = 'http://localhost:8080/api';
 
-  getUser(): Observable<User> {
+  private selectedDeviceSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  selectedDevice$: Observable<string> = this.selectedDeviceSubject.asObservable();
 
-    const mockUser: User = {
-      id: 1,
-      name: 'John Doe',
-      hasDevice: false,
-    };
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
-    return of(mockUser);
+  getUserDevices(): Observable<Device[]> {
+    const userId = this.authService.getUserId();
+
+    if (userId !== null) {
+      return this.httpClient.get<Device[]>(`${this.url}/devices/user/${userId}`);
+    } else {
+      return of([]);
+    }
+  }
+
+  selectDevice(device: string) {
+    this.selectedDeviceSubject.next(device);
+  }
+  getSelectedDevice(): string {
+    return this.selectedDeviceSubject.value;
   }
 }
