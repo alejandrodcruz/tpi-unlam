@@ -9,27 +9,20 @@ import {AuthService} from "./auth.service";
 export class TemperatureService {
   private url = 'http://localhost:8080/api/measurements?fields=temperature&timeRange=24h&userId=1';
 
-  // Token del usuario
-  //private token = '';
-
-
-
   constructor(private http: HttpClient,private authService: AuthService) {
   }
 
-  // Método que hace la solicitud periódicamente
   getTemperature(): Observable<number> {
-    //const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 
     return interval(5000).pipe(
-      switchMap(() => this.http.get<any[]>(this.url)), // Asegúrate de que la respuesta sea un array si es necesario
+    switchMap(() => this.http.get<any[]>(this.url)),
 
       map((response: any[]) => {
         if (response && response.length > 0 && response[0].temperature !== undefined) {
           return response[0].temperature;
         } else {
           console.error('Error: El array de respuesta está vacío o no contiene el campo "temperature".');
-          return 0; // Valor por defecto si no hay datos
+        return 0;
         }
       })
     );
