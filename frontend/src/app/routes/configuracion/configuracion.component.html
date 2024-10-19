@@ -27,7 +27,13 @@
           </ul>
           <p>Consumo estimado: Bajo, ideal para pequeños espacios con un uso moderado de electrodomésticos.</p>
         </div>
-        <a [routerLink]="['configuracion']" (click)="toggleExpand('small', $event)" class="text-blue-500 underline">{{ expanded['small'] ? 'Leer menos' : 'Leer más' }}</a>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('small', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
+
       </div>
     </div>
 
@@ -55,7 +61,12 @@
           </ul>
           <p>Consumo estimado: Moderado, ya que se usan varios electrodomésticos y el aire acondicionado puede estar encendido por más tiempo.</p>
         </div>
-        <a [routerLink]="['configuracion']" (click)="toggleExpand('medium', $event)" class="text-blue-500 underline">{{ expanded['medium'] ? 'Leer menos' : 'Leer más' }}</a>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('medium', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
       </div>
     </div>
 
@@ -84,238 +95,39 @@
           </ul>
           <p>Consumo estimado: Alto, especialmente por la cantidad de electrodomésticos y el uso de aires acondicionados, calefacción y herramientas de jardín.</p>
         </div>
-        <a [routerLink]="['configuracion']" (click)="toggleExpand('large', $event)" class="text-blue-500 underline">{{ expanded['large'] ? 'Leer menos' : 'Leer más' }}</a>
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('large', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
       </div>
     </div>
 
 
     <div class="card bg-base-100 shadow-xl p-6 transform transition-transform hover:scale-105"
-      [ngClass]="{'bg-blue-200': selectedProfile === 'personalized'}"
-      (click)="selectProfile('personalized')">
-        <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
-        <div class="ml-4">
-          <h2 class="card-title">Personalizado</h2><br>
-          <div [ngClass]="{'truncate-text': !expanded['personalized']}" class="card-content">
+         [ngClass]="{'bg-blue-200': selectedProfile === 'personalized'}"
+         (click)="selectProfile('personalized')">
+      <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
+      <div class="ml-4">
+        <h2 class="card-title">Personalizado</h2><br>
+        <div [ngClass]="{'truncate-text': !expanded['personalized']}" class="card-content">
           <p>Descripción: Este perfil es ideal para hogares que no encajan en las categorías anteriores. El usuario
             puede ajustar manualmente el consumo según la cantidad de electrodomésticos y habitaciones.</p>
           <p>Configuración: Permite elegir cuántos ambientes tiene el hogar y cuántos electrodomésticos hay en cada uno, lo que brinda flexibilidad.</p>
           <p>Electrodomésticos típicos: Varía según el usuario.</p>
-          </div>
-          <a [routerLink]="['configuracion']" (click)="toggleExpand('personalized', $event)" class="text-blue-500 underline">{{ expanded['personalized'] ? 'Leer menos' : 'Leer más' }}</a>
         </div>
-
+        <button
+          [routerLink]="['configuracion']"
+          (click)="toggleExpand('personalized', $event)"
+          class="text-white bg-primary hover:bg-primaryhover py-2 px-4 rounded">
+          {{ expanded['large'] ? 'Leer menos' : 'Leer más' }}
+        </button>
       </div>
 
+    </div>
+
   </div>
-</div>
-
-<div class="container mx-auto py-4 px-10">
-    <div class="grid grid-cols-1 gap-4">
-        <h2 class="text-3xl font-bold">Alertas</h2>
-        <p>Este panel te ofrece la configuracion de la aplicacion.</p>
-    </div>
-</div>
-
-<div class="container mx-auto py-6 px-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Exceso de Consumo</p>
-                <p class="text-sm text-gray-500">Cuando el consumo supere.</p>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div>
-                    <input
-                            type="number"
-                            min="0"
-                            step="10"
-                            value="300"
-                            [(ngModel)]="alertSettings.highConsumptionValue"
-                            (ngModelChange)="onAlertChange()"
-                            class="text-lg text-gray-600 border border-gray-300 rounded-md p-1 w-20"
-                    />
-                    <span class="ml-1 text-lg text-gray-600">Kwh</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer ml-4">
-                    <input type="checkbox" [(ngModel)]="alertSettings.highConsumptionActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Sobretensión</p>
-                <p class="text-sm text-gray-500">El voltaje en la red es superior al rango seguro, esto podria dañar seriamente sus dispositivos conectados.</p>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div>
-                    <input
-                            type="number"
-                            min="0"
-                            step="10"
-                            value="300"
-                            [(ngModel)]="alertSettings.highTensionValue"
-                            (ngModelChange)="onAlertChange()"
-                            class="text-lg text-gray-600 border border-gray-300 rounded-md p-1 w-20"
-                    />
-                    <span class="ml-1 text-lg text-gray-600">V</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.highTensionActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Baja Tensión</p>
-                <p class="text-sm text-gray-500">El voltaje en la red es inferior al rango normal, la baja tension puede
-                    hacer que sus electrodomésticos empiecen a tener problemas de funcionamiento.</p>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div>
-                    <input
-                            type="number"
-                            min="0"
-                            step="10"
-                            value="300"
-                            [(ngModel)]="alertSettings.lowTensionValue"
-                            (ngModelChange)="onAlertChange()"
-                            class="text-lg text-gray-600 border border-gray-300 rounded-md p-1 w-20"
-                    />
-                    <span class="ml-1 text-lg text-gray-600">V</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.lowTensionActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Pérdida de Energía</p>
-                <p class="text-sm text-gray-500">Interrupción total del suministro eléctrico.</p>
-            </div>
-            <div class="flex items-center justify-end">
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.energyLossActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Pico de Corriente</p>
-                <p class="text-sm text-gray-500">Un pico de corriente por encima de la capacidad de los cables
-                    puede causar un sobrecalentamiento, derretir el aislamiento de los cables y aumentar el riesgo de incendio.</p>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div>
-                    <input
-                            type="number"
-                            min="0"
-                            step="10"
-                            value="300"
-                            [(ngModel)]="alertSettings.peakPowerCurrentValue"
-                            (ngModelChange)="onAlertChange()"
-                            class="text-lg text-gray-600 border border-gray-300 rounded-md p-1 w-20"
-                    />
-                    <span class="ml-1 text-lg text-gray-600">Amp</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.peakPowerCurrentActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Temperatura Alta</p>
-                <p class="text-sm text-gray-500">Cuando la temperatura del ambiente supere.</p>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div>
-                    <input
-                            type="number"
-                            min="0"
-                            step="10"
-                            value="300"
-                            [(ngModel)]="alertSettings.highTemperatureValue"
-                            (ngModelChange)="onAlertChange()"
-                            class="text-lg text-gray-600 border border-gray-300 rounded-md p-1 w-20"
-                    />
-                    <span class="ml-1 text-lg text-gray-600">C</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.highTemperatureActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Humedad Alta</p>
-                <p class="text-sm text-gray-500">Cuando la humedad del ambiente supere.</p>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div>
-                    <input
-                            type="number"
-                            min="0"
-                            step="10"
-                            value="300"
-                            [(ngModel)]="alertSettings.highHumidityValue"
-                            (ngModelChange)="onAlertChange()"
-                            class="text-lg text-gray-600 border border-gray-300 rounded-md p-1 w-20"
-                    />
-                    <span class="ml-1 text-lg text-gray-600">g/m3</span>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.highHumidityActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-
-
-        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between">
-            <div>
-                <p class="text-xl font-semibold text-gray-800">Dispositivo Perdido</p>
-                <p class="text-sm text-gray-500">Pérdida de conexión con el dispositivo.</p>
-            </div>
-            <div class="flex items-center justify-end">
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" [(ngModel)]="alertSettings.lostDeviceActive" class="sr-only peer" (ngModelChange)="onAlertChange()">
-                    <div class="w-10 h-5 bg-gray-300 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 transition-colors"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-md transform transition-transform peer-checked:translate-x-5"></div>
-                </label>
-            </div>
-        </div>
-    </div>
 </div>
 
 
