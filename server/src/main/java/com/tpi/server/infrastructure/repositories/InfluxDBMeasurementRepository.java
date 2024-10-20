@@ -109,4 +109,52 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
         }
         return measurements;
     }
+
+    @Override
+    public double getTotalEnergyConsumption(List<String> deviceIds, String startTime, String endTime, String deviceId) {
+        if (deviceIds.isEmpty()) {
+            return 0.0;
+        }
+
+        String devicesFilter;
+        if (deviceId != null && !deviceId.isEmpty()) {
+            // Filtrar por un dispositivo específico
+            devicesFilter = "\"" + deviceId + "\"";
+        } else {
+            // Filtrar por todos los dispositivos del usuario
+            devicesFilter = String.join("\",\"", deviceIds);
+            devicesFilter = "\"" + devicesFilter + "\"";
+        }
+
+        String fluxQuery = String.format(
+                "from(bucket:\"%s\") " +
+                        "|> range(start: %s, stop: %s) " +
+                        "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
+                        "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
+                        "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
+                        "|> sum()",
+                bucket,
+                startTime,
+                endTime,
+                devicesFilter
+        );
+
+        QueryApi queryApi = influxDBClient.getQueryApi();
+        List<FluxTable> tables = queryApi.query(fluxQuery);
+
+        double totalEnergy = 0.0;
+        for (FluxTable table : tables) {
+            for (FluxRecord record : table.getRecords()) {
+                Object value = record.getValueByKey("_value");
+                if (value != null) {
+                    totalEnergy += ((Number) value).doubleValue();
+                }
+            }
+        }
+
+        // Convertir de Wh a kWh
+        totalEnergy = totalEnergy / 1000.0;
+
+        return totalEnergy;
+    }
 }
