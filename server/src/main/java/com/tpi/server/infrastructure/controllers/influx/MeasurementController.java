@@ -3,7 +3,7 @@ package com.tpi.server.infrastructure.controllers.influx;
 import com.tpi.server.application.usecases.influx.GetTotalEnergyConsumptionUseCase;
 import com.tpi.server.application.usecases.influx.GetUserMeasurementsUseCase;
 import com.tpi.server.domain.models.Measurement;
-import com.tpi.server.domain.models.TotalEnergyResponse;
+import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,13 +35,12 @@ public class MeasurementController {
     }
 
     @GetMapping("/total-energy")
-    public TotalEnergyResponse getTotalEnergyConsumption(
+    public TotalEnergyDetailedResponse getTotalEnergyConsumption(
             @RequestParam Integer userId,
             @RequestParam String startTime,
             @RequestParam String endTime,
             @RequestParam(required = false) String deviceId
     ) {
-        double totalEnergy = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
-        return new TotalEnergyResponse(totalEnergy);
+        return getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class InfluxDBMeasurementRepository implements MeasurementRepository {
@@ -156,5 +158,46 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
         totalEnergy = totalEnergy / 1000.0;
 
         return totalEnergy;
+    }
+
+    @Override
+    public Map<String, Double> getTotalEnergyConsumptionPerDevice(List<String> deviceIds, String startTime, String endTime) {
+        Map<String, Double> deviceConsumption = new HashMap<>();
+        if (deviceIds.isEmpty()) {
+            return deviceConsumption;
+        }
+
+        String devicesFilter = String.join("\",\"", deviceIds);
+        devicesFilter = "\"" + devicesFilter + "\"";
+
+        String fluxQuery = String.format(
+                "from(bucket:\"%s\") " +
+                        "|> range(start: %s, stop: %s) " +
+                        "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
+                        "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
+                        "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
+                        "|> group(columns: [\"deviceId\"])" +
+                        "|> sum()",
+                bucket,
+                startTime,
+                endTime,
+                devicesFilter
+        );
+
+        QueryApi queryApi = influxDBClient.getQueryApi();
+        List<FluxTable> tables = queryApi.query(fluxQuery);
+
+        for (FluxTable table : tables) {
+            for (FluxRecord record : table.getRecords()) {
+                String deviceId = (String) record.getValueByKey("deviceId");
+                Object value = record.getValueByKey("_value");
+                if (deviceId != null && value != null) {
+                    double energy = ((Number) value).doubleValue() / 1000.0; // Convertir a kWh
+                    deviceConsumption.put(deviceId, energy);
+                }
+            }
+        }
+
+        return deviceConsumption;
     }
 }

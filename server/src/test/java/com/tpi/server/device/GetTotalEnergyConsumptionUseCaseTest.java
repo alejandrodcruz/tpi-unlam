@@ -2,6 +2,7 @@ package com.tpi.server.device;
 
 import com.tpi.server.application.usecases.influx.GetTotalEnergyConsumptionUseCase;
 import com.tpi.server.domain.models.Device;
+import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
@@ -10,10 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.*;
 
 public class GetTotalEnergyConsumptionUseCaseTest {
 
@@ -36,8 +40,9 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         Integer userId = 1;
         String startTime = "2024-10-01T00:00:00Z";
         String endTime = "2024-10-31T23:59:59Z";
-        String deviceId = null; // No filtro por dispositivo
+        String deviceId = null; // No se filtra por dispositivo
 
+        // Crear usuario con dispositivos
         User user = new User();
         user.setId(userId);
 
@@ -49,19 +54,25 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         Set<Device> devices = new HashSet<>(Arrays.asList(device1, device2));
         user.setDevices(devices);
 
-        // Valor de consumo total simulado
+        // Simular consumo por dispositivo
+        Map<String, Double> devicesDetails = new HashMap<>();
+        devicesDetails.put("device1", 50.0);
+        devicesDetails.put("device2", 50.0);
+
         double expectedTotalEnergy = 100.0;
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(measurementRepository.getTotalEnergyConsumption(anyList(), eq(startTime), eq(endTime), eq(deviceId)))
-                .thenReturn(expectedTotalEnergy);
+        when(measurementRepository.getTotalEnergyConsumptionPerDevice(anyList(), eq(startTime), eq(endTime)))
+                .thenReturn(devicesDetails);
 
-        double totalEnergy = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
-        assertEquals(expectedTotalEnergy, totalEnergy);
+        assertEquals(expectedTotalEnergy, response.getTotalEnergy());
+        assertEquals(devicesDetails, response.getDevicesDetails());
+        assertNull(response.getDeviceId());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(measurementRepository, times(1)).getTotalEnergyConsumption(anyList(), eq(startTime), eq(endTime), eq(deviceId));
+        verify(measurementRepository, times(1)).getTotalEnergyConsumptionPerDevice(anyList(), eq(startTime), eq(endTime));
     }
 
     @Test
@@ -71,6 +82,7 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         String endTime = "2024-10-31T23:59:59Z";
         String deviceId = "device1";
 
+        // Crear usuario con dispositivos
         User user = new User();
         user.setId(userId);
 
@@ -85,15 +97,19 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         double expectedTotalEnergy = 50.0;
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(measurementRepository.getTotalEnergyConsumption(anyList(), eq(startTime), eq(endTime), eq(deviceId)))
+        when(measurementRepository.getTotalEnergyConsumption(
+                eq(Collections.singletonList(deviceId)), eq(startTime), eq(endTime), eq(deviceId)))
                 .thenReturn(expectedTotalEnergy);
 
-        double totalEnergy = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
-        assertEquals(expectedTotalEnergy, totalEnergy);
+        assertEquals(expectedTotalEnergy, response.getTotalEnergy());
+        assertEquals(deviceId, response.getDeviceId());
+        assertNull(response.getDevicesDetails());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(measurementRepository, times(1)).getTotalEnergyConsumption(anyList(), eq(startTime), eq(endTime), eq(deviceId));
+        verify(measurementRepository, times(1)).getTotalEnergyConsumption(
+                eq(Collections.singletonList(deviceId)), eq(startTime), eq(endTime), eq(deviceId));
     }
 
     @Test
@@ -105,12 +121,14 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        double totalEnergy = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
-        assertEquals(0.0, totalEnergy);
+        assertEquals(0.0, response.getTotalEnergy());
+        assertNull(response.getDevicesDetails());
+        assertNull(response.getDeviceId());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(measurementRepository, never()).getTotalEnergyConsumption(anyList(), anyString(), anyString(), anyString());
+        verifyNoMoreInteractions(measurementRepository);
     }
 
     @Test
@@ -126,12 +144,14 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        double totalEnergy = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
-        assertEquals(0.0, totalEnergy);
+        assertEquals(0.0, response.getTotalEnergy());
+        assertNull(response.getDevicesDetails());
+        assertNull(response.getDeviceId());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(measurementRepository, never()).getTotalEnergyConsumption(anyList(), anyString(), anyString(), anyString());
+        verifyNoMoreInteractions(measurementRepository);
     }
 
     @Test
@@ -155,12 +175,14 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        double totalEnergy = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
-        assertEquals(0.0, totalEnergy);
+        assertEquals(0.0, response.getTotalEnergy());
+        assertNull(response.getDevicesDetails());
+        assertNull(response.getDeviceId());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(measurementRepository, never()).getTotalEnergyConsumption(anyList(), anyString(), anyString(), anyString());
+        verifyNoMoreInteractions(measurementRepository);
     }
-
 }
+
