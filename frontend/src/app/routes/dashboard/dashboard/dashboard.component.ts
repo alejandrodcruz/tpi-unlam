@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
 
   updateIframeUrl() {
     if (this.selectedDevice) {
-      const voltUrl = `http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      const voltUrl = `http://localhost:3000/d-solo/ee09ykb533ncwf/power?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
       this.voltUrl = this.sanitizer.bypassSecurityTrustResourceUrl(voltUrl);
 
       const ampUrl = `http://localhost:3000/d-solo/de09ym86tk2rkf/current?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
