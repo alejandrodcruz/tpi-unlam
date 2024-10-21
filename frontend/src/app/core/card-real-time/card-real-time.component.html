@@ -19,7 +19,7 @@
 
         <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold">{{ horaActual | date: 'mediumTime' }}</h2>
 
-        <h2 *ngSwitchCase="'energy'" class="text-2xl font-bold">{{consumo}} kWh</h2>
+        <h2 *ngSwitchCase="'energy'" class="text-2xl font-bold">{{consumo.toFixed(2)}} kWh</h2>
 
         <h2 *ngSwitchDefault class="text-2xl font-bold">Cargando...</h2>
       </div>
