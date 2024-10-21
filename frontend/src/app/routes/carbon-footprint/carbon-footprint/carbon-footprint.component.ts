@@ -36,11 +36,7 @@ export class CarbonFootprintComponent implements OnInit{
 
 ngOnInit(): void {
     this.getTotalCo2();
-    this.KwhToCO2Emissions =  parseFloat(this.convertKwhToCO2Emissions(this.emissionsCO2).toFixed(2));
-    this.KwhToTreeCO2Absorption= this.convertKwhToTreeCO2Absorption(this.KwhToCO2Emissions);
-    this.KwhToVehicleEmissions = this.convertKwhToVehicleEmissions(this.KwhToCO2Emissions);
-    this.KwhToFlightEmissions = this.convertKwhToFlightEmissions(this.KwhToCO2Emissions,false);
- 
+
 }
 
 getTotalCo2(): void {
@@ -52,8 +48,16 @@ if (userId !== null) {
     this.carbonServ.getTotalKwh(userId, startTime, endTime)
       .subscribe(
         (data: TotalEnergy) => {
-          this.emissionsCO2 = data.totalEnergy * this.carbonServ.emissionFactor;
+          const totalKwh = data.totalEnergy;
+          this.emissionsCO2 = this.convertKwhToCO2Emissions(totalKwh);
           console.log('Total CO2:', this.emissionsCO2);
+
+          this.KwhToCO2Emissions = parseFloat(this.emissionsCO2.toFixed(2));
+            console.log("Emisiones CO2 convertidas:", this.KwhToCO2Emissions);
+
+            this.KwhToTreeCO2Absorption = this.convertKwhToTreeCO2Absorption(this.KwhToCO2Emissions);
+            this.KwhToVehicleEmissions = this.convertKwhToVehicleEmissions(this.KwhToCO2Emissions);
+            this.KwhToFlightEmissions = this.convertKwhToFlightEmissions(this.KwhToCO2Emissions, false);
         },
         (error) => {
           console.error('Error al obtener el total de CO2:', error);
@@ -65,69 +69,29 @@ if (userId !== null) {
 }
 
 convertKwhToCO2Emissions(totalKwh: number): number{
-  return this.KwhToCO2Emissions = totalKwh * this.carbonServ.emissionFactor;
+  return totalKwh * this.carbonServ.emissionFactor;
 }
-
 //Un árbol absorbe aproximadamente 21 kg de CO₂ por año (según la FAO y otros estudios ambientales, aunque esto puede variar).
-
-convertKwhToTreeCO2Absorption(totalKwh: number): number  {
-  try {
-    this.KwhToCO2Emissions = this.convertKwhToCO2Emissions(totalKwh);
-    if (this.KwhToCO2Emissions !== null) {
-      this.KwhToTreeCO2Absorption = this.KwhToCO2Emissions / 20;
-      console.log(this.KwhToTreeCO2Absorption)
-
-      return this.KwhToTreeCO2Absorption;
-     
-    } else {
-      throw new Error('Las emisiones de CO2 no están calculadas o son nulas.');
-    }
-  } catch (error) {
-    console.error('Error al calcular la absorción de CO2 en árboles:', error);
-    return 0;
-  }
+convertKwhToTreeCO2Absorption(co2Emissions: number): number {
+  const treesNeeded = co2Emissions / 21; // 21 kg de CO₂ absorbidos por árbol al año
+  return treesNeeded;
 }
 
 //Un automóvil promedio emite 120 g de CO2 por kilómetro recorrido.
 
-convertKwhToVehicleEmissions(totalKwh: number): number  {
-  try {
-    this.KwhToCO2Emissions = this.convertKwhToCO2Emissions(totalKwh);
-
-    if (this.KwhToCO2Emissions !== null) {
-      // Suponiendo que un vehículo promedio emite 120g de CO2 por kilómetro
-      const co2PerKilometer = 0.12;
-
-      this.KwhToVehicleEmissions = this.KwhToCO2Emissions / co2PerKilometer;
-      return this.KwhToVehicleEmissions;
-    } else {
-      throw new Error('Las emisiones de CO2 no están calculadas o son nulas.');
-    }
-  } catch (error) {
-    console.error('Error al calcular las emisiones equivalentes en vehículos:', error);
-    return 0;  // Devolver null en caso de error
-  }
+convertKwhToVehicleEmissions(co2Emissions: number): number {
+  const co2PerKilometer = 0.12; // 120g de CO2 por kilómetro en kg
+  const vehicleEmissions = co2Emissions / co2PerKilometer;
+  return vehicleEmissions;
 }
 
 /* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia
 y puede llegar hasta 0.5 kg de CO2 por pasajero-km en vuelos largos. */
 
-convertKwhToFlightEmissions(totalKwh: number, isLongDistance: boolean): number  {
-  try {
-    this.KwhToCO2Emissions = this.convertKwhToCO2Emissions(totalKwh);
-
-    if (this.KwhToCO2Emissions !== null) {
-      // Definir las emisiones por pasajero-km según la distancia del vuelo
-      const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25;  // kg de CO2 por pasajero-km
-
-      const flightEmissions = this.KwhToCO2Emissions / co2PerPassengerKm;
-      return flightEmissions;
-    } else {
-      throw new Error('Las emisiones de CO2 no están calculadas o son nulas.');
-    }
-  } catch (error) {
-    console.error('Error al calcular las emisiones equivalentes en vuelos:', error);
-    return 0;  // Devolver null en caso de error
-  }
+convertKwhToFlightEmissions(co2Emissions: number, isLongDistance: boolean): number {
+  const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25; // kg de CO2 por pasajero-km
+  const flightEmissions = co2Emissions / co2PerPassengerKm;
+  return flightEmissions;
 }
+
 }
