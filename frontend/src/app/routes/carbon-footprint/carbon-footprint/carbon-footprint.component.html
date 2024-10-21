@@ -41,18 +41,19 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           <app-card-info
           [iconClasses]="'fa-solid fa-tree'"
           [titleCard]="'Arboles'"
-          [dataCardProgress]= "'dataKwhToTreeCO2Absorption'"
+          [unit]="'unidades'"
+          [dataCardProgress]= KwhToTreeCO2Absorption
           [subtitleCard]="'Cantidad a plantar'"
           [valueProgress]="10"
           [maxProgress]="100"
           [colorProgress]="'progress progress-success w-ful'"
-          [showProgress]= true
           [tooltipText] ="'La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-plane'"
           [titleCard]="'Horas de vuelo'"
-          [dataCardProgress]="'dataKwhToVehicleEmissions'"
+          [unit]="'Km'"
+          [dataCardProgress]=KwhToFlightEmissions
           [subtitleCard]="'km en avion'"
           [valueProgress]="40"
           [maxProgress]="100"
@@ -62,7 +63,8 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           <app-card-info
           [iconClasses]="'fa-solid fa-car'"
           [titleCard]="'Autos'"
-          [dataCardProgress]="'200 km'"
+          [unit]="'Km'"
+          [dataCardProgress]=KwhToVehicleEmissions
           [subtitleCard]="'Km en auto'"
           [valueProgress]="50"
           [maxProgress]="100"
@@ -72,7 +74,8 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           <app-card-info
           [iconClasses]="'fa-solid fa-heart-crack'"
           [titleCard]="'Gases contaminantes'"
-          [dataCardProgress]="'20 kg'"
+          [unit]="'Kg'"
+          [dataCardProgress]=KwhToCO2Emissions
           [subtitleCard]="'kg en gases'"
           [valueProgress]="50"
           [maxProgress]="100"
