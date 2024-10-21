@@ -46,8 +46,8 @@
     <div class="relative">
       <button class="flex items-center space-x-2">
         <div class="avatar placeholder">
-          <div class="bg-neutral text-neutral-content w-8 rounded-full">
-            <span class="text-3xl">A</span>
+          <div *ngIf="user$ | async as user" class="bg-neutral text-neutral-content w-8 rounded-full">
+            <span class="text-3xl">{{ getFirstLetterInUppercase(user.username) }}</span>
           </div>
         </div>
         <span>{{ (user$ | async)?.username || 'Usuario'  }}</span>

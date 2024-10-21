@@ -35,8 +35,8 @@ export class ToolbarComponent implements OnInit {
       this.userService.selectDevice(this.selectedDevice);
     });
 
-    const sabe = this.userService.getUserData();
-    console.log("sabe", sabe);
+    this.userService.getUserData();
+
   }
   toggleSidebarState() {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -50,5 +50,10 @@ export class ToolbarComponent implements OnInit {
       console.log("selectedDevice", selectedDevice);
       this.userService.selectDevice(selectedDevice);
     }
+  }
+
+  getFirstLetterInUppercase(name: string | null): string {
+    if (!name) return '';
+    return name.charAt(0).toUpperCase();
   }
 }
