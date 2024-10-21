@@ -1,7 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { UserService, Device } from '../../shared/services/user.service';
+import {UserService, Device } from '../../shared/services/user.service';
 import {RouterLink} from "@angular/router";
-import {NgForOf, NgIf} from "@angular/common";
+import {CommonModule, NgForOf, NgIf} from "@angular/common";
+import { Observable } from 'rxjs';
+import { User } from '../../shared/domain/user';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,7 +12,8 @@ import {NgForOf, NgIf} from "@angular/common";
   imports: [
     RouterLink,
     NgForOf,
-    NgIf
+    NgIf,
+    CommonModule,
   ]
 })
 export class ToolbarComponent implements OnInit {
@@ -19,8 +22,11 @@ export class ToolbarComponent implements OnInit {
 
   devices: Device[] = [];
   selectedDevice: string = "";
+  user$: Observable<User | null>;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.user$ = this.userService.user$;
+  }
 
   ngOnInit(): void {
     this.userService.getUserDevices().subscribe((devices) => {
@@ -28,6 +34,9 @@ export class ToolbarComponent implements OnInit {
       this.selectedDevice = devices[0].deviceId
       this.userService.selectDevice(this.selectedDevice);
     });
+
+    const sabe = this.userService.getUserData();
+    console.log("sabe", sabe);
   }
   toggleSidebarState() {
     this.isSidebarOpen = !this.isSidebarOpen;

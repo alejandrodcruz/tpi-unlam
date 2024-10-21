@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import { AuthService } from './auth.service';
+import { User } from '../domain/user';
 
 export interface Device {
   deviceId: string;
@@ -14,6 +15,10 @@ export interface Device {
 export class UserService {
 
   private url = 'http://localhost:8080/api';
+  private urlUser = 'http://localhost:8080/user';
+
+  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  public user$: Observable<User | null> = this.userSubject.asObservable();
 
   private selectedDeviceSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   selectedDevice$: Observable<string> = this.selectedDeviceSubject.asObservable();
@@ -35,5 +40,20 @@ export class UserService {
   }
   getSelectedDevice(): string {
     return this.selectedDeviceSubject.value;
+  }
+
+  getUserData(): void {
+    const userId = this.authService.getUserId();
+
+    if (userId !== null) {
+      this.httpClient.get<User>(`${this.urlUser}/${userId}`).subscribe({
+        next: (user) => {
+          this.userSubject.next(user);
+        },
+        error: (error) => {
+          console.error('Error al obtener los datos del usuario:', error);
+        }
+      });
+    }
   }
 }
