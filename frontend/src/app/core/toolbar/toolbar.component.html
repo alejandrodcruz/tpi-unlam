@@ -46,11 +46,11 @@
     <div class="relative">
       <button class="flex items-center space-x-2">
         <div class="avatar placeholder">
-          <div class="bg-neutral text-neutral-content w-8 rounded-full">
-            <span class="text-3xl">A</span>
+          <div *ngIf="user$ | async as user" class="bg-neutral text-neutral-content w-8 rounded-full">
+            <span class="text-3xl">{{ getFirstLetterInUppercase(user.username) }}</span>
           </div>
         </div>
-        <span>Alejandro</span>
+        <span>{{ (user$ | async)?.username || 'Usuario'  }}</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>

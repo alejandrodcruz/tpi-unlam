@@ -41,14 +41,9 @@ export class HomeComponent implements OnInit {
     this.deviceService.getUserDevices().subscribe(
       (devices) => {
         if (devices && devices.length > 0) {
-          // El usuario tiene dispositivos asociados
-          localStorage.setItem('hasDevice', 'true')
           this.startTour();
-          console.log('El usuario tiene dispositivos:', devices);
 
         } else {
-          // El usuario no tiene dispositivos asociados
-          console.log('El usuario no tiene dispositivos.');
           this.openDevicePopup();
         }
       },
@@ -104,8 +99,7 @@ export class HomeComponent implements OnInit {
 
       intro.setOptions({
         steps: [
-          {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."
-          },
+          {intro: "👋 ¡Bienvenido al Dashboard de Lytics! Aquí puedes ver toda la información de consumo energético de tu hogar."},
           {element: '#step1', intro: "🕒 Reloj – Indica el horario actual en Buenos Aires."},
           {element: '#step2', intro: "💧 Humedad – Muestra el nivel actual de humedad relativa en el ambiente."},
           {element: '#step3', intro: "🌡️ Temperatura – Indica la temperatura ambiente en grados Celsius."},
