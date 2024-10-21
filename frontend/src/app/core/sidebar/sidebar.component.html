@@ -15,46 +15,46 @@
   <!-- Menú de navegación -->
   <div class="mb-auto">
     <ul class="menu menu-sm bg-base-100 rounded-box z-[1] p-2">
-      <li class="p-1">
-        <a [routerLink]="['dashboard']" class="block p-2 rounded hover:bg-gray-300 transition" title="Dashboard">
-          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-gauge-high" ></i>
+      <li class="p-2">
+        <a [routerLink]="['dashboard']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Dashboard">
+          <i class=" inline-block fa-lg fa-solid fa-gauge-high" ></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Dashboard</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['dispositivos']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mis Dispositivos">
-          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-plug"></i>
+      <li class="p-2">
+        <a [routerLink]="['dispositivos']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Mis Dispositivos">
+          <i class=" inline-block fa-lg fa-solid fa-plug"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mis Dispositivos</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['alerts']" class="block p-2 rounded hover:bg-gray-300 transition" title="Alertas">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-bell"></i>
+      <li class="p-2">
+        <a [routerLink]="['alerts']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Alertas">
+          <i class="inline-block fa-lg fa-solid fa-bell"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Alertas</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['historico']" class="block p-2 rounded hover:bg-gray-300 transition" title="Históricos">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-chart-column"></i>
+      <li class="p-2">
+        <a [routerLink]="['historico']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Históricos">
+          <i class="inline-block fa-lg fa-solid fa-chart-column"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Históricos</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['reportes']" class="block p-2 rounded hover:bg-gray-300 transition" title="Reportes">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-file-lines"></i>
+      <li class="p-2">
+        <a [routerLink]="['reportes']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Reportes">
+          <i class="inline-block fa-lg fa-solid fa-file-lines"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Reportes</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['huella']" class="block p-2 rounded hover:bg-gray-300 transition" title="Huella de carbono">
-          <i class=" inline-block w-5 h-5 p-1 fa-lg fa-solid fa-shoe-prints"></i>
+      <li class="p-2">
+        <a [routerLink]="['huella']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Huella de carbono">
+          <i class=" inline-block fa-lg fa-solid fa-shoe-prints"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Huella de carbono</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['guides']" class="block p-2 rounded hover:bg-gray-300 transition" title="Guias y tutoriales">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-book"></i>
-          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Guias y tutoriales</span>
+      <li class="p-2">
+        <a [routerLink]="['guides']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Guias y tutoriales">
+          <i class="inline-block fa-lg fa-solid fa-book"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Guías y tutoriales</span>
         </a>
       </li>
     </ul>
@@ -62,21 +62,21 @@
 
   <div>
     <ul class="menu menu-sm bg-base-100 rounded-box z-[1]">
-      <li class="p-1">
-        <a [routerLink]="['misuscription']" class="block p-2 rounded hover:bg-gray-300 transition" title="Mi Suscripcion">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-credit-card"></i>
-          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mi Suscripcion</span>
+      <li class="p-2">
+        <a [routerLink]="['misuscription']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Mi Suscripcion">
+          <i class="inline-block fa-lg fa-solid fa-credit-card"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mi Suscripción</span>
         </a>
       </li>
-      <li class="p-1">
-        <a [routerLink]="['configuracion']" class="block p-2 rounded hover:bg-gray-300 transition" title="Configuracion">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-cog"></i>
-          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Configuracion</span>
+      <li class="p-2">
+        <a [routerLink]="['configuracion']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Configuracion">
+          <i class="inline-block fa-lg fa-solid fa-cog"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Configuración</span>
         </a>
       </li>
-      <li class="p-1">
-        <a (click)="logout()" class="block p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
-          <i class="inline-block w-5 h-5 p-1 fa-lg fa-solid fa-right-from-bracket"></i>
+      <li class="p-2">
+        <a (click)="logout()" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Desloguearse">
+          <i class="inline-block fa-lg fa-solid fa-right-from-bracket"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Desloguearse</span>
         </a>
       </li>

@@ -5,27 +5,19 @@ import {interval, map, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class CurrenttimeService {
-  constructor() { }
+  constructor() {}
 
-  getHoraActual(): Observable<string> {
+  getHoraActual(): Observable<Date> {
+
     return interval(1000).pipe(
       map(() => {
-        const now = new Date();
-        return this.formatearHora(now);
+
+        const ahora = new Date();
+
+        const utc = ahora.getTime() + ahora.getTimezoneOffset() * 60000;
+        const argentinaTime = new Date(utc - 3 * 3600000);
+        return argentinaTime;
       })
     );
-  }
-
-  // Método para formatear la hora en formato HH:mm:ss
-  private formatearHora(date: Date): string {
-    const horas = this.agregarCero(date.getHours());
-    const minutos = this.agregarCero(date.getMinutes());
-    const segundos = this.agregarCero(date.getSeconds());
-    return `${horas}:${minutos}:${segundos}`;
-  }
-
-  // Agregar un cero adelante si el valor es menor a 10
-  private agregarCero(valor: number): string {
-    return valor < 10 ? '0' + valor : valor.toString();
   }
 }

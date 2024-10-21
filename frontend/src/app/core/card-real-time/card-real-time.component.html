@@ -17,11 +17,11 @@
 
         <h2 *ngSwitchCase="'temperature'" class="text-2xl font-bold">{{ temperature }} °C</h2>
 
-        <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold">{{ currenTime }}</h2>
+        <h2 *ngSwitchCase="'horaActual'" class="text-2xl font-bold">{{ horaActual | date: 'mediumTime' }}</h2>
 
-        <h2 *ngSwitchCase="'energy'" class="text-2xl font-bold">{{ totalEnergy.toFixed(2) }} kWh</h2>
+        <h2 *ngSwitchCase="'energy'" class="text-2xl font-bold">{{consumo.toFixed(2)}} kWh</h2>
 
-        <h2 *ngSwitchDefault class="text-2xl font-bold">No hay datos disponibles</h2>
+        <h2 *ngSwitchDefault class="text-2xl font-bold">Cargando...</h2>
       </div>
 
     </h2>

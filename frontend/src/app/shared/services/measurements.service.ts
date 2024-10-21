@@ -1,13 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {map, Observable} from 'rxjs';
+import {interval, map, Observable, switchMap} from 'rxjs';
 
 export interface Measurement {
   deviceId: string;
   voltage: number;
-  current: number;
-  power: number;
-  energy: number;
+  current: number; //amperaje
+  power: number; // watts
+  energy: number; //
   temperature: number;
   humidity: number;
   timestamp: string;
@@ -41,6 +41,12 @@ export class MeasurementsService {
       map(measurements => {
         return measurements.reduce((totalEnergy, measurement) => totalEnergy + measurement.energy, 0);
       })
+    );
+  }
+
+  getUserMeasurementsRealTime(userId: number, fields: string[], timeRange: string = '1h', pollingInterval: number = 5000): Observable<Measurement[]> {
+    return interval(pollingInterval).pipe(
+      switchMap(() => this.getUserMeasurements(userId, fields, timeRange))
     );
   }
 }

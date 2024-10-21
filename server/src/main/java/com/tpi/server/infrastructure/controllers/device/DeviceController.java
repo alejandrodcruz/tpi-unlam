@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -31,12 +33,15 @@ public class DeviceController {
     }
 
     @PostMapping("/pair-device")
-    public ResponseEntity<String> pairDevice(@RequestBody DevicePairingRequest request) {
+    public ResponseEntity<Map<String, String>> pairDevice(@RequestBody DevicePairingRequest request) {
         boolean success = devicePairingUseCase.pairDevice(request.getPairingCode(), request.getUserId());
+        Map<String, String> response = new HashMap<>();
         if (success) {
-            return ResponseEntity.ok("Dispositivo asociado al usuario.");
+            response.put("message", "Dispositivo asociado al usuario.");
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.badRequest().body("Código de emparejamiento inválido o ya utilizado.");
+            response.put("message", "Código de emparejamiento inválido o ya utilizado.");
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
