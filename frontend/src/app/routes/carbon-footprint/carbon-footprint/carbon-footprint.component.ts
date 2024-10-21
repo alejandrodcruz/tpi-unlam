@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class CarbonFootprintComponent implements OnInit{
    measurements: Measurement[] = [];
-   emissionsCO2: number | null = null;  // Propiedad para almacenar el total de CO2
+   emissionsCO2: number;  // Propiedad para almacenar el total de CO2
    startDate: string | null = null;
    endDate: string | null = null;
    KwhToCO2Emissions : number | null = null;
@@ -28,52 +28,28 @@ export class CarbonFootprintComponent implements OnInit{
   constructor(private measurementsService: MeasurementsService,
               private authService: AuthService,
               private carbonServ : CarbonService
-            ) {}
+            ) {
+              this.emissionsCO2 = 0;
+            }
 
 ngOnInit(): void {
-    this.getMeasurements();
-    this.emissionsCO2= 325.00
-    this.KwhToCO2Emissions = this.convertKwhToCO2Emissions(325);
+    this.getTotalCo2();
+    this.KwhToCO2Emissions = this.convertKwhToCO2Emissions(this.emissionsCO2);
     this.KwhToTreeCO2Absorption= this.convertKwhToTreeCO2Absorption(this.KwhToCO2Emissions);
     this.KwhToVehicleEmissions = this.convertKwhToVehicleEmissions(this.KwhToCO2Emissions);
     this.KwhToFlightEmissions = this.convertKwhToFlightEmissions(this.KwhToCO2Emissions,false);
 }
 
-getMeasurements(): void {
-    const userId = this.authService.getUserId();
-    const fields = ['voltage', 'current', 'power','energy','temperature', 'humidity', 'timestamp'];
-    const timeRange = '10s';  // Ejemplo de rango de tiempo
-
-    if (userId !== null) {
-      this.measurementsService.getUserMeasurements(userId, fields, timeRange)
-        .subscribe(
-          (data) => {
-            this.measurements = data;
-            console.log('Mediciones obtenidas Huella:', this.measurements);
-
-          },
-          (error) => {
-            console.error('Error al obtener las mediciones', error);
-          }
-        );
-    } else {
-      console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
-    }
-  }
-
-onDateChange(): number {
+getTotalCo2(): void {
 
   const userId = this.authService.getUserId();
-  return  this.emissionsCO2= 325.00;
-
-/*   if (userId !== null && this.startDate && this.endDate) {
-    const startTime = new Date(this.startDate);
-    const endTime = new Date(this.endDate);
-
+  const startTime = new Date('2024-10-01T00:00:00Z');
+    const endTime = new Date('2024-11-01T00:00:00Z');
+if (userId !== null) {
     this.carbonServ.getTotalKwh(userId, startTime, endTime)
       .subscribe(
         (data: TotalEnergy) => {
-          this.emissionsCO2 = data.totalEnergy * this.carbonServ.emissionFactor;  
+          this.emissionsCO2 = data.totalEnergy * this.carbonServ.emissionFactor;
           console.log('Total CO2:', this.emissionsCO2);
         },
         (error) => {
@@ -82,7 +58,7 @@ onDateChange(): number {
       );
   } else {
     console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
-  } */
+  }
 }
 
 convertKwhToCO2Emissions(totalKwh: number): number{
@@ -98,13 +74,13 @@ convertKwhToTreeCO2Absorption(totalKwh: number): number | null {
       this.KwhToTreeCO2Absorption = this.KwhToCO2Emissions / 20;
       console.log(this.KwhToTreeCO2Absorption)
       return this.KwhToTreeCO2Absorption;
-     
+
     } else {
       throw new Error('Las emisiones de CO2 no están calculadas o son nulas.');
     }
   } catch (error) {
     console.error('Error al calcular la absorción de CO2 en árboles:', error);
-    return null; 
+    return null;
   }
 }
 
@@ -113,13 +89,13 @@ convertKwhToTreeCO2Absorption(totalKwh: number): number | null {
 convertKwhToVehicleEmissions(totalKwh: number): number | null {
   try {
     this.KwhToCO2Emissions = this.convertKwhToCO2Emissions(totalKwh);
-    
+
     if (this.KwhToCO2Emissions !== null) {
       // Suponiendo que un vehículo promedio emite 120g de CO2 por kilómetro
-      const co2PerKilometer = 0.12; 
+      const co2PerKilometer = 0.12;
 
       const vehicleEmissions = this.KwhToCO2Emissions / co2PerKilometer;
-      
+
       return vehicleEmissions;
     } else {
       throw new Error('Las emisiones de CO2 no están calculadas o son nulas.');
@@ -130,7 +106,7 @@ convertKwhToVehicleEmissions(totalKwh: number): number | null {
   }
 }
 
-/* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia 
+/* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia
 y puede llegar hasta 0.5 kg de CO2 por pasajero-km en vuelos largos. */
 
 convertKwhToFlightEmissions(totalKwh: number, isLongDistance: boolean): number | null {
@@ -152,6 +128,4 @@ convertKwhToFlightEmissions(totalKwh: number, isLongDistance: boolean): number |
     return null;  // Devolver null en caso de error
   }
 }
-
-
 }
