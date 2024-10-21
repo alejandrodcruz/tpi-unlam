@@ -24,7 +24,16 @@
       </div>
       {{emissionsCO2 | json}}
     </div>
-    
+<!--     
+Contenido de Tooltip:
+
+Árboles plantados: La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.
+
+Kilómetros en auto: Los kilómetros que se recorrerían en un vehículo promedio, emitiendo CO₂. Un automóvil emite alrededor de 120 g de CO₂ por kilómetro.
+
+Kilómetros en avión: El equivalente de CO₂ generado en vuelos comerciales. Un vuelo de corta distancia emite alrededor de 250 g de CO₂ por pasajero-km, mientras que uno de larga distancia puede emitir hasta 500 g por pasajero-km.
+
+Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de energía, representada en kilogramos de gases contaminantes." -->
 
   </div>
     <div class="container mx-auto py-4">
@@ -32,20 +41,23 @@
           <app-card-info
           [iconClasses]="'fa-solid fa-tree'"
           [titleCard]="'Arboles'"
-          [dataCardProgress]="'{{KwhToTreeCO2Absorption}}'"
+          [dataCardProgress]= "'dataKwhToTreeCO2Absorption'"
           [subtitleCard]="'Cantidad a plantar'"
           [valueProgress]="10"
           [maxProgress]="100"
           [colorProgress]="'progress progress-success w-ful'"
+          [showProgress]= true
+          [tooltipText] ="'La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-plane'"
           [titleCard]="'Horas de vuelo'"
-          [dataCardProgress]="'500 km'"
+          [dataCardProgress]="'dataKwhToVehicleEmissions'"
           [subtitleCard]="'km en avion'"
           [valueProgress]="40"
           [maxProgress]="100"
           [colorProgress]="'progress progress-error w-ful'"
+          [tooltipText] ="'El equivalente de CO₂ generado en vuelos comerciales. Un vuelo de corta distancia emite alrededor de 250 g de CO₂ por pasajero-km, mientras que uno de larga distancia puede emitir hasta 500 g por pasajero-km.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-car'"
@@ -55,6 +67,7 @@
           [valueProgress]="50"
           [maxProgress]="100"
           [colorProgress]="'progress progress-info w-ful'"
+          [tooltipText] ="'Los kilómetros que se recorrerían en un vehículo promedio, emitiendo CO₂. Un automóvil emite alrededor de 120 g de CO₂ por kilómetro.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-heart-crack'"
@@ -64,6 +77,7 @@
           [valueProgress]="50"
           [maxProgress]="100"
           [colorProgress]="'progress progress-warning w-ful'"
+          [tooltipText] ="'La cantidad de gases contaminantes generada por el uso de energía, representada en kilogramos de gases contaminantes.'"
           ></app-card-info>
         </div>
       </div>

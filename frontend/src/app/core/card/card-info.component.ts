@@ -18,4 +18,6 @@ export class CardInfoComponent {
   @Input() maxProgress: number = 100;
   @Input() colorProgress: string = '';
   @Input() percentageClass: string = '';
+  @Input() tooltipText: string | undefined;
+  @Input() showProgress : boolean = false;
 }
