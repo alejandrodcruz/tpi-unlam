@@ -32,26 +32,26 @@ CREATE TABLE `device` (
 
 -- Insertar datos en la tabla device
 INSERT INTO `device` (`device_id`, `assigned`, `estimated_consume`, `name`, `pairing_code`, `user_id`) VALUES
-('08:A6:F7:24:71:98', 1, 0, 'Heladera', NULL, 1),
-('08:A6:F7:24:71:99', 1, 0, 'Aire Acondicionado', NULL, 1),
-('08:A6:F7:24:71:9A', 1, 0, 'Microondas', NULL, 1),
-('08:A6:F7:24:71:9B', 1, 0, 'Lavarropas', NULL, 1),
-('08:A6:F7:24:71:9C', 1, 0, 'Televisor', NULL, 1),
-('08:A6:F7:24:71:9D', 1, 0, 'Computadora', NULL, 1),
-('08:A6:F7:24:71:9E', 1, 0, 'Lámpara LED', NULL, 1),
-('08:A6:F7:24:71:9F', 1, 0, 'Ventilador', NULL, 1),
-('08:A6:F7:24:71:A0', 1, 0, 'Cargador de Celular', NULL, 1),
-('08:A6:F7:24:71:A1', 1, 0, 'Router WiFi', NULL, 1),
-('08:A6:F7:24:71:A2', 1, 0, 'Lavavajillas', NULL, 1),
-('08:A6:F7:24:71:A3', 1, 0, 'Secador de Pelo', NULL, 1),
-('08:A6:F7:24:71:A4', 1, 0, 'Calefactor Eléctrico', NULL, 1),
-('08:A6:F7:24:71:A5', 1, 0, 'Plancha', NULL, 1),
-('08:A6:F7:24:71:A6', 1, 0, 'Cafetera', NULL, 1),
-('08:A6:F7:24:71:A7', 1, 0, 'Extractor de Aire', NULL, 1),
-('08:A6:F7:24:71:A8', 1, 0, 'Horno Eléctrico', NULL, 1),
-('08:A6:F7:24:71:A9', 1, 0, 'Bomba de Agua', NULL, 1),
-('08:A6:F7:24:71:AA', 1, 0, 'Radiador Eléctrico', NULL, 1),
-('08:A6:F7:24:71:AB', 1, 0, 'Impresora Láser', NULL, 1);
+('08:A6:F7:24:71:98', 1, 0, 'Heladera', NULL, NULL),
+('08:A6:F7:24:71:99', 1, 0, 'Aire Acondicionado', NULL, NULL),
+('08:A6:F7:24:71:9A', 1, 0, 'Microondas', NULL, NULL),
+('08:A6:F7:24:71:9B', 1, 0, 'Lavarropas', NULL, NULL),
+('08:A6:F7:24:71:9C', 1, 0, 'Televisor', NULL, NULL),
+('08:A6:F7:24:71:9D', 1, 0, 'Computadora', NULL, NULL),
+('08:A6:F7:24:71:9E', 1, 0, 'Lámpara LED', NULL, NULL),
+('08:A6:F7:24:71:9F', 1, 0, 'Ventilador', NULL, NULL),
+('08:A6:F7:24:71:A0', 1, 0, 'Cargador de Celular', NULL, NULL),
+('08:A6:F7:24:71:A1', 1, 0, 'Router WiFi', NULL, NULL),
+('08:A6:F7:24:71:A2', 1, 0, 'Lavavajillas', NULL, NULL),
+('08:A6:F7:24:71:A3', 1, 0, 'Secador de Pelo', NULL, NULL),
+('08:A6:F7:24:71:A4', 1, 0, 'Calefactor Eléctrico', NULL, NULL),
+('08:A6:F7:24:71:A5', 1, 0, 'Plancha', NULL, NULL),
+('08:A6:F7:24:71:A6', 1, 0, 'Cafetera', NULL, NULL),
+('08:A6:F7:24:71:A7', 1, 0, 'Extractor de Aire', NULL, NULL),
+('08:A6:F7:24:71:A8', 1, 0, 'Horno Eléctrico', NULL, NULL),
+('08:A6:F7:24:71:A9', 1, 0, 'Bomba de Agua', NULL, NULL),
+('08:A6:F7:24:71:AA', 1, 0, 'Radiador Eléctrico', NULL, NULL),
+('08:A6:F7:24:71:AB', 1, 0, 'Impresora Láser', NULL, NULL);
 
 COMMIT;
 
