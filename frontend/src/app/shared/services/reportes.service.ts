@@ -1,16 +1,29 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportesService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  getGraficoUrl(type: string, startDate: string, endDate: string): Observable<string> {
 
-  getGrafico(): string {
+    const url = `http://localhost:8080/reports/graphic-report `;
 
-    const grafanaBaseUrl = 'https://grafico.com/d-solo/dashboardUID/panelUID';
-    const queryParams = '?orgId=1&from=now-30d&to=now&theme=light';
-    return `${grafanaBaseUrl}${queryParams}`;
+    const body = {
+      type: type,
+      startDate: startDate,
+      endDate: endDate
+    };
+
+    return this.http.post<string>(url, body).pipe(
+      catchError((error) => {
+        console.error('Error en getGraficoUrl:', error);
+        return of('Error al obtener la URL del gráfico.');
+      })
+    );
   }
 }
+

@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { HumidityService } from '../../shared/services/humidity.service';
-import { TemperatureService } from '../../shared/services/temperature.service';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { CurrenttimeService } from '../../shared/services/currenttime.service';
-import {NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import {DatePipe, NgClass, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card-real-time',
@@ -13,67 +12,48 @@ import { AuthService } from '../../shared/services/auth.service';
     NgClass,
     NgSwitch,
     NgSwitchCase,
-    NgSwitchDefault
+    NgSwitchDefault,
+    DatePipe,
+    NgIf
   ],
   templateUrl: './card-real-time.component.html',
   styleUrl: './card-real-time.component.css'
 })
-export class CardRealTimeComponent implements OnInit {
+export class CardRealTimeComponent implements OnInit, OnDestroy {
+
   measurements: Measurement[] = [];
+  horaActual!: Date;
+  private horaSubscription!: Subscription;
+  private measurementsServiceSubscription!: Subscription;
 
   @Input() iconClasses: string = '';
   @Input() titleCard: string = '';
-  @Input() dataCardProgress: string = 'Cargando...';
+  @Input() dataCardProgress: number = 0;
   @Input() subtitleCard: string = '';
   @Input() valueProgress: number = 10;
   @Input() maxProgress: number = 100;
   @Input() colorProgress: string = '';
   @Input() percentageClass: string = '';
-  @Input() temperature: string = 'Cargando...';
+  @Input() temperature: number = 0;
   @Input() currenTime: string = 'Cargando...';
-
+  @Input() humidity: number = 0;
+  @Input() consumo: number = 0;
   public tipoDato: string="";
+  public totalEnergy: any;
 
-  constructor(private humidityService: HumidityService,
-              private temperatureService: TemperatureService,
-              private currentTimeService: CurrenttimeService,
+  constructor(
               private measurementsService: MeasurementsService,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private currenttimeService: CurrenttimeService) {}
 
   ngOnInit(): void {
 
-  this.getMeasurements();
-
-    // Asignación de tipoDato según el título de la tarjeta
-    if (this.titleCard === 'Humedad') {
-      this.humidityService.getHumidity().subscribe((data: any) => {
-        this.dataCardProgress = `${data.humidity} g/m3`;
-        this.valueProgress = data.humidity;
-        this.tipoDato = 'humidity';  // Se muestra humedad
-      });
-    }
-
-    if (this.titleCard === 'Temperatura') {
-      this.temperatureService.getTemperature().subscribe((data: any) => {
-        this.temperature = `${data.temperature} °C`;
-        this.valueProgress = data.temperature;
-        this.tipoDato = 'temperature';  // Se muestra temperatura
-      });
-    }
+    this.getMeasurements();
 
     if (this.titleCard === 'Horario') {
-      this.tipoDato = 'horaActual';  // Se muestra la hora actual
-
-      // Crear un intervalo para actualizar la hora cada segundo
-      setInterval(() => {
-        this.currentTimeService.getHoraActual().subscribe((data: any) => {
-          this.currenTime = new Date(data.datetime).toLocaleTimeString();
-        });
-      }, 1000); // Intervalo de 1 segundo (1000 ms)
-    }
-
-   //Falta CALCULO DE CONSUMO
-    }
+      this.tipoDato = 'horaActual';
+    this.getHoraActual();}
+  }
 
   getMeasurements() {
     const userId = this.authService.getUserId();
@@ -81,11 +61,33 @@ export class CardRealTimeComponent implements OnInit {
     const timeRange = '10s';
 
     if (userId !== null) {
-      this.measurementsService.getUserMeasurements(userId, fields, timeRange)
+      this.measurementsServiceSubscription = this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
         .subscribe(
           (data) => {
             this.measurements = data;
-            console.log('Mediciones obtenidas:', this.measurements);
+            if (this.measurements.length > 0) {
+              const firstMeasurement = this.measurements[0];
+
+              // Asignación de tipoDato según el título de la tarjeta
+              if (this.titleCard === 'Humedad') {
+                this.humidity = firstMeasurement.humidity;
+                this.dataCardProgress = firstMeasurement.humidity;
+                this.tipoDato = 'humidity';
+              }
+
+              if (this.titleCard === 'Temperatura') {
+                this.temperature = firstMeasurement.temperature;
+                this.dataCardProgress = firstMeasurement.temperature;
+                this.tipoDato = 'temperature';
+              }
+
+              if (this.titleCard === 'Consumo') {
+                this.consumo = firstMeasurement.energy;
+                this.dataCardProgress = firstMeasurement.energy;
+                this.tipoDato = 'energy';
+              }
+            }
+
           },
           (error) => {
             console.error('Error al obtener las mediciones', error);
@@ -96,4 +98,23 @@ export class CardRealTimeComponent implements OnInit {
     }
   }
 
+  getHoraActual(): void {
+   this.horaSubscription = this.currenttimeService.getHoraActual().subscribe(
+      (hora: Date) => {
+        this.horaActual = hora;
+      },
+      (error) => {
+        console.error('Error al obtener la hora actual:', error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.horaSubscription) {
+      this.horaSubscription.unsubscribe();
+    }
+    if (this.measurementsServiceSubscription) {
+      this.measurementsServiceSubscription.unsubscribe();
+    }
+  }
 }

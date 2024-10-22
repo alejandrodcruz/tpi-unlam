@@ -5,6 +5,7 @@
       [titleCard]="'Horario'"
       [subtitleCard]="'San Justo'"
     ></app-card-real-time>
+
     <app-card-real-time id="step2"
       [iconClasses]="'fas fa-cloud-rain'"
       [titleCard]="'Humedad'"
@@ -12,6 +13,7 @@
       [maxProgress]="100"
       [colorProgress]="'progress progress-info w-ful'"
     ></app-card-real-time>
+
     <app-card-real-time id="step3"
       [iconClasses]="'fas fa-thermometer-half'"
       [titleCard]="'Temperatura'"
@@ -20,102 +22,50 @@
       [maxProgress]="100"
       [colorProgress]="'progress progress-error w-ful'"
     ></app-card-real-time>
-    <app-card-info id="step4"
-      [iconClasses]="'fas fa-dollar-sign'"
-      [titleCard]="'Consumo Real'"
-      [dataCardProgress]="'Consumo $'"
-      [subtitleCard]="'Consumo $'"
-      [valueProgress]="25000"
-      [maxProgress]="30000"
-      [colorProgress]="'progress progress-warning w-ful'"
-    ></app-card-info>
 
+    <app-card-real-time id="step4"
+      [iconClasses]="'fas fa-dollar-sign'"
+      [titleCard]="'Consumo'"
+      [subtitleCard]="'Consumo $'"
+      [valueProgress]="10"
+      [maxProgress]="100"
+      [colorProgress]="'progress progress-warning w-ful'"
+    ></app-card-real-time>
 
   </div>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3 " id="step5">
-  <!-- Consumo (Voltaje) -->
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded1, 'relative': !isExpanded1 }" class="bg-white p-6 rounded-lg shadow-md" id="step6">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-2xl font-bold">Voltaje</h2>
-        <p class="text-gray-500">El voltaje estándar es de 220 V y la frecuencia de la corriente alterna es de 50 Hz</p>
-      </div>
-      <button (click)="toggleExpand(1)" class="text-gray-500 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-    </div>
-    <!-- Iframe -->
-    <div class="mt-4">
-      <iframe src="http://localhost:3000/d-solo/ee09ykb533ncwf/voltage?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
-              width="100%"
-              height="300"
-              frameborder="0"></iframe>
-    </div>
-  </div>
 
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded2, 'relative': !isExpanded2 }" class="bg-white p-6 rounded-lg shadow-md" id="step7">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-2xl font-bold">Amperaje</h2>
-        <p class="text-gray-500">El amperaje es cuanta electricidad esta fluyendo por el sistema. </p>
-      </div>
-      <button (click)="toggleExpand(2)" class="text-gray-500 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+  <dashboard-panel
+    title= "Voltaje {{ voltage }} V"
+    description="Muestra la fuerza de la electricidad que llega a tus dispositivos."
+    [url]="voltUrl"
+    modalDescription="El voltaje representa la fuerza con la que la electricidad se desplaza por los cables para alimentar sus dispositivos. Un nivel estable de voltaje es fundamental para proteger los equipos, ya que ayuda a evitar desperfectos o fallas. Piense en el voltaje como la presión necesaria para mantener la electricidad en movimiento de manera segura."
+    tooltipText="El voltaje representa la fuerza con la que la electricidad se desplaza por los cables para alimentar sus dispositivos. Un nivel estable de voltaje es fundamental para proteger los equipos, ya que ayuda a evitar desperfectos o fallas. Piense en el voltaje como la presión necesaria para mantener la electricidad en movimiento de manera segura."
+/>
 
-    </div>
-    <div class="mt-4">
-      <iframe src="http://localhost:3000/d-solo/de09ym86tk2rkf/current?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
-              width="100%"
-              height="300"
-              frameborder="0"></iframe>
-    </div>
-  </div>
+  <dashboard-panel
+    title="Amperaje {{current}} A"
+    description="Indica cuánta electricidad está pasando por el sistema, como el flujo de agua en una tubería."
+    [url]="ampUrl"
+    modalDescription="El amperaje mide la cantidad de electricidad que fluye hacia sus dispositivos en este instante. Es similar al caudal de agua en una cañería: un mayor amperaje indica un uso más intensivo de la electricidad. Un incremento en el amperaje puede reflejar que más dispositivos están en funcionamiento o que están operando a mayor potencia."
+    tooltipText="El amperaje mide la cantidad de electricidad que fluye hacia sus dispositivos en este instante. Es similar al caudal de agua en una cañería: un mayor amperaje indica un uso más intensivo de la electricidad. Un incremento en el amperaje puede reflejar que más dispositivos están en funcionamiento o que están operando a mayor potencia."
+  />
 
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded3, 'relative': !isExpanded3 }" class="bg-white p-6 rounded-lg shadow-md" id="step8">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-2xl font-bold">Watts</h2>
-        <p class="text-gray-500">Los watts indican cuánta energía estás usando.</p>
-      </div>
-      <button (click)="toggleExpand(3)" class="text-gray-500 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-    <div class="mt-4">
-      <iframe src="http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
-              width="100%"
-              height="300"
-              frameborder="0"></iframe>
-    </div>
-  </div>
+  <dashboard-panel
+    title="Watts {{power}} W"
+    description="Muestra cuánta energía estás usando en este momento, similar al combustible que usan tus dispositivos."
+    [url]="wattUrl"
+    modalDescription="Los watts indican la cantidad de energía que está utilizando en este momento. Es el 'combustible' que requieren sus aparatos para funcionar. A mayor cantidad de watts, mayor será el consumo de energía en tiempo real. Esta medida le permite conocer cuánta electricidad demandan sus dispositivos en el presente."
+    tooltipText="Los watts indican la cantidad de energía que está utilizando en este momento. Es el 'combustible' que requieren sus aparatos para funcionar. A mayor cantidad de watts, mayor será el consumo de energía en tiempo real. Esta medida le permite conocer cuánta electricidad demandan sus dispositivos en el presente."
+  />
 
-  <!--  Factor de Potencia -->
-  <div [ngClass]="{'h-screen w-screen fixed top-0 left-0 z-50': isExpanded4, 'relative': !isExpanded4 }" class="bg-white p-6 rounded-lg shadow-md" id="step9">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-2xl font-bold">kWh (Kilovatios-hora)</h2>
-        <p class="text-gray-500"> Indicador de cantidad de electricidad que usas durante un tiempo.</p>
-      </div>
-      <button (click)="toggleExpand(4)" class="text-gray-500 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-    <div class="mt-4">
-      <iframe src="http://localhost:3000/d-solo/fe09yozs0bl6od/energy?orgId=1&panelId=1&var-deviceId=08:A6:F7:24:71:98&refresh=5s"
-              width="100%"
-              height="300"
-              frameborder="0"></iframe>
-    </div>
-  </div>
+  <dashboard-panel
+    title="KWh {{energy}} kWh"
+    description="Indica la cantidad de electricidad que has usado durante un período. Es útil para entender tu consumo acumulado."
+    [url]="kwhUrl"
+    modalDescription="El kilovatio-hora (kWh) es una unidad de medida que refleja el consumo acumulado de electricidad durante un período determinado. Es similar a los kilómetros recorridos por un vehículo: cuanto mayor sea el número de kWh, más energía ha consumido en total. Esta métrica resulta útil para tener un panorama general de su consumo y anticipar el costo de su factura mensual."
+    tooltipText="El kilovatio-hora (kWh) es una unidad de medida que refleja el consumo acumulado de electricidad durante un período determinado. Es similar a los kilómetros recorridos por un vehículo: cuanto mayor sea el número de kWh, más energía ha consumido en total. Esta métrica resulta útil para tener un panorama general de su consumo y anticipar el costo de su factura mensual."
+  />
+
 </div>
