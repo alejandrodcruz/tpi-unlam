@@ -35,6 +35,9 @@ jobs:
           echo "MQTT_CLIENT_ID=${{ secrets.MQTT_CLIENT_ID }}" >> $GITHUB_ENV
           echo "MQTT_USERNAME=${{ secrets.MQTT_USERNAME }}" >> $GITHUB_ENV
           echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD }}" >> $GITHUB_ENV
+          echo "MQTT_BROKER_TYPE=${{ secrets.MQTT_BROKER_TYPE }}" >> $GITHUB_ENV          
+          echo "MQTT_BROKER_MOSQUITTO=${{ secrets.MQTT_BROKER_MOSQUITTO }}" >> $GITHUB_ENV
+          echo "MQTT_BROKER_HIVEMQ=${{ secrets.MQTT_BROKER_HIVEMQ }}" >> $GITHUB_ENV          
           echo "INFLUXDB_TOKEN=${{ secrets.INFLUXDB_TOKEN }}" >> $GITHUB_ENV
           echo "INFLUXDB_ORG=${{ secrets.INFLUXDB_ORG }}" >> $GITHUB_ENV
           echo "INFLUXDB_BUCKET=${{ secrets.INFLUXDB_BUCKET }}" >> $GITHUB_ENV
