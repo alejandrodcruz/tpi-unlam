@@ -122,9 +122,9 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.selectedDevice$.subscribe((device: string) => {
-      this.deviceId = device;
-      this.title = "Selecciona la configuracion para " + this.deviceId;
+    this.userService.selectedDevice$.subscribe(() => {
+      this.deviceId = this.userService.getSelectedDevice();
+      console.log("deviceid", this.deviceId);
     });
 
     this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
@@ -133,6 +133,7 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   onAlertChange() {
+    this.alertSettings.deviceId = this.deviceId
     this.configurationService.updateAlertSettings(this.alertSettings).subscribe((response: any) => {
       console.log('Configuración de alertas actualizada:', response);
     });
