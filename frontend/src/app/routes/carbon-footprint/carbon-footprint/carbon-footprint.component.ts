@@ -27,7 +27,7 @@ export class CarbonFootprintComponent implements OnInit{
 
 
 
-  constructor(private measurementsService: MeasurementsService,
+  constructor(
               private authService: AuthService,
               private carbonServ : CarbonService
             ) {
@@ -74,7 +74,7 @@ convertKwhToCO2Emissions(totalKwh: number): number{
 //Un árbol absorbe aproximadamente 21 kg de CO₂ por año (según la FAO y otros estudios ambientales, aunque esto puede variar).
 convertKwhToTreeCO2Absorption(co2Emissions: number): number {
   const treesNeeded = co2Emissions / 21; // 21 kg de CO₂ absorbidos por árbol al año
-  return treesNeeded;
+  return parseFloat(treesNeeded.toFixed(2));
 }
 
 //Un automóvil promedio emite 120 g de CO2 por kilómetro recorrido.
@@ -82,7 +82,7 @@ convertKwhToTreeCO2Absorption(co2Emissions: number): number {
 convertKwhToVehicleEmissions(co2Emissions: number): number {
   const co2PerKilometer = 0.12; // 120g de CO2 por kilómetro en kg
   const vehicleEmissions = co2Emissions / co2PerKilometer;
-  return vehicleEmissions;
+  return parseFloat(vehicleEmissions.toFixed(2));
 }
 
 /* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia
@@ -91,7 +91,7 @@ y puede llegar hasta 0.5 kg de CO2 por pasajero-km en vuelos largos. */
 convertKwhToFlightEmissions(co2Emissions: number, isLongDistance: boolean): number {
   const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25; // kg de CO2 por pasajero-km
   const flightEmissions = co2Emissions / co2PerPassengerKm;
-  return flightEmissions;
+  return parseFloat(flightEmissions.toFixed(2));
 }
 
 }
