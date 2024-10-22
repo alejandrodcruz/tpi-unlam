@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../core/sidebar/sidebar.component';
 import { PanelTitleComponent } from '../panel-title/panel-title.component';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserService } from '../../shared/services/user.service';
 
 // Declarar MercadoPago para evitar errores de TypeScript
 declare var MercadoPago: any;
@@ -9,13 +12,31 @@ declare var MercadoPago: any;
 @Component({
   selector: 'app-misuscription',
   standalone: true,
-  imports: [SidebarComponent, CommonModule, PanelTitleComponent],
+  imports: [SidebarComponent, CommonModule, PanelTitleComponent,FormsModule],
   templateUrl: './misuscription.component.html',
   styleUrls: ['./misuscription.component.css']
 })
 export class MisuscriptionComponent implements OnInit, AfterViewInit {
+  isModalOpen: boolean = false;
+  user = {
+    name: 'John Doe',
+    email: 'johndoe@example.com'
+  };
 
-  constructor() { }
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+ /* submitForm() {
+    console.log('Datos actualizados:', this.user);
+    this.closeModal();
+  }*/
+
+  constructor(authService: AuthService, userService: UserService ) { }
 
   ngOnInit(): void {}
 

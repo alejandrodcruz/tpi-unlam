@@ -82,7 +82,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
               }
 
               if (this.titleCard === 'Consumo') {
-                this.consumo = firstMeasurement.energy;
+                this.consumo = firstMeasurement.energy*133,951;
                 this.dataCardProgress = firstMeasurement.energy;
                 this.tipoDato = 'energy';
               }
