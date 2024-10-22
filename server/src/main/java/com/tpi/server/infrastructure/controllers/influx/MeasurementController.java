@@ -29,9 +29,10 @@ public class MeasurementController {
     public List<Measurement> getUserMeasurements(
             @RequestParam Integer userId,
             @RequestParam List<String> fields,
-            @RequestParam(defaultValue = "1h") String timeRange
+            @RequestParam(defaultValue = "1h") String timeRange,
+            @RequestParam(required = false) String deviceId
     ) {
-        return getUserMeasurementsUseCase.execute(userId, fields, timeRange);
+        return getUserMeasurementsUseCase.execute(userId, fields, timeRange, deviceId);
     }
 
     @GetMapping("/total-energy")
