@@ -4,6 +4,7 @@ import {RouterLink} from "@angular/router";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
 import { Observable } from 'rxjs';
 import { User } from '../../shared/domain/user';
+import { MeasurementsService } from '../../shared/services/measurements.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -24,7 +25,7 @@ export class ToolbarComponent implements OnInit {
   selectedDevice: string = "";
   user$: Observable<User | null>;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private measurementsService: MeasurementsService) {
     this.user$ = this.userService.user$;
   }
 
@@ -33,6 +34,7 @@ export class ToolbarComponent implements OnInit {
       this.devices = devices;
       this.selectedDevice = devices[0].deviceId
       this.userService.selectDevice(this.selectedDevice);
+      this.measurementsService.setDeviceId(this.selectedDevice);
     });
 
     this.userService.getUserData();
@@ -49,6 +51,7 @@ export class ToolbarComponent implements OnInit {
       this.selectedDevice = selectedDevice;
       console.log("selectedDevice", selectedDevice);
       this.userService.selectDevice(selectedDevice);
+      this.measurementsService.setDeviceId(selectedDevice);
     }
   }
 

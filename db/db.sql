@@ -4,6 +4,8 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+SET NAMES 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
+
 CREATE TABLE `user` (
                         `id` int NOT NULL,
                         `email` varchar(255) DEFAULT NULL,
@@ -18,6 +20,41 @@ INSERT INTO `user` (`id`, `email`, `password`, `role`, `username`) VALUES
 ALTER TABLE `user`
     ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UKsb8bbouer5wak8vyiiy4pf2bx` (`username`);
+
+CREATE TABLE `device` (
+                          `device_id` varchar(17) NOT NULL,
+                          `assigned` tinyint(1) NOT NULL DEFAULT '0',
+                          `estimated_consume` int NOT NULL DEFAULT '0',
+                          `name` varchar(255) NOT NULL,
+                          `pairing_code` varchar(255) DEFAULT NULL,
+                          `user_id` int DEFAULT NULL,
+                          PRIMARY KEY (`device_id`),
+                          CONSTRAINT `fk_user_device` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Insertar datos en la tabla device
+INSERT INTO `device` (`device_id`, `assigned`, `estimated_consume`, `name`, `pairing_code`, `user_id`) VALUES
+('08:A6:F7:24:71:98', 1, 0, 'Heladera', NULL, NULL),
+('08:A6:F7:24:71:99', 1, 0, 'Aire Acondicionado', NULL, NULL),
+('08:A6:F7:24:71:9A', 1, 0, 'Microondas', NULL, NULL),
+('08:A6:F7:24:71:9B', 1, 0, 'Lavarropas', NULL, NULL),
+('08:A6:F7:24:71:9C', 1, 0, 'Televisor', NULL, NULL),
+('08:A6:F7:24:71:9D', 1, 0, 'Computadora', NULL, NULL),
+('08:A6:F7:24:71:9E', 1, 0, 'Lámpara LED', NULL, NULL),
+('08:A6:F7:24:71:9F', 1, 0, 'Ventilador', NULL, NULL),
+('08:A6:F7:24:71:A0', 1, 0, 'Cargador de Celular', NULL, NULL),
+('08:A6:F7:24:71:A1', 1, 0, 'Router WiFi', NULL, NULL),
+('08:A6:F7:24:71:A2', 1, 0, 'Lavavajillas', NULL, NULL),
+('08:A6:F7:24:71:A3', 1, 0, 'Secador de Pelo', NULL, NULL),
+('08:A6:F7:24:71:A4', 1, 0, 'Calefactor Eléctrico', NULL, NULL),
+('08:A6:F7:24:71:A5', 1, 0, 'Plancha', NULL, NULL),
+('08:A6:F7:24:71:A6', 1, 0, 'Cafetera', NULL, NULL),
+('08:A6:F7:24:71:A7', 1, 0, 'Extractor de Aire', NULL, NULL),
+('08:A6:F7:24:71:A8', 1, 0, 'Horno Eléctrico', NULL, NULL),
+('08:A6:F7:24:71:A9', 1, 0, 'Bomba de Agua', NULL, NULL),
+('08:A6:F7:24:71:AA', 1, 0, 'Radiador Eléctrico', NULL, NULL),
+('08:A6:F7:24:71:AB', 1, 0, 'Impresora Láser', NULL, NULL);
+
 COMMIT;
 
 -- INSERT INTO `device` (`device_id`, `assigned`, `estimated_consume`, `name`, `pairing_code`, `user_id`) VALUES
