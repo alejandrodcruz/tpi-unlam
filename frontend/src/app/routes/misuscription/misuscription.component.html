@@ -1,5 +1,41 @@
 <app-panel-title title="Mis Suscripciones" description="Administra y revisa tus planes de suscripción aquí."></app-panel-title>
 
+<div class="max-w-sm mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-xl font-bold">John Doe</h2>
+      <p class="text-sm text-gray-500">johndoe&#64;example.com</p>
+    </div>
+    <button (click)="openModal()" class="btn bg-primary text-white hover:bg-primaryhover">Editar</button>
+  </div>
+</div>
+
+<!-- Modal para editar los datos -->
+<input type="checkbox" id="edit-modal" class="modal-toggle" [(ngModel)]="isModalOpen" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Editar Usuario</h3>
+    <form > <!--(ngSubmit)="submitForm()"-->
+      <div class="form-control my-4">
+        <label class="label">
+          <span class="label-text">Nombre</span>
+        </label>
+        <input [(ngModel)]="user.name" name="name" type="text" class="input input-bordered" />
+      </div>
+      <div class="form-control my-4">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input [(ngModel)]="user.email" name="email" type="email" class="input input-bordered" />
+      </div>
+      <div class="modal-action">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <label for="edit-modal" class="btn">Cerrar</label>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="content-wrapper py-4 px-3">
   <div class="content-inner rounded shadow-lg px-3 mb-6">
     <h2 class="text-2xl font-bold mb-4">Tus Planes Actuales</h2>
@@ -12,7 +48,7 @@
           <p class="text-xl font-bold">$59 / año</p>
           <p>Acceso a todas las funciones básicas de Lytics para gestión y optimización del consumo energético.</p>
           <div class="card-actions justify-center">
-            <label for="modal-plan-personal" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Administrar</label>
+            <label for="modal-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Administrar</label>
           </div>
         </div>
       </div>
@@ -47,8 +83,8 @@
 
           <!-- Botón de pago para el Plan Personal -->
           <div class="modal-action">
-            <button id="pay-button-plan-personal" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Pagar Plan Personal</button>
-            <label for="modal-plan-personal" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Cerrar</label>
+            <button id="pay-button-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Pagar Plan Personal</button>
+            <label for="modal-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Cerrar</label>
           </div>
         </div>
       </div>
@@ -60,7 +96,7 @@
           <p class="text-xl font-bold">$199 / año</p>
           <p>Acceso a todas las funciones premium para empresas que buscan optimización energética avanzada.</p>
           <div class="card-actions justify-center">
-            <label for="modal-plan-empresarial" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Administrar</label>
+            <label for="modal-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Administrar</label>
           </div>
         </div>
       </div>
@@ -95,8 +131,8 @@
 
           <!-- Botón de pago para el Plan Empresarial -->
           <div class="modal-action">
-            <button id="pay-button-plan-empresarial" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Pagar Plan Empresarial</button>
-            <label for="modal-plan-empresarial" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Cerrar</label>
+            <button id="pay-button-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Pagar Plan Empresarial</button>
+            <label for="modal-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Cerrar</label>
           </div>
         </div>
       </div>
@@ -108,7 +144,7 @@
           <p class="text-xl font-bold">$250 / año</p>
           <p>Acceso completo a todas las funciones y soporte técnico 24/7.</p>
           <div class="card-actions justify-center">
-            <label for="modal-plan-profesional" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Administrar</label>
+            <label for="modal-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Administrar</label>
           </div>
         </div>
       </div>
@@ -143,8 +179,8 @@
 
           <!-- Botón de pago para el Plan Profesional -->
           <div class="modal-action">
-            <button id="pay-button-plan-profesional" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Pagar Plan Profesional</button>
-            <label for="modal-plan-profesional" class="btn bg-blue-600 text-white hover:bg-[#2273b2]">Cerrar</label>
+            <button id="pay-button-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Pagar Plan Profesional</button>
+            <label for="modal-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Cerrar</label>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@
       </div>
       {{emissionsCO2 | json}}
     </div>
-<!--     
+<!--
 Contenido de Tooltip:
 
 Árboles plantados: La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.
@@ -41,8 +41,9 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           <app-card-info
           [iconClasses]="'fa-solid fa-tree'"
           [titleCard]="'Arboles'"
-          [unit]="'unidades'"
-          [dataCardProgress]= KwhToTreeCO2Absorption
+          [showMonthPrevious] = true
+          [dataCardProgress]= KwhToTreeCO2AbsorptionCurrent
+          [dataCardProgressPrevious]=KwhToTreeCO2AbsorptionPrevious
           [subtitleCard]="'Cantidad a plantar'"
           [valueProgress]="10"
           [maxProgress]="100"
@@ -51,10 +52,12 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-plane'"
-          [titleCard]="'Horas de vuelo'"
+          [titleCard]="'Vuelos'"
+          [showMonthPrevious] = true
           [unit]="'Km'"
-          [dataCardProgress]=KwhToFlightEmissions
-          [subtitleCard]="'km en avion'"
+          [dataCardProgress]=KwhToFlightEmissionsCurrent
+          [dataCardProgressPrevious]=KwhToFlightEmissionsPrevious
+          [subtitleCard]="'Km en avión'"
           [valueProgress]="40"
           [maxProgress]="100"
           [colorProgress]="'progress progress-error w-ful'"
@@ -63,8 +66,10 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           <app-card-info
           [iconClasses]="'fa-solid fa-car'"
           [titleCard]="'Autos'"
+          [showMonthPrevious] = true
           [unit]="'Km'"
-          [dataCardProgress]=KwhToVehicleEmissions
+          [dataCardProgress]=KwhToVehicleEmissionsCurrent
+          [dataCardProgressPrevious]=KwhToVehicleEmissionsPrevious
           [subtitleCard]="'Km en auto'"
           [valueProgress]="50"
           [maxProgress]="100"
@@ -74,8 +79,10 @@ Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de en
           <app-card-info
           [iconClasses]="'fa-solid fa-heart-crack'"
           [titleCard]="'Gases contaminantes'"
+          [showMonthPrevious] = true
           [unit]="'Kg'"
-          [dataCardProgress]=KwhToCO2Emissions
+          [dataCardProgress]=KwhToCO2EmissionsCurrent
+          [dataCardProgressPrevious]=KwhToCO2EmissionsPrevious
           [subtitleCard]="'kg en gases'"
           [valueProgress]="50"
           [maxProgress]="100"

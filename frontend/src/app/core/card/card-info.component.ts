@@ -21,4 +21,7 @@ export class CardInfoComponent {
   @Input() tooltipText: string | undefined;
   @Input() showProgress : boolean = false;
   @Input() unit : string ='';
+  @Input() showMonthPrevious = false;
+  @Input() dataCardProgressPrevious  :  number = 0;
+  
 }

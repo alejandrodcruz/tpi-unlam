@@ -20,14 +20,21 @@ export class CarbonFootprintComponent implements OnInit{
    emissionsCO2: number;  // Propiedad para almacenar el total de CO2
    startDate: string | null = null;
    endDate: string | null = null;
-   KwhToCO2Emissions : number  = 0;
-   KwhToTreeCO2Absorption :number  = 0;
-   KwhToVehicleEmissions : number  = 0;
-   KwhToFlightEmissions : number  = 0;
+   KwhToCO2EmissionsCurrent : number  = 0;
+   KwhToTreeCO2AbsorptionCurrent :number  = 0;
+   KwhToVehicleEmissionsCurrent : number  = 0;
+   KwhToFlightEmissionsCurrent : number  = 0;
+
+   KwhToCO2EmissionsPrevious: number  = 0;
+   KwhToTreeCO2AbsorptionPrevious :number  = 0;
+   KwhToVehicleEmissionsPrevious : number  = 0;
+   KwhToFlightEmissionsPrevious : number  = 0;
+
+   currentDate = new Date();
 
 
 
-  constructor(private measurementsService: MeasurementsService,
+  constructor(
               private authService: AuthService,
               private carbonServ : CarbonService
             ) {
@@ -36,15 +43,44 @@ export class CarbonFootprintComponent implements OnInit{
 
 ngOnInit(): void {
     this.getTotalCo2();
-
+}
+// Función para formatear fechas al formato ISO (yyyy-MM-ddTHH:mm:ssZ)
+ formatDateToISO(date: Date): string {
+  // Convertir la fecha a ISO, eliminar la parte de milisegundos y agregar la 'Z'
+  return date.toISOString().split('.')[0] + 'Z';
 }
 
-getTotalCo2(): void {
+// Obtener el primer día del mes actual
+ getFirstDayOfCurrentMonth(): string {
+  const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+  return this.formatDateToISO(date);
+}
+
+// Obtener el primer día del mes anterior
+ getFirstDayOfPreviousMonth(): string {
+  const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 1);
+  return this.formatDateToISO(date);
+}
+
+// Obtener el último día del mes anterior
+getLastDayOfPreviousMonth(): string {
+  const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0); // Día 0 del mes actual es el último día del mes anterior
+  return this.formatDateToISO(date);
+}
+
+
+
+/* getTotalCo2(): void {
 
   const userId = this.authService.getUserId();
   const startTime = new Date('2024-10-01T00:00:00Z');
-    const endTime = new Date('2024-11-01T00:00:00Z');
-if (userId !== null) {
+  const endTime = new Date('2024-11-01T00:00:00Z');
+
+  const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
+  const FirstDayOfPreviousMonth = this.getFirstDayOfPreviousMonth();
+  const LastDayOfPreviousMonth = this.getLastDayOfPreviousMonth();
+
+  if (userId !== null) {
     this.carbonServ.getTotalKwh(userId, startTime, endTime)
       .subscribe(
         (data: TotalEnergy) => {
@@ -52,12 +88,12 @@ if (userId !== null) {
           this.emissionsCO2 = this.convertKwhToCO2Emissions(totalKwh);
           console.log('Total CO2:', this.emissionsCO2);
 
-          this.KwhToCO2Emissions = parseFloat(this.emissionsCO2.toFixed(2));
-            console.log("Emisiones CO2 convertidas:", this.KwhToCO2Emissions);
+          this.KwhToCO2EmissionsCurrent = parseFloat(this.emissionsCO2.toFixed(2));
+            console.log("Emisiones CO2 convertidas:", this.KwhToCO2EmissionsCurrent);
 
-            this.KwhToTreeCO2Absorption = this.convertKwhToTreeCO2Absorption(this.KwhToCO2Emissions);
-            this.KwhToVehicleEmissions = this.convertKwhToVehicleEmissions(this.KwhToCO2Emissions);
-            this.KwhToFlightEmissions = this.convertKwhToFlightEmissions(this.KwhToCO2Emissions, false);
+            this.KwhToTreeCO2AbsorptionCurrent = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsCurrent);
+            this.KwhToVehicleEmissionsCurrent = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsCurrent);
+            this.KwhToFlightEmissionsCurrent = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsCurrent, false);
         },
         (error) => {
           console.error('Error al obtener el total de CO2:', error);
@@ -67,14 +103,73 @@ if (userId !== null) {
     console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
   }
 }
+ */
+
+getTotalCo2(): void {
+  const userId = this.authService.getUserId();
+
+  // Fechas para el mes actual
+  const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
+  const startTimeCurrentMonth = new Date(FirstDayOfCurrentMonth);
+  const endTimeCurrentMonth = new Date(); // Primer día del próximo mes
+
+  // Fechas para el mes anterior
+  const FirstDayOfPreviousMonth = this.getFirstDayOfPreviousMonth();
+  const LastDayOfPreviousMonth = this.getLastDayOfPreviousMonth();
+  const startTimePreviousMonth = new Date(FirstDayOfPreviousMonth);
+  const endTimePreviousMonth = new Date(LastDayOfPreviousMonth);
+
+  if (userId !== null) {
+    // Obtener datos del mes actual
+    this.carbonServ.getTotalKwh(userId, startTimeCurrentMonth, endTimeCurrentMonth)
+      .subscribe(
+        (data: TotalEnergy) => {
+          const totalKwh = data.totalEnergy;
+          this.emissionsCO2 = this.convertKwhToCO2Emissions(totalKwh);
+
+          // Asignar emisiones y conversiones para el mes actual
+          this.KwhToCO2EmissionsCurrent = parseFloat(this.emissionsCO2.toFixed(2));
+          this.KwhToTreeCO2AbsorptionCurrent = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsCurrent);
+          this.KwhToVehicleEmissionsCurrent = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsCurrent);
+          this.KwhToFlightEmissionsCurrent = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsCurrent, false);
+        },
+        (error) => {
+          console.error('Error al obtener el total de CO2:', error);
+        }
+      );
+
+    // Obtener datos del mes anterior
+    this.carbonServ.getTotalKwh(userId, startTimePreviousMonth, endTimePreviousMonth)
+      .subscribe(
+        (data: TotalEnergy) => {
+          const totalKwhPrevious = data.totalEnergy;
+          const emissionsCO2Previous = this.convertKwhToCO2Emissions(totalKwhPrevious);
+
+          // Asignar emisiones y conversiones para el mes anterior
+          this.KwhToCO2EmissionsPrevious = parseFloat(emissionsCO2Previous.toFixed(2));
+          this.KwhToTreeCO2AbsorptionPrevious = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsPrevious);
+          this.KwhToVehicleEmissionsPrevious = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsPrevious);
+          this.KwhToFlightEmissionsPrevious = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsPrevious, false);
+
+        },
+        (error) => {
+          console.error('Error al obtener el total de CO2 del mes anterior:', error);
+        }
+      );
+  } else {
+    console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
+  }
+}
+
 
 convertKwhToCO2Emissions(totalKwh: number): number{
   return totalKwh * this.carbonServ.emissionFactor;
 }
+
 //Un árbol absorbe aproximadamente 21 kg de CO₂ por año (según la FAO y otros estudios ambientales, aunque esto puede variar).
 convertKwhToTreeCO2Absorption(co2Emissions: number): number {
   const treesNeeded = co2Emissions / 21; // 21 kg de CO₂ absorbidos por árbol al año
-  return treesNeeded;
+  return parseFloat(treesNeeded.toFixed(2));
 }
 
 //Un automóvil promedio emite 120 g de CO2 por kilómetro recorrido.
@@ -82,7 +177,7 @@ convertKwhToTreeCO2Absorption(co2Emissions: number): number {
 convertKwhToVehicleEmissions(co2Emissions: number): number {
   const co2PerKilometer = 0.12; // 120g de CO2 por kilómetro en kg
   const vehicleEmissions = co2Emissions / co2PerKilometer;
-  return vehicleEmissions;
+  return parseFloat(vehicleEmissions.toFixed(2));;
 }
 
 /* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia
@@ -91,7 +186,7 @@ y puede llegar hasta 0.5 kg de CO2 por pasajero-km en vuelos largos. */
 convertKwhToFlightEmissions(co2Emissions: number, isLongDistance: boolean): number {
   const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25; // kg de CO2 por pasajero-km
   const flightEmissions = co2Emissions / co2PerPassengerKm;
-  return flightEmissions;
+  return parseFloat(flightEmissions.toFixed(2));;
 }
 
 }
