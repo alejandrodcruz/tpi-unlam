@@ -33,11 +33,11 @@ devices = [
 # Generar datos del dispositivo
 def generate_device_data(device):
     # Variación de los Watts
-    varied_power = device["power"] + random.uniform(-1, 1)
+    varied_power = device["power"] + random.uniform(0, 0)
 
     voltage = random.uniform(210, 230)
     current = varied_power / voltage
-    energy = random.uniform(0.1, 1.0)
+    energy = (varied_power * (2 / 3600))
     temperature = random.uniform(20, 30)
     humidity = random.uniform(30, 50)
 
