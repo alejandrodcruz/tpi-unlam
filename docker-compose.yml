@@ -101,7 +101,7 @@ services:
       - my_network
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:11.2.3
     container_name: grafana
     ports:
       - "${GRAFANA_PORT}:3000"

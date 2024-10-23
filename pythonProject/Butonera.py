@@ -44,8 +44,8 @@ def activar_dispositivo():
         try:
             cursor.execute("UPDATE device SET user_id=null")
             conn.commit()
-            cursor.execute("UPDATE device_configuration SET device_id=%s", (device_id,))
-            conn.commit()
+            # cursor.execute("UPDATE device_configuration SET device_id=%s", (device_id,))
+            # conn.commit()
             cursor.execute("UPDATE device SET user_id=1 WHERE device_id=%s", (device_id,))
             conn.commit()
 
