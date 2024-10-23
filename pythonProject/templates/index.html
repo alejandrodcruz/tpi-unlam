@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butonera de Dispositivos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="justify-center">
+    <h1 class="text-2xl font-bold text-center my-4">Butonera de Dispositivos</h1>
+    </div>
+    <div id="device-buttons" class="flex flex-wrap justify-center">
+    </div>
+
+    <script>
+        const devices = [
+            {"deviceId": "08:A6:F7:24:71:98", "name": "Heladera","image":"https://images.fravega.com/f300/2a1c912723f833e77d7a2fb3f7330aac.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:99", "name": "Aire Acondicionado","image":"https://images.fravega.com/f300/385ccb2b3bb42722a6bae70ad5adbfcc.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:9A", "name": "Microondas","image":"https://images.fravega.com/f300/11c11819f2e0347cc1a8f4f953ccacc4.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:9B", "name": "Lavarropas","image":"https://images.fravega.com/f300/bceb30bf6784971c97749bf584f4116d.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:9C", "name": "Televisor","image":"https://images.fravega.com/f300/1754d20bd63e14b699fee7b15c47973d.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:9D", "name": "Computadora","image":"https://images.fravega.com/f300/2ce08259bb198e5a9621902b107ffa6a.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:9E", "name": "Lámpara LED","image":"https://images.fravega.com/f300/3ec0a9d6dc8e7194b4ff8d6bd784af95.png.webp"},
+            {"deviceId": "08:A6:F7:24:71:9F", "name": "Ventilador","image":"https://images.fravega.com/f300/1d79e9304b655b254cf3e8dd25bdd5ae.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A0", "name": "Cargador de Celular","image":"https://images.fravega.com/f300/60c925eec9b57c88c7945cf066879839.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A1", "name": "Router WiFi","image":"https://images.fravega.com/f300/e878805b5aea6567dbc7d9e7182e277b.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A2", "name": "Lavavajillas","image":"https://images.fravega.com/f300/f8543bd02e1fe6000f9d09ac3ec8ac93.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A3", "name": "Secador de Pelo","image":"https://images.fravega.com/f300/7c3cab009674587ad6a1cbfe8abea797.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A4", "name": "Calefactor Eléctrico","image":"https://images.fravega.com/f300/f75ff419231492579575037a5097eac6.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A5", "name": "Plancha","image":"https://images.fravega.com/f300/2744c626a97f9f15d27a29baa1ebf3b4.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A6", "name": "Cafetera","image":"https://images.fravega.com/f300/4ab047994c3b37661b1773c2fea3a1e1.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A7", "name": "Extractor de Aire","image":"https://images.fravega.com/f300/98e22bf32a10a8fa83302f06141ad8ed.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A8", "name": "Horno Eléctrico","image":"https://images.fravega.com/f300/6f1091b33ce233b321a9e5887c254657.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:A9", "name": "Bomba de Agua","image":"https://images.fravega.com/f300/f341ea5d09ae41e6dcafc4c26f9fe566.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:AA", "name": "Radiador Eléctrico","image":"https://images.fravega.com/f300/0f0b996844df71ab154252d85053d056.jpg.webp"},
+            {"deviceId": "08:A6:F7:24:71:AB", "name": "Impresora Láser","image":"https://images.fravega.com/f300/fa4933bfb48e3317763e4459f4811aa8.jpg.webp"}
+        ];
+        let activeButton = null;
+        function activateDevice(device, button) {
+            fetch('/activar_dispositivo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    deviceId: device.deviceId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            if (activeButton) {                
+                activeButton.classList.remove('bg-green-500');
+                activeButton.classList.add('bg-blue-500');
+            }
+           
+            buttonElement.classList.remove('bg-blue-500');
+            buttonElement.classList.add('bg-green-500');
+            
+            activeButton = buttonElement;
+    
+        }
+
+        devices.forEach(device => {
+        // Create the card container
+        const card = document.createElement('div');
+        card.classList.add('card','bg-base-100', 'rounded', 'shadow-xl', 'p-4','m-4', 'flex', 'flex-col', 'items-center', 'transform', 'transition-transform', 'hover:scale-105');
+
+        // Create the image element
+        const img = document.createElement('img');
+        img.src = device.image;
+        img.alt = device.name;
+        img.classList.add('w-full', 'h-40', 'object-cover', 'mb-4');
+
+        // Create the button
+        const button = document.createElement('button');
+        button.innerText = device.name;
+        button.onclick = () => activateDevice(device, button);
+        button.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
+        button.classList.add('text-center');
+        // Append image and button to the card
+        card.appendChild(img);
+        card.appendChild(button);
+
+        // Append the card to the device-buttons div
+        document.getElementById('device-buttons').appendChild(card);
+    });
+    </script>
+</body>
+</html>
