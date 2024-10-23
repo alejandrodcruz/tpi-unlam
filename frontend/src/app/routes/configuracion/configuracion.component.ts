@@ -124,6 +124,7 @@ export class ConfiguracionComponent implements OnInit {
   ngOnInit(): void {
     this.userService.selectedDevice$.subscribe(() => {
       this.deviceId = this.userService.getSelectedDevice();
+      this.title = "Selecciona la configuracion para " + this.deviceId;
       console.log("deviceid", this.deviceId);
     });
 
