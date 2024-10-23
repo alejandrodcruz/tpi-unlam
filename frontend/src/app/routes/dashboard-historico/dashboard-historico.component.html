@@ -1,33 +1,33 @@
 <app-panel-title title="Históricos" description="Seleccione un gráfico para verlo en pantalla completa."></app-panel-title>
 
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6 px-3">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-1 px-3">
 
   <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarConsumoUltimoMes')">
-    <p class="text-mx font-semibold text-gray-700 mb-4">Consumos del ultimo mes</p>
+    <p class="text-mx font-semibold text-gray-700 mb-4">Watts del Ultimo Año</p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
-      <iframe [src]=cargarConsumoUltimoMes  class="w-full h-full object-contain"></iframe>
+      <iframe [src]="powerLastYearUrl"  class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarConsumoUltimoAño')">
-    <p class="text-mx font-semibold text-gray-700 mb-4">Consumos del ultimo año</p>
+    <p class="text-mx font-semibold text-gray-700 mb-4">Voltaje del Ultimo Año    </p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
-      <iframe [src]=cargarConsumoUltimoAnio class="w-full h-full object-contain"></iframe>
+      <iframe [src]="voltageLastYearUrl" class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarPotencia')">
-    <p class="text-mx font-semibold text-gray-700 mb-4">Potencia en KWatt</p>
+    <p class="text-mx font-semibold text-gray-700 mb-4">Consumo del Ultimo Mes</p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
-      <iframe [src]=cargarPotencia class="w-full h-full object-contain"></iframe>
+      <iframe [src]="histEnergyMonthUrl" class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarVoltaje')">
-    <p class="text-mx font-semibold text-gray-700 mb-4">Voltaje en Voltios</p>
+    <p class="text-mx font-semibold text-gray-700 mb-4">Consumo del Ultimo Año</p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
-      <iframe [src]=cargarVoltaje class="w-full h-full object-contain"></iframe>
+      <iframe [src]="histEnergyUrl" class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
