@@ -4,7 +4,8 @@ import {DatePipe, NgClass, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "
 import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { Subscription } from 'rxjs';
-
+import { CarbonService } from '../../shared/services/carbon.service';
+import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
 @Component({
   selector: 'app-card-real-time',
   standalone: true,
@@ -25,6 +26,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   horaActual!: Date;
   private horaSubscription!: Subscription;
   private measurementsServiceSubscription!: Subscription;
+  currentDate = new Date();
 
   @Input() iconClasses: string = '';
   @Input() titleCard: string = '';
@@ -44,7 +46,8 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   constructor(
               private measurementsService: MeasurementsService,
               private authService: AuthService,
-              private currenttimeService: CurrenttimeService) {}
+              private currenttimeService: CurrenttimeService,
+              private carbonService: CarbonService) {}
 
   ngOnInit(): void {
 
@@ -52,7 +55,15 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
 
     if (this.titleCard === 'Horario') {
       this.tipoDato = 'horaActual';
-    this.getHoraActual();}
+      this.getHoraActual();
+    }
+
+    if (this.titleCard === 'Consumo') {
+      this.tipoDato = 'energy';
+      this.getkwh();
+    }
+
+
   }
 
   getMeasurements() {
@@ -80,12 +91,6 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
                 this.dataCardProgress = firstMeasurement.temperature;
                 this.tipoDato = 'temperature';
               }
-
-              if (this.titleCard === 'Consumo') {
-                this.consumo = firstMeasurement.energy*133,951;
-                this.dataCardProgress = firstMeasurement.energy;
-                this.tipoDato = 'energy';
-              }
             }
 
           },
@@ -107,6 +112,39 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
         console.error('Error al obtener la hora actual:', error);
       }
     );
+  }
+
+  getkwh(): void {
+    const userId = this.authService.getUserId();
+
+    // Fechas para el mes actual
+    const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
+    const startTimeCurrentMonth = new Date(FirstDayOfCurrentMonth);
+    const endTimeCurrentMonth = new Date();
+    if (userId !== null) {
+      // Obtener datos del mes actual
+      this.carbonService.getTotalKwhRealTime(userId, startTimeCurrentMonth, endTimeCurrentMonth)
+        .subscribe(
+          (data: TotalEnergy) => {
+            this.consumo = data.totalEnergy*133;
+            console.log('Consumo AQUIIIII:', this.consumo);
+            this.dataCardProgress = data.totalEnergy;
+          },
+          (error) => {
+            console.error('Error al obtener el total de CO2:', error);
+          }
+        );
+      }
+
+  }
+  getFirstDayOfCurrentMonth(): string {
+    const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+    return this.formatDateToISO(date);
+  }
+
+  formatDateToISO(date: Date): string {
+    // Convertir la fecha a ISO, eliminar la parte de milisegundos y agregar la 'Z'
+    return date.toISOString().split('.')[0] + 'Z';
   }
 
   ngOnDestroy(): void {
