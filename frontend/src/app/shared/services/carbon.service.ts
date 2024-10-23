@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
-import { Observable } from 'rxjs';
-
+import { interval, Observable, switchMap } from 'rxjs';
 
 
 
@@ -10,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CarbonService {
- 
+
   //0.4 kg CO₂/kWh ó promedio segun Excel Secretaria de Energia
   // 0.572 kg
 
@@ -32,9 +31,11 @@ export class CarbonService {
     }
 
     return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
-  
-  }
-  
- 
 
+  }
+  getTotalKwhRealTime(userId: number, startTime: Date, endTime: Date, pollingInterval: number = 5000, deviceId?: string): Observable<TotalEnergy> {
+    return interval(pollingInterval).pipe(
+      switchMap(() => this.getTotalKwh(userId, startTime, endTime, deviceId))
+    );
+  }
 }
