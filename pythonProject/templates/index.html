@@ -37,7 +37,9 @@
             {"deviceId": "08:A6:F7:24:71:AA", "name": "Radiador Eléctrico","image":"https://images.fravega.com/f300/0f0b996844df71ab154252d85053d056.jpg.webp"},
             {"deviceId": "08:A6:F7:24:71:AB", "name": "Impresora Láser","image":"https://images.fravega.com/f300/fa4933bfb48e3317763e4459f4811aa8.jpg.webp"}
         ];
+
         let activeButton = null;
+
         function activateDevice(device, button) {
             fetch('/activar_dispositivo', {
                 method: 'POST',
@@ -56,42 +58,44 @@
                 console.error('Error:', error);
             });
 
-            if (activeButton) {                
+            // Cambiar el color del botón actualmente activo de nuevo al azul
+            if (activeButton) {
                 activeButton.classList.remove('bg-green-500');
                 activeButton.classList.add('bg-blue-500');
             }
-           
-            buttonElement.classList.remove('bg-blue-500');
-            buttonElement.classList.add('bg-green-500');
-            
-            activeButton = buttonElement;
-    
+
+            // Cambiar el color del botón actual a verde para indicar que está activo
+            button.classList.remove('bg-blue-500');
+            button.classList.add('bg-green-500');
+
+            // Actualizar el botón activo
+            activeButton = button;
         }
 
         devices.forEach(device => {
-        // Create the card container
-        const card = document.createElement('div');
-        card.classList.add('card','bg-base-100', 'rounded', 'shadow-xl', 'p-4','m-4', 'flex', 'flex-col', 'items-center', 'transform', 'transition-transform', 'hover:scale-105');
+            // Crear el contenedor de la tarjeta
+            const card = document.createElement('div');
+            card.classList.add('card', 'bg-base-100', 'rounded', 'shadow-xl', 'p-4', 'm-4', 'flex', 'flex-col', 'items-center', 'transform', 'transition-transform', 'hover:scale-105');
 
-        // Create the image element
-        const img = document.createElement('img');
-        img.src = device.image;
-        img.alt = device.name;
-        img.classList.add('w-full', 'h-40', 'object-cover', 'mb-4');
+            // Crear el elemento de imagen
+            const img = document.createElement('img');
+            img.src = device.image;
+            img.alt = device.name;
+            img.classList.add('w-full', 'h-40', 'object-cover', 'mb-4');
 
-        // Create the button
-        const button = document.createElement('button');
-        button.innerText = device.name;
-        button.onclick = () => activateDevice(device, button);
-        button.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
-        button.classList.add('text-center');
-        // Append image and button to the card
-        card.appendChild(img);
-        card.appendChild(button);
+            // Crear el botón
+            const button = document.createElement('button');
+            button.innerText = device.name;
+            button.onclick = () => activateDevice(device, button);
+            button.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded', 'text-center');
 
-        // Append the card to the device-buttons div
-        document.getElementById('device-buttons').appendChild(card);
-    });
+            // Añadir imagen y botón a la tarjeta
+            card.appendChild(img);
+            card.appendChild(button);
+
+            // Añadir la tarjeta al div de device-buttons
+            document.getElementById('device-buttons').appendChild(card);
+        });
     </script>
 </body>
 </html>
