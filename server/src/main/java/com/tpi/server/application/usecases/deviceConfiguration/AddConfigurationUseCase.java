@@ -4,7 +4,6 @@ import com.tpi.server.application.usecases.mqtt.MeasurementUseCase;
 import com.tpi.server.domain.models.DeviceConfiguration;
 import com.tpi.server.infrastructure.repositories.DeviceConfigurationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -14,7 +13,6 @@ public class AddConfigurationUseCase {
 
     private final DeviceConfigurationRepository deviceConfigurationRepository;
 
-    @Autowired
     private final MeasurementUseCase measurementUseCase;
 
     public DeviceConfiguration execute(DeviceConfiguration deviceConfiguration) {

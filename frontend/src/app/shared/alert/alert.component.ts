@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { WebSocketService } from '../services/web-socket.service';
 import { CommonModule } from '@angular/common';
@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ToastrModule],
   template: ``,
 })
-export class AlertComponent {
-  constructor(private webSocketService: WebSocketService, private toast: ToastrService) {
-    this.webSocketService.listenTopic().subscribe((message: any) => {
-      console.log("Nueva alerta" + message);
+export class AlertComponent implements OnInit {
+  constructor(private webSocketService: WebSocketService, private toast: ToastrService) {}
+
+  ngOnInit(): void {
+    this.webSocketService.listenTopic().subscribe(message => {
       this.toast.error(message.body, 'Alerta');
     });
   }
+
 }

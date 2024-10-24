@@ -21,7 +21,7 @@ public class MeasurementUseCase {
     private final AlertUseCase alertService;
     private final DeviceConfigurationService deviceConfigurationService;
 
-    private Map<Predicate<Measurement>, AlertType> alertConditions = new HashMap<>();
+    private final Map<Predicate<Measurement>, AlertType> alertConditions = new HashMap<>();
 
     public MeasurementUseCase(MeasurementRepository measurementRepository, AlertUseCase alertService, DeviceConfigurationService deviceConfigurationService) {
         this.measurementRepository = measurementRepository;
