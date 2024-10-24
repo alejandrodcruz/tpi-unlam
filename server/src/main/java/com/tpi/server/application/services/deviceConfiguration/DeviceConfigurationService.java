@@ -11,6 +11,7 @@ public class DeviceConfigurationService {
 
     private final DeviceConfigurationRepository deviceConfigurationRepository;
 
+
     public DeviceConfigurationService(DeviceConfigurationRepository deviceConfigurationRepository) {
         this.deviceConfigurationRepository = deviceConfigurationRepository;
     }
@@ -21,25 +22,16 @@ public class DeviceConfigurationService {
             throw new EntityNotFoundException("No se encontró la configuración para el deviceId: " + deviceId);
         }
 
-        switch (alertType) {
-            case HighConsumption:
-                return deviceConfig.isHighConsumptionActive();
-            case HighTension:
-                return deviceConfig.isHighTensionActive();
-            case LowTension:
-                return deviceConfig.isLowTensionActive();
-            case EnergyLoss:
-                return deviceConfig.isEnergyLossActive();
-            case PeakPowerCurrent:
-                return deviceConfig.isPeakPowerCurrentActive();
-            case HighTemperature:
-                return deviceConfig.isHighTemperatureActive();
-            case HighHumidity:
-                return deviceConfig.isHighHumidityActive();
-            case LostDevice:
-                return deviceConfig.isLostDeviceActive();
-            default:
-                throw new IllegalArgumentException("Tipo de alerta no reconocido: " + alertType);
-        }
+        return switch (alertType) {
+            case HighConsumption -> deviceConfig.isHighConsumptionActive();
+            case HighTension -> deviceConfig.isHighTensionActive();
+            case LowTension -> deviceConfig.isLowTensionActive();
+            case EnergyLoss -> deviceConfig.isEnergyLossActive();
+            case PeakPowerCurrent -> deviceConfig.isPeakPowerCurrentActive();
+            case HighTemperature -> deviceConfig.isHighTemperatureActive();
+            case HighHumidity -> deviceConfig.isHighHumidityActive();
+            case LostDevice -> deviceConfig.isLostDeviceActive();
+            default -> throw new IllegalArgumentException("Tipo de alerta no reconocido: " + alertType);
+        };
     }
 }

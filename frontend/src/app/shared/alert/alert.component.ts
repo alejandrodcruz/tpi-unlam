@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ToastrModule],
   template: ``,
 })
-export class AlertComponent implements OnInit, OnDestroy {
+export class AlertComponent implements OnInit {
   constructor(private webSocketService: WebSocketService, private toast: ToastrService) {}
 
   ngOnInit(): void {
@@ -18,7 +18,4 @@ export class AlertComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.webSocketService.disconnect();
-  }
 }

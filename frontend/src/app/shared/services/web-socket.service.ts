@@ -6,13 +6,11 @@ import {Subject, Observable, of} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class WebSocketService implements OnInit, OnDestroy {
+export class WebSocketService implements OnDestroy {
   private stompClient: any;
   private alertSubject = new Subject<any>();
 
-  constructor() {}
-
-  ngOnInit(): void {
+  constructor() {
     try {
       this.initConnectionSocket();
     }
@@ -22,6 +20,7 @@ export class WebSocketService implements OnInit, OnDestroy {
   }
 
   initConnectionSocket() {
+    console.log('Connecting');
     const url = "//localhost:8080/ws";
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
@@ -30,6 +29,7 @@ export class WebSocketService implements OnInit, OnDestroy {
 
   private connect() {
     this.stompClient.connect({}, (frame: any) => {
+      console.log('Connected');
       this.stompClient.subscribe('/topic/alerts', (message: any) => {
         this.alertSubject.next(message);
       });

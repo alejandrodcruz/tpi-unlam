@@ -19,7 +19,7 @@ import {UserService} from "../../shared/services/user.service";
   ],
   templateUrl: './alerts.component.html'
 })
-export class AlertsComponent implements OnInit, OnDestroy {
+export class AlertsComponent implements OnInit {
   alerts: any[] = [];
   filteredAlerts: any[] = [];
   displayedAlerts: any[] = [];
@@ -83,9 +83,5 @@ export class AlertsComponent implements OnInit, OnDestroy {
       this.currentPage = page;
       this.updatePagination();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.webSocketService.disconnect();
   }
 }
