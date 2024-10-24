@@ -6,3 +6,12 @@
   text-overflow: ellipsis;
   max-height: calc(1.2em * 16); /* ajusta según el tamaño de la línea */
 }
+.card {
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.expanded-card {
+  max-height: 900px;
+}
