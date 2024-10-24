@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardInfoComponent } from "../../core/card/card-info.component";
 import { FormsModule } from "@angular/forms";
 import { AlertsService } from "../../shared/services/alerts.service";
@@ -19,7 +19,7 @@ import {UserService} from "../../shared/services/user.service";
   ],
   templateUrl: './alerts.component.html'
 })
-export class AlertsComponent {
+export class AlertsComponent implements OnInit, OnDestroy {
   alerts: any[] = [];
   filteredAlerts: any[] = [];
   displayedAlerts: any[] = [];
@@ -83,5 +83,9 @@ export class AlertsComponent {
       this.currentPage = page;
       this.updatePagination();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.webSocketService.disconnect();
   }
 }

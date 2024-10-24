@@ -127,7 +127,6 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
         .subscribe(
           (data: TotalEnergy) => {
             this.consumo = data.totalEnergy*133;
-            console.log('Consumo AQUIIIII:', this.consumo);
             this.dataCardProgress = data.totalEnergy;
           },
           (error) => {

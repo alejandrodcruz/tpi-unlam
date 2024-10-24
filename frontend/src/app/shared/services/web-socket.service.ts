@@ -1,17 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { Subject, Observable } from 'rxjs';
+import {Subject, Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebSocketService {
+export class WebSocketService implements OnInit, OnDestroy {
   private stompClient: any;
-  private alertSubject = new Subject<any>(); // Subject para las alertas
+  private alertSubject = new Subject<any>();
 
-  constructor() {
-    this.initConnectionSocket();
+  constructor() {}
+
+  ngOnInit(): void {
+    try {
+      this.initConnectionSocket();
+    }
+    catch (error) {
+      this.disconnect();
+    }
   }
 
   initConnectionSocket() {
@@ -23,7 +30,6 @@ export class WebSocketService {
 
   private connect() {
     this.stompClient.connect({}, (frame: any) => {
-      console.log('Connected: ' + frame);
       this.stompClient.subscribe('/topic/alerts', (message: any) => {
         this.alertSubject.next(message);
       });
@@ -31,10 +37,28 @@ export class WebSocketService {
   }
 
   public listenTopic(): Observable<any> {
-    return this.alertSubject.asObservable(); // Devuelve el observable
+    try {
+      return this.alertSubject.asObservable();
+    }
+    catch (error) {
+      this.disconnect();
+      return of(null);
+    }
   }
 
   public sendAlert(message: string) {
     this.stompClient.send('/app/send-alert', {}, message);
+  }
+
+  public disconnect() {
+    if (this.stompClient && this.stompClient.connected) {
+      this.stompClient.disconnect(() => {
+        console.log('Disconnected');
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.disconnect();
   }
 }

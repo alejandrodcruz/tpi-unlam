@@ -3,8 +3,6 @@ import { SidebarComponent } from "../../../core/sidebar/sidebar.component";
 import { ReportesHistoricosComponent } from "../../reportes/reportes-historicos/reportes-historicos.component";
 import { CardInfoComponent } from "../../../core/card/card-info.component";
 import { CommonModule, NgClass } from "@angular/common";
-// @ts-ignore
-import introJs from 'intro.js';
 import {CardRealTimeComponent} from "../../../core/card-real-time/card-real-time.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import {UserService} from "../../../shared/services/user.service";
@@ -42,7 +40,8 @@ export class DashboardComponent implements OnInit {
   public wattUrl: SafeResourceUrl | undefined;
   public kwhUrl: SafeResourceUrl | undefined;
 
-  constructor(private userService: UserService, private sanitizer: DomSanitizer,
+  constructor(private userService: UserService,
+              private sanitizer: DomSanitizer,
               private measurementsService: MeasurementsService,
               private authService: AuthService) { }
 
