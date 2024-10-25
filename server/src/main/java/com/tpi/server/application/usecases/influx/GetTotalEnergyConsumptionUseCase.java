@@ -4,6 +4,7 @@ import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.DeviceDetails;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,14 @@ public class GetTotalEnergyConsumptionUseCase {
 
     private final MeasurementRepository measurementRepository;
     private final UserRepository userRepository;
+    private final DeviceRepository deviceRepository;
 
-    public GetTotalEnergyConsumptionUseCase(MeasurementRepository measurementRepository, UserRepository userRepository) {
+    public GetTotalEnergyConsumptionUseCase(MeasurementRepository measurementRepository,
+                                            UserRepository userRepository,
+                                            DeviceRepository deviceRepository) {
         this.measurementRepository = measurementRepository;
         this.userRepository = userRepository;
+        this.deviceRepository = deviceRepository;
     }
 
     @Transactional
@@ -46,13 +51,18 @@ public class GetTotalEnergyConsumptionUseCase {
             double totalEnergy = measurementRepository.getTotalEnergyConsumption(
                     Collections.singletonList(deviceId), startTime, endTime, deviceId);
 
-            return new TotalEnergyDetailedResponse(totalEnergy, deviceId);
+            String deviceName = deviceRepository.findById(deviceId)
+                    .map(Device::getName)
+                    .orElse("Unknown Device");
+
+            return new TotalEnergyDetailedResponse(totalEnergy,
+                    List.of(new DeviceDetails(deviceId, totalEnergy, deviceName)));
         } else {
             List<String> deviceIds = devices.stream()
                     .map(Device::getDeviceId)
                     .collect(Collectors.toList());
 
-            // Consumo total por dispositivo
+            // Obtener el consumo total por dispositivo
             Map<String, Double> devicesDetailsMap = measurementRepository.getTotalEnergyConsumptionPerDevice(
                     deviceIds, startTime, endTime);
 
@@ -60,9 +70,14 @@ public class GetTotalEnergyConsumptionUseCase {
                     .mapToDouble(Double::doubleValue)
                     .sum();
 
-            // List con deviceId, totalEnergy y energyCost
+            // DeviceDetails con cada deviceId, totalEnergy, energyCost y name
             List<DeviceDetails> devicesDetails = devicesDetailsMap.entrySet().stream()
-                    .map(entry -> new DeviceDetails(entry.getKey(), entry.getValue()))
+                    .map(entry -> {
+                        String name = deviceRepository.findById(entry.getKey())
+                                .map(Device::getName)
+                                .orElse("Unknown Device");
+                        return new DeviceDetails(entry.getKey(), entry.getValue(), name);
+                    })
                     .collect(Collectors.toList());
 
             return new TotalEnergyDetailedResponse(totalEnergy, devicesDetails);
