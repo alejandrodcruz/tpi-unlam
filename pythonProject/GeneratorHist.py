@@ -59,7 +59,7 @@ def generate_device_data(device, timestamp):
 for day in range(365):
     current_day = datetime.now() - timedelta(days=day)
 
-    for registro in range(300):
+    for registro in range(100):
         timestamp = current_day.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(
             minutes=registro * 1440 / 100)
         for device in devices:

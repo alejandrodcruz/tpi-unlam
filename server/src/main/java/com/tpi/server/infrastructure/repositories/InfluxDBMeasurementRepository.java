@@ -118,15 +118,9 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
             return 0.0;
         }
 
-        String devicesFilter;
-        if (deviceId != null && !deviceId.isEmpty()) {
-            // Filtrar por un dispositivo específico
-            devicesFilter = "\"" + deviceId + "\"";
-        } else {
-            // Filtrar por todos los dispositivos del usuario
-            devicesFilter = String.join("\",\"", deviceIds);
-            devicesFilter = "\"" + devicesFilter + "\"";
-        }
+        String devicesFilter = deviceId != null && !deviceId.isEmpty() ?
+                "\"" + deviceId + "\"" :
+                String.join("\",\"", deviceIds);
 
         String fluxQuery = String.format(
                 "from(bucket:\"%s\") " +
@@ -144,18 +138,13 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
         QueryApi queryApi = influxDBClient.getQueryApi();
         List<FluxTable> tables = queryApi.query(fluxQuery);
 
-        double totalEnergy = 0.0;
-        for (FluxTable table : tables) {
-            for (FluxRecord record : table.getRecords()) {
-                Object value = record.getValueByKey("_value");
-                if (value != null) {
-                    totalEnergy += ((Number) value).doubleValue();
-                }
-            }
-        }
-
-        // Convertir de Wh a kWh
-        totalEnergy = totalEnergy / 1000.0;
+        double totalEnergy = tables.stream()
+                .flatMap(table -> table.getRecords().stream())
+                .mapToDouble(record -> {
+                    Object value = record.getValueByKey("_value");
+                    return value != null ? ((Number) value).doubleValue() : 0.0;
+                })
+                .sum() / 1000.0; // Convertir de Wh a kWh
 
         return totalEnergy;
     }
@@ -176,7 +165,7 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
                         "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
                         "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
                         "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
-                        "|> group(columns: [\"deviceId\"])" +
+                        "|> group(columns: [\"deviceId\"]) " + // Agrupar por deviceId
                         "|> sum()",
                 bucket,
                 startTime,
@@ -187,7 +176,7 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
         QueryApi queryApi = influxDBClient.getQueryApi();
         List<FluxTable> tables = queryApi.query(fluxQuery);
 
-        for (FluxTable table : tables) {
+        tables.forEach(table -> {
             for (FluxRecord record : table.getRecords()) {
                 String deviceId = (String) record.getValueByKey("deviceId");
                 Object value = record.getValueByKey("_value");
@@ -196,7 +185,7 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
                     deviceConsumption.put(deviceId, energy);
                 }
             }
-        }
+        });
 
         return deviceConsumption;
     }
