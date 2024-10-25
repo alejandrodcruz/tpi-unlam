@@ -1,6 +1,7 @@
 package com.tpi.server.application.usecases.influx;
 
 import com.tpi.server.domain.models.Device;
+import com.tpi.server.domain.models.DeviceDetails;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
@@ -51,12 +52,18 @@ public class GetTotalEnergyConsumptionUseCase {
                     .map(Device::getDeviceId)
                     .collect(Collectors.toList());
 
-            Map<String, Double> devicesDetails = measurementRepository.getTotalEnergyConsumptionPerDevice(
+            // Consumo total por dispositivo
+            Map<String, Double> devicesDetailsMap = measurementRepository.getTotalEnergyConsumptionPerDevice(
                     deviceIds, startTime, endTime);
 
-            double totalEnergy = devicesDetails.values().stream()
+            double totalEnergy = devicesDetailsMap.values().stream()
                     .mapToDouble(Double::doubleValue)
                     .sum();
+
+            // List con deviceId, totalEnergy y energyCost
+            List<DeviceDetails> devicesDetails = devicesDetailsMap.entrySet().stream()
+                    .map(entry -> new DeviceDetails(entry.getKey(), entry.getValue()))
+                    .collect(Collectors.toList());
 
             return new TotalEnergyDetailedResponse(totalEnergy, devicesDetails);
         }
