@@ -34,6 +34,7 @@ export class ToolbarComponent implements OnInit {
       this.devices = devices;
       this.selectedDevice = devices[0].deviceId
       this.userService.selectDevice(this.selectedDevice);
+      this.userService.selectDeviceName(devices[0].name);
       this.measurementsService.setDeviceId(this.selectedDevice);
     });
 

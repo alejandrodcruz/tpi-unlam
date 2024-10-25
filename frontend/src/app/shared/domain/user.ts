@@ -7,6 +7,4 @@ export interface User{
   email: string,
   hasCompletedOnboarding?: boolean,
   addresses?: Address[],
-
-
 }

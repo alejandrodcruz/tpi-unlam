@@ -21,7 +21,10 @@ export class UserService {
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
   private selectedDeviceSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  selectedDevice$: Observable<string> = this.selectedDeviceSubject.asObservable();
+  public selectedDevice$: Observable<string> = this.selectedDeviceSubject.asObservable();
+
+  private selectedDeviceNameSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public selectedDeviceName$: Observable<string> = this.selectedDeviceNameSubject.asObservable();
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
@@ -40,6 +43,13 @@ export class UserService {
   }
   getSelectedDevice(): string {
     return this.selectedDeviceSubject.value;
+  }
+
+  selectDeviceName(device: string) {
+    this.selectedDeviceNameSubject.next(device);
+  }
+  getSelectedDeviceName(): string {
+    return this.selectedDeviceNameSubject.value;
   }
 
   getUserData(): void {

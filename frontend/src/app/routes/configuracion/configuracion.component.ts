@@ -22,6 +22,7 @@ import {UserService} from "../../shared/services/user.service";
 export class ConfiguracionComponent implements OnInit {
   selectedProfile: string | null = null;
   public deviceId: string = '';
+  public deviceName: string = '';
   public title: string = '';
   alertSettings = {
     deviceId: this.deviceId,
@@ -32,9 +33,9 @@ export class ConfiguracionComponent implements OnInit {
     peakPowerCurrentValue: 6,
     highTemperatureValue: 50,
     highHumidityValue: 40,
-    lostDeviceActive: true,
-    highConsumptionActive: true,
-    highTensionActive: true,
+    lostDeviceActive: false,
+    highConsumptionActive: false,
+    highTensionActive: false,
     lowTensionActive: false,
     peakPowerCurrentActive: false,
     highTemperatureActive: false,
@@ -126,6 +127,11 @@ export class ConfiguracionComponent implements OnInit {
       this.deviceId = this.userService.getSelectedDevice();
       this.title = "Selecciona la configuracion para " + this.deviceId;
       console.log("deviceid", this.deviceId);
+    });
+
+    this.userService.selectedDeviceName$.subscribe(() => {
+      this.deviceName = this.userService.getSelectedDeviceName();
+      this.title = "Selecciona la configuracion para " + this.deviceName;
     });
 
     this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {

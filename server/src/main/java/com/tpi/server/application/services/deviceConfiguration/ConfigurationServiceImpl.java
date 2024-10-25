@@ -4,7 +4,6 @@ import com.tpi.server.domain.enums.AlertType;
 import com.tpi.server.domain.interfaces.IConfigurationService;
 import com.tpi.server.domain.models.DeviceConfiguration;
 import com.tpi.server.infrastructure.repositories.DeviceConfigurationRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
