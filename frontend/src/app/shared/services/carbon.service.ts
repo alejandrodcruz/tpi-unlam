@@ -33,9 +33,13 @@ export class CarbonService {
     return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
 
   }
-  getTotalKwhRealTime(userId: number, startTime: Date, endTime: Date, pollingInterval: number = 5000, deviceId?: string): Observable<TotalEnergy> {
+  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000, deviceId?: string): Observable<TotalEnergy> {
     return interval(pollingInterval).pipe(
-      switchMap(() => this.getTotalKwh(userId, startTime, endTime, deviceId))
+      switchMap(() => {
+        const endTime = new Date(); // Actualizar endTime aquí
+        return this.getTotalKwh(userId, startTime, endTime, deviceId);
+      })
     );
   }
+
 }

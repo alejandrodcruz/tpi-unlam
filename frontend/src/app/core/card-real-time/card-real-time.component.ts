@@ -26,6 +26,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   horaActual!: Date;
   private horaSubscription!: Subscription;
   private measurementsServiceSubscription!: Subscription;
+  private consumoSubscription!: Subscription;
   currentDate = new Date();
 
   @Input() iconClasses: string = '';
@@ -60,7 +61,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
 
     if (this.titleCard === 'Consumo') {
       this.tipoDato = 'energy';
-      this.getkwh();
+      this.getkwhConsumo();
     }
 
 
@@ -114,29 +115,25 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
     );
   }
 
-  getkwh(): void {
+  getkwhConsumo(): void {
     const userId = this.authService.getUserId();
-
-    // Fechas para el mes actual
     const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
     const startTimeCurrentMonth = new Date(FirstDayOfCurrentMonth);
-    const endTimeCurrentMonth = new Date();
+
     if (userId !== null) {
-      // Obtener datos del mes actual
-      this.carbonService.getTotalKwhRealTime(userId, startTimeCurrentMonth, endTimeCurrentMonth)
+      this.consumoSubscription = this.carbonService.getTotalKwhRealTime(userId, startTimeCurrentMonth)
         .subscribe(
           (data: TotalEnergy) => {
             this.consumo = data.energyCost;
-            console.log('Consumo AQUIIIII:', this.consumo);
             this.dataCardProgress = data.energyCost;
           },
           (error) => {
-            console.error('Error al obtener el total de CO2:', error);
+            console.error('Error al obtener el total de CO₂:', error);
           }
         );
-      }
-
+    }
   }
+
   getFirstDayOfCurrentMonth(): string {
     const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
     return this.formatDateToISO(date);
@@ -153,6 +150,9 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
     }
     if (this.measurementsServiceSubscription) {
       this.measurementsServiceSubscription.unsubscribe();
+    }
+    if (this.consumoSubscription) {
+      this.consumoSubscription.unsubscribe();
     }
   }
 }
