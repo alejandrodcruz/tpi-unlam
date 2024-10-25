@@ -37,7 +37,7 @@ def generate_device_data(device):
 
     voltage = random.uniform(210, 230)
     current = varied_power / voltage
-    energy = (varied_power * (2 / 3600))
+    energy = (varied_power * (5 / 3600))
     temperature = random.uniform(20, 30)
     humidity = random.uniform(30, 50)
 
@@ -102,6 +102,6 @@ while True:
         # Log
         logging.info(f"Enviando datos del dispositivo {device['name']}: {device_json}")
     # Envia cada 2 segundos
-    time.sleep(2)
+    time.sleep(5)
 
 # Ejecutar en terminal de esta forma - python MQTTSimulator.py
