@@ -55,9 +55,12 @@ def generate_device_data(device, timestamp):
     print(point.to_line_protocol())
     return point
 
+today = datetime.now()
+first_day_of_current_month = today.replace(day=1)
+last_day_of_previous_month = first_day_of_current_month - timedelta(days=1)
 
 for day in range(365):
-    current_day = datetime.now() - timedelta(days=day)
+    current_day = last_day_of_previous_month - timedelta(days=day)
 
     for registro in range(100):
         timestamp = current_day.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(
