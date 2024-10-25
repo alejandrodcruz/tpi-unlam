@@ -8,10 +8,12 @@ public class DeviceDetails {
     private String deviceId;
     private double totalEnergy;
     private double energyCost;
+    private String name;
 
-    public DeviceDetails(String deviceId, double totalEnergy) {
+    public DeviceDetails(String deviceId, double totalEnergy, String name) {
         this.deviceId = deviceId;
         this.totalEnergy = totalEnergy;
         this.energyCost = EnergyCostCalculator.calculateEnergyCost(totalEnergy);
+        this.name = name;
     }
 }
