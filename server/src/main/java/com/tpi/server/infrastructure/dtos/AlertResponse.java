@@ -17,5 +17,6 @@ public class AlertResponse {
     private AlertType type;
     private String date;
     private String alertMessage;
+    private String name;
     private double value;
 }
