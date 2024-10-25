@@ -92,7 +92,6 @@ public class MQTTIntegrationConfig {
     public MessageHandler handler(MeasurementUseCase measurementUseCase) {
         return message -> {
             String payload = message.getPayload().toString();
-            System.out.println("Mensaje recibido: " + payload);
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 Measurement measurement = objectMapper.readValue(payload, Measurement.class);

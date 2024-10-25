@@ -1,26 +1,31 @@
 package com.tpi.server.application.services.deviceConfiguration;
 
 import com.tpi.server.domain.enums.AlertType;
+import com.tpi.server.domain.interfaces.IConfigurationService;
 import com.tpi.server.domain.models.DeviceConfiguration;
 import com.tpi.server.infrastructure.repositories.DeviceConfigurationRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DeviceConfigurationService {
+@RequiredArgsConstructor
+public class ConfigurationServiceImpl implements IConfigurationService {
 
     private final DeviceConfigurationRepository deviceConfigurationRepository;
 
-
-    public DeviceConfigurationService(DeviceConfigurationRepository deviceConfigurationRepository) {
-        this.deviceConfigurationRepository = deviceConfigurationRepository;
+    @Override
+    public DeviceConfiguration getDeviceConfiguration(String deviceId) {
+        DeviceConfiguration config = deviceConfigurationRepository.findByDeviceId(deviceId);
+        if (config == null) {
+            config = deviceConfigurationRepository.save(DeviceConfiguration.builder().deviceId(deviceId).build());
+        }
+        return config;
     }
 
+    @Override
     public boolean isAlertActive(String deviceId, AlertType alertType) {
-        DeviceConfiguration deviceConfig = deviceConfigurationRepository.findByDeviceId(deviceId);
-        if (deviceConfig == null) {
-            throw new EntityNotFoundException("No se encontró la configuración para el deviceId: " + deviceId);
-        }
+        DeviceConfiguration deviceConfig = getDeviceConfiguration(deviceId);
 
         return switch (alertType) {
             case HighConsumption -> deviceConfig.isHighConsumptionActive();

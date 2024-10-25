@@ -1,9 +1,8 @@
 package com.tpi.server.application.usecases.mqtt;
 
-import com.tpi.server.application.services.deviceConfiguration.DeviceConfigurationService;
+import com.tpi.server.application.services.deviceConfiguration.ConfigurationServiceImpl;
 import com.tpi.server.application.usecases.alert.AlertUseCase;
 import com.tpi.server.domain.enums.AlertType;
-import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.DeviceConfiguration;
 import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.infrastructure.dtos.AlertDTO;
@@ -21,16 +20,16 @@ public class MeasurementUseCase {
 
     private final MeasurementRepository measurementRepository;
     private final AlertUseCase alertService;
-    private final DeviceConfigurationService deviceConfigurationService;
     private final DeviceRepository deviceRepository;
+    private final ConfigurationServiceImpl configurationService;
 
     private final Map<Predicate<Measurement>, AlertType> alertConditions = new HashMap<>();
 
-    public MeasurementUseCase(MeasurementRepository measurementRepository, AlertUseCase alertService, DeviceConfigurationService deviceConfigurationService, DeviceRepository deviceRepository) {
+    public MeasurementUseCase(MeasurementRepository measurementRepository, AlertUseCase alertService, DeviceRepository deviceRepository, ConfigurationServiceImpl configurationService) {
         this.measurementRepository = measurementRepository;
         this.alertService = alertService;
-        this.deviceConfigurationService = deviceConfigurationService;
         this.deviceRepository = deviceRepository;
+        this.configurationService = configurationService;
         initializeAlertConditions();
     }
 
@@ -61,25 +60,17 @@ public class MeasurementUseCase {
         alertConditions.forEach((condition, alertType) -> {
             if (condition.test(measurement)) {
                 String deviceId = measurement.getDeviceId();
-                if (deviceConfigurationService.isAlertActive(deviceId, alertType)) {
+                if (configurationService.isAlertActive(deviceId, alertType)) {
                     double alertValue = alertValueExtractors.get(alertType).apply(measurement);
                     var deviceOptional = deviceRepository.findById(deviceId).stream().findFirst();
 
-                    if (deviceOptional.isPresent()) {
-                        String deviceName = deviceOptional.get().getName();
-
-                        alertService.createAlert(AlertDTO.builder()
-                                .type(alertType)
-                                .date(measurement.getTimestamp())
-                                .value(alertValue)
-                                .deviceId(deviceId)
-                                .name(deviceName)
-                                .build());
-                    } else {
-                        //todo add throw
-                        System.out.println("Dispositivo no encontrado con ID: " + deviceId);
-                    }
-
+                    deviceOptional.ifPresent(device -> alertService.createAlert(AlertDTO.builder()
+                            .type(alertType)
+                            .date(measurement.getTimestamp())
+                            .value(alertValue)
+                            .deviceId(deviceId)
+                            .name(device.getName())
+                            .build()));
                 }
             }
         });
