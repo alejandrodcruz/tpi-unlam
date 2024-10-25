@@ -1,15 +1,15 @@
 
 export class TotalEnergy{
     totalEnergy: number;
-    EnergyCost: number;
+    energyCost: number;
     deviceId: string
 
 
 
-    constructor(_totalEnergy : number,_deviceId : string , _EnergyCost : number){
+    constructor(_totalEnergy : number,_deviceId : string , _energyCost : number){
         this.totalEnergy=_totalEnergy;
         this.deviceId = _deviceId;
-        this.EnergyCost = _EnergyCost;
+        this.energyCost = _energyCost;
     }
   }
 

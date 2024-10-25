@@ -126,9 +126,9 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
       this.carbonService.getTotalKwhRealTime(userId, startTimeCurrentMonth, endTimeCurrentMonth)
         .subscribe(
           (data: TotalEnergy) => {
-            this.consumo = data.EnergyCost;
+            this.consumo = data.energyCost;
             console.log('Consumo AQUIIIII:', this.consumo);
-            this.dataCardProgress = data.EnergyCost;
+            this.dataCardProgress = data.energyCost;
           },
           (error) => {
             console.error('Error al obtener el total de CO2:', error);
