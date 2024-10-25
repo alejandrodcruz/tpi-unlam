@@ -16,5 +16,7 @@ public class AlertDTO {
     private String deviceId;
     private AlertType type;
     private String date;
+    private String name;
+    private String message;
     private double value;
 }

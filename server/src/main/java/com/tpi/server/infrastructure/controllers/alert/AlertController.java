@@ -26,17 +26,6 @@ public class AlertController {
     @Autowired
     private final AlertUseCase alertUseCase;
 
-    @PostMapping(value = "send-alert")
-    public ResponseEntity<Void> sendAlert() {
-        alertUseCase.createAlert(AlertDTO.builder()
-                .date("2024-10-08 14:26:45")
-                .deviceId("08:A6:F7:24:71:98")
-                .type(AlertType.HighTemperature)
-                .value(80)
-                .build());
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping(value = "getUserAlerts")
     public ResponseEntity<List<AlertResponse>> getUserAlerts(@RequestBody AlertByDeviceRequest deviceId) {
         List<AlertResponse> alerts = alertUseCase.getUserAlertsByDeviceId(deviceId.getDeviceId());
