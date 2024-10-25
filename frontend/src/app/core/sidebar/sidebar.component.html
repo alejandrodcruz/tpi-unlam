@@ -34,6 +34,12 @@
         </a>
       </li>
       <li class="p-2">
+        <a [routerLink]="['consume']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Alertas">
+          <i class="inline-block fas fa-lg fa-solid fa-dollar-sign"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Consumo</span>
+        </a>
+      </li>
+      <li class="p-2">
         <a [routerLink]="['historico']" class="flex items-center p-2 rounded hover:bg-gray-300 transition" title="Históricos">
           <i class="inline-block fa-lg fa-solid fa-chart-column"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Históricos</span>

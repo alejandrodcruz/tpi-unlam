@@ -13,6 +13,7 @@ import { DashboardHistoricoComponent } from './routes/dashboard-historico/dashbo
 import { CarbonFootprintComponent } from './routes/carbon-footprint/carbon-footprint/carbon-footprint.component';
 import {AlertsComponent} from "./routes/alerts/alerts.component";
 import { MisuscriptionComponent } from "./routes/misuscription/misuscription.component";
+import {ConsumeComponent} from "./routes/consume/consume.component";
 
 
 
@@ -36,6 +37,7 @@ export const routes: Routes = [
       { path: 'guides', component: GuidesComponent},
       { path: 'huella', component:CarbonFootprintComponent},
       { path: 'alerts', component: AlertsComponent },
+      { path: 'consume', component: ConsumeComponent },
       { path: 'misuscription', component: MisuscriptionComponent },
     ]
   },
