@@ -11,6 +11,6 @@ describe('HistorialService', () => {
   });
 
   it('should be created', () => {
-    expect(service).equals(true);
+    expect(service).toBeTruthy(true);
   });
 });

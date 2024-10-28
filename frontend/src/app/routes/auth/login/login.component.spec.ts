@@ -28,6 +28,6 @@ describe('LoginComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).equal(true);
+    expect(component).toEqual(jasmine.anything());
   });
 });
