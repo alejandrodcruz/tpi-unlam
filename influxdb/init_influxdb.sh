@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 10
+sleep 5
 
 influx bucket create -n aggregated_energy -o "$DOCKER_INFLUXDB_INIT_ORG" --retention "$INFLUXDB_INIT_RETENTION" \
   -t "$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"
