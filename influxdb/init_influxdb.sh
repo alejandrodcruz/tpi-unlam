@@ -8,3 +8,8 @@ influx task create \
   --file /docker-entrypoint-initdb.d/aggregate_task.flux \
   --org "$DOCKER_INFLUXDB_INIT_ORG" \
   --token "$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"
+
+influx task create \
+  --file /docker-entrypoint-initdb.d/aggregate_task_hist.flux \
+  --org "$DOCKER_INFLUXDB_INIT_ORG" \
+  --token "$DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"
