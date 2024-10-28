@@ -10,10 +10,13 @@ import com.tpi.server.domain.models.Measurement;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class InfluxDBMeasurementRepository implements MeasurementRepository {
@@ -118,20 +121,36 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
             return 0.0;
         }
 
+        Instant start = Instant.parse(startTime);
+        Instant end = Instant.parse(endTime);
+        Duration period = Duration.between(start, end);
+
+        String bucketToQuery;
+        String measurement;
+
+        if (period.toHours() <= 24) {
+            bucketToQuery = "grupo10bucket";
+            measurement = "measurements";
+        } else {
+            bucketToQuery = "aggregated_energy";
+            measurement = "measurements";
+        }
+
         String devicesFilter = deviceId != null && !deviceId.isEmpty() ?
                 "\"" + deviceId + "\"" :
-                String.join("\",\"", deviceIds);
+                deviceIds.stream().map(id -> "\"" + id + "\"").collect(Collectors.joining(","));
 
         String fluxQuery = String.format(
                 "from(bucket:\"%s\") " +
                         "|> range(start: %s, stop: %s) " +
-                        "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
+                        "|> filter(fn: (r) => r[\"_measurement\"] == \"%s\") " +
                         "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
                         "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
                         "|> sum()",
-                bucket,
+                bucketToQuery,
                 startTime,
                 endTime,
+                measurement,
                 devicesFilter
         );
 
@@ -141,10 +160,10 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
         double totalEnergy = tables.stream()
                 .flatMap(table -> table.getRecords().stream())
                 .mapToDouble(record -> {
-                    Object value = record.getValueByKey("_value");
+                    Object value = record.getValue();
                     return value != null ? ((Number) value).doubleValue() : 0.0;
                 })
-                .sum() / 1000.0; // Convertir de Wh a kWh
+                .sum() / 1000.0; // Wh a kWh
 
         return totalEnergy;
     }
@@ -156,20 +175,35 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
             return deviceConsumption;
         }
 
-        String devicesFilter = String.join("\",\"", deviceIds);
-        devicesFilter = "\"" + devicesFilter + "\"";
+        Instant start = Instant.parse(startTime);
+        Instant end = Instant.parse(endTime);
+        Duration period = Duration.between(start, end);
+
+        String bucketToQuery;
+        String measurement;
+
+        if (period.toHours() <= 24) {
+            bucketToQuery = "grupo10bucket";
+            measurement = "measurements";
+        } else {
+            bucketToQuery = "aggregated_energy";
+            measurement = "measurements";
+        }
+
+        String devicesFilter = deviceIds.stream().map(id -> "\"" + id + "\"").collect(Collectors.joining(","));
 
         String fluxQuery = String.format(
                 "from(bucket:\"%s\") " +
                         "|> range(start: %s, stop: %s) " +
-                        "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
+                        "|> filter(fn: (r) => r[\"_measurement\"] == \"%s\") " +
                         "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
                         "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
-                        "|> group(columns: [\"deviceId\"]) " + // Agrupar por deviceId
+                        "|> group(columns: [\"deviceId\"]) " +
                         "|> sum()",
-                bucket,
+                bucketToQuery,
                 startTime,
                 endTime,
+                measurement,
                 devicesFilter
         );
 
@@ -179,14 +213,13 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
         tables.forEach(table -> {
             for (FluxRecord record : table.getRecords()) {
                 String deviceId = (String) record.getValueByKey("deviceId");
-                Object value = record.getValueByKey("_value");
+                Object value = record.getValue();
                 if (deviceId != null && value != null) {
-                    double energy = ((Number) value).doubleValue() / 1000.0; // Convertir a kWh
+                    double energy = ((Number) value).doubleValue() / 1000.0; // Wh a kWh
                     deviceConsumption.put(deviceId, energy);
                 }
             }
         });
-
         return deviceConsumption;
     }
 }
