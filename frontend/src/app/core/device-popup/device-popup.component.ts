@@ -9,7 +9,7 @@ import { DeviceService } from '../../shared/services/device.service';
   standalone: true,
   imports: [CommonModule,
             LoadingComponent,
-            FormsModule, CommonModule
+          FormsModule, CommonModule,
   ],
   templateUrl: './device-popup.component.html',
   styleUrl: './device-popup.component.css'
@@ -17,7 +17,8 @@ import { DeviceService } from '../../shared/services/device.service';
 export class DevicePopupComponent {
 @Input() isOpen: boolean = false;
 @Output() closePopup = new EventEmitter<void>();
- constructor(private deviceService: DeviceService, private cdr: ChangeDetectorRef) { }
+ constructor(private deviceService: DeviceService,
+             private cdr: ChangeDetectorRef) { }
 step:number = 1;
 isLoading: boolean = false;
 pairingCode: string = '';
@@ -25,6 +26,7 @@ errorMessage: string = '';
 successMessage: string = '';
 close() {
   this.closePopup.emit();
+  window.location.reload();
 }
 
 nextStep() {
