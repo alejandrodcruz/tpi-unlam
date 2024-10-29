@@ -7,6 +7,7 @@ import { CardRealTimeComponent } from "../../core/card-real-time/card-real-time.
 import { DashboardPanelComponent } from "../../core/dashboard-panel/dashboard-panel.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
+import {AlertsService} from "../../shared/services/alerts.service";
 
 @Component({
   selector: 'app-dashboard-historico',
@@ -36,7 +37,10 @@ export class DashboardHistoricoComponent implements OnInit {
   graficoSeleccionado: string = ''; // Variable para el gráfico seleccionado
   graficoTitulo: string = ''; // Variable para el título del gráfico
 
-  constructor(private historialService: HistorialService,private userService: UserService, private sanitizer: DomSanitizer) {}
+  constructor(private historialService: HistorialService,
+              private userService: UserService,
+              private sanitizer: DomSanitizer,
+              private alertService: AlertsService,) {}
 
   ngOnInit(): void {
 
@@ -64,9 +68,16 @@ export class DashboardHistoricoComponent implements OnInit {
 
 
   cargarAlertasHistoricas(): void {
+    this.alertService.getAlertsForDeviceId(this.selectedDevice)
+      .subscribe((alerts) => {
+        this.alertasHistoricas = alerts;
+        console.log("salida de alertas"+ alerts);
+      });
+    console.log("esto trae el servicio: "+ this.alertasHistoricas);
+    /*
     this.historialService.getAlertasHistoricas().subscribe(alertas => {
       this.alertasHistoricas = alertas;
-    });
+    });*/
   }
 
   aplicarFiltro(event: Event): void {
