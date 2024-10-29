@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botonera de Dispositivos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>    
+    <div id="device-buttons" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-center"></div>
+
+    <script>
+        const devices = [
+            {"deviceId": "08:A6:F7:24:71:98", "name": "Heladera","image":"https://www.enre.gov.ar/calculadora/img/Heladera_freezer.png"},
+            {"deviceId": "08:A6:F7:24:71:99", "name": "Aire Acondicionado","image":"https://www.enre.gov.ar/calculadora/img/Aire_acondicionado.png"},
+            {"deviceId": "08:A6:F7:24:71:9A", "name": "Microondas","image":"https://www.enre.gov.ar/calculadora/img/Microondas.png"},
+            {"deviceId": "08:A6:F7:24:71:9B", "name": "Lavarropas","image":"https://www.enre.gov.ar/calculadora/img/Lavarropas.png"},
+            {"deviceId": "08:A6:F7:24:71:9C", "name": "Televisor","image":"https://www.enre.gov.ar/calculadora/img/Televisor.png"},
+            {"deviceId": "08:A6:F7:24:71:9D", "name": "Computadora","image":"https://www.enre.gov.ar/calculadora/img/CPU.png"},
+            {"deviceId": "08:A6:F7:24:71:9E", "name": "Lámpara LED","image":"https://www.enre.gov.ar/calculadora/img/Iluminacion.png"},
+            {"deviceId": "08:A6:F7:24:71:9F", "name": "Ventilador","image":"https://www.enre.gov.ar/calculadora/img/Ventilador.png"},
+            {"deviceId": "08:A6:F7:24:71:A0", "name": "Cargador de Celular","image":"https://www.enre.gov.ar/calculadora/img/Cargador.png"},
+            {"deviceId": "08:A6:F7:24:71:A1", "name": "Router WiFi","image":"https://www.svgrepo.com/show/110128/modem.svg"},
+            {"deviceId": "08:A6:F7:24:71:A2", "name": "Lavavajillas","image":"https://www.enre.gov.ar/calculadora/img/Lavavajilla.png"},
+            {"deviceId": "08:A6:F7:24:71:A3", "name": "Secador de Pelo","image":"https://www.enre.gov.ar/calculadora/img/Secador_pelo.png"},
+            {"deviceId": "08:A6:F7:24:71:A4", "name": "Calefactor Eléctrico","image":"https://www.enre.gov.ar/calculadora/img/Vitroconvector.png"},
+            {"deviceId": "08:A6:F7:24:71:A5", "name": "Plancha","image":"https://www.enre.gov.ar/calculadora/img/Plancha.png"},
+            {"deviceId": "08:A6:F7:24:71:A6", "name": "Cafetera","image":"https://www.enre.gov.ar/calculadora/img/Cafetera.png"},
+            {"deviceId": "08:A6:F7:24:71:A7", "name": "Extractor de Aire","image":"https://www.enre.gov.ar/calculadora/img/Extractor_de_aire.png"},
+            {"deviceId": "08:A6:F7:24:71:A8", "name": "Horno Eléctrico","image":"https://www.enre.gov.ar/calculadora/img/Horno_electrico.png"},
+            {"deviceId": "08:A6:F7:24:71:A9", "name": "Bomba de Agua","image":"https://www.enre.gov.ar/calculadora/img/Bomba_de_agua.png"},
+            {"deviceId": "08:A6:F7:24:71:AA", "name": "Radiador Eléctrico","image":"https://www.enre.gov.ar/calculadora/img/Radiador_electrico.png"},
+            {"deviceId": "08:A6:F7:24:71:AB", "name": "Impresora Láser","image":"https://www.svgrepo.com/show/490295/printer.svg"}
+        ];
+
+        let activeCard = null;
+
+        function activateDevice(device, cardElement) {
+            fetch('/activar_dispositivo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    deviceId: device.deviceId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            // Cambiar el estilo de la tarjeta activa
+            if (activeCard) {
+                activeCard.classList.remove('bg-blue-200', 'border-4', 'border-blue-500');
+            }
+
+            cardElement.classList.add('bg-blue-200', 'border-4', 'border-blue-500');
+
+            activeCard = cardElement;
+        }
+
+        devices.forEach(device => {
+            // Crear el contenedor de la tarjeta
+            const card = document.createElement('div');
+            card.classList.add('card', 'bg-white', 'rounded-lg', 'shadow-xl', 'p-4', 'm-4', 'flex', 'flex-col', 'items-center', 'transform', 'transition-transform', 'hover:scale-105', 'cursor-pointer');
+
+            // Crear el contenedor de la imagen con un círculo de fondo
+            const imageContainer = document.createElement('div');
+            imageContainer.classList.add('bg-blue-100', 'rounded-full', 'p-4', 'flex', 'items-center', 'justify-center', 'mb-4');
+
+            // Crear el elemento de imagen
+            const img = document.createElement('img');
+            img.src = device.image;
+            img.alt = device.name;
+            img.classList.add('w-20', 'h-20', 'object-cover');
+            img.onclick = () => activateDevice(device, card); // Agregar evento onclick a la imagen
+
+            // Añadir la imagen al contenedor de la imagen
+            imageContainer.appendChild(img);
+
+            // Crear el nombre del dispositivo como un botón
+            const button = document.createElement('button');
+            button.innerText = device.name;
+            button.onclick = () => activateDevice(device, card); // Agregar evento onclick al botón
+            button.classList.add('text-blue-700', 'font-semibold', 'text-lg', 'mt-2');
+
+            // Agregar el contenedor de la imagen y el botón a la tarjeta
+            card.appendChild(imageContainer);
+            card.appendChild(button);
+
+            // Agregar la tarjeta al div device-buttons
+            document.getElementById('device-buttons').appendChild(card);
+
+            // Agregar el evento onclick a toda la tarjeta para activar el dispositivo
+            card.onclick = () => activateDevice(device, card);
+        });
+    </script>
+</body>
+</html>

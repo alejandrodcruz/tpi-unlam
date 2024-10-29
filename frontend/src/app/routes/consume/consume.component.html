@@ -1,0 +1,20 @@
+<app-panel-title title="Consumo" description="Este es el consumo que registramos de tu dispositivo."></app-panel-title>
+<div class="px-3">
+<div class="stats shadow flex flex-wrap px-3">
+  <div class="stat w-full sm:w-1/2 md:w-1/3 lg:w-1/6" *ngFor="let device of devices">
+    <div class="stat-figure text-primary">
+      <!-- Aquí puedes agregar un ícono o imagen relacionada con el dispositivo -->
+      <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="32" height="32">
+    </div>
+    <div class="stat-title">{{ device.name }}</div>
+    <div class="stat-value text-primary">
+      <!-- Aquí puedes mostrar algún valor relacionado con el dispositivo -->
+      <!-- Por ejemplo, si tienes el consumo total del dispositivo -->
+    </div>
+    <div class="stat-desc">
+      <!-- Descripción o datos adicionales -->
+      Último mes
+    </div>
+  </div>
+</div>
+</div>

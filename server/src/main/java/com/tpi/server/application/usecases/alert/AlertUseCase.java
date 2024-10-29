@@ -31,11 +31,12 @@ public class AlertUseCase {
                     .date(alertData.getDate())
                     .deviceId(alertData.getDeviceId())
                     .value(alertData.getValue())
+                    .name(alertData.getName())
                     .build();
             alertRepository.save(alert);
             logger.trace("Save alerta:{}", alert);
-            String message = AlertMessageUtils.getAlertMessage(alertData.getType());
-            messagingTemplate.convertAndSend("/topic/alerts", message);
+            alertData.setMessage(AlertMessageUtils.getAlertMessage(alertData.getType()));
+            messagingTemplate.convertAndSend("/topic/alerts", alertData);
         } catch (Exception e) {
             logger.error("Error al guardar la alerta", e);
             throw new RuntimeException("No se pudo crear la alerta", e);
@@ -58,6 +59,7 @@ public class AlertUseCase {
                 .alertMessage(AlertMessageUtils.getAlertMessage(alert.getType()))
                 .value(alert.getValue())
                 .date(alert.getDate())
+                .name(alert.getName())
                 .build();
     }
 }

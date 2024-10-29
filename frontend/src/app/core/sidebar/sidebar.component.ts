@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink } from "@angular/router";
 import { AuthService } from '../../shared/services/auth.service';
+import {WebSocketService} from "../../shared/services/web-socket.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -15,9 +16,10 @@ export class SidebarComponent {
    @Input() isSidebarOpen = true;
    @Output() closeSidebar = new EventEmitter<void>();
 
-   constructor(private authService: AuthService) { }
+   constructor(private authService: AuthService, private webSocketService: WebSocketService) { }
 
     logout() {
+        this.webSocketService.disconnect();
         this.authService.logout();
     }
 

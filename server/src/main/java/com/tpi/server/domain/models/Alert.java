@@ -24,6 +24,8 @@ public class Alert {
     @Column(name = "device_id")
     private String deviceId;
 
+    private String name;
+
     private AlertType type;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

@@ -46,7 +46,13 @@ services:
       - INFLUXDB_ORG=${INFLUXDB_INIT_ORG}
       - INFLUXDB_BUCKET=${INFLUXDB_INIT_BUCKET}
       - INFLUXDB_URL=${INFLUXDB_URL}
-      - MQTT_BROKER=${MQTT_BROKER}
+#      - MQTT_BROKER=${MQTT_BROKER}
+#      - MQTT_CLIENT_ID=${MQTT_CLIENT_ID}
+#      - MQTT_USERNAME=${MQTT_USERNAME}
+#      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - MQTT_BROKER_TYPE=${MQTT_BROKER_TYPE}
+      - MQTT_BROKER_MOSQUITTO=${MQTT_BROKER_MOSQUITTO}
+      - MQTT_BROKER_HIVEMQ=${MQTT_BROKER_HIVEMQ}
       - MQTT_CLIENT_ID=${MQTT_CLIENT_ID}
       - MQTT_USERNAME=${MQTT_USERNAME}
       - MQTT_PASSWORD=${MQTT_PASSWORD}
@@ -89,13 +95,16 @@ services:
       - "${INFLUXDB_PORT}:8086"
     volumes:
       - influxdb_data:/var/lib/influxdb2
+      - ./influxdb/init_influxdb.sh:/docker-entrypoint-initdb.d/init_influxdb.sh
+      - ./influxdb/aggregate_task.flux:/docker-entrypoint-initdb.d/aggregate_task.flux
+      - ./influxdb/aggregate_task_hist.flux:/docker-entrypoint-initdb.d/aggregate_task_hist.flux
     depends_on:
       - mysql
     networks:
       - my_network
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:11.2.3
     container_name: grafana
     ports:
       - "${GRAFANA_PORT}:3000"

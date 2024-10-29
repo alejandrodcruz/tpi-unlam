@@ -114,10 +114,10 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
       "type": "timeseries"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -154,7 +154,6 @@
     "from": "now-1m",
     "to": "now"
   },
-  "refresh": "1s",
   "timepicker": {},
   "timezone": "browser",
   "title": "current",
