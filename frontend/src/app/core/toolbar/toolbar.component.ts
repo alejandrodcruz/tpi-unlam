@@ -49,12 +49,13 @@ export class ToolbarComponent implements OnInit {
   }
 
   onDeviceChange(event: any) {
-    var selectedDevice = event.target.value;
+    const selectedDevice = event.target.value;
     if (selectedDevice) {
       this.selectedDevice = selectedDevice;
       console.log("selectedDevice", selectedDevice);
       this.userService.selectDevice(selectedDevice);
       this.measurementsService.setDeviceId(selectedDevice);
+      this.deviceName = this.devices.find(device => device.deviceId === selectedDevice)?.name || "";
     }
   }
 

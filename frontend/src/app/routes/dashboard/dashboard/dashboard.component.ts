@@ -5,7 +5,7 @@ import { CardInfoComponent } from "../../../core/card/card-info.component";
 import { CommonModule, NgClass } from "@angular/common";
 import {CardRealTimeComponent} from "../../../core/card-real-time/card-real-time.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {UserService} from "../../../shared/services/user.service";
+import {Device, UserService} from "../../../shared/services/user.service";
 import {DashboardPanelComponent} from "../../../core/dashboard-panel/dashboard-panel.component";
 import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -26,7 +26,7 @@ import { AuthService } from '../../../shared/services/auth.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  devices: Device[] = [];
   measurements: Measurement[] = [];
   public voltage: number | undefined;
   public current: number | undefined;
@@ -55,6 +55,9 @@ export class DashboardComponent implements OnInit {
         this.hasDeviceId = true;
         this.updateIframeUrl();
       }
+    });
+    this.userService.getUserDevices().subscribe((devices) => {
+      this.devices = devices;
     });
   }
 

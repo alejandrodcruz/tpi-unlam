@@ -17,7 +17,7 @@ import { Device, UserService } from '../../shared/services/user.service';
     FormsModule,
     DatePipe,
     PanelTitleComponent,
-    CardRealTimeComponent,
+    CardRealTimeComponent
   ],
   templateUrl: './consume.component.html'
 })
