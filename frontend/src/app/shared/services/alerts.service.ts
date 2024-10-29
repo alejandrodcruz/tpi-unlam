@@ -16,8 +16,9 @@ export class AlertsService {
     return this.http.post(`${this.apiUrl}/update-alerts`, alertSettings);
   }
 
-  getAlertSettings(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/get-alerts`);
+  getAlertsForDeviceIdHistorical(deviceId: string): Observable<any> {
+    const body = { deviceId };
+    return this.http.post(`http://localhost:8080/alert/getUserAlerts`, body);
   }
 
   getAlertsForDeviceId(deviceId: string): Observable<any> {

@@ -7,7 +7,7 @@ import { CardRealTimeComponent } from "../../core/card-real-time/card-real-time.
 import { DashboardPanelComponent } from "../../core/dashboard-panel/dashboard-panel.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
-import {AlertsService} from "../../shared/services/alerts.service";
+import { AlertsService } from "../../shared/services/alerts.service";
 
 @Component({
   selector: 'app-dashboard-historico',
@@ -17,13 +17,11 @@ import {AlertsService} from "../../shared/services/alerts.service";
     SafeUrlPipe,
     CommonModule,
     PanelTitleComponent, NgClass,
-    CommonModule,
     CardRealTimeComponent, DashboardPanelComponent,
   ],
   styleUrls: ['./dashboard-historico.component.css']
 })
 export class DashboardHistoricoComponent implements OnInit {
-
   consumoMensual: string = '';
   public selectedDevice: string = '';
   powerLastYearUrl: SafeResourceUrl | undefined;
@@ -31,26 +29,33 @@ export class DashboardHistoricoComponent implements OnInit {
   histEnergyMonthUrl: SafeResourceUrl | undefined;
   histEnergyUrl: SafeResourceUrl | undefined;
 
-  alertasHistoricas: { tipo: string, descripcion: string }[] = [];
+  alertasHistoricas: {
+    deviceId: string,
+    type: string,
+    date: Date,
+    alertMessage: string,
+    name: string,
+    value: number,
+  }[] = [];
   filtroSeleccionado: string = 'todos';
 
-  graficoSeleccionado: string = ''; // Variable para el gráfico seleccionado
-  graficoTitulo: string = ''; // Variable para el título del gráfico
+  graficoSeleccionado: string = '';
+  graficoTitulo: string = '';
 
-  constructor(private historialService: HistorialService,
-              private userService: UserService,
-              private sanitizer: DomSanitizer,
-              private alertService: AlertsService,) {}
+  constructor(
+    private userService: UserService,
+    private sanitizer: DomSanitizer,
+    private alertService: AlertsService
+  ) {}
 
   ngOnInit(): void {
-
     this.userService.selectedDevice$.subscribe(device => {
       this.selectedDevice = device;
       if (this.selectedDevice) {
         this.updateIframeUrl();
+        this.cargarAlertasHistoricas();
       }
     });
-    this.cargarAlertasHistoricas();
   }
 
   updateIframeUrl() {
@@ -66,18 +71,11 @@ export class DashboardHistoricoComponent implements OnInit {
     }
   }
 
-
   cargarAlertasHistoricas(): void {
-    this.alertService.getAlertsForDeviceId(this.selectedDevice)
+    this.alertService.getAlertsForDeviceIdHistorical(this.selectedDevice)
       .subscribe((alerts) => {
         this.alertasHistoricas = alerts;
-        console.log("salida de alertas"+ alerts);
       });
-    console.log("esto trae el servicio: "+ this.alertasHistoricas);
-    /*
-    this.historialService.getAlertasHistoricas().subscribe(alertas => {
-      this.alertasHistoricas = alertas;
-    });*/
   }
 
   aplicarFiltro(event: Event): void {
@@ -85,11 +83,11 @@ export class DashboardHistoricoComponent implements OnInit {
     this.filtroSeleccionado = selectElement.value;
   }
 
-  getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
+  getAlertasFiltradas(): { type: string, alertMessage: string, date: Date, value: number }[] {
     if (this.filtroSeleccionado === 'todos') {
       return this.alertasHistoricas;
     }
-    return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
+    return this.alertasHistoricas.filter(alerta => alerta.type === this.filtroSeleccionado);
   }
 
   abrirModal(grafico: string) {
@@ -109,7 +107,7 @@ export class DashboardHistoricoComponent implements OnInit {
         this.graficoTitulo = 'Frecuencia Histórica';
         break;
       default:
-        this.graficoTitulo = ''; // Título por defecto
+        this.graficoTitulo = '';
     }
   }
 
@@ -117,6 +115,7 @@ export class DashboardHistoricoComponent implements OnInit {
     this.graficoSeleccionado = '';
   }
 }
+
 
 
 /*
