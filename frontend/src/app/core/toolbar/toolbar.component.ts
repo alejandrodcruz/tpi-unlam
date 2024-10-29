@@ -23,6 +23,7 @@ export class ToolbarComponent implements OnInit {
 
   devices: Device[] = [];
   selectedDevice: string = "";
+  deviceName: string = "";
   user$: Observable<User | null>;
 
   constructor(private userService: UserService, private measurementsService: MeasurementsService) {
@@ -35,6 +36,7 @@ export class ToolbarComponent implements OnInit {
       this.selectedDevice = devices[0].deviceId
       this.userService.selectDevice(this.selectedDevice);
       this.userService.selectDeviceName(devices[0].name);
+      this.deviceName = this.devices.find(device => device.deviceId === this.selectedDevice)?.name || "";
       this.measurementsService.setDeviceId(this.selectedDevice);
     });
 
