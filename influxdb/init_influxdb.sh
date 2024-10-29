@@ -1,4 +1,3 @@
-# Use UTF-8 LF
 #!/bin/bash
 sleep 5
 
