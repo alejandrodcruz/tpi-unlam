@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class InfluxDBMeasurementRepository implements MeasurementRepository {
@@ -108,5 +110,83 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
             }
         }
         return measurements;
+    }
+
+    @Override
+    public double getTotalEnergyConsumption(List<String> deviceIds, String startTime, String endTime, String deviceId) {
+        if (deviceIds.isEmpty()) {
+            return 0.0;
+        }
+
+        String devicesFilter = deviceId != null && !deviceId.isEmpty() ?
+                "\"" + deviceId + "\"" :
+                String.join("\",\"", deviceIds);
+
+        String fluxQuery = String.format(
+                "from(bucket:\"%s\") " +
+                        "|> range(start: %s, stop: %s) " +
+                        "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
+                        "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
+                        "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
+                        "|> sum()",
+                bucket,
+                startTime,
+                endTime,
+                devicesFilter
+        );
+
+        QueryApi queryApi = influxDBClient.getQueryApi();
+        List<FluxTable> tables = queryApi.query(fluxQuery);
+
+        double totalEnergy = tables.stream()
+                .flatMap(table -> table.getRecords().stream())
+                .mapToDouble(record -> {
+                    Object value = record.getValueByKey("_value");
+                    return value != null ? ((Number) value).doubleValue() : 0.0;
+                })
+                .sum() / 1000.0; // Convertir de Wh a kWh
+
+        return totalEnergy;
+    }
+
+    @Override
+    public Map<String, Double> getTotalEnergyConsumptionPerDevice(List<String> deviceIds, String startTime, String endTime) {
+        Map<String, Double> deviceConsumption = new HashMap<>();
+        if (deviceIds.isEmpty()) {
+            return deviceConsumption;
+        }
+
+        String devicesFilter = String.join("\",\"", deviceIds);
+        devicesFilter = "\"" + devicesFilter + "\"";
+
+        String fluxQuery = String.format(
+                "from(bucket:\"%s\") " +
+                        "|> range(start: %s, stop: %s) " +
+                        "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
+                        "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
+                        "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
+                        "|> group(columns: [\"deviceId\"]) " + // Agrupar por deviceId
+                        "|> sum()",
+                bucket,
+                startTime,
+                endTime,
+                devicesFilter
+        );
+
+        QueryApi queryApi = influxDBClient.getQueryApi();
+        List<FluxTable> tables = queryApi.query(fluxQuery);
+
+        tables.forEach(table -> {
+            for (FluxRecord record : table.getRecords()) {
+                String deviceId = (String) record.getValueByKey("deviceId");
+                Object value = record.getValueByKey("_value");
+                if (deviceId != null && value != null) {
+                    double energy = ((Number) value).doubleValue() / 1000.0; // Convertir a kWh
+                    deviceConsumption.put(deviceId, energy);
+                }
+            }
+        });
+
+        return deviceConsumption;
     }
 }

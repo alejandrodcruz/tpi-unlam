@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {interval, map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrenttimeService {
-  private apiUrl = 'http://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires';
+  constructor() {}
 
-  constructor(private http: HttpClient) { }
+  getHoraActual(): Observable<Date> {
 
-  getHoraActual(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+    return interval(1000).pipe(
+      map(() => {
+
+        const ahora = new Date();
+
+        const utc = ahora.getTime() + ahora.getTimezoneOffset() * 60000;
+        const argentinaTime = new Date(utc - 3 * 3600000);
+        return argentinaTime;
+      })
+    );
   }
 }

@@ -1,39 +1,30 @@
 package com.tpi.server.application.usecases.deviceConfiguration;
 
-import com.tpi.server.application.usecases.mqtt.MeasurementUseCase;
+import com.tpi.server.application.services.deviceConfiguration.ConfigurationServiceImpl;
+import com.tpi.server.domain.enums.AlertType;
 import com.tpi.server.domain.models.DeviceConfiguration;
-import com.tpi.server.infrastructure.repositories.DeviceConfigurationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
 public class AddConfigurationUseCase {
 
-    private final DeviceConfigurationRepository deviceConfigurationRepository;
-
-    @Autowired
-    private final MeasurementUseCase measurementUseCase;
+    private final ConfigurationServiceImpl configurationService;
+    private final SaveDeviceConfigurationsUseCase saveDeviceConfiguration;
+    private final DeleteDeviceConfigurationsUseCase deleteDeviceConfiguration;
 
     public DeviceConfiguration execute(DeviceConfiguration deviceConfiguration) {
-        DeviceConfiguration existingConfig = deviceConfigurationRepository.findByDeviceId(deviceConfiguration.getDeviceId());
+        DeviceConfiguration existingConfig = configurationService.getDeviceConfiguration(deviceConfiguration.getDeviceId());
 
         if (existingConfig != null) {
-            deviceConfigurationRepository.delete(existingConfig);
+            deleteDeviceConfiguration.execute(existingConfig);
         }
 
-        DeviceConfiguration savedConfig = deviceConfigurationRepository.save(deviceConfiguration);
-
-        updateAlertConditions(savedConfig);
-
-        return savedConfig;
+        return saveDeviceConfiguration.execute(deviceConfiguration);
     }
 
-    private void updateAlertConditions(DeviceConfiguration deviceConfiguration) {
-        measurementUseCase.updateAlertConditions(deviceConfiguration);
+    public boolean isAlertActive(String deviceId, AlertType alertType) {
+        return configurationService.isAlertActive(deviceId, alertType);
     }
-
-
 }

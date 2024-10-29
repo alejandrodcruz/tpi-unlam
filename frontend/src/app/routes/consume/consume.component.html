@@ -1,0 +1,21 @@
+<app-panel-title title="Consumo" description="Este es el consumo que registramos de tu dispositivo."></app-panel-title>
+
+<div class="flex justify-center items-center space-x-4 h-[calc(100vh-360px)]">
+  <app-card-real-time
+                      [iconClasses]="''"
+                      [titleCard]="'Consumo'"
+                      [subtitleCard]="'El consumo por minuto es de'"
+                      [valueProgress]="10"
+                      [maxProgress]="100"
+                      [colorProgress]="'progress progress-warning w-full'"
+  ></app-card-real-time>
+
+  <app-card-real-time
+                      [iconClasses]="''"
+                      [titleCard]="'Consumo Mensual'"
+                      [subtitleCard]="'Otro consumo por minuto es de'"
+                      [valueProgress]="20"
+                      [maxProgress]="100"
+                      [colorProgress]="'progress progress-warning w-full'"
+  ></app-card-real-time>
+</div>

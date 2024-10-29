@@ -21,7 +21,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let alert of displayedAlerts" class="hover:bg-gray-100">
-        <td>{{ alert.deviceId }}</td>
+        <td>{{ alert.name }}</td>
         <td>{{ alert.date | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
         <td>{{ alert.alertMessage }}</td>
         <td>{{ alert.value }}</td>

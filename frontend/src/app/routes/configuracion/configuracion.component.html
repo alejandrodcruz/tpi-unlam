@@ -1,7 +1,7 @@
 
-<app-panel-title title="Selecciona el Perfil de tu casa" description="Selecciona el perfil que mejor describe tu hogar para obtener una configuración de consumo de energía personalizada."></app-panel-title>
+<app-panel-title [title]="title" description="Configura las alertas que deseas recibir para este dispositivo."></app-panel-title>
 
-
+<!--
 <div class="container mx-auto py-4 px-10">
   <h1 class="text-xl font-semibold mb-4">Perfiles sugeridos</h1><br>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -95,22 +95,20 @@
         <img src="./assets/img/personalizado.png" alt="Imagen de apartamento pequeño" class="w-full h-40 object-cover mb-4 rounded-lg">
         <div class="ml-4">
           <h2 class="card-title">Personalizado</h2><br>
+          <div [ngClass]="{'truncate-text': !expanded['personalized']}" class="card-content">
           <p>Descripción: Este perfil es ideal para hogares que no encajan en las categorías anteriores. El usuario
             puede ajustar manualmente el consumo según la cantidad de electrodomésticos y habitaciones.</p>
           <p>Configuración: Permite elegir cuántos ambientes tiene el hogar y cuántos electrodomésticos hay en cada uno, lo que brinda flexibilidad.</p>
           <p>Electrodomésticos típicos: Varía según el usuario.</p>
+          </div>
+          <a [routerLink]="['configuracion']" (click)="toggleExpand('personalized', $event)" class="text-blue-500 underline">{{ expanded['personalized'] ? 'Leer menos' : 'Leer más' }}</a>
         </div>
+
       </div>
 
   </div>
 </div>
-
-<div class="container mx-auto py-4 px-10">
-    <div class="grid grid-cols-1 gap-4">
-        <h2 class="text-3xl font-bold">Alertas</h2>
-        <p>Este panel te ofrece la configuracion de la aplicacion.</p>
-    </div>
-</div>
+-->
 
 <div class="container mx-auto py-6 px-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
