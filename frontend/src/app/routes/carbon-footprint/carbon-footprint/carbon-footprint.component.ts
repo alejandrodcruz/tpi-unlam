@@ -7,6 +7,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { CarbonService } from '../../../shared/services/carbon.service';
 import { TotalEnergy } from '../models/totalEnergy.models';
 import { FormsModule } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -17,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class CarbonFootprintComponent implements OnInit{
    measurements: Measurement[] = [];
-   emissionsCO2: number;  // Propiedad para almacenar el total de CO2
+   emissionsCO2: number ;  // Propiedad para almacenar el total de CO2
    startDate: string | null = null;
    endDate: string | null = null;
    KwhToCO2EmissionsCurrent : number  = 0;
@@ -30,7 +31,14 @@ export class CarbonFootprintComponent implements OnInit{
    KwhToVehicleEmissionsPrevious : number  = 0;
    KwhToFlightEmissionsPrevious : number  = 0;
 
+    KwhToCO2EmissionsNext: number  = 0;
+    KwhToTreeCO2AbsorptionNext :number  = 0;
+    KwhToVehicleEmissionsNext : number  = 0;
+    KwhToFlightEmissionsNext : number  = 0;
+
    currentDate = new Date();
+
+
 
 
 
@@ -42,7 +50,7 @@ export class CarbonFootprintComponent implements OnInit{
             }
 
 ngOnInit(): void {
-    this.getTotalCo2();
+  this.getTotalCo2();
 }
 // Función para formatear fechas al formato ISO (yyyy-MM-ddTHH:mm:ssZ)
  formatDateToISO(date: Date): string {
@@ -69,49 +77,13 @@ getLastDayOfPreviousMonth(): string {
 }
 
 
-
-/* getTotalCo2(): void {
-
-  const userId = this.authService.getUserId();
-  const startTime = new Date('2024-10-01T00:00:00Z');
-  const endTime = new Date('2024-11-01T00:00:00Z');
-
-  const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
-  const FirstDayOfPreviousMonth = this.getFirstDayOfPreviousMonth();
-  const LastDayOfPreviousMonth = this.getLastDayOfPreviousMonth();
-
-  if (userId !== null) {
-    this.carbonServ.getTotalKwh(userId, startTime, endTime)
-      .subscribe(
-        (data: TotalEnergy) => {
-          const totalKwh = data.totalEnergy;
-          this.emissionsCO2 = this.convertKwhToCO2Emissions(totalKwh);
-          console.log('Total CO2:', this.emissionsCO2);
-
-          this.KwhToCO2EmissionsCurrent = parseFloat(this.emissionsCO2.toFixed(2));
-            console.log("Emisiones CO2 convertidas:", this.KwhToCO2EmissionsCurrent);
-
-            this.KwhToTreeCO2AbsorptionCurrent = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsCurrent);
-            this.KwhToVehicleEmissionsCurrent = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsCurrent);
-            this.KwhToFlightEmissionsCurrent = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsCurrent, false);
-        },
-        (error) => {
-          console.error('Error al obtener el total de CO2:', error);
-        }
-      );
-  } else {
-    console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
-  }
-}
- */
-
 getTotalCo2(): void {
   const userId = this.authService.getUserId();
 
   // Fechas para el mes actual
   const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
   const startTimeCurrentMonth = new Date(FirstDayOfCurrentMonth);
-  const endTimeCurrentMonth = new Date(); // Primer día del próximo mes
+  const endTimeCurrentMonth = new Date();
 
   // Fechas para el mes anterior
   const FirstDayOfPreviousMonth = this.getFirstDayOfPreviousMonth();
@@ -145,12 +117,15 @@ getTotalCo2(): void {
           const totalKwhPrevious = data.totalEnergy;
           const emissionsCO2Previous = this.convertKwhToCO2Emissions(totalKwhPrevious);
 
+
           // Asignar emisiones y conversiones para el mes anterior
           this.KwhToCO2EmissionsPrevious = parseFloat(emissionsCO2Previous.toFixed(2));
           this.KwhToTreeCO2AbsorptionPrevious = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsPrevious);
           this.KwhToVehicleEmissionsPrevious = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsPrevious);
           this.KwhToFlightEmissionsPrevious = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsPrevious, false);
 
+
+          // this.calculateProjectedEmissionsForNextMonth();
         },
         (error) => {
           console.error('Error al obtener el total de CO2 del mes anterior:', error);
@@ -160,7 +135,17 @@ getTotalCo2(): void {
     console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
   }
 }
+// Método para calcular las emisiones proyectadas para el próximo mes basado en el promedio
+/*  calculateProjectedEmissionsForNextMonth(): void {
+    // Calcula el promedio de emisiones de CO₂ para el próximo mes
+    const averageEmissions = (this.KwhToCO2EmissionsCurrent + this.KwhToCO2EmissionsPrevious) / 2;
+    this.KwhToCO2EmissionsNext = parseFloat(averageEmissions.toFixed(2));
 
+    // Asignar las conversiones basadas en la proyección
+    this.KwhToTreeCO2AbsorptionNext = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsNext);
+    this.KwhToVehicleEmissionsNext = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsNext);
+    this.KwhToFlightEmissionsNext = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsNext, false);
+  }*/
 
 convertKwhToCO2Emissions(totalKwh: number): number{
   return totalKwh * this.carbonServ.emissionFactor;

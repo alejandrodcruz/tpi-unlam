@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-card-info',
   standalone: true,
@@ -23,5 +24,8 @@ export class CardInfoComponent {
   @Input() unit : string ='';
   @Input() showMonthPrevious = false;
   @Input() dataCardProgressPrevious  :  number = 0;
-  
+  @Input() showMonthNext = false;
+  @Input() dataCardProgressNext  :   number  = 0;
+
+
 }
