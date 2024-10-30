@@ -9,6 +9,7 @@ import {Device, UserService} from "../../../shared/services/user.service";
 import {DashboardPanelComponent} from "../../../core/dashboard-panel/dashboard-panel.component";
 import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
+import { LoadingComponent } from '../../../core/loading/loading.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,8 @@ import { AuthService } from '../../../shared/services/auth.service';
     NgClass,
     CommonModule,
     CardRealTimeComponent,
-    DashboardPanelComponent
+    DashboardPanelComponent,
+    LoadingComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -39,6 +41,8 @@ export class DashboardComponent implements OnInit {
   public ampUrl: SafeResourceUrl | undefined;
   public wattUrl: SafeResourceUrl | undefined;
   public kwhUrl: SafeResourceUrl | undefined;
+
+  isLoading: boolean = false;
 
   constructor(private userService: UserService,
               private sanitizer: DomSanitizer,
@@ -59,6 +63,23 @@ export class DashboardComponent implements OnInit {
     this.userService.getUserDevices().subscribe((devices) => {
       this.devices = devices;
     });
+  }
+  //select desde stat
+  selectDevice(deviceId: string) {
+    this.isLoading = true;
+    this.selectedDevice = deviceId;
+    this.userService.selectDevice(deviceId);
+    this.measurementsService.setDeviceId(deviceId);
+
+    setTimeout(() => {
+      this.updateIframeUrl();
+      this.isLoading = false;
+    }, 4000);
+
+    const selectedDeviceObj = this.devices.find(device => device.deviceId === deviceId);
+    if (selectedDeviceObj) {
+      this.userService.selectDeviceName(selectedDeviceObj.name);
+    }
   }
 
   updateIframeUrl() {
