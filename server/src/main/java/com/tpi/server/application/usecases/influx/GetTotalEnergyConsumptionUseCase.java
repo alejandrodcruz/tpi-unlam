@@ -7,6 +7,10 @@ import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,23 +18,32 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GetTotalEnergyConsumptionUseCase {
 
     private final MeasurementRepository measurementRepository;
     private final UserRepository userRepository;
     private final DeviceRepository deviceRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public GetTotalEnergyConsumptionUseCase(MeasurementRepository measurementRepository,
-                                            UserRepository userRepository,
-                                            DeviceRepository deviceRepository) {
-        this.measurementRepository = measurementRepository;
-        this.userRepository = userRepository;
-        this.deviceRepository = deviceRepository;
+    @Autowired
+    private GetTotalEnergyConsumptionUseCase self;
+
+    @Scheduled(fixedRate = 5000)
+    public void sendTotalEnergyConsumption() {
+
+        Integer userId = 1;
+        String startTime = new Date().toString();
+        String endTime = new Date().toString();
+        String deviceId = "blah";
+
+        TotalEnergyDetailedResponse data = self.execute(userId, startTime, endTime, deviceId);
+
+        messagingTemplate.convertAndSend("/topic/consume", data);
     }
 
     @Transactional
     public TotalEnergyDetailedResponse execute(Integer userId, String startTime, String endTime, String deviceId) {
-
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             return new TotalEnergyDetailedResponse(0.0);

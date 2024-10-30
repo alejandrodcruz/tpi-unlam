@@ -4,6 +4,8 @@ import com.tpi.server.application.usecases.influx.GetTotalEnergyConsumptionUseCa
 import com.tpi.server.application.usecases.influx.GetUserMeasurementsUseCase;
 import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,6 @@ public class MeasurementController {
 
     private final GetUserMeasurementsUseCase getUserMeasurementsUseCase;
     private final GetTotalEnergyConsumptionUseCase getTotalEnergyConsumptionUseCase;
-
 
     public MeasurementController(GetUserMeasurementsUseCase getUserMeasurementsUseCase,
                                  GetTotalEnergyConsumptionUseCase getTotalEnergyConsumptionUseCase) {
