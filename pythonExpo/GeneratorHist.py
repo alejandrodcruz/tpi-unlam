@@ -39,7 +39,7 @@ def generate_device_data(device, timestamp):
     varied_power = device["power"] * random.uniform(0.9, 1.1)
     voltage = random.uniform(210, 230)
     current = varied_power / voltage
-    energy = (varied_power * (2 / 3600))
+    energy = (varied_power * (5 / 3600))
     temperature = random.uniform(20, 30)
     humidity = random.uniform(30, 50)
 
@@ -55,14 +55,26 @@ def generate_device_data(device, timestamp):
     print(point.to_line_protocol())
     return point
 
-today = datetime.now()
-first_day_of_current_month = today.replace(day=1)
-last_day_of_previous_month = first_day_of_current_month - timedelta(days=1)
+# today = datetime.now()
+# first_day_of_current_month = today.replace(day=1)
+# last_day_of_previous_month = first_day_of_current_month - timedelta(days=1)
+#
+# for day in range(365):
+#     current_day = last_day_of_previous_month - timedelta(days=day)
+#
+#     for registro in range(300):
+#         timestamp = current_day.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(
+#             minutes=registro * 1440 / 100)
+#         for device in devices:
+#             device_data = generate_device_data(device, timestamp)
+#             write_api.write(bucket=INFLUXDB_BUCKET, org=INFLUXDB_ORG, record=device_data)
+# write_api.__del__()
+# client.close()
 
 for day in range(365):
-    current_day = last_day_of_previous_month - timedelta(days=day)
+    current_day = datetime.now() - timedelta(days=day)
 
-    for registro in range(100):
+    for registro in range(300):
         timestamp = current_day.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(
             minutes=registro * 1440 / 100)
         for device in devices:

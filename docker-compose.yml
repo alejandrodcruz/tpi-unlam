@@ -95,6 +95,9 @@ services:
       - "${INFLUXDB_PORT}:8086"
     volumes:
       - influxdb_data:/var/lib/influxdb2
+      - ./influxdb/init_influxdb.sh:/docker-entrypoint-initdb.d/init_influxdb.sh
+      - ./influxdb/aggregate_task.flux:/docker-entrypoint-initdb.d/aggregate_task.flux
+      - ./influxdb/aggregate_task_hist.flux:/docker-entrypoint-initdb.d/aggregate_task_hist.flux
     depends_on:
       - mysql
     networks:
