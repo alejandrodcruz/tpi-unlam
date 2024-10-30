@@ -42,13 +42,37 @@
       <input [(ngModel)]="startDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
       <input [(ngModel)]="endDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
       <button
-        (click)="generateGraficoUrl()"
+
         class="bg-primary text-white p-2 rounded hover:bg-primaryhover"
       >Buscar</button>
     </div>
   </div>
 </div>
+<div *ngIf="datos.length" class="table-responsive">
+  <table class="table-auto w-full border-collapse border border-gray-400">
+    <thead>
+    <tr>
+      <th class="border border-gray-400 p-2">Campo 1</th>
+      <th class="border border-gray-400 p-2">Campo 2</th>
+      <th class="border border-gray-400 p-2">Campo 3</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let dato of datos">
+      <td class="border border-gray-400 p-2">{{ dato.campo1 }}</td>
+      <td class="border border-gray-400 p-2">{{ dato.campo2 }}</td>
+      <td class="border border-gray-400 p-2">{{ dato.campo3 }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
+<button (click)="exportToPDF()" class="bg-primary text-white p-2 rounded mt-4">
+  Descargar en PDF
+</button>
+
+
+<!--
 <div class="flex justify-center py-6 px-10">
   <div class="w-full max-w-4xl mx-auto">
     <p *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</p>
@@ -58,7 +82,7 @@
         <p class="text-mx font-semibold text-gray-700 mb-4">
           {{ selectedType }}
         </p>
-        <div class="border rounded-lg h-64 flex items-center justify-center"> <!-- Agregado flex y justify-center -->
+        <div class="border rounded-lg h-64 flex items-center justify-center">
           <iframe
             *ngIf="graficoUrl"
             [src]="graficoUrl"
@@ -73,3 +97,4 @@
   </div>
 </div>
 
+-->

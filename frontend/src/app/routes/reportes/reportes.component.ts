@@ -4,6 +4,8 @@ import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
 import { FormsModule } from "@angular/forms";
 import { NgClass, NgIf } from "@angular/common";
 import {PanelTitleComponent} from "../panel-title/panel-title.component";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 @Component({
   selector: 'app-reportes',
@@ -23,6 +25,7 @@ export class ReportesComponent {
   startDate: string | null = null;
   endDate: string | null = null;
   graficoUrl: string | null = null;
+  datos: any[] = [];
   errorMessage: string | null = null;
 
   constructor(private reportesService: ReportesService) {}
@@ -33,26 +36,31 @@ export class ReportesComponent {
     this.errorMessage = null;
   }
 
-  generateGraficoUrl(): void {
+  generateReporteDatos(): void {
     if (!this.selectedType || !this.startDate || !this.endDate) {
-      this.errorMessage = "Por favor, selecciona un tipo de gráfico y un rango de fechas antes de buscar.";
+      this.errorMessage = "Por favor, selecciona un tipo de reporte y un rango de fechas antes de buscar.";
       return;
     }
 
-    this.reportesService.getGraficoUrl(this.selectedType, this.startDate, this.endDate)
+    this.reportesService.getReporteDatos(this.selectedType, this.startDate, this.endDate)
       .subscribe(
-        (url: string) => {
-          if (url.startsWith('Error')) {
-            this.errorMessage = url;
-          } else {
-            this.graficoUrl = url;
-            this.errorMessage = null;
-          }
+        (data: any[]) => {
+          this.datos = data;
+          this.errorMessage = null;
         },
         (error) => {
-          this.errorMessage = 'Error al obtener la URL del gráfico: ' + error;
+          this.errorMessage = 'Error al obtener los datos del reporte: ' + error;
         }
       );
+  }
+
+  exportToPDF(): void {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [['Campo 1', 'Campo 2', 'Campo 3']], // Ajusta los encabezados según tus datos
+      body: this.datos.map(dato => [dato.campo1, dato.campo2, dato.campo3]), // Ajusta los campos según los datos
+    });
+    doc.save('reporte.pdf');
   }
 }
 

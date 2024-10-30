@@ -8,9 +8,9 @@ import { catchError, Observable, of } from 'rxjs';
 export class ReportesService {
   constructor(private http: HttpClient) {}
 
-  getGraficoUrl(type: string, startDate: string, endDate: string): Observable<string> {
-
-    const url = `http://localhost:8080/reports/graphic-report `;
+  // reportes.service.ts
+  getReporteDatos(type: string, startDate: string, endDate: string): Observable<any[]> {
+    const url = `http://localhost:8080/reports/data-report`;
 
     const body = {
       type: type,
@@ -18,10 +18,10 @@ export class ReportesService {
       endDate: endDate
     };
 
-    return this.http.post<string>(url, body).pipe(
+    return this.http.post<any[]>(url, body).pipe(
       catchError((error) => {
-        console.error('Error en getGraficoUrl:', error);
-        return of('Error al obtener la URL del gráfico.');
+        console.error('Error en getReporteDatos:', error);
+        return of([]);
       })
     );
   }

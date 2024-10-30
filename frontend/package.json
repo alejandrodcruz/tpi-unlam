@@ -34,6 +34,8 @@
     "frontend": "file:",
     "global": "^4.4.0",
     "intro.js": "^7.2.0",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "sockjs-client": "^1.6.1",
