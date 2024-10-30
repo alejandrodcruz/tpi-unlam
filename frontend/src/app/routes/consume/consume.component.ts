@@ -29,6 +29,22 @@ export class ConsumeComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserDevices().subscribe((devices) => {
       this.devices = devices;
+      //test
+      this.devices.forEach(device => {
+        this.userService.getLastDayConsumption(device.deviceId).subscribe(value => {
+          device.lastDayConsumption = value;
+        });
+        this.userService.getCurrentMonthConsumption(device.deviceId).subscribe(value => {
+          device.currentMonthConsumption = value;
+        });
+        this.userService.getPreviousMonthConsumption(device.deviceId).subscribe(value => {
+          device.previousMonthConsumption = value;
+        });
+        this.userService.getProjectedCurrentMonthConsumption(device.deviceId).subscribe(value => {
+          device.projectedCurrentMonthConsumption = value;
+        });
+      });
+      //test
     });
   }
 
