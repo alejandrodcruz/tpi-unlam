@@ -14,7 +14,7 @@ public class DevicePairingUseCase {
     private final DeviceRepository deviceRepository;
     private final UserRepository userRepository;
 
-    public boolean pairDevice(String pairingCode, Integer userId) {
+    public boolean pairDevice(String pairingCode, Integer userId, String name) {
         Device device = deviceRepository.findByPairingCode(pairingCode);
         if (device != null && !device.isAssigned()) {
             User user = userRepository.findById(userId)
@@ -22,6 +22,7 @@ public class DevicePairingUseCase {
             device.setUser(user);
             device.setAssigned(true);
             device.setPairingCode(null);
+            device.setName(name);
             deviceRepository.save(device);
             return true;
         } else {
