@@ -22,6 +22,7 @@ export class DevicePopupComponent {
 step:number = 1;
 isLoading: boolean = false;
 pairingCode: string = '';
+nameDevice: string = '';
 errorMessage: string = '';
 successMessage: string = '';
 close() {
@@ -51,7 +52,7 @@ submitCode() {
   this.errorMessage = '';
   this.successMessage = '';
 
-  this.deviceService.pairDevice(this.pairingCode).subscribe({
+  this.deviceService.pairDevice(this.pairingCode, this.nameDevice).subscribe({
     next: (response) => {
       console.log('Respuesta exitosa:', response);
       setTimeout(() => {
