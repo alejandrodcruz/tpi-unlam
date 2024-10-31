@@ -1,7 +1,8 @@
 <app-panel-title title="Consumo" description="Este es el consumo que registramos de tu dispositivo."></app-panel-title>
+
 <div class="px-3">
-  <div class="flex flex-col space-y-4"> <!-- Disposición vertical con separación -->
-    <div class="stat shadow-lg w-full p-4" *ngFor="let device of devices">
+  <div class="flex flex-col space-y-4">
+    <div class="stat shadow-lg w-full bg-white" *ngFor="let device of devices">
       <div class="flex items-center">
         <!-- Icono del dispositivo -->
         <div class="stat-figure text-primary mr-4">
@@ -14,28 +15,25 @@
 
       <!-- Información de consumo -->
       <div class="stat-desc grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-        <!-- Consumo Último Día -->
+
         <div class="stat-item">
-          <h4 class="text-xs font-semibold">Último Día</h4>
-          <p class="text-sm">{{ device.lastDayConsumption }} kWh</p>
+          <h4 class="text-sm font-semibold">Último Día</h4>
+          <p class="text-base">{{ device.lastDayConsumption }} $ AR</p>
         </div>
 
-        <!-- Consumo Mes Actual -->
         <div class="stat-item">
-          <h4 class="text-xs font-semibold">Mes Actual</h4>
-          <p class="text-sm">{{ device.currentMonthConsumption }} kWh</p>
+          <h4 class="text-sm font-semibold">Mes Actual</h4>
+          <p class="text-base">{{ device.currentMonthConsumption }} $ AR</p>
         </div>
 
-        <!-- Consumo Mes Anterior -->
         <div class="stat-item">
-          <h4 class="text-xs font-semibold">Mes Anterior</h4>
-          <p class="text-sm">{{ device.previousMonthConsumption }} kWh</p>
+          <h4 class="text-sm font-semibold">Mes Anterior</h4>
+          <p class="text-base">{{ device.previousMonthConsumption }} $ AR</p>
         </div>
 
-        <!-- Proyección Mes Actual -->
         <div class="stat-item">
-          <h4 class="text-xs font-semibold">Proyección Mes Actual</h4>
-          <p class="text-sm">{{ device.projectedCurrentMonthConsumption }} kWh</p>
+          <h4 class="text-sm font-semibold">Proyección Mes Actual</h4>
+          <p class="text-base">{{ device.projectedCurrentMonthConsumption }} $ AR</p>
         </div>
       </div>
     </div>
