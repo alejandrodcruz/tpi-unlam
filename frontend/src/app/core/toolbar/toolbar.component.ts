@@ -2,9 +2,12 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService, Device } from '../../shared/services/user.service';
 import {RouterLink} from "@angular/router";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
+import { MeasurementsService } from '../../shared/services/measurements.service';
+import { AddressService } from '../../shared/services/address.service';
+import { Address } from '../../shared/domain/address';
+import { AuthService } from '../../shared/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/domain/user';
-import { MeasurementsService } from '../../shared/services/measurements.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,10 +28,13 @@ export class ToolbarComponent implements OnInit {
   selectedDevice: string = "";
   deviceName: string = "";
   user$: Observable<User | null>;
+  addresses: Address[] = [];
 
-  constructor(private userService: UserService, private measurementsService: MeasurementsService) {
-    this.user$ = this.userService.user$;
-  }
+  constructor(private userService: UserService,
+              private measurementsService: MeasurementsService,
+              private addressService: AddressService,
+              private authService: AuthService)
+              {this.user$ = this.userService.user$;}
 
   ngOnInit(): void {
     this.userService.getUserDevices().subscribe((devices) => {
@@ -39,6 +45,14 @@ export class ToolbarComponent implements OnInit {
       this.deviceName = this.devices.find(device => device.deviceId === this.selectedDevice)?.name || "";
       this.measurementsService.setDeviceId(this.selectedDevice);
     });
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+    this.addressService.getAddressesByUser(userId).subscribe((addresses) => {
+      this.addresses = addresses;
+    });
+    } else {
+    console.error('Error: no existe user.');
+    }
 
     this.userService.getUserData();
 
