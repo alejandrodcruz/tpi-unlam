@@ -2,6 +2,7 @@ package com.tpi.server.application.usecases.auth;
 
 import com.tpi.server.application.services.security.JwtService;
 import com.tpi.server.domain.enums.Role;
+import com.tpi.server.domain.models.Address;
 import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.dtos.AuthResponse;
 import com.tpi.server.infrastructure.dtos.RegisterRequest;
@@ -25,6 +26,15 @@ public class AuthRegister {
                 .email(registerRequest.getEmail())
                 .role(Role.USER)
                 .build();
+
+        Address address = Address.builder()
+                .street(registerRequest.getStreet())
+                .city(registerRequest.getCity())
+                .country(registerRequest.getCountry())
+                .user(user)
+                .build();
+
+        user.getAddresses().add(address);
 
         userRepository.save(user);
 

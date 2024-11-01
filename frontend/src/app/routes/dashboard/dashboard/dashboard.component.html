@@ -1,3 +1,20 @@
+<div *ngIf="isLoading">
+  <app-loading></app-loading>
+</div>
+<div class="px-3 mb-2" *ngIf="!isLoading">
+  <div class="stats shadow flex flex-wrap px-3">
+    <div
+      class="stat w-full sm:w-1/2 md:w-1/3 lg:w-1/6 transform transition-transform hover:scale-105 cursor-pointer"
+      *ngFor="let device of devices"
+    (click)="selectDevice(device.deviceId)">
+      <div class="stat-figure" [ngClass]="{'bg-blue-100 rounded-full p-1': selectedDevice === device.deviceId}">
+        <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="34" height="34">
+      </div>
+      <div class="stat-title" >{{ device.name }}</div>
+    </div>
+  </div>
+</div>
+
 <div class="container mx-auto py-1">
   <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-3">
     <app-card-real-time id="step1"
@@ -34,6 +51,7 @@
 
   </div>
 </div>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3 " id="step5" *ngIf="voltUrl && ampUrl && wattUrl && kwhUrl">
 
   <dashboard-panel
