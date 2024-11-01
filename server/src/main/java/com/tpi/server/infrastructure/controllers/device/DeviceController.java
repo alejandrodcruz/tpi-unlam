@@ -34,7 +34,12 @@ public class DeviceController {
 
     @PostMapping("/pair-device")
     public ResponseEntity<Map<String, String>> pairDevice(@RequestBody DevicePairingRequest request) {
-        boolean success = devicePairingUseCase.pairDevice(request.getPairingCode(), request.getUserId(), request.getName());
+        boolean success = devicePairingUseCase.pairDevice(
+                request.getPairingCode(),
+                request.getUserId(),
+                request.getName(),
+                request.getAddressId()
+        );
         Map<String, String> response = new HashMap<>();
         if (success) {
             response.put("message", "Dispositivo asociado al usuario.");
