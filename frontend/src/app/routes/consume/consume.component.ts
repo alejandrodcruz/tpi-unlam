@@ -36,7 +36,6 @@ export class ConsumeComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserDevices().subscribe((devices) => {
       this.devices = devices;
-      //test
       this.devices.forEach(device => {
         this.consumptionService.getLastDayConsumption(this.userId , device.deviceId).subscribe(value => {
           device.lastDayConsumption = parseFloat(value.toFixed(2));
@@ -51,7 +50,6 @@ export class ConsumeComponent implements OnInit {
           device.projectedCurrentMonthConsumption = parseFloat(value.toFixed(2));
         });
       });
-      //test
     });
   }
 

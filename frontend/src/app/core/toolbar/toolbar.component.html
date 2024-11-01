@@ -16,8 +16,9 @@
       <div>
         <span class="text-sm font-semibold">Locación</span>
         <select class="p-2 border-none outline-none bg-transparent text-gray-500">
-          <option>Hogar 1</option>
-          <option>Oficina</option>
+          <option *ngFor="let address of addresses" [value]="address.id">
+            {{ address.street }}
+          </option>
         </select>
       </div>
     </div>
