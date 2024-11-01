@@ -119,13 +119,13 @@ getTotalCo2(): void {
 
 
           // Asignar emisiones y conversiones para el mes anterior
-          this.KwhToCO2EmissionsPrevious = parseFloat(emissionsCO2Previous.toFixed(2));
+          this.KwhToCO2EmissionsPrevious = parseFloat(emissionsCO2Previous.toFixed(5));
           this.KwhToTreeCO2AbsorptionPrevious = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsPrevious);
           this.KwhToVehicleEmissionsPrevious = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsPrevious);
           this.KwhToFlightEmissionsPrevious = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsPrevious, false);
 
 
-          // this.calculateProjectedEmissionsForNextMonth();
+           this.calculateProjectedEmissionsForNextMonth();
         },
         (error) => {
           console.error('Error al obtener el total de CO2 del mes anterior:', error);
@@ -136,7 +136,7 @@ getTotalCo2(): void {
   }
 }
 // Método para calcular las emisiones proyectadas para el próximo mes basado en el promedio
-/*  calculateProjectedEmissionsForNextMonth(): void {
+  calculateProjectedEmissionsForNextMonth(): void {
     // Calcula el promedio de emisiones de CO₂ para el próximo mes
     const averageEmissions = (this.KwhToCO2EmissionsCurrent + this.KwhToCO2EmissionsPrevious) / 2;
     this.KwhToCO2EmissionsNext = parseFloat(averageEmissions.toFixed(2));
@@ -145,7 +145,7 @@ getTotalCo2(): void {
     this.KwhToTreeCO2AbsorptionNext = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsNext);
     this.KwhToVehicleEmissionsNext = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsNext);
     this.KwhToFlightEmissionsNext = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsNext, false);
-  }*/
+  }
 
 convertKwhToCO2Emissions(totalKwh: number): number{
   return totalKwh * this.carbonServ.emissionFactor;
