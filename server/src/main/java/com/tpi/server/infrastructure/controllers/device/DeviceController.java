@@ -10,6 +10,7 @@ import com.tpi.server.infrastructure.dtos.DevicePairingRequest;
 import com.tpi.server.infrastructure.dtos.DeviceRegistrationRequest;
 import com.tpi.server.infrastructure.dtos.DeviceResponseDTO;
 import com.tpi.server.infrastructure.dtos.DeviceUpdateRequest;
+import com.tpi.server.infrastructure.mappers.DeviceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -31,6 +33,7 @@ public class DeviceController {
     private final GetUserDevicesUseCase getUserDevicesUseCase;
     private final DeviceUpdateUseCase deviceUpdateUseCase;
     private final DeviceDeleteUseCase deviceDeleteUseCase;
+    private final DeviceMapper deviceMapper;
 
     @PostMapping("/register-device")
     public ResponseEntity<String> registerDevice(@RequestBody DeviceRegistrationRequest request) {
@@ -57,8 +60,12 @@ public class DeviceController {
     }
 
     @GetMapping("/devices/user/{userId}")
-    public List<Device> getDevicesByUser(@PathVariable Integer userId) {
-        return getUserDevicesUseCase.execute(userId);
+    public ResponseEntity<List<DeviceResponseDTO>> getDevicesByUser(@PathVariable Integer userId) {
+        List<Device> devices = getUserDevicesUseCase.execute(userId);
+        List<DeviceResponseDTO> deviceDTOs = devices.stream()
+                .map(deviceMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(deviceDTOs);
     }
 
     @PutMapping("/devices/{deviceId}")
