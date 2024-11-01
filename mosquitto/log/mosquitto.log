@@ -537,3 +537,58 @@
 1729885287: Client SpringBootClient disconnected.
 1729885295: mosquitto version 2.0.20 terminating
 1729885295: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730328218: mosquitto version 2.0.20 starting
+1730328218: Config loaded from /mosquitto/config/mosquitto.conf.
+1730328218: Opening ipv4 listen socket on port 1883.
+1730328218: Opening ipv6 listen socket on port 1883.
+1730328218: mosquitto version 2.0.20 running
+1730330019: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730330261: New connection from 172.18.0.8:44382 on port 1883.
+1730330261: New client connected from 172.18.0.8:44382 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730331820: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730331832: Client SpringBootClient disconnected.
+1730331845: mosquitto version 2.0.20 terminating
+1730331845: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730333133: mosquitto version 2.0.20 starting
+1730333133: Config loaded from /mosquitto/config/mosquitto.conf.
+1730333133: Opening ipv4 listen socket on port 1883.
+1730333133: Opening ipv6 listen socket on port 1883.
+1730333133: mosquitto version 2.0.20 running
+1730333571: New connection from 172.18.0.7:40442 on port 1883.
+1730333571: New client connected from 172.18.0.7:40442 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730334934: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730366909: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730366909: Client SpringBootClient has exceeded timeout, disconnecting.
+1730366914: New connection from 172.18.0.7:39568 on port 1883.
+1730366914: New client connected from 172.18.0.7:39568 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730368710: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730370511: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730372312: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730374113: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730375914: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730377715: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730379516: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730381317: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730382413: New connection from 172.18.0.1:33934 on port 1883.
+1730382413: New client connected from 172.18.0.1:33934 as auto-FDC13FB2-9B89-B6F9-A481-76609013D548 (p2, c1, k60).
+1730382416: New connection from 172.18.0.1:33936 on port 1883.
+1730382416: New client connected from 172.18.0.1:33936 as auto-3644D183-1B98-EBC7-97BC-D8EF35C29342 (p2, c1, k60).
+1730383118: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730384919: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730386720: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730394597: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730394597: Client SpringBootClient has exceeded timeout, disconnecting.
+1730394597: Client auto-3644D183-1B98-EBC7-97BC-D8EF35C29342 has exceeded timeout, disconnecting.
+1730394603: New connection from 172.18.0.1:46030 on port 1883.
+1730394604: Client <unknown> closed its connection.
+1730394604: New connection from 172.18.0.1:46038 on port 1883.
+1730394604: New connection from 172.18.0.7:58742 on port 1883.
+1730394605: New client connected from 172.18.0.1:46038 as auto-5D31BC1B-2134-E1E3-1B5F-9E9CB0360E2A (p2, c1, k60).
+1730394605: New client connected from 172.18.0.7:58742 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730396398: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730398199: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730400000: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730401801: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730403602: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730405403: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730407204: Saving in-memory database to /mosquitto/data//mosquitto.db.
