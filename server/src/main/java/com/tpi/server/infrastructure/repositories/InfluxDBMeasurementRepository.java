@@ -122,19 +122,33 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
 
         Instant start = Instant.parse(startTime);
         Instant end = Instant.parse(endTime);
-        Duration period = Duration.between(start, end);
+        Instant now = Instant.now();
 
-        // Logica si es mayor a 1 hora - Suma hist+real, sino solo real.
-        boolean isGreaterThanOneHour = period.toHours() > 1;
+        // Saber si es ultima hora
+        Instant oneHourAgo = now.minus(Duration.ofHours(1));
+        boolean includesRecentData = end.isAfter(oneHourAgo);
 
-        double energyRealtime = queryTotalEnergyConsumption(realtimeBucket, deviceIds, startTime, endTime, deviceId);
-        double energyHistoric = 0.0;
+        double totalEnergy = 0.0;
 
-        if (isGreaterThanOneHour) {
-            energyHistoric = queryTotalEnergyConsumption(historicBucket, deviceIds, startTime, endTime, deviceId);
+        if (includesRecentData) {
+            // fin para el bucket historico
+            Instant historicEnd = start.isBefore(oneHourAgo) ? oneHourAgo : start;
+            // Consultar el bucket historico si el inicio es antes del fin historico
+            double energyHistoric = 0.0;
+            if (start.isBefore(historicEnd)) {
+                energyHistoric = queryTotalEnergyConsumption(historicBucket, deviceIds, startTime, historicEnd.toString(), deviceId);
+            }
+
+            // Calcular el inicio para el bucket en tiempo real
+            Instant realtimeStart = start.isAfter(oneHourAgo) ? start : oneHourAgo;
+            double energyRealtime = queryTotalEnergyConsumption(realtimeBucket, deviceIds, realtimeStart.toString(), endTime, deviceId);
+
+            totalEnergy = energyRealtime + energyHistoric;
+        } else {
+            totalEnergy = queryTotalEnergyConsumption(historicBucket, deviceIds, startTime, endTime, deviceId);
         }
 
-        return energyRealtime + energyHistoric;
+        return totalEnergy;
     }
 
     private double queryTotalEnergyConsumption(String bucket, List<String> deviceIds, String startTime, String endTime, String deviceId) {
@@ -169,7 +183,7 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
                     Object value = record.getValue();
                     return value != null ? ((Number) value).doubleValue() : 0.0;
                 })
-                .sum() / 1000.0; // De Wh a kWh
+                .sum() / 1000.0; // Wh a kWh
     }
 
     @Override
@@ -181,21 +195,30 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
 
         Instant start = Instant.parse(startTime);
         Instant end = Instant.parse(endTime);
-        Duration period = Duration.between(start, end);
+        Instant now = Instant.now();
 
-        // Logica si es mayor a 1 hora - Suma hist+real, sino solo real.
-        boolean isGreaterThanOneHour = period.toHours() > 1;
+        Instant oneHourAgo = now.minus(Duration.ofHours(1));
+        boolean includesRecentData = end.isAfter(oneHourAgo);
 
-        Map<String, Double> realtimeConsumption = queryTotalEnergyConsumptionPerDevice(realtimeBucket, deviceIds, startTime, endTime);
+        if (includesRecentData) {
+            Instant historicEnd = start.isBefore(oneHourAgo) ? oneHourAgo : start;
+            if (start.isBefore(historicEnd)) {
+                Map<String, Double> historicConsumption = queryTotalEnergyConsumptionPerDevice(historicBucket, deviceIds, startTime, historicEnd.toString());
+                deviceConsumption.putAll(historicConsumption);
+            }
 
-        if (isGreaterThanOneHour) {
-            Map<String, Double> historicConsumption = queryTotalEnergyConsumptionPerDevice(historicBucket, deviceIds, startTime, endTime);
+            Instant realtimeStart = start.isAfter(oneHourAgo) ? start : oneHourAgo;
+            Map<String, Double> realtimeConsumption = queryTotalEnergyConsumptionPerDevice(realtimeBucket, deviceIds, realtimeStart.toString(), endTime);
 
-            historicConsumption.forEach((device, energy) ->
-                    realtimeConsumption.merge(device, energy, Double::sum)
+            realtimeConsumption.forEach((device, energy) ->
+                    deviceConsumption.merge(device, energy, Double::sum)
             );
+        } else {
+            Map<String, Double> historicConsumption = queryTotalEnergyConsumptionPerDevice(historicBucket, deviceIds, startTime, endTime);
+            deviceConsumption.putAll(historicConsumption);
         }
-        return realtimeConsumption;
+
+        return deviceConsumption;
     }
 
     private Map<String, Double> queryTotalEnergyConsumptionPerDevice(String bucket, List<String> deviceIds, String startTime, String endTime) {
@@ -226,7 +249,7 @@ public class InfluxDBMeasurementRepository implements MeasurementRepository {
                 String deviceId = (String) record.getValueByKey("deviceId");
                 Object value = record.getValue();
                 if (deviceId != null && value != null) {
-                    double energy = ((Number) value).doubleValue() / 1000.0; // De Wh a kWh
+                    double energy = ((Number) value).doubleValue() / 1000.0; // Wh a kWh
                     deviceConsumption.merge(deviceId, energy, Double::sum);
                 }
             }
