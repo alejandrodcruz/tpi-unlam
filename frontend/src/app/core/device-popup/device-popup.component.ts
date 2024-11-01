@@ -25,6 +25,30 @@ pairingCode: string = '';
 nameDevice: string = '';
 errorMessage: string = '';
 successMessage: string = '';
+
+deviceNames: string[] = [
+  'Ventilador',
+  'Televisor',
+  'Secador de Pelo',
+  'Router WiFi',
+  'Radiador Eléctrico',
+  'Plancha',
+  'Microondas',
+  'Lavavajillas',
+  'Lavarropas',
+  'Lámpara LED',
+  'Impresora Láser',
+  'Horno Eléctrico',
+  'Heladera',
+  'Extractor de Aire',
+  'Computadora',
+  'Cargador de Celular',
+  'Calefactor Eléctrico',
+  'Cafetera',
+  'Bomba de Agua',
+  'Aire Acondicionado'
+];
+
 close() {
   this.closePopup.emit();
   window.location.reload();

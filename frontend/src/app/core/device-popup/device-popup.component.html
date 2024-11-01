@@ -6,7 +6,7 @@
 
     <!-- Paso 1 -->
     <div *ngIf="step === 1">
-      <p class="py-4">No tienes un dispositivo asociado. Para asociar uno, sigue estos pasos:</p>
+      <p class="py-4">Vamos a configurar tu nuevo dispositivo, sigue estos pasos:</p>
       <ol class="list-decimal list-inside">
         <li>Asegúrate de que el dispositivo Lytics esté conectado a la red eléctrica.</li>
       </ol>
@@ -66,9 +66,11 @@
       <div *ngIf="errorMessage" class="text-red-500 mt-2">
         {{ errorMessage }}
       </div>
-      <p class="py-4">Puedes darle un nombre a tu dispositivo:</p>
-      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Nombre del dispositivo(opcional)"
-      [(ngModel)]="nameDevice" name="nameDevice" required/>
+      <p class="py-4">Elige el tipo de dispositivo:</p>
+      <select class="select select-bordered w-full max-w-xs" [(ngModel)]="nameDevice" name="nameDevice" required>
+      <option value="" disabled selected>Selecciona un dispositivo</option>
+      <option *ngFor="let deviceName of deviceNames" [value]="deviceName">{{ deviceName }}</option>
+      </select>
     </div>
 
     <!-- Paso 6 -->
