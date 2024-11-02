@@ -1,42 +1,93 @@
 <app-panel-title title="Tu Huella de Carbono" description="Descubre el impacto de tu consumo energético en el medio ambiente y aprende cómo reducir tu huella de carbono para un futuro más sostenible."></app-panel-title>
 <div class="py-1 px-3">
+  <div class="flex items-center space-x-4">
+
+
+    <!--<div class="select-container flex items-center bg-white rounded-lg p-4 shadow-lg">
+      <div class="flex flex-col space-y-4 py-6 px-10">
+        <h2>Filtrar por Fecha</h2>
+        <div class="flex space-x-4">
+
+          <input id="startDate" type="date" class="border border-gray-300 p-2 rounded" [(ngModel)]="startDate">
+
+
+          <input id="endDate" type="date" class="border border-gray-300 p-2 rounded" [(ngModel)]="endDate">
+
+
+          <button
+            (click)="onDateChange()"
+            class="bg-primary text-white p-2 rounded hover:bg-primaryhover"
+          >
+            Mostrar
+          </button>
+        </div>
+      </div>
+      {{emissionsCO2 | json}}
+    </div>
+<!--
+Contenido de Tooltip:
+
+Árboles plantados: La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.
+
+Kilómetros en auto: Los kilómetros que se recorrerían en un vehículo promedio, emitiendo CO₂. Un automóvil emite alrededor de 120 g de CO₂ por kilómetro.
+
+Kilómetros en avión: El equivalente de CO₂ generado en vuelos comerciales. Un vuelo de corta distancia emite alrededor de 250 g de CO₂ por pasajero-km, mientras que uno de larga distancia puede emitir hasta 500 g por pasajero-km.
+
+Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de energía, representada en kilogramos de gases contaminantes." -->
+
+  </div>
     <div class="container mx-auto py-4">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8" >
           <app-card-info
           [iconClasses]="'fa-solid fa-tree'"
           [titleCard]="'Arboles'"
-          [dataCardProgress]="'5 unidades'"
+          [showMonthPrevious] = true
+          [dataCardProgress]= KwhToTreeCO2AbsorptionCurrent
+          [dataCardProgressPrevious]=KwhToTreeCO2AbsorptionPrevious
           [subtitleCard]="'Cantidad a plantar'"
           [valueProgress]="10"
           [maxProgress]="100"
           [colorProgress]="'progress progress-success w-ful'"
+          [tooltipText] ="'La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-plane'"
-          [titleCard]="'Horas de vuelo'"
-          [dataCardProgress]="'500 km'"
-          [subtitleCard]="'km en avion'"
+          [titleCard]="'Vuelos'"
+          [showMonthPrevious] = true
+          [unit]="'Km'"
+          [dataCardProgress]=KwhToFlightEmissionsCurrent
+          [dataCardProgressPrevious]=KwhToFlightEmissionsPrevious
+          [subtitleCard]="'Km en avión'"
           [valueProgress]="40"
           [maxProgress]="100"
           [colorProgress]="'progress progress-error w-ful'"
+          [tooltipText] ="'El equivalente de CO₂ generado en vuelos comerciales. Un vuelo de corta distancia emite alrededor de 250 g de CO₂ por pasajero-km, mientras que uno de larga distancia puede emitir hasta 500 g por pasajero-km.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-car'"
           [titleCard]="'Autos'"
-          [dataCardProgress]="'200 km'"
+          [showMonthPrevious] = true
+          [unit]="'Km'"
+          [dataCardProgress]=KwhToVehicleEmissionsCurrent
+          [dataCardProgressPrevious]=KwhToVehicleEmissionsPrevious
           [subtitleCard]="'Km en auto'"
           [valueProgress]="50"
           [maxProgress]="100"
           [colorProgress]="'progress progress-info w-ful'"
+          [tooltipText] ="'Los kilómetros que se recorrerían en un vehículo promedio, emitiendo CO₂. Un automóvil emite alrededor de 120 g de CO₂ por kilómetro.'"
           ></app-card-info>
           <app-card-info
           [iconClasses]="'fa-solid fa-heart-crack'"
           [titleCard]="'Gases contaminantes'"
-          [dataCardProgress]="'20 kg'"
+          [showMonthPrevious] = true
+          [unit]="'Kg'"
+          [dataCardProgress]=KwhToCO2EmissionsCurrent
+          [dataCardProgressPrevious]=KwhToCO2EmissionsPrevious
           [subtitleCard]="'kg en gases'"
           [valueProgress]="50"
           [maxProgress]="100"
           [colorProgress]="'progress progress-warning w-ful'"
+          [tooltipText] ="'La cantidad de gases contaminantes generada por el uso de energía, representada en kilogramos de gases contaminantes.'"
           ></app-card-info>
         </div>
       </div>
@@ -100,4 +151,6 @@
             </div>
           </div>
         </div>
+
+
 </div>

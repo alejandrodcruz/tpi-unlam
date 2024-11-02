@@ -1,142 +1,71 @@
-/*
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import * as echarts from 'echarts';
+import { Component, OnInit } from '@angular/core';
 import { HistorialService } from "../../shared/services/historial.service";
-import {SidebarComponent} from "../../core/sidebar/sidebar.component";
+import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
+import { CommonModule, NgClass } from '@angular/common';
+import { PanelTitleComponent } from "../panel-title/panel-title.component";
+import { CardRealTimeComponent } from "../../core/card-real-time/card-real-time.component";
+import { DashboardPanelComponent } from "../../core/dashboard-panel/dashboard-panel.component";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-dashboard-historico',
-  standalone: true,
-  imports: [CommonModule, SidebarComponent],
   templateUrl: './dashboard-historico.component.html',
+  standalone: true,
+  imports: [
+    SafeUrlPipe,
+    CommonModule,
+    PanelTitleComponent, NgClass,
+    CommonModule,
+    CardRealTimeComponent, DashboardPanelComponent,
+  ],
   styleUrls: ['./dashboard-historico.component.css']
 })
-
 export class DashboardHistoricoComponent implements OnInit {
-  meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  consumoMensual: number[] = [];
-  consumoDiario: { value: number, name: string }[] = [];
+
+  consumoMensual: string = '';
+  public selectedDevice: string = '';
+  powerLastYearUrl: SafeResourceUrl | undefined;
+  voltageLastYearUrl: SafeResourceUrl | undefined;
+  histEnergyMonthUrl: SafeResourceUrl | undefined;
+  histEnergyUrl: SafeResourceUrl | undefined;
+
   alertasHistoricas: { tipo: string, descripcion: string }[] = [];
   filtroSeleccionado: string = 'todos';
 
+  graficoSeleccionado: string = ''; // Variable para el gráfico seleccionado
+  graficoTitulo: string = ''; // Variable para el título del gráfico
 
-  mostrarConsumoMensual: boolean = true;
-  mostrarConsumoDiario: boolean = false;
-
-  constructor(private historialService: HistorialService) { }
+  constructor(private historialService: HistorialService,private userService: UserService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.loadConsumoMensual();
-    this.loadConsumoDiario();
-    this.loadAlertasHistoricas();
-  }
 
-
-  loadConsumoMensual(): void {
-    this.historialService.getConsumoMensual().subscribe({
-      next: (data) => {
-        this.consumoMensual = data;
-        this.initBarChart();
-      },
-      error: (err) => console.error('Error fetching consumo mensual:', err)
-    });
-  }
-
-  loadConsumoDiario(): void {
-    this.historialService.getConsumoDiario().subscribe({
-      next: (data) => {
-        this.consumoDiario = data;
-        this.initPieChart();
-      },
-      error: (err) => console.error('Error fetching consumo diario:', err)
-    });
-  }
-
-  initBarChart(): void {
-    const chartDom = document.getElementById('consumption-chart') as HTMLElement;
-    const myChart = echarts.init(chartDom);
-
-    const option = {
-      title: {
-        text: 'Consumo Eléctrico Mensual (kWh)',
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: { type: 'shadow' }
-      },
-      xAxis: {
-        type: 'category',
-        data: this.meses,
-        axisTick: { alignWithLabel: true }
-      },
-      yAxis: {
-        type: 'value',
-        name: 'Consumo (kWh)'
-      },
-      series: [
-        {
-          name: 'Consumo',
-          type: 'bar',
-          barWidth: '60%',
-          data: this.consumoMensual,
-          itemStyle: { color: '#3E92CC' }
-        }
-      ],
-      toolbox: {
-        feature: { saveAsImage: { show: true } }
+    this.userService.selectedDevice$.subscribe(device => {
+      this.selectedDevice = device;
+      if (this.selectedDevice) {
+        this.updateIframeUrl();
       }
-    };
-
-    myChart.setOption(option);
+    });
+    this.cargarAlertasHistoricas();
   }
 
-  initPieChart(): void {
-    const pieChartDom = document.getElementById('daily-consumption-chart') as HTMLElement;
-    const pieChart = echarts.init(pieChartDom);
-
-    const option = {
-      title: {
-        text: 'Consumo Energético Diario (kWh)',
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left'
-      },
-      series: [
-        {
-          name: 'Consumo',
-          type: 'pie',
-          radius: '50%',
-          data: this.consumoDiario,
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        }
-      ],
-      toolbox: {
-        feature: { saveAsImage: { show: true } }
-      }
-    };
-
-    pieChart.setOption(option);
+  updateIframeUrl() {
+    if (this.selectedDevice) {
+      const powerLastYearUrl = `http://localhost:3000/d-solo/ee1me0bqeal8gf/power-last-year?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.powerLastYearUrl = this.sanitizer.bypassSecurityTrustResourceUrl(powerLastYearUrl);
+      const voltageLastYearUrl = `http://localhost:3000/d-solo/ae1mdiw2xsb28c/voltage-last-year?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.voltageLastYearUrl = this.sanitizer.bypassSecurityTrustResourceUrl(voltageLastYearUrl);
+      const histEnergyMonthUrl = `http://localhost:3000/d-solo/fe1mcple571fkf/hist-energy-month?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.histEnergyMonthUrl = this.sanitizer.bypassSecurityTrustResourceUrl(histEnergyMonthUrl);
+      const histEnergyUrl = `http://localhost:3000/d-solo/ae1m3p3ni09vke/hist-energy?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      this.histEnergyUrl = this.sanitizer.bypassSecurityTrustResourceUrl(histEnergyUrl);
+    }
   }
 
-  loadAlertasHistoricas(): void {
-    this.historialService.getAlertasHistoricas().subscribe({
-      next: (data) => {
-        this.alertasHistoricas = data;
-      },
-      error: (err) => console.error('Error fetching alertas historicas:', err)
+
+  cargarAlertasHistoricas(): void {
+    this.historialService.getAlertasHistoricas().subscribe(alertas => {
+      this.alertasHistoricas = alertas;
     });
   }
 
@@ -152,22 +81,57 @@ export class DashboardHistoricoComponent implements OnInit {
     return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
   }
 
+  abrirModal(grafico: string) {
+    this.graficoSeleccionado = grafico;
 
-  toggleGrafico(tipo: string, event: any): void {
-    if (tipo === 'consumption') {
-      this.mostrarConsumoMensual = true;
-      this.mostrarConsumoDiario = false;
-      setTimeout(() => this.initBarChart(), 0);
-    } else if (tipo === 'daily') {
-      this.mostrarConsumoMensual = false;
-      this.mostrarConsumoDiario = true;
-      setTimeout(() => this.initPieChart(), 0);
+    switch (grafico) {
+      case 'consumoMensual':
+        this.graficoTitulo = 'Consumo Mensual Histórico';
+        break;
+      case 'amperaje':
+        this.graficoTitulo = 'Intensidad de Amperaje Histórico';
+        break;
+      case 'potencia':
+        this.graficoTitulo = 'Potencia Histórica';
+        break;
+      case 'frecuencia':
+        this.graficoTitulo = 'Frecuencia Histórica';
+        break;
+      default:
+        this.graficoTitulo = ''; // Título por defecto
     }
   }
 
-}    */
+  cerrarModal() {
+    this.graficoSeleccionado = '';
+  }
+}
 
 
+/*
+  cargarConsumoUltimoMes(): void {
+    this.historialService.getConsumoUltimoMesGrafanaUrl().subscribe(url => {
+      this.consumoDiario = url;
+    });
+  }
+
+  cargarConsumoUltimoAnio(): void {
+    this.historialService.getConsumoUltimoAñoGrafanaUrl().subscribe(url => {
+      this.intensidadAmperaje = url;
+    });
+  }
+
+  cargarPotencia(): void {
+    this.historialService.getPotenciaGrafanaUrl().subscribe(url => {
+      this.potencia = url;
+    });
+  }
+
+  cargarVoltaje(): void {
+    this.historialService.getVoltajeGrafanaUrl().subscribe(url => {
+      this.frecuencia = url;
+    });
+  }
 import { Component, OnInit } from '@angular/core';
 import {HistorialService} from "../../shared/services/historial.service";
 import {SafeUrlPipe} from "../../shared/pipes/safe-url.pipe";
@@ -196,112 +160,101 @@ export class DashboardHistoricoComponent implements OnInit {
   alertasHistoricas: { tipo: string, descripcion: string }[] = [];
   filtroSeleccionado: string = 'todos';
 
-  mostrarConsumoMensual: boolean = true;
-  mostrarConsumoDiario: boolean = false;
-  mostrarAmperaje: boolean = false;
-  mostrarPotencia: boolean = false;
-  mostrarFrecuencia: boolean = false;
-
-  graficoActual: string = 'Consumo Mensual'; // seleccion por default
+  graficoSeleccionado: string = ''; // Variable para el gráfico seleccionado
+  graficoTitulo: string = ''; // Variable para el título del gráfico
 
   constructor(private historialService: HistorialService) {}
 
-  ngOnInit(): void {
-    this.cargarConsumoMensual();
-    this.cargarConsumoDiario();
-    this.cargarIntensidadAmperaje();
-    this.cargarPotencia();
-    this.cargarFrecuencia();
-    this.cargarAlertasHistoricas();
+ngOnInit(): void {
+  this.cargarConsumoMensual();
+  this.cargarConsumoDiario();
+  this.cargarIntensidadAmperaje();
+  this.cargarPotencia();
+  this.cargarFrecuencia();
+  this.cargarAlertasHistoricas();
+}
+
+cargarConsumoMensual(): void {
+  this.historialService.getConsumoMensual().subscribe(data => {
+    this.consumoMensual = data;
+  });
+}
+
+cargarConsumoDiario(): void {
+  this.historialService.getConsumoDiario().subscribe(data => {
+    this.consumoDiario = data;
+  });
+}
+
+cargarIntensidadAmperaje(): void {
+  this.historialService.getIntensidadAmperaje().subscribe(data => {
+    this.intensidadAmperaje = data;
+  });
+}
+
+cargarPotencia(): void {
+  this.historialService.getPotencia().subscribe(data => {
+    this.potencia = data;
+  });
+}
+
+cargarFrecuencia(): void {
+  this.historialService.getFrecuencia().subscribe(data => {
+    this.frecuencia = data;
+  });
+}
+
+cargarAlertasHistoricas(): void {
+  this.historialService.getAlertasHistoricas().subscribe(alertas => {
+    this.alertasHistoricas = alertas;
+  });
+}
+
+loadAlertasHistoricas(): void {
+  this.historialService.getAlertasHistoricas().subscribe({
+    next: (data) => {
+      this.alertasHistoricas = data;
+    },
+    error: (err) => console.error('Error fetching alertas historicas:', err)
+  });
+}
+
+aplicarFiltro(event: Event): void {
+  const selectElement = event.target as HTMLSelectElement;
+  this.filtroSeleccionado = selectElement.value;
+}
+
+getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
+  if (this.filtroSeleccionado === 'todos') {
+    return this.alertasHistoricas;
   }
+  return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
+}
 
-  cargarConsumoMensual(): void {
-    this.historialService.getConsumoMensual().subscribe(data => {
-      this.consumoMensual = data;
-    });
-  }
+abrirModal(grafico: string) {
+  this.graficoSeleccionado = grafico;
 
-  cargarConsumoDiario(): void {
-    this.historialService.getConsumoDiario().subscribe(data => {
-      this.consumoDiario = data;
-    });
-  }
-
-  cargarIntensidadAmperaje(): void {
-    this.historialService.getIntensidadAmperaje().subscribe(data => {
-      this.intensidadAmperaje = data;
-    });
-  }
-
-  cargarPotencia(): void {
-    this.historialService.getPotencia().subscribe(data => {
-      this.potencia = data;
-    });
-  }
-
-  cargarFrecuencia(): void {
-    this.historialService.getFrecuencia().subscribe(data => {
-      this.frecuencia = data;
-    });
-  }
-
-  cargarAlertasHistoricas(): void {
-    this.historialService.getAlertasHistoricas().subscribe(alertas => {
-      this.alertasHistoricas = alertas;
-    });
-  }
-
-  loadAlertasHistoricas(): void {
-    this.historialService.getAlertasHistoricas().subscribe({
-      next: (data) => {
-        this.alertasHistoricas = data;
-      },
-      error: (err) => console.error('Error fetching alertas historicas:', err)
-    });
-  }
-
-  aplicarFiltro(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.filtroSeleccionado = selectElement.value;
-  }
-
-  getAlertasFiltradas(): { tipo: string, descripcion: string }[] {
-    if (this.filtroSeleccionado === 'todos') {
-      return this.alertasHistoricas;
-    }
-    return this.alertasHistoricas.filter(alerta => alerta.tipo === this.filtroSeleccionado);
-  }
-
-  toggleGrafico(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const value = selectElement.value;
-
-    this.graficoActual = this.translateGrafico(value);
-
-    this.mostrarConsumoMensual = value === 'consumption';
-    this.mostrarConsumoDiario = value === 'daily';
-    this.mostrarAmperaje = value === 'amperage';
-    this.mostrarPotencia = value === 'power';
-    this.mostrarFrecuencia = value === 'frequency';
-  }
-
-
-
-  translateGrafico(grafico: string | null): string {
-    switch (grafico) {
-      case 'consumption':
-        return 'Consumo Eléctrico Mensual ';
-      case 'daily':
-        return 'Consumo Eléctrico Distribuido en Franjas Horarias';
-      case 'amperage':
-        return 'Intensidad de Amperaje';
-      case 'power':
-        return 'Potencia';
-      case 'frequency':
-        return 'Frecuencia';
-      default:
-        return 'Gráfico Desconocido';
-    }
+  switch (grafico) {
+    case 'consumoMensual':
+      this.graficoTitulo = 'Consumo Mensual Historico';
+      break;
+    case 'amperaje':
+      this.graficoTitulo = 'Intensidad de Amperaje Historico';
+      break;
+    case 'potencia':
+      this.graficoTitulo = 'Potencia Historica';
+      break;
+    case 'frecuencia':
+      this.graficoTitulo = 'Frecuencia Historica';
+      break;
+    default:
+      this.graficoTitulo = ''; // Título por defecto
   }
 }
 
+cerrarModal() {
+  this.graficoSeleccionado = "";
+}
+
+}
+*/

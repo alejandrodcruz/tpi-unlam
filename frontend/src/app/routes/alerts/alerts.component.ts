@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardInfoComponent } from "../../core/card/card-info.component";
 import { FormsModule } from "@angular/forms";
 import { AlertsService } from "../../shared/services/alerts.service";
-import { WebSocketService } from "../../shared/services/web-socket.service"; // Importa el servicio de WebSocket
+import { WebSocketService } from "../../shared/services/web-socket.service";
 import { DatePipe, CommonModule } from "@angular/common";
 import { PanelTitleComponent } from "../panel-title/panel-title.component";
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-alerts',
@@ -18,11 +19,11 @@ import { PanelTitleComponent } from "../panel-title/panel-title.component";
   ],
   templateUrl: './alerts.component.html'
 })
-export class AlertsComponent {
+export class AlertsComponent implements OnInit {
   alerts: any[] = [];
   filteredAlerts: any[] = [];
   displayedAlerts: any[] = [];
-  deviceId: string = '08:A6:F7:24:71:98';
+  public deviceId: string = '';
   alertTypes = [
     { key: 'HighConsumption', label: 'Consumo Alto' },
     { key: 'HighTension', label: 'Tensión Alta' },
@@ -38,10 +39,15 @@ export class AlertsComponent {
   currentPage = 1;
   totalPages = 1;
 
-  constructor(private alertService: AlertsService, private webSocketService: WebSocketService) {}
+  constructor(private userService: UserService,
+              private alertService: AlertsService,
+              private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.loadAlerts();
+    this.userService.selectedDevice$.subscribe(device => {
+      this.deviceId = device;
+      this.loadAlerts();
+    });
 
     this.webSocketService.listenTopic().subscribe(() => {
       this.loadAlerts();

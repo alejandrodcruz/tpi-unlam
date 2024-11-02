@@ -17,25 +17,22 @@ export interface User {
 export class AuthService {
   private LOGIN_URL = 'http://lytics.dyndns.org:8080/auth';
 
-  private tokenSubject = new BehaviorSubject<string | null>(null);
-  public token$ = this.tokenSubject.asObservable();//token
-  private userIdSubject = new BehaviorSubject<number | null>(null);
-  public userId$ = this.userIdSubject.asObservable();//observable que me permite usar el id del usuario
+  private tokenSubject = new BehaviorSubject<string | null>(this.getTokenFromStorage());
+  public token$ = this.tokenSubject.asObservable();
+  private userIdSubject = new BehaviorSubject<number | null>(this.getUserIdFromStorage());
+  public userId$ = this.userIdSubject.asObservable();
 
+  constructor(private httpCliente: HttpClient, private router: Router) {}
 
-  constructor(private httpCliente: HttpClient, private router: Router) {
-  }
-
-
-  login(username: string, password: string): Observable<any>{
+  login(username: string, password: string): Observable<any> {
     return this.httpCliente.post<any>(`${this.LOGIN_URL}/login`, { username, password }).pipe(
       tap(response => {
-        if(response.token){
+        if (response.token) {
           this.setToken(response.token);
           this.setUserId(response.id);
         }
       })
-    )
+    );
   }
 
   register(user: User): Observable<any> {
@@ -47,37 +44,45 @@ export class AuthService {
   }
 
   logout(): void {
+    this.clearToken();
+    this.clearUserId();
     this.router.navigate(['/login']);
   }
 
-  private setToken(token: string): void{
+  private setToken(token: string): void {
+    localStorage.setItem('token', token);
     this.tokenSubject.next(token);
   }
-  getToken(): string | null{
-    return this.tokenSubject.getValue();
-    }
+
+  getToken(): string | null {
+    return this.tokenSubject.getValue() || this.getTokenFromStorage();
+  }
+
+  private getTokenFromStorage(): string | null {
+    return localStorage.getItem('token');
+  }
+
   clearToken(): void {
-      this.tokenSubject.next(null); // Eliminar el token
-    }
+    localStorage.removeItem('token');
+    this.tokenSubject.next(null);
+  }
 
   private setUserId(id: number): void {
+    localStorage.setItem('userId', id.toString());
     this.userIdSubject.next(id);
   }
+
   getUserId(): number | null {
-    return this.userIdSubject.getValue();// me permite usar el observable sin la necesidad de suscribirme
+    return this.userIdSubject.getValue() || this.getUserIdFromStorage();
   }
+
+  private getUserIdFromStorage(): number | null {
+    const storedId = localStorage.getItem('userId');
+    return storedId ? Number(storedId) : null;
+  }
+
   clearUserId(): void {
-    this.userIdSubject.next(null); // Eliminar el userId
+    localStorage.removeItem('userId');
+    this.userIdSubject.next(null);
   }
-
- /* isAuthenticated() : boolean {
-    const token = this.getToken();
-    if(!token){
-      return false;
-    }
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const exp = payload.exp = 1000;
-    return Date.now() < exp;
-  }*/
-
 }

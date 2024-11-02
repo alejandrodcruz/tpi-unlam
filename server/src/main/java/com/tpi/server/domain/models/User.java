@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +30,12 @@ public class User implements UserDetails {
     String email;
     @Enumerated(EnumType.STRING)
     Role role;
+    private boolean hasCompletedOnboarding;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @Builder.Default
+    private Set<Address> addresses = new HashSet<>();
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Device> devices;

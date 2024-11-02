@@ -24,7 +24,7 @@ public class GetUserMeasurementsUseCase {
     }
 
     @Transactional
-    public List<Measurement> execute(Integer userId, List<String> fields, String timeRange) {
+    public List<Measurement> execute(Integer userId, List<String> fields, String timeRange, String deviceId) {
 
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
@@ -38,8 +38,18 @@ public class GetUserMeasurementsUseCase {
         }
 
         List<String> deviceIds = new ArrayList<>();
-        for (Device device : devices) {
-            deviceIds.add(device.getDeviceId());
+
+        if (deviceId != null && !deviceId.isEmpty()) {
+            boolean ownsDevice = devices.stream()
+                    .anyMatch(device -> device.getDeviceId().equals(deviceId));
+            if (!ownsDevice) {
+                return new ArrayList<>();
+            }
+            deviceIds.add(deviceId);
+        } else {
+            for (Device device : devices) {
+                deviceIds.add(device.getDeviceId());
+            }
         }
 
         return measurementRepository.getMeasurements(deviceIds, fields, timeRange);

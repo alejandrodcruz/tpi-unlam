@@ -32,7 +32,7 @@ export class DeviceService {
     );
   }
 
-  pairDevice(pairingCode: string): Observable<any> {
+  pairDevice(pairingCode: string, nameDevice: string): Observable<any> {
     const userId = this.authService.getUserId();
 
     if (userId === null) {
@@ -40,7 +40,8 @@ export class DeviceService {
     }
     const body = {
       pairingCode: pairingCode,
-      userId: userId
+      userId: userId,
+      name: nameDevice
     };
     return this.http.post<any>(`${this.API_URL}/pair-device`, body);
   }

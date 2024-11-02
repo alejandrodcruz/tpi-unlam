@@ -1,35 +1,80 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {UserService, Device } from '../../shared/services/user.service';
 import {RouterLink} from "@angular/router";
+import {CommonModule, NgForOf, NgIf} from "@angular/common";
+import { MeasurementsService } from '../../shared/services/measurements.service';
+import { AddressService } from '../../shared/services/address.service';
+import { Address } from '../../shared/domain/address';
+import { AuthService } from '../../shared/services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from '../../shared/domain/user';
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
+  templateUrl: './toolbar.component.html',
   imports: [
     RouterLink,
-    CommonModule
-  ],
-  templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.css',
+    NgForOf,
+    NgIf,
+    CommonModule,
+  ]
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit {
   isSidebarOpen = true;
   @Output() toggleSidebar = new EventEmitter<void>();
-  constructor() {}
 
+  devices: Device[] = [];
+  selectedDevice: string = "";
+  deviceName: string = "";
+  user$: Observable<User | null>;
+  addresses: Address[] = [];
+
+  constructor(private userService: UserService,
+              private measurementsService: MeasurementsService,
+              private addressService: AddressService,
+              private authService: AuthService)
+              {this.user$ = this.userService.user$;}
+
+  ngOnInit(): void {
+    this.userService.getUserDevices().subscribe((devices) => {
+      this.devices = devices;
+      this.selectedDevice = devices[0].deviceId
+      this.userService.selectDevice(this.selectedDevice);
+      this.userService.selectDeviceName(devices[0].name);
+      this.deviceName = this.devices.find(device => device.deviceId === this.selectedDevice)?.name || "";
+      this.measurementsService.setDeviceId(this.selectedDevice);
+    });
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+    this.addressService.getAddressesByUser(userId).subscribe((addresses) => {
+      this.addresses = addresses;
+    });
+    } else {
+    console.error('Error: no existe user.');
+    }
+
+    this.userService.getUserData();
+
+  }
   toggleSidebarState() {
     this.isSidebarOpen = !this.isSidebarOpen;
     this.toggleSidebar.emit();
   }
 
-  ngOnInit() {
+  onDeviceChange(event: any) {
+    const selectedDevice = event.target.value;
+    if (selectedDevice) {
+      this.selectedDevice = selectedDevice;
+      console.log("selectedDevice", selectedDevice);
+      this.userService.selectDevice(selectedDevice);
+      this.measurementsService.setDeviceId(selectedDevice);
+      this.deviceName = this.devices.find(device => device.deviceId === selectedDevice)?.name || "";
+    }
   }
 
-      notificationCount: number = 5;
-
-      // Método para incrementar las notificaciones
-      incrementNotifications() {
-        this.notificationCount++;
-      }
-
+  getFirstLetterInUppercase(name: string | null): string {
+    if (!name) return '';
+    return name.charAt(0).toUpperCase();
+  }
 }
