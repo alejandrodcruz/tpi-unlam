@@ -33,6 +33,7 @@ public class User implements UserDetails {
     private boolean hasCompletedOnboarding;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
+    @Builder.Default
     private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

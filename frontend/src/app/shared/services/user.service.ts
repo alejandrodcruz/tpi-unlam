@@ -6,7 +6,14 @@ import { User } from '../domain/user';
 
 export interface Device {
   deviceId: string;
+  pairingCode: string;
+  assigned: true;
   name: string;
+
+  lastDayConsumption?: number; // Consumo del último día
+  currentMonthConsumption?: number; // Consumo del mes actual
+  previousMonthConsumption?: number; // Consumo del mes anterior
+  projectedCurrentMonthConsumption?: number;
 }
 
 @Injectable({
@@ -66,4 +73,5 @@ export class UserService {
       });
     }
   }
+
 }

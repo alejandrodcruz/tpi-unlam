@@ -41,6 +41,8 @@ jobs:
           echo "INFLUXDB_TOKEN=${{ secrets.INFLUXDB_TOKEN }}" >> $GITHUB_ENV
           echo "INFLUXDB_ORG=${{ secrets.INFLUXDB_ORG }}" >> $GITHUB_ENV
           echo "INFLUXDB_BUCKET=${{ secrets.INFLUXDB_BUCKET }}" >> $GITHUB_ENV
+          echo "INFLUXDB_BUCKET_REALTIME=${{ secrets.INFLUXDB_BUCKET_REALTIME }}" >> $GITHUB_ENV
+          echo "INFLUXDB_BUCKET_HISTORIC=${{ secrets.INFLUXDB_BUCKET_HISTORIC }}" >> $GITHUB_ENV
           echo "INFLUXDB_URL=${{ secrets.INFLUXDB_URL }}" >> $GITHUB_ENV
           echo "SPRING_APPLICATION_NAME=${{ secrets.SPRING_APPLICATION_NAME }}" >> $GITHUB_ENV
           echo "SPRING_DEVTOOLS_RESTART_STATUS=${{ secrets.SPRING_DEVTOOLS_RESTART_STATUS }}" >> $GITHUB_ENV

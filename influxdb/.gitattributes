@@ -1,0 +1,2 @@
+# Fuerza el uso de LF en los .sh
+*.sh text eol=lf
