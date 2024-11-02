@@ -1,5 +1,12 @@
 <div class="modal" [class.modal-open]="isOpen">
-  <div class="modal-box">
+  <div class="modal-box relative">
+
+    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" (click)="close()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
     <h3 class="font-bold text-lg">Asociar un Dispositivo</h3>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading">
@@ -68,8 +75,13 @@
       </div>
       <p class="py-4">Elige el tipo de dispositivo:</p>
       <select class="select select-bordered w-full max-w-xs" [(ngModel)]="nameDevice" name="nameDevice" required>
-      <option value="" disabled selected>Selecciona un dispositivo</option>
-      <option *ngFor="let deviceName of deviceNames" [value]="deviceName">{{ deviceName }}</option>
+       <option value="" disabled selected>Selecciona un dispositivo</option>
+       <option *ngFor="let deviceName of deviceNames" [value]="deviceName">{{ deviceName }}</option>
+      </select>
+      <p class="py-4">Elige la dirección:</p>
+      <select class="select select-bordered w-full max-w-xs" [(ngModel)]="selectedAddressId" name="selectedAddressId" required>
+        <option value="" disabled selected>Selecciona una dirección</option>
+        <option *ngFor="let address of addresses" [value]="address.id">{{ address.street }}</option>
       </select>
     </div>
 
