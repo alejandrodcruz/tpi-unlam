@@ -6,7 +6,10 @@ import { User } from '../domain/user';
 
 export interface Device {
   deviceId: string;
+  pairingCode: string;
+  assigned: true;
   name: string;
+
   lastDayConsumption?: number; // Consumo del último día
   currentMonthConsumption?: number; // Consumo del mes actual
   previousMonthConsumption?: number; // Consumo del mes anterior
@@ -71,27 +74,4 @@ export class UserService {
     }
   }
 
-   // Método para simular el consumo del último día
-   getLastDayConsumption(deviceId: string): Observable<number> {
-    // Aquí puedes colocar un valor simulado
-    return of(15.3); // Consumo simulado en kWh
-  }
-
-  // Método para simular el consumo del mes actual
-  getCurrentMonthConsumption(deviceId: string): Observable<number> {
-    // Valor simulado
-    return of(120.5); // Consumo simulado en kWh
-  }
-
-  // Método para simular el consumo del mes anterior
-  getPreviousMonthConsumption(deviceId: string): Observable<number> {
-    // Valor simulado
-    return of(110.2); // Consumo simulado en kWh
-  }
-
-  // Método para simular la proyección de consumo para el mes actual
-  getProjectedCurrentMonthConsumption(deviceId: string): Observable<number> {
-    // Valor simulado
-    return of(130.8); // Consumo simulado en kWh
-  }
 }
