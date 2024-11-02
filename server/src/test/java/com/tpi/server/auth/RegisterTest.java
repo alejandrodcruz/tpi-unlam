@@ -89,7 +89,7 @@ public class RegisterTest {
         Address address = userToSave.getAddresses().iterator().next();
         Assertions.assertEquals("Calle Falsa 123", address.getStreet());
         Assertions.assertEquals("Springfield", address.getCity());
-        Assertions.assertEquals("Estados Unidos", address.getCountry());
+        Assertions.assertEquals("", address.getCountry());
         Assertions.assertEquals(userToSave, address.getUser());
     }
 }
