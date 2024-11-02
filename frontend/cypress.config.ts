@@ -15,7 +15,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       configureVisualRegression(on)
     },
-    baseUrl: 'http://localhost:4200',
+    baseUrl: 'http://lytics.dyndns.org:4200',
 
   }
 })

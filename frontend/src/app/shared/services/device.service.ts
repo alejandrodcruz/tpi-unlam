@@ -13,7 +13,7 @@ export interface DeviceUser{
   providedIn: 'root'
 })
 export class DeviceService {
-  private API_URL = 'http://localhost:8080/api';
+  private API_URL = 'http://lytics.dyndns.org:8080/api';
   //dispo
   private devicesSubject = new BehaviorSubject<DeviceUser[]>([]);
   public devices$ = this.devicesSubject.asObservable();

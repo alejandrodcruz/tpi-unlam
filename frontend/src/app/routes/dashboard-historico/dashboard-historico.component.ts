@@ -51,13 +51,13 @@ export class DashboardHistoricoComponent implements OnInit {
 
   updateIframeUrl() {
     if (this.selectedDevice) {
-      const powerLastYearUrl = `http://localhost:3000/d-solo/ee1me0bqeal8gf/power-last-year?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      const powerLastYearUrl = `http://lytics.dyndns.org:3000/d-solo/ee1me0bqeal8gf/power-last-year?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
       this.powerLastYearUrl = this.sanitizer.bypassSecurityTrustResourceUrl(powerLastYearUrl);
-      const voltageLastYearUrl = `http://localhost:3000/d-solo/ae1mdiw2xsb28c/voltage-last-year?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      const voltageLastYearUrl = `http://lytics.dyndns.org:3000/d-solo/ae1mdiw2xsb28c/voltage-last-year?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
       this.voltageLastYearUrl = this.sanitizer.bypassSecurityTrustResourceUrl(voltageLastYearUrl);
-      const histEnergyMonthUrl = `http://localhost:3000/d-solo/fe1mcple571fkf/hist-energy-month?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      const histEnergyMonthUrl = `http://lytics.dyndns.org:3000/d-solo/fe1mcple571fkf/hist-energy-month?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
       this.histEnergyMonthUrl = this.sanitizer.bypassSecurityTrustResourceUrl(histEnergyMonthUrl);
-      const histEnergyUrl = `http://localhost:3000/d-solo/ae1m3p3ni09vke/hist-energy?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
+      const histEnergyUrl = `http://lytics.dyndns.org:3000/d-solo/ae1m3p3ni09vke/hist-energy?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
       this.histEnergyUrl = this.sanitizer.bypassSecurityTrustResourceUrl(histEnergyUrl);
     }
   }

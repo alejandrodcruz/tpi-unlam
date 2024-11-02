@@ -40,7 +40,7 @@ describe('DashboardHistoricoComponent', () => {
   it('deberia llamar a loadConsumoMensual y setear consumoMensual ', () => {
 
     // --------------- preparacion   ----------------------
-    const mockConsumoMensual = 'http://localhost:8080/historial';
+    const mockConsumoMensual = 'http://lytics.dyndns.org:8080/historial';
 
 
     // ---------------- ejecucion  ----------------------------
@@ -82,7 +82,7 @@ describe('DashboardHistoricoComponent', () => {
 
     // --------------- preparacion   ----------------------
     const mockConsumoDiario =
-      'http://localhost:8080/historial';
+      'http://lytics.dyndns.org:8080/historial';
 
     // ---------------- ejecucion  ----------------------------
     mockHistorialService.getConsumoDiario.and.returnValue(of(mockConsumoDiario));

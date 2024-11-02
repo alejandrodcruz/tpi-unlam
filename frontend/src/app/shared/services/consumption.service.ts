@@ -21,7 +21,7 @@ export interface TotalEnergyResponse {
   providedIn: 'root'
 })
 export class ConsumptionService {
-  private apiUrl = 'http://localhost:8080/api/measurements';
+  private apiUrl = 'http://lytics.dyndns.org:8080/api/measurements';
   private selectedDevice: string | null = null;
 
   constructor(private http: HttpClient, private userService: UserService) {

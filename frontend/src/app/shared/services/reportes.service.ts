@@ -10,7 +10,7 @@ export class ReportesService {
 
   getGraficoUrl(type: string, startDate: string, endDate: string): Observable<string> {
 
-    const url = `http://localhost:8080/reports/graphic-report `;
+    const url = `http://lytics.dyndns.org:8080/reports/graphic-report `;
 
     const body = {
       type: type,

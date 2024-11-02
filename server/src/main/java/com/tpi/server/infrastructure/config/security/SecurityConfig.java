@@ -57,8 +57,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
+<<<<<<< Updated upstream
         // Definir los orígenes permitidos
         configuration.setAllowedOrigins(Arrays.asList("http://lytics.dyndns.org:8080", "http://lytics.dyndns.org"));
+=======
+        configuration.setAllowedOrigins(Arrays.asList("http://lytics.dyndns.org:4200/","http://lytics.dyndns.org","http://lytics.dyndns.org:8080/"));
+>>>>>>> Stashed changes
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

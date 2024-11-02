@@ -27,7 +27,7 @@ describe('AuthService', () => {
       expect(service.getUserId()).toBe(1);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/auth/login');
+    const req = httpMock.expectOne('http://lytics.dyndns.org:8080/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
@@ -40,7 +40,7 @@ describe('AuthService', () => {
       expect(response.message).toBe('User registered successfully');
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/auth/register');
+    const req = httpMock.expectOne('http://lytics.dyndns.org:8080/auth/register');
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
@@ -67,7 +67,7 @@ describe('AuthService', () => {
       error => expect(error.status).toBe(401)
     );
 
-    const req = httpMock.expectOne('http://localhost:8080/auth/login');
+    const req = httpMock.expectOne('http://lytics.dyndns.org:8080/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush({ message: 'Unauthorized' }, { status: 401, statusText: 'Unauthorized' });
   });
@@ -80,7 +80,7 @@ describe('AuthService', () => {
       error => expect(error.status).toBe(400)
     );
 
-    const req = httpMock.expectOne('http://localhost:8080/auth/register');
+    const req = httpMock.expectOne('http://lytics.dyndns.org:8080/auth/register');
     expect(req.request.method).toBe('POST');
     req.flush({ message: 'Bad Request' }, { status: 400, statusText: 'Bad Request' });
   });

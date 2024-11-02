@@ -8,7 +8,7 @@ import {Observable, of} from 'rxjs';
   providedIn: 'root'
 })
 export class HistorialService {
-  private API_URL = 'http://localhost:8080/historial';
+  private API_URL = 'http://lytics.dyndns.org:8080/historial';
 
   constructor(private http: HttpClient) { }
 

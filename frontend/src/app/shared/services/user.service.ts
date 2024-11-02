@@ -18,8 +18,8 @@ export interface Device {
 })
 export class UserService {
 
-  private url = 'http://localhost:8080/api';
-  private urlUser = 'http://localhost:8080/user';
+  private url = 'http://lytics.dyndns.org:8080/api';
+  private urlUser = 'http://lytics.dyndns.org:8080/user';
 
   private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this.userSubject.asObservable();

@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AlertsService {
 
-  private apiUrl = 'http://localhost:8080/alerts';
+  private apiUrl = 'http://lytics.dyndns.org:8080/alerts';
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,6 @@ export class AlertsService {
 
   getAlertsForDeviceId(deviceId: string): Observable<any> {
     const body = { deviceId };
-    return this.http.post(`http://localhost:8080/alert/getUserAlerts`, body);
+    return this.http.post(`http://lytics.dyndns.org:8080/alert/getUserAlerts`, body);
   }
 }

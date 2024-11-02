@@ -16,7 +16,7 @@ export class CarbonService {
 
   emissionFactor : number = 0.4;
 
-  private apiUrl = 'http://localhost:8080/api/measurements';
+  private apiUrl = 'http://lytics.dyndns.org:8080/api/measurements';
 
   private selectedDevice: string | null = null;
 

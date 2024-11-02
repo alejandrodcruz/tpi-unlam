@@ -2,7 +2,7 @@ import random
 from datetime import datetime, timedelta
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 
-INFLUXDB_URL = "http://localhost:8086"
+INFLUXDB_URL = "http://lytics.dyndns.org:8086"
 INFLUXDB_TOKEN = "grupo10token"
 INFLUXDB_ORG = "grupo10"
 INFLUXDB_BUCKET = "grupo10bucket"

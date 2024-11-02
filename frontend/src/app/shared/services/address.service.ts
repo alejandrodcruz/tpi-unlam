@@ -13,7 +13,7 @@ export interface Address {
   providedIn: 'root'
 })
 export class AddressService {
-  private apiUrl = 'http://localhost:8080/address';
+  private apiUrl = 'http://lytics.dyndns.org:8080/address';
 
   constructor(private http: HttpClient) { }
 
