@@ -1,69 +1,112 @@
 <div class="bg-gray-50 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-r from-blue-300 via-gray-50 to-blue-400">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="sm:mx-auto sm:w-full sm:max-w-4xl relative">
+
+    <button (click)="goBack()" class="absolute top-0 right-0 mt-4 mr-4 bg-primary text-white px-4 py-2 rounded-md shadow hover:bg-primaryhover focus:outline-none">
+      ← Volver
+    </button>
+
     <img class="mx-auto h-10 w-auto" src="../../../assets/img/Lytics_New.png" alt="Your Company">
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Crea tu cuenta</h2>
   </div>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-8 shadow-lg rounded-lg">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <div>
-        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nombre de Usuario</label>
-        <div class="mt-2">
-          <input id="username" formControlName="username" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-4xl bg-white p-8 shadow-lg rounded-lg">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-6">
+      <div class="flex flex-col lg:flex-row lg:space-x-8">
+        <!-- Columna izquierda: Datos de Usuario -->
+        <div class="lg:w-1/2">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos de Usuario</h3>
+
+          <div class="mb-4">
+            <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nombre de Usuario</label>
+            <div class="mt-2">
+              <input id="username" formControlName="username" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
+              <span class="text-red-500 text-sm" *ngIf="registerForm.get('username')?.errors?.['required']">Se requiere nombre.</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Dirección de Email</label>
+            <div class="mt-2">
+              <input id="email" formControlName="email" type="email" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+              <span class="text-red-500 text-sm" *ngIf="registerForm.get('email')?.errors?.['required']">Se requiere Email.</span>
+              <span class="text-red-500 text-sm" *ngIf="registerForm.get('email')?.errors?.['email']">Formato de Email inválido.</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+            <div class="mt-2">
+              <input id="password" formControlName="password" type="password" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+              <span class="text-red-500 text-sm" *ngIf="registerForm.get('password')?.errors?.['required']">Password es requerido.</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="passwordConfirm" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
+            <div class="mt-2">
+              <input id="passwordConfirm" formControlName="passwordConfirm" type="password" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('passwordConfirm')?.touched && registerForm.get('passwordConfirm')?.invalid">
+              <span class="text-red-500 text-sm" *ngIf="registerForm.get('passwordConfirm')?.errors?.['required']">Confirm Password es requerido.</span>
+            </div>
+          </div>
         </div>
-        <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
-          <span class="text-red-500 text-sm" *ngIf="registerForm.get('username')?.errors?.['required']">
-            Se requiere nombre.
-          </span>
+
+        <!-- Línea de separación (visible solo en pantallas grandes) -->
+        <div class="hidden lg:block w-px bg-gray-300"></div>
+
+        <!-- Columna derecha: Datos de Locación -->
+        <div class="lg:w-1/2">
+          <h3 class="text-xl font-semibold text-gray-700 mb-4">Locación</h3>
+
+          <div class="mb-4">
+            <label for="street" class="block text-sm font-medium leading-6 text-gray-900">Calle</label>
+            <div class="mt-2">
+              <input id="street" formControlName="street" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('street')?.touched && registerForm.get('street')?.invalid">
+              <span class="text-red-500 text-sm">La calle es requerida.</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Ciudad</label>
+            <div class="mt-2">
+              <input id="city" formControlName="city" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid">
+              <span class="text-red-500 text-sm">La ciudad es requerida.</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="country" class="block text-sm font-medium leading-6 text-gray-900">País</label>
+            <div class="mt-2">
+              <input id="country" formControlName="country" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div *ngIf="registerForm.get('country')?.touched && registerForm.get('country')?.invalid">
+              <span class="text-red-500 text-sm">El país es requerido.</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Dirección de Email</label>
-        <div class="mt-2">
-          <input id="email" formControlName="email" type="email" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
-          <span class="text-red-500 text-sm" *ngIf="registerForm.get('email')?.errors?.['required']">
-            Se requiere Email.
-          </span>
-          <span class="text-red-500 text-sm" *ngIf="registerForm.get('email')?.errors?.['email']">
-            Formato de Email inválido.
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-        <div class="mt-2">
-          <input id="password" formControlName="password" type="password" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
-          <span class="text-red-500 text-sm" *ngIf="registerForm.get('password')?.errors?.['required']">
-            Password es requerido.
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <label for="passwordConfirm" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
-        <div class="mt-2">
-          <input id="passwordConfirm" formControlName="passwordConfirm" type="password" required  class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div *ngIf="registerForm.get('passwordConfirm')?.touched && registerForm.get('passwordConfirm')?.invalid">
-          <span class="text-red-500 text-sm" *ngIf="registerForm.get('passwordConfirm')?.errors?.['required']">
-            Confirm Password es requerido.
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primaryhover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Crear una cuenta</button>
-      </div>
-
-      <div *ngIf="passwordMismatch" class="text-red-500 text-sm">
-        Passwords do not match.
+      <!-- Botón de envío centrado -->
+      <div class="text-center mt-6">
+        <button type="submit" class="w-full rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-primaryhover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+          Crear una cuenta
+        </button>
       </div>
     </form>
+
+    <div *ngIf="passwordMismatch" class="text-red-500 text-sm text-center mt-4">
+      Las contraseñas no coinciden.
+    </div>
   </div>
 </div>

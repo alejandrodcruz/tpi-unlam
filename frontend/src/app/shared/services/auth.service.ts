@@ -9,6 +9,9 @@ export interface User {
   password: string;
   email: string;
   hasDevice?: boolean;
+  street?: string;
+  city?: string;
+  country?: string;
 }
 
 @Injectable({
