@@ -20,6 +20,10 @@ export class WebSocketService implements OnDestroy {
   }
 
   initConnectionSocket() {
+<<<<<<< Updated upstream
+=======
+    console.log('Connecting');
+>>>>>>> Stashed changes
     const url = "//lytics.dyndns.org:8080/ws";
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
