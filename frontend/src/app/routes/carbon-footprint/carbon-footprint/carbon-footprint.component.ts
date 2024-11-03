@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CardInfoComponent } from '../../../core/card/card-info.component';
 import { CommonModule } from '@angular/common';
 import {PanelTitleComponent} from "../../panel-title/panel-title.component";
-import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
+import { Measurement } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { CarbonService } from '../../../shared/services/carbon.service';
 import { TotalEnergy } from '../models/totalEnergy.models';
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -119,7 +118,7 @@ getTotalCo2(): void {
 
 
           // Asignar emisiones y conversiones para el mes anterior
-          this.KwhToCO2EmissionsPrevious = parseFloat(emissionsCO2Previous.toFixed(5));
+          this.KwhToCO2EmissionsPrevious = parseFloat(emissionsCO2Previous.toFixed(2));
           this.KwhToTreeCO2AbsorptionPrevious = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsPrevious);
           this.KwhToVehicleEmissionsPrevious = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsPrevious);
           this.KwhToFlightEmissionsPrevious = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsPrevious, false);
@@ -162,7 +161,7 @@ convertKwhToTreeCO2Absorption(co2Emissions: number): number {
 convertKwhToVehicleEmissions(co2Emissions: number): number {
   const co2PerKilometer = 0.12; // 120g de CO2 por kilómetro en kg
   const vehicleEmissions = co2Emissions / co2PerKilometer;
-  return parseFloat(vehicleEmissions.toFixed(2));;
+  return parseFloat(vehicleEmissions.toFixed(2));
 }
 
 /* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia
@@ -171,7 +170,7 @@ y puede llegar hasta 0.5 kg de CO2 por pasajero-km en vuelos largos. */
 convertKwhToFlightEmissions(co2Emissions: number, isLongDistance: boolean): number {
   const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25; // kg de CO2 por pasajero-km
   const flightEmissions = co2Emissions / co2PerPassengerKm;
-  return parseFloat(flightEmissions.toFixed(2));;
+  return parseFloat(flightEmissions.toFixed(2));
 }
 
 }
