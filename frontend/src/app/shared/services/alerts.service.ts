@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
+import {environment} from "../../../environments/ environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertsService {
 
-  private apiUrl = 'http://localhost:8080/alerts';
 
   constructor(private http: HttpClient) {}
 
   updateAlertSettings(alertSettings: any): Observable<any> {
     console.log( 'paso por el servicio ', alertSettings );
-    return this.http.post(`${this.apiUrl}/update-alerts`, alertSettings);
+    return this.http.post(`${environment.apiUrl}/alerts/update-alerts`, alertSettings);
   }
 
   getAlertSettings(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/get-alerts`);
+    return this.http.get(`${environment.apiUrl}/get-alerts`);
   }
 
   getAlertsForDeviceId(deviceId: string): Observable<any> {
     const body = { deviceId };
-    return this.http.post(`http://localhost:8080/alert/getUserAlerts`, body);
+    return this.http.post(`${environment.apiUrl}/alert/getUserAlerts`, body);
   }
 }

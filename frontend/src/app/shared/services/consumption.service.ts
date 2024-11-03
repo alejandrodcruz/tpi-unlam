@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Observable, of, switchMap } from 'rxjs';
+import {environment} from "../../../environments/ environment";
 
 export interface DeviceDetail {
   deviceId: string;
@@ -21,7 +22,7 @@ export interface TotalEnergyResponse {
   providedIn: 'root'
 })
 export class ConsumptionService {
-  private apiUrl = 'http://localhost:8080/api/measurements';
+
   private selectedDevice: string | null = null;
 
   constructor(private http: HttpClient, private userService: UserService) {
@@ -40,7 +41,7 @@ export class ConsumptionService {
       params = params.set('deviceId', deviceId);
     }
 
-    return this.http.get<TotalEnergyResponse>(`${this.apiUrl}/total-energy`, { params });
+    return this.http.get<TotalEnergyResponse>(`${environment.apiUrl}/api/measurements/total-energy`, { params });
   }
 
   // Consumo del último día

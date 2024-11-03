@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
 import { interval, Observable, switchMap } from 'rxjs';
 import { UserService } from './user.service';
+import {environment} from "../../../environments/ environment";
 
 
 
@@ -16,7 +17,7 @@ export class CarbonService {
 
   emissionFactor : number = 0.4;
 
-  private apiUrl = 'http://localhost:8080/api/measurements';
+
 
   private selectedDevice: string | null = null;
 
@@ -39,7 +40,7 @@ export class CarbonService {
       params = params.set('deviceId', deviceId);
     }
 
-    return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
+    return this.http.get<TotalEnergy>(`${environment.apiUrl}/api/measurements/total-energy`, { params });
 
   }
   getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {

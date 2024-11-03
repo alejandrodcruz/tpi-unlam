@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {environment} from "../../../environments/ environment";
 
 export interface Address {
   id: number;
@@ -13,23 +14,22 @@ export interface Address {
   providedIn: 'root'
 })
 export class AddressService {
-  private apiUrl = 'http://localhost:8080/address';
 
   constructor(private http: HttpClient) { }
 
   getAddressesByUser(userId: number): Observable<Address[]> {
-    return this.http.get<Address[]>(`${this.apiUrl}/user/${userId}`);
+    return this.http.get<Address[]>(`${environment.apiUrl}/user/${userId}`);
   }
 
   addAddress(userId: number, address: Address): Observable<Address> {
-    return this.http.post<Address>(`${this.apiUrl}/user/${userId}`, address);
+    return this.http.post<Address>(`${environment.apiUrl}/user/${userId}`, address);
   }
 
   updateAddress(addressId: number, address: Address): Observable<Address> {
-    return this.http.put<Address>(`${this.apiUrl}/${addressId}`, address);
+    return this.http.put<Address>(`${environment.apiUrl}/${addressId}`, address);
   }
 
   deleteAddress(addressId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${addressId}`);
+    return this.http.delete<void>(`${environment.apiUrl}/${addressId}`);
   }
 }

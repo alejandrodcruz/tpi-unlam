@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {interval, map, Observable, switchMap} from 'rxjs';
+import {environment} from "../../../environments/ environment";
 
 export interface Measurement {
   deviceId: string;
@@ -17,7 +18,6 @@ export interface Measurement {
   providedIn: 'root'
 })
 export class MeasurementsService {
-  private apiUrl = 'http://localhost:8080/api/measurements';
   private deviceId: string | null = null;
 
   constructor(private http: HttpClient) {
@@ -40,7 +40,7 @@ export class MeasurementsService {
       if (this.deviceId) {
         params = params.set('deviceId', this.deviceId);
       }
-    return this.http.get<Measurement[]>(this.apiUrl, {params});
+    return this.http.get<Measurement[]>(`${environment.apiUrl}/api/measurements`, {params});
   }
 
   getTotalEnergy(userId: number, fields: string[], timeRange: string = '1h'): Observable<number> {
@@ -53,7 +53,7 @@ export class MeasurementsService {
         params = params.set('deviceId', this.deviceId);
       }
 
-    return this.http.get<Measurement[]>(this.apiUrl, {params}).pipe(
+    return this.http.get<Measurement[]>(`${environment.apiUrl}/api/measurements`, {params}).pipe(
       map(measurements => {
         return measurements.reduce((totalEnergy, measurement) => totalEnergy + measurement.energy, 0);
       })
