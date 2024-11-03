@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 export interface DeviceUser{
-  deviceId: number;
+  deviceId: string;
   pairingCode: string;
   assigned: true;
+  name: string;
+  estimatedConsume?: number;
 }
 
 @Injectable({
@@ -32,7 +35,7 @@ export class DeviceService {
     );
   }
 
-  pairDevice(pairingCode: string): Observable<any> {
+  pairDevice(pairingCode: string, nameDevice: string, addressId: number): Observable<any> {
     const userId = this.authService.getUserId();
 
     if (userId === null) {
@@ -40,8 +43,35 @@ export class DeviceService {
     }
     const body = {
       pairingCode: pairingCode,
-      userId: userId
+      userId: userId,
+      name: nameDevice,
+      addressId: addressId
     };
     return this.http.post<any>(`${this.API_URL}/pair-device`, body);
+  }
+
+  updateDevice(deviceId: string, name: string): Observable<DeviceUser> {
+    const body = { name: name };
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.put<DeviceUser>(
+      `${this.API_URL}/devices/${deviceId}`,
+      body,
+      { headers: headers }
+    );
+  }
+
+  deleteDevice(deviceId: string): Observable<any> {
+    return this.http.delete<any>(`${this.API_URL}/devices/${deviceId}`).pipe(
+      tap(() => {
+        // Elimina el dispositivo de la lista local después de eliminarlo del backend
+        const updatedDevices = this.devicesSubject.value.filter(device => device.deviceId !== deviceId);
+        this.devicesSubject.next(updatedDevices);
+      })
+    );
   }
 }
