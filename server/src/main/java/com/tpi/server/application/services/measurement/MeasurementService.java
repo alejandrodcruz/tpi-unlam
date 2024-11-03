@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +98,6 @@ public class MeasurementService {
         return deviceConsumption;
     }
 
-    // Funciones para validar
     private void validateMeasurement(Measurement measurement) {
         if (measurement == null) {
             throw new InvalidDataException("Measurement cannot be null");
@@ -105,10 +105,14 @@ public class MeasurementService {
     }
 
     private void validateTimeRange(String startTime, String endTime) {
-        Instant start = Instant.parse(startTime);
-        Instant end = Instant.parse(endTime);
-        if (start.isAfter(end)) {
-            throw new InvalidDataException("Start time cannot be after end time");
+        try {
+            Instant start = Instant.parse(startTime);
+            Instant end = Instant.parse(endTime);
+            if (start.isAfter(end)) {
+                throw new InvalidDataException("Start time cannot be after end time");
+            }
+        } catch (DateTimeParseException ex) {
+            throw new InvalidDataException("Las fechas deben estar en formato ISO-8601, por ejemplo, '2023-10-10T10:00:00Z'.");
         }
     }
 }

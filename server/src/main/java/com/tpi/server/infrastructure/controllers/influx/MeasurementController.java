@@ -4,6 +4,9 @@ import com.tpi.server.application.usecases.influx.GetTotalEnergyConsumptionUseCa
 import com.tpi.server.application.usecases.influx.GetUserMeasurementsUseCase;
 import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/measurements")
+@Validated
 public class MeasurementController {
 
     private final GetUserMeasurementsUseCase getUserMeasurementsUseCase;
@@ -27,8 +31,8 @@ public class MeasurementController {
 
     @GetMapping
     public List<Measurement> getUserMeasurements(
-            @RequestParam Integer userId,
-            @RequestParam List<String> fields,
+            @RequestParam @NotNull Integer userId,
+            @RequestParam @NotEmpty List<String> fields,
             @RequestParam(defaultValue = "1h") String timeRange,
             @RequestParam(required = false) String deviceId
     ) {
@@ -37,9 +41,9 @@ public class MeasurementController {
 
     @GetMapping("/total-energy")
     public TotalEnergyDetailedResponse getTotalEnergyConsumption(
-            @RequestParam Integer userId,
-            @RequestParam String startTime,
-            @RequestParam String endTime,
+            @RequestParam @NotNull Integer userId,
+            @RequestParam @NotNull String startTime,
+            @RequestParam @NotNull String endTime,
             @RequestParam(required = false) String deviceId
     ) {
         return getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
