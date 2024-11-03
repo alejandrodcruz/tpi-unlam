@@ -17,7 +17,7 @@ export interface Measurement {
   providedIn: 'root'
 })
 export class MeasurementsService {
-  private apiUrl = 'http://localhost:8080/api/measurements';
+  private apiUrl = 'http://localhost:8080/measurements';
   private deviceId: string | null = null;
 
   constructor(private http: HttpClient) {

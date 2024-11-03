@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/measurements")
+@RequestMapping("/measurements")
 public class MeasurementController {
 
     private final GetUserMeasurementsUseCase getUserMeasurementsUseCase;
