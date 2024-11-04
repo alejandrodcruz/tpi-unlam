@@ -26,7 +26,7 @@ import { format } from 'path';
   styleUrls: ['./reportes.component.css']
 })
 export class ReportesComponent {
-  selectedType: string | null = null;  // tipo de informe que se desea generar
+  selectedType: string  = 'Consumo';
   startTime: Date = new Date();
   endTime: Date = new Date()
   userId: number | null = 0;

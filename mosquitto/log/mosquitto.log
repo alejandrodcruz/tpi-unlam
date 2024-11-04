@@ -628,3 +628,17 @@
 1730681989: Saving in-memory database to /mosquitto/data//mosquitto.db.
 1730683790: Saving in-memory database to /mosquitto/data//mosquitto.db.
 1730685591: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730749904: mosquitto version 2.0.20 starting
+1730749904: Config loaded from /mosquitto/config/mosquitto.conf.
+1730749904: Opening ipv4 listen socket on port 1883.
+1730749904: Opening ipv6 listen socket on port 1883.
+1730749904: mosquitto version 2.0.20 running
+1730751706: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730752161: New connection from 172.18.0.7:45810 on port 1883.
+1730752161: New client connected from 172.18.0.7:45810 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730753588: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730753588: Client SpringBootClient has exceeded timeout, disconnecting.
+1730753591: New connection from 172.18.0.7:45508 on port 1883.
+1730753592: New client connected from 172.18.0.7:45508 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730755389: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730757190: Saving in-memory database to /mosquitto/data//mosquitto.db.
