@@ -28,7 +28,7 @@ export class AlertsService {
   }*/// CHEQUEAR ESTE SERVICIO CON NICO
 
   getAlertsForDeviceId(deviceId: string): Observable<any> {
-    return this.httpService.post({ deviceId }, `${this.controller}/getUserAlerts`);
+    return this.httpService.post({ deviceId }, `alert/getUserAlerts`);
   }
 
 
