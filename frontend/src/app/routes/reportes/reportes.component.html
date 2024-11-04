@@ -7,38 +7,38 @@
     <i class='fas fa-lightbulb' style='font-size:42px; color:#fbc102'></i>
     <p class="text-xs">Consumo</p>
   </div>
-<!--
-  <div
-    (click)="setSelectedType('Amperaje')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Amperaje'}">
-    <i class='fas fa-plug' style='font-size:42px;color:#71aaef'></i>
-    <p class="text-xs">Amperaje</p>
-  </div>
+  <!--
+    <div
+      (click)="setSelectedType('Consumo último mes')"
+      class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+      [ngClass]="{'bg-blue-200': selectedType === 'Amperaje'}">
+      <i class='fas fa-plug' style='font-size:42px;color:#71aaef'></i>
+      <p class="text-xs">Amperaje</p>
+    </div>
 
-  <div
-    (click)="setSelectedType('Potencia')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Potencia'}">
-    <i class='fas fa-battery-three-quarters' style='font-size:48px;color:#ea4c4c'></i>
-    <p class="text-xs">Potencia</p>
-  </div>
+      <div
+        (click)="setSelectedType('Potencia')"
+        class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+        [ngClass]="{'bg-blue-200': selectedType === 'Potencia'}">
+        <i class='fas fa-battery-three-quarters' style='font-size:48px;color:#ea4c4c'></i>
+        <p class="text-xs">Potencia</p>
+      </div>
 
-  <div
-    (click)="setSelectedType('Frecuencia')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Frecuencia'}">
-    <i class='fas fa-poll' style='font-size:48px;color:#2d812b'></i>
-    <p class="text-xs">Frecuencia</p>
-  </div>   -->
+      <div
+        (click)="setSelectedType('Frecuencia')"
+        class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
+        [ngClass]="{'bg-blue-200': selectedType === 'Frecuencia'}">
+        <i class='fas fa-poll' style='font-size:48px;color:#2d812b'></i>
+        <p class="text-xs">Frecuencia</p>
+      </div>   -->
 </div>
 
 <div class="mb-6 bg-white">
   <div class="flex flex-col  space-y-4 py-6 px-10">
     <h2>Filtrar por Fecha</h2>
     <div class="flex space-x-4">
-      <input [(ngModel)]="startDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
-      <input [(ngModel)]="endDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <input [(ngModel)]="startTime" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <input [(ngModel)]="endTime" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
       <button (click)="generateReporteDatos()" class="bg-primary text-white p-2 rounded hover:bg-primaryhover">Buscar</button>
     </div>
   </div>
@@ -48,27 +48,21 @@
   <table class="table-auto w-full max-w-4xl mx-auto border-collapse border border-gray-300 shadow-lg rounded-lg overflow-hidden">
     <thead>
     <tr class="bg-gray-200 text-gray-700">
-      <th class="border border-gray-300 p-4 text-left">Dispositivo</th>
-      <th class="border border-gray-300 p-4 text-left">Consumo en kWh</th>
-      <th class="border border-gray-300 p-4 text-left">Costo en Pesos</th>
+      <th class="border border-gray-300 p-4 text-center">Identificador</th>
+      <th class="border border-gray-300 p-4 text-center">Dispositivo</th>
+      <th class="border border-gray-300 p-4 text-center">Consumo</th>
+      <th class="border border-gray-300 p-4 text-center">Costo</th>
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngIf="datos && datos.length > 0; ">
-      <tr *ngFor="let dato of datos" class="hover:bg-gray-100 transition-colors">
-        <td class="border border-gray-300 p-4">{{ dato.devicesDetails }}</td>
-        <td class="border border-gray-300 p-4">{{ dato.totalEnergy }}</td>
-        <td class="border border-gray-300 p-4">{{ dato.energyCost }}</td>
-      </tr>
-    </ng-container>
+    <tr *ngFor="let dato of data" class="hover:bg-gray-100 transition-colors">
+      <td class="border border-gray-300 p-4 text-center">{{ dato.deviceId }}</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.name }}</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.totalEnergy }} Kwh</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.energyCost }} $</td>
+    </tr>
     </tbody>
   </table>
-</div>
-
-
-
-<div *ngIf="!datos || datos.length === 0 || !false" class="text-center text-gray-500 mt-4">
-  No hay datos disponibles
 </div>
 
 
