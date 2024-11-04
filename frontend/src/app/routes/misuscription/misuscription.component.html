@@ -3,8 +3,8 @@
 <div class="max-w-sm mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
   <div class="flex items-center justify-between">
     <div>
-      <h2 class="text-xl font-bold">John Doe</h2>
-      <p class="text-sm text-gray-500">johndoe&#64;example.com</p>
+      <h2 class="text-xl font-bold">{{ user.username }}</h2>
+      <p class="text-sm text-gray-500">{{ user.email }}</p>
     </div>
     <button (click)="openModal()" class="btn bg-primary text-white hover:bg-primaryhover">Editar</button>
   </div>
@@ -20,7 +20,7 @@
         <label class="label">
           <span class="label-text">Nombre</span>
         </label>
-        <input [(ngModel)]="user.name" name="name" type="text" class="input input-bordered" />
+        <input [(ngModel)]="user.username" name="username" type="text" class="input input-bordered" />
       </div>
       <div class="form-control my-4">
         <label class="label">
