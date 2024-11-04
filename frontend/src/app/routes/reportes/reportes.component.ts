@@ -77,6 +77,8 @@ export class ReportesComponent {
     }
 
   exportToPDF(): void {
+
+
     if (this.data.length === 0 || !Array.isArray(this.data)) {
       this.errorMessage = 'No hay datos disponibles para exportar.';
       return;
@@ -90,7 +92,7 @@ export class ReportesComponent {
     // Tamaño y márgenes de la página
     doc.setProperties({
       title: 'Informe Lytics',
-      subject: 'Informe de Consumo desde ' + this.startTime.toString() + ' al ' + this.endTime.toString(),
+      subject: 'Informe de Consumo',
       author: appName,
     });
 
@@ -109,7 +111,7 @@ export class ReportesComponent {
     doc.setFontSize(14);
     doc.setTextColor(100); // Color gris
     doc.text(appName, pageWidth - 10, 15, { align: 'right' });
-    doc.text(`Fecha: ${currentDate}`, pageWidth - 10, 25, { align: 'right' });
+    doc.text(`Fecha: ${currentDate.toLocaleDateString('es-AR')}`, pageWidth - 10, 25, { align: 'right' });
 
     doc.setLineWidth(0.5);
     doc.line(10, 30, pageWidth - 10, 30); // Línea de separación
@@ -117,7 +119,7 @@ export class ReportesComponent {
 // Subtítulo
     doc.setFontSize(12);
     doc.setTextColor(0);
-    doc.text("Resúmen de Consumo desde "+ this.startTime.toString() + ' al ' + this.endTime.toString(), 15, 40);
+    doc.text("Resúmen de Consumo desde "+ this.startTime.toLocaleDateString('es-AR') + ' al ' + this.endTime.toLocaleDateString('es-AR'), 15, 40);
 
 // Tabla de Datos
     doc.setFontSize(12);
