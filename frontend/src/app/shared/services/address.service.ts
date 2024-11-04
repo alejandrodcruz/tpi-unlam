@@ -29,10 +29,12 @@ export class AddressService {
   }
 
   updateAddress(addressId: number, address: Address): Observable<Address> {
-    return this.httpService.post<Address>(address, `${this.controller}/${addressId}`);
+
+    return this.httpService.put<Address>(address, `${this.controller}/${addressId}`);
   }
 
   deleteAddress(addressId: number): Observable<void> {
-    return this.httpService.get<void>(`${this.controller}/${addressId}`);
+
+    return this.httpService.delete<void>(`${this.controller}/${addressId}`);
   }
 }

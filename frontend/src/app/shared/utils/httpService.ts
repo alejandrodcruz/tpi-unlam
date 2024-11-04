@@ -40,4 +40,32 @@ export class HttpService {
       })
     );
   }
+  public put<T>(body: any, controller: string): Observable<T> {
+    return this.http.put<T>(`${this.url}/${controller}`, body).pipe(
+      tap((res) => {}),
+      catchError((error) => {
+        console.log('Put error', error.message);
+        this.toast.warning(error.message);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public delete<T>(controller: string, params?: any): Observable<T> {
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach((key) => {
+        httpParams = httpParams.append(key, params[key]);
+      });
+    }
+    return this.http.delete<T>(`${this.url}/${controller}`, { params: httpParams }).pipe(
+      tap((res) => {}),
+      catchError((error) => {
+        console.log('Delete error', error.message);
+        this.toast.warning(error.message);
+        return throwError(() => error);
+      })
+    );
+  }
+
 }
