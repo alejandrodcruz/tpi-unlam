@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import { AuthService } from './auth.service';
 import { User } from '../domain/user';
+import { HttpService } from '../utils/httpService';
 
 export interface Device {
   deviceId: string;
@@ -33,13 +34,13 @@ export class UserService {
   private selectedDeviceNameSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   public selectedDeviceName$: Observable<string> = this.selectedDeviceNameSubject.asObservable();
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) {}
+  constructor(private httpClient: HttpClient, private authService: AuthService, private httpService: HttpService) {}
 
   getUserDevices(): Observable<Device[]> {
     const userId = this.authService.getUserId();
 
     if (userId !== null) {
-      return this.httpClient.get<Device[]>(`${this.url}/user/${userId}`);
+      return this.httpService.get<Device[]>(`devices/user/${userId}`);
     } else {
       return of([]);
     }
