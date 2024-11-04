@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient, private toast: ToastrService) {}
 
-  public url = `http://localhost:8080/`;
+  private url = environment.apiUrl;
+
+  constructor(private http: HttpClient, private toast: ToastrService) {}
 
   public post<T>(body: any, controller: string): Observable<T> {
     return this.http.post<T>(this.url + controller, body).pipe(
       tap((res) => {
-        // Puedes agregar lógica adicional aquí si es necesario.
+
       }),
       catchError((error) => {
         console.log('Post error', error.message);
@@ -32,9 +34,7 @@ export class HttpService {
       });
     }
     return this.http.get<T>(this.url + controller, { params: httpParams }).pipe(
-      tap((res) => {
-
-      }),
+      tap((res) => {}),
       catchError((error) => {
         console.log('Get error', error.message);
         this.toast.warning(error.message);
@@ -42,6 +42,4 @@ export class HttpService {
       })
     );
   }
-
-
 }
