@@ -9,15 +9,13 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class HttpService {
 
-  private url = environment.apiUrl;
+  public url = environment.serverUrl;
 
   constructor(private http: HttpClient, private toast: ToastrService) {}
 
   public post<T>(body: any, controller: string): Observable<T> {
-    return this.http.post<T>(this.url + controller, body).pipe(
-      tap((res) => {
-
-      }),
+    return this.http.post<T>(`${this.url}/${controller}`, body).pipe(
+      tap((res) => {}),
       catchError((error) => {
         console.log('Post error', error.message);
         this.toast.warning(error.message);
@@ -33,7 +31,7 @@ export class HttpService {
         httpParams = httpParams.append(key, params[key]);
       });
     }
-    return this.http.get<T>(this.url + controller, { params: httpParams }).pipe(
+    return this.http.get<T>(`${this.url}/${controller}`, { params: httpParams }).pipe(
       tap((res) => {}),
       catchError((error) => {
         console.log('Get error', error.message);

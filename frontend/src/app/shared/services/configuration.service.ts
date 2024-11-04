@@ -7,7 +7,7 @@ import {HttpService} from "../utils/httpService";
   providedIn: 'root'
 })
 export class ConfigurationService {
-  private apiUrl = 'http://localhost:8080/configurations';
+  //private apiUrl = 'http://localhost:8080/configurations';
   private controller = 'configurations';
 
   constructor(private httpService: HttpService) { }
