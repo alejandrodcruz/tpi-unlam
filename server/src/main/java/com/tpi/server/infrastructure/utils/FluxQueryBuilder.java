@@ -25,20 +25,21 @@ public class FluxQueryBuilder {
 
     public static String buildTotalEnergyConsumptionQuery(String bucket, List<String> deviceIds, String startTime, String endTime, String deviceId) {
         String devicesFilter = (deviceId != null && !deviceId.isEmpty())
-                ? "\"" + deviceId + "\""
+                ? String.format("\"%s\"", deviceId)
                 : formatListForFlux(deviceIds);
 
         return String.format(
                 "from(bucket:\"%s\") " +
                         "|> range(start: %s, stop: %s) " +
                         "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
-                        "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
+                        "|> filter(fn: (r) => %s) " +
                         "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
+                        "|> aggregateWindow(every: 1h, fn: sum, createEmpty: false) " +
                         "|> sum()",
                 bucket,
                 startTime,
                 endTime,
-                devicesFilter
+                buildDeviceFilter(deviceId, deviceIds)
         );
     }
 
@@ -51,6 +52,7 @@ public class FluxQueryBuilder {
                         "|> filter(fn: (r) => r[\"_measurement\"] == \"measurements\") " +
                         "|> filter(fn: (r) => contains(value: r[\"deviceId\"], set: [%s])) " +
                         "|> filter(fn: (r) => r[\"_field\"] == \"energy\") " +
+                        "|> aggregateWindow(every: 1h, fn: sum, createEmpty: false) " +
                         "|> group(columns: [\"deviceId\"]) " +
                         "|> sum()",
                 bucket,
@@ -58,6 +60,15 @@ public class FluxQueryBuilder {
                 endTime,
                 devicesFilter
         );
+    }
+
+    private static String buildDeviceFilter(String deviceId, List<String> deviceIds) {
+        if (deviceId != null && !deviceId.isEmpty()) {
+            return String.format("r[\"deviceId\"] == \"%s\"", deviceId);
+        } else {
+            String devicesFilter = formatListForFlux(deviceIds);
+            return String.format("contains(value: r[\"deviceId\"], set: [%s])", devicesFilter);
+        }
     }
 
     private static String formatListForFlux(List<String> items) {
