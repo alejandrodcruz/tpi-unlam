@@ -78,6 +78,7 @@ def on_disconnect(client, userdata, rc):
 
 # Configuracion
 mqtt_client = mqtt.Client()
+mqtt_client.username_pw_set("alejandro", "azert$2024")
 mqtt_client.on_connect = on_connect
 mqtt_client.on_disconnect = on_disconnect
 

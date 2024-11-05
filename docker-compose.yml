@@ -135,7 +135,6 @@ services:
       - ./mosquitto/log:/mosquitto/log
     environment:
       - LOG_DESTINATION=stdout
-      - ALLOW_ANONYMOUS=true
     restart: always
     networks:
       - my_network

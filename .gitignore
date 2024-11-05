@@ -9,11 +9,13 @@ frontend/.angular
 frontend/node_modules
 node_modules/
 server/target
-./mosquitto/*
-mosquitto
-env
-.env
+
+# Ignorar toda la carpeta mosquitto excepto config
+mosquitto/
+!mosquitto/config/
+mosquitto/log/
+mosquitto/data/
+
+# Ignorar archivos específicos en la raíz de mosquitto
 mosquitto.log
 mosquitto.db
-mosquitto/log/mosquitto.log
-mosquitto/data/mosquitto.db
