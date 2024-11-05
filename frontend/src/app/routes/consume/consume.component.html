@@ -55,7 +55,7 @@
 
 
           <p class="text-base" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
-            {{ device.isSaving ? 'Ahorraste' : 'Gastaste de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
+            {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
           </p>
         </div>
       </div>
