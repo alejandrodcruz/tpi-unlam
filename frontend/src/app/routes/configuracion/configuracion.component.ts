@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import {PanelTitleComponent} from "../panel-title/panel-title.component";
 import { ConfigurationService } from '../../shared/services/configuration.service';
 import {UserService} from "../../shared/services/user.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-configuracion',
@@ -99,7 +100,8 @@ export class ConfiguracionComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private configurationService: ConfigurationService,
-              private userService: UserService) {}
+              private userService: UserService,
+              private location: Location) {}
 
   selectProfile(profile: string) {
     this.selectedProfile = profile;
@@ -145,4 +147,9 @@ export class ConfiguracionComponent implements OnInit {
       console.log('Configuración de alertas actualizada:', response);
     });
   }
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }

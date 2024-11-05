@@ -76,4 +76,5 @@ export class MisDispositivosComponent implements OnInit {
 
     this.router.navigate(['/home/configuracion', deviceId]);
   }
+
 }
