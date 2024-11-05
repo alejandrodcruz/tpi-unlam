@@ -7,8 +7,6 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import {ConsumptionService, DeviceDetail} from "../../shared/services/consumption.service";
 import {AuthService} from "../../shared/services/auth.service";
-import { format } from 'path';
-
 
 
 @Component({
@@ -55,22 +53,12 @@ export class ReportesComponent {
       if (!(this.endTime instanceof Date)) {
         this.endTime = new Date(this.endTime);
       }
-      console.log("contenido de la fecha this.startTime: ", this.startTime);
-      console.log("contenido de la fecha this.endTime: ", this.endTime);
       this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime )
         .subscribe(database => {
-          console.log("Datos recibidos del servicio:", database); // Log para ver los datos recibidos
-
-          // Guarda los datos recibidos en `this.datos`
           this.data = database.devicesDetails;
+
           this.errorMessage = null;
-          console.log("contenido de data: ", database);
-          console.log("cantidad de registros que contiene data: ", this.data.length);
-          // Accede directamente al campo `energyCost`
-          console.log("Contenido de los datos del backend: ", this.data[0].name, " cantidad de registros: ", this.data.length);
         }, error => {
-          // Manejo de errores si la suscripción falla
-          console.error("Error al obtener los datos:", error);
           this.errorMessage = "Error al obtener los datos";
         });
       }
@@ -125,7 +113,22 @@ export class ReportesComponent {
     doc.setFontSize(12);
     let startingY = 50;
     const tableColumnHeaders = ["Identificador", "Dispositivo", "Consumo", "Costo"];
-    const tableData = this.data.map(dato => [dato.deviceId, dato.name, dato.totalEnergy+' Kwh', dato.energyCost+ '$']);
+    const tableData = [];
+
+for (let dato of this.data) {
+  const totalEnergyValue = Number(dato.totalEnergy);
+  const energyCostValue = Number(dato.energyCost);
+
+  const totalEnergyFormatted = totalEnergyValue.toFixed(2) + ' Kwh';
+  const energyCostFormatted = energyCostValue.toFixed(2) + ' $';
+
+  tableData.push([
+    dato.deviceId,
+    dato.name,
+    totalEnergyFormatted,
+    energyCostFormatted
+  ]);
+}
 
     autoTable(doc,{
       head: [tableColumnHeaders],
@@ -147,33 +150,9 @@ export class ReportesComponent {
       tableLineColor: [200, 200, 200],
     });
 
-// Pie de página
     doc.setFontSize(10);
     doc.setTextColor(150);
     doc.text(`Generado por ${appName}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
-
-
-
-
-
-    /* doc.setFontSize(20);
-     doc.text("Informe", 105, 15, { align: 'center' });
-
-     doc.setFontSize(18);
-     doc.text(appName, 105, 25, { align: 'right' });
-     if (logoBase64) {
-       doc.addImage(logoBase64, 'PNG', 10, 10, 20, 20); // Ajusta posición y tamaño del logo
-     }
-     doc.text(`Fecha: ${currentDate}`, 105, 35, { align: 'right' });
-
-     autoTable(doc, {
-       startY: 40,
-       head: [['Dispositivo', 'Consumo en kWh', 'Costo en Pesos']],
-       body: this.datos.map(dato => [dato.devicesDetails, dato.totalEnergy, dato.energyCost]),
-       styles: { halign: 'center' },
-       headStyles: { fillColor: [52, 58, 64] }
-     });
- */
     doc.save('reporte.pdf');
   }
 
