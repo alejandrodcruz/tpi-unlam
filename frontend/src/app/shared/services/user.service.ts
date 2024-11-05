@@ -21,7 +21,7 @@ export interface Device {
 })
 export class UserService {
 
-  private url = 'http://localhost:8080/api';
+  private url = 'http://localhost:8080/devices';
   private urlUser = 'http://localhost:8080/user';
 
   private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
@@ -39,7 +39,7 @@ export class UserService {
     const userId = this.authService.getUserId();
 
     if (userId !== null) {
-      return this.httpClient.get<Device[]>(`${this.url}/devices/user/${userId}`);
+      return this.httpClient.get<Device[]>(`${this.url}/user/${userId}`);
     } else {
       return of([]);
     }

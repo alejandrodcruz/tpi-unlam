@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/devices")
 @RequiredArgsConstructor
 public class DeviceController {
 
@@ -59,7 +59,7 @@ public class DeviceController {
         }
     }
 
-    @GetMapping("/devices/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<DeviceResponseDTO>> getDevicesByUser(@PathVariable Integer userId) {
         List<Device> devices = getUserDevicesUseCase.execute(userId);
         List<DeviceResponseDTO> deviceDTOs = devices.stream()
@@ -68,7 +68,7 @@ public class DeviceController {
         return ResponseEntity.ok(deviceDTOs);
     }
 
-    @PutMapping("/devices/{deviceId}")
+    @PutMapping("/{deviceId}")
     public ResponseEntity<DeviceResponseDTO> updateDevice(
             @PathVariable String deviceId,
             @RequestBody DeviceUpdateRequest request) {
@@ -85,7 +85,7 @@ public class DeviceController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    @DeleteMapping("/devices/{deviceId}")
+    @DeleteMapping("/{deviceId}")
     public ResponseEntity<Map<String, String>> deleteDevice(@PathVariable String deviceId) {
         deviceDeleteUseCase.deleteDevice(deviceId);
         Map<String, String> response = new HashMap<>();

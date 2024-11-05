@@ -16,7 +16,7 @@ export interface DeviceUser{
   providedIn: 'root'
 })
 export class DeviceService {
-  private API_URL = 'http://localhost:8080/api';
+  private API_URL = 'http://localhost:8080/devices';
   //dispo
   private devicesSubject = new BehaviorSubject<DeviceUser[]>([]);
   public devices$ = this.devicesSubject.asObservable();
@@ -30,7 +30,7 @@ export class DeviceService {
       throw new Error("No se ha encontrado el userId");
     }
 
-    return this.http.get<DeviceUser[]>(`${this.API_URL}/devices/user/${userId}`).pipe(
+    return this.http.get<DeviceUser[]>(`${this.API_URL}/user/${userId}`).pipe(
       tap(devices => this.devicesSubject.next(devices))
     );
   }
@@ -59,14 +59,14 @@ export class DeviceService {
     });
 
     return this.http.put<DeviceUser>(
-      `${this.API_URL}/devices/${deviceId}`,
+      `${this.API_URL}/${deviceId}`,
       body,
       { headers: headers }
     );
   }
 
   deleteDevice(deviceId: string): Observable<any> {
-    return this.http.delete<any>(`${this.API_URL}/devices/${deviceId}`).pipe(
+    return this.http.delete<any>(`${this.API_URL}/${deviceId}`).pipe(
       tap(() => {
         // Elimina el dispositivo de la lista local después de eliminarlo del backend
         const updatedDevices = this.devicesSubject.value.filter(device => device.deviceId !== deviceId);
