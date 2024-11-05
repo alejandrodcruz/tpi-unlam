@@ -47,7 +47,7 @@ describe('DeviceService', () => {
         expect(devices).toEqual(mockDevices);
       });
 
-      const req = httpMock.expectOne('http://localhost:8080/api/devices/user/1');
+      const req = httpMock.expectOne('http://localhost:8080/devices/user/1');
       expect(req.request.method).toBe('GET');
       req.flush(mockDevices); // Simula la respuesta con los dispositivos mock
     });
@@ -68,7 +68,7 @@ describe('DeviceService', () => {
         }
       );
 
-      const req = httpMock.expectOne('http://localhost:8080/api/devices/user/1');
+      const req = httpMock.expectOne('http://localhost:8080/devices/user/1');
       expect(req.request.method).toBe('GET');
       req.flush({ message: errorMessage }, { status: 500, statusText: 'Server Error' });
     });
@@ -83,7 +83,7 @@ describe('DeviceService', () => {
         expect(response).toEqual(successMessage);
       });
 
-      const req = httpMock.expectOne('http://localhost:8080/api/pair-device');
+      const req = httpMock.expectOne('http://localhost:8080/devices/pair-device');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
         pairingCode: pairingCode,
@@ -109,7 +109,7 @@ describe('DeviceService', () => {
         }
       );
 
-      const req = httpMock.expectOne('http://localhost:8080/api/pair-device');
+      const req = httpMock.expectOne('http://localhost:8080/device/pair-device');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
         pairingCode: pairingCode,

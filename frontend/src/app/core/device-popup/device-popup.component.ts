@@ -3,6 +3,9 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angu
 import { LoadingComponent } from '../loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { DeviceService } from '../../shared/services/device.service';
+import { Address } from '../../shared/domain/address';
+import { AddressService } from '../../shared/services/address.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-device-popup',
@@ -17,14 +20,57 @@ import { DeviceService } from '../../shared/services/device.service';
 export class DevicePopupComponent {
 @Input() isOpen: boolean = false;
 @Output() closePopup = new EventEmitter<void>();
- constructor(private deviceService: DeviceService,
-             private cdr: ChangeDetectorRef) { }
+
 step:number = 1;
 isLoading: boolean = false;
 pairingCode: string = '';
 nameDevice: string = '';
 errorMessage: string = '';
 successMessage: string = '';
+addresses: Address[] = [];
+selectedAddressId: number | null = null;
+
+deviceNames: string[] = [
+  'Ventilador',
+  'Televisor',
+  'Secador de Pelo',
+  'Router WiFi',
+  'Radiador Eléctrico',
+  'Plancha',
+  'Microondas',
+  'Lavavajillas',
+  'Lavarropas',
+  'Lámpara LED',
+  'Impresora Láser',
+  'Horno Eléctrico',
+  'Heladera',
+  'Extractor de Aire',
+  'Computadora',
+  'Cargador de Celular',
+  'Calefactor Eléctrico',
+  'Cafetera',
+  'Bomba de Agua',
+  'Aire Acondicionado'
+];
+
+constructor( private deviceService: DeviceService,
+  private addressService: AddressService,
+  private authService: AuthService,
+  private cdr: ChangeDetectorRef
+) { }
+
+ngOnInit(): void {
+  const userId = this.authService.getUserId();
+  if (userId !== null) {
+    this.addressService.getAddressesByUser(userId).subscribe({
+      next: (addresses) => this.addresses = addresses,
+      error: (err) => console.error('Error al obtener direcciones:', err)
+    });
+  } else {
+    console.error("Error: userId no encontrado.");
+  }
+}
+
 close() {
   this.closePopup.emit();
   window.location.reload();
@@ -47,12 +93,16 @@ submitCode() {
     this.errorMessage = 'Por favor, ingresa el código de emparejamiento.';
     return;
   }
+  if (!this.selectedAddressId) {
+    this.errorMessage = 'Por favor, selecciona una dirección.';
+    return;
+  }
 
   this.isLoading = true;
   this.errorMessage = '';
   this.successMessage = '';
 
-  this.deviceService.pairDevice(this.pairingCode, this.nameDevice).subscribe({
+  this.deviceService.pairDevice(this.pairingCode, this.nameDevice,  this.selectedAddressId).subscribe({
     next: (response) => {
       console.log('Respuesta exitosa:', response);
       setTimeout(() => {

@@ -54,7 +54,10 @@ jobs:
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
           echo "SPRING_EMAIL_USERNAME=${{ secrets.SPRING_EMAIL_USERNAME }}" >> $GITHUB_ENV
           echo "SPRING_EMAIL_PASSWORD=${{ secrets.SPRING_EMAIL_PASSWORD }}" >> $GITHUB_ENV
-
+          echo "MQTT_BROKER_TYPE=${{ secrets.MQTT_BROKER_TYPE }}" >> $GITHUB_ENV          
+          echo "MQTT_BROKER_MOSQUITTO=${{ secrets.MQTT_BROKER_MOSQUITTO }}" >> $GITHUB_ENV
+          echo "MQTT_BROKER_HIVEMQ=${{ secrets.MQTT_BROKER_HIVEMQ }}" >> $GITHUB_ENV
+          
       - name: Listar contenido del directorio db
         run: |
           echo "Listando contenido del directorio db:"

@@ -5,6 +5,7 @@ import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.DeviceDetails;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.InvalidDataException;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
@@ -144,11 +145,11 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        });
 
-        assertEquals(0.0, response.getTotalEnergy());
-        assertNull(response.getDevicesDetails());
-        assertNull(response.getDeviceId());
+        assertEquals("El usuario con ID " + userId + " no existe.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(userId);
         verifyNoMoreInteractions(measurementRepository);
@@ -167,11 +168,11 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        });
 
-        assertEquals(0.0, response.getTotalEnergy());
-        assertNull(response.getDevicesDetails());
-        assertNull(response.getDeviceId());
+        assertEquals("El usuario con ID " + userId + " no tiene dispositivos asociados.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(userId);
         verifyNoMoreInteractions(measurementRepository);
@@ -198,11 +199,11 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
+        });
 
-        assertEquals(0.0, response.getTotalEnergy());
-        assertNull(response.getDevicesDetails());
-        assertNull(response.getDeviceId());
+        assertEquals("El dispositivo con ID " + deviceId + " no pertenece al usuario con ID " + userId + ".", exception.getMessage());
 
         verify(userRepository, times(1)).findById(userId);
         verifyNoMoreInteractions(measurementRepository);
