@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { NgForOf, NgIf, NgStyle } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
-import {PanelTitleComponent} from "../panel-title/panel-title.component";
+import { Router } from '@angular/router'; // Importa el Router
+import { PanelTitleComponent } from "../panel-title/panel-title.component";
 import { Device, UserService } from '../../shared/services/user.service';
 import { DevicePopupComponent } from '../../core/device-popup/device-popup.component';
 import { DeviceService, DeviceUser } from '../../shared/services/device.service';
@@ -19,16 +20,21 @@ import { DeviceService, DeviceUser } from '../../shared/services/device.service'
     DevicePopupComponent
   ],
   templateUrl: './mis-dispositivos.component.html',
-  styleUrl: './mis-dispositivos.component.css'
+  styleUrls: ['./mis-dispositivos.component.css']
 })
 export class MisDispositivosComponent implements OnInit {
   isDevicePopupOpen = false;
-
   dispositivos: Device[] = [];
+  public deviceId: string = '';
+  public deviceName: string = '';
+  public title: string = '';
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private userService: UserService,
-    private deviceService: DeviceService) {}
+    private deviceService: DeviceService,
+    private router: Router // Inyecta el Router aquí
+  ) {}
 
   ngOnInit() {
     this.loadDevices();
@@ -64,5 +70,10 @@ export class MisDispositivosComponent implements OnInit {
         this.dispositivos = this.dispositivos.filter(device => device.deviceId !== deviceId);
       });
     }
+  }
+
+  goToConfiguration(deviceId: string) {
+
+    this.router.navigate(['/home/configuracion', deviceId]);
   }
 }

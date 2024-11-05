@@ -30,7 +30,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'dispositivos', component: MisDispositivosComponent },
-      { path: 'configuracion', component: ConfiguracionComponent },
+      { path: 'configuracion/:deviceId', component: ConfiguracionComponent },
       { path: 'reportes', component: ReportesComponent },
       { path: 'reportesHistoricos', component: ReportesHistoricosComponent },
       { path: 'historico', component: DashboardHistoricoComponent },

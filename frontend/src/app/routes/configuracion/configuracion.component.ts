@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgClass} from "@angular/common";
-
+import { ActivatedRoute } from '@angular/router';
 import {RouterLink} from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import {PanelTitleComponent} from "../panel-title/panel-title.component";
@@ -21,6 +21,7 @@ import {UserService} from "../../shared/services/user.service";
 })
 export class ConfiguracionComponent implements OnInit {
   selectedProfile: string | null = null;
+  deviceSelectId: string | null = null;
   public deviceId: string = '';
   public deviceName: string = '';
   public title: string = '';
@@ -96,7 +97,8 @@ export class ConfiguracionComponent implements OnInit {
     highHumidityActive: false,
   };
 
-  constructor(private configurationService: ConfigurationService,
+  constructor(private route: ActivatedRoute,
+              private configurationService: ConfigurationService,
               private userService: UserService) {}
 
   selectProfile(profile: string) {
@@ -124,9 +126,10 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.selectedDevice$.subscribe(() => {
-      this.deviceId = this.userService.getSelectedDevice();
+      this.deviceSelectId = this.userService.getSelectedDevice();
       this.title = "Selecciona la configuracion para " + this.deviceId;
-      console.log("deviceid", this.deviceId);
+      console.log("dispositivo device", this.deviceId);
+      console.log("OnINit deviceSelectId", this.deviceSelectId);
     });
 
     this.userService.selectedDeviceName$.subscribe(() => {
@@ -137,6 +140,9 @@ export class ConfiguracionComponent implements OnInit {
     this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
       this.alertSettings = { ...this.alertSettings, ...response };
     });
+
+    this.deviceSelectId = this.route.snapshot.paramMap.get('deviceId');
+    console.log('Device ID:', this.deviceSelectId);
   }
 
   onAlertChange() {
