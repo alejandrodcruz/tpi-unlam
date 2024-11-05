@@ -27,8 +27,7 @@ export class CarbonService {
     });
 
   }
-
-
+  
   getTotalKwh(userId: number, startTime: Date, endTime: Date, deviceId: string = this.selectedDevice || ''): Observable<TotalEnergy> {
     let params = new HttpParams()
       .set('userId', userId.toString())
@@ -42,6 +41,7 @@ export class CarbonService {
     return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
 
   }
+
   getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {
     return interval(pollingInterval).pipe(
       switchMap(() => {
