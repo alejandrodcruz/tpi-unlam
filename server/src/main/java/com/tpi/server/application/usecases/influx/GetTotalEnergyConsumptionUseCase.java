@@ -8,7 +8,6 @@ import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -26,9 +25,6 @@ public class GetTotalEnergyConsumptionUseCase {
     private final DeviceRepository deviceRepository;
     private final SimpMessagingTemplate messagingTemplate;
 
-    @Autowired
-    private GetTotalEnergyConsumptionUseCase self;
-
     @Scheduled(fixedRate = 5000)
     public void sendTotalEnergyConsumption() {
 
@@ -37,9 +33,9 @@ public class GetTotalEnergyConsumptionUseCase {
         String endTime = new Date().toString();
         String deviceId = "blah";
 
-        TotalEnergyDetailedResponse data = self.execute(userId, startTime, endTime, deviceId);
+        //TotalEnergyDetailedResponse data = execute(userId, startTime, endTime, deviceId);
 
-        messagingTemplate.convertAndSend("/topic/consume", data);
+        //messagingTemplate.convertAndSend("/topic/consume", data);
     }
 
     @Transactional

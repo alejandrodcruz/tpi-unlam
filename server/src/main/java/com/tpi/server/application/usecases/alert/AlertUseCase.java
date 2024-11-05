@@ -3,6 +3,7 @@ package com.tpi.server.application.usecases.alert;
 import com.tpi.server.domain.models.Alert;
 import com.tpi.server.infrastructure.dtos.AlertDTO;
 import com.tpi.server.infrastructure.dtos.AlertResponse;
+import com.tpi.server.infrastructure.exceptions.AlertNotFoundException;
 import com.tpi.server.infrastructure.repositories.AlertRepository;
 import com.tpi.server.infrastructure.utils.AlertMessageUtils;
 import lombok.RequiredArgsConstructor;
@@ -44,12 +45,17 @@ public class AlertUseCase {
     }
 
 
-    public List<AlertResponse> getUserAlertsByDeviceId(String deviceId) {
-        List<Alert> alerts = alertRepository.findAllByDeviceIdOrderByDateDesc(deviceId);
+    public List<AlertResponse> getUserAlertsByDeviceId(String deviceId) throws AlertNotFoundException {
+        try {
+            List<Alert> alerts = alertRepository.findAllByDeviceIdOrderByDateDesc(deviceId);
 
-        return alerts.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+            return alerts.stream()
+                    .map(this::convertToDTO)
+                    .collect(Collectors.toList());
+        }
+        catch (Exception exception) {
+            throw new AlertNotFoundException(deviceId);
+        }
     }
 
     private AlertResponse convertToDTO(Alert alert) {

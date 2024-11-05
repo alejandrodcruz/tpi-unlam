@@ -537,3 +537,908 @@
 1729885287: Client SpringBootClient disconnected.
 1729885295: mosquitto version 2.0.20 terminating
 1729885295: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730467991: mosquitto version 2.0.20 starting
+1730467991: Config loaded from /mosquitto/config/mosquitto.conf.
+1730467991: Opening ipv4 listen socket on port 1883.
+1730467991: Opening ipv6 listen socket on port 1883.
+1730467991: mosquitto version 2.0.20 running
+1730468037: New connection from 192.168.65.1:33988 on port 1883.
+1730468037: New connection from 192.168.65.1:33989 on port 1883.
+1730468037: New connection from 192.168.65.1:33986 on port 1883.
+1730468037: New connection from 192.168.65.1:33987 on port 1883.
+1730468037: New connection from 192.168.65.1:33990 on port 1883.
+1730468037: New client connected from 192.168.65.1:33988 as auto-49FAE40F-686C-D4DE-A710-954E361C5BA2 (p2, c1, k60).
+1730468037: New client connected from 192.168.65.1:33989 as auto-E235905F-DA2E-2775-8D5C-B9F1D7FA4C68 (p2, c1, k60).
+1730468037: New client connected from 192.168.65.1:33986 as auto-6D4419B0-EDF6-CBBA-CB12-B47FE2FA3C84 (p2, c1, k60).
+1730468037: New client connected from 192.168.65.1:33987 as auto-D8DEAD5E-0F39-7F4F-93AC-955C9C6E7246 (p2, c1, k60).
+1730468037: New client connected from 192.168.65.1:33990 as auto-B0BC24AD-2CB0-6D51-AF17-B82E3602FBBE (p2, c1, k60).
+1730468439: New connection from 172.21.0.8:54126 on port 1883.
+1730468440: New client connected from 172.21.0.8:54126 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730468548: Client SpringBootClient disconnected.
+1730468555: New connection from 172.21.0.8:57278 on port 1883.
+1730468555: New client connected from 172.21.0.8:57278 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730468625: Client SpringBootClient disconnected.
+1730468631: mosquitto version 2.0.20 terminating
+1730468631: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730468637: mosquitto version 2.0.20 starting
+1730468637: Config loaded from /mosquitto/config/mosquitto.conf.
+1730468637: Opening ipv4 listen socket on port 1883.
+1730468637: Opening ipv6 listen socket on port 1883.
+1730468637: mosquitto version 2.0.20 running
+1730468638: New connection from 192.168.65.1:33996 on port 1883.
+1730468638: New connection from 192.168.65.1:33999 on port 1883.
+1730468638: New connection from 192.168.65.1:33998 on port 1883.
+1730468638: New connection from 192.168.65.1:33997 on port 1883.
+1730468638: New client connected from 192.168.65.1:33996 as auto-424B9F44-55DD-463B-F092-87278785D79B (p2, c1, k60).
+1730468638: New client connected from 192.168.65.1:33999 as auto-6D753590-78BB-FFE8-F685-2902A72463B4 (p2, c1, k60).
+1730468638: New client connected from 192.168.65.1:33998 as auto-ACDFB0F6-4D37-CF5A-EA53-80506E9780A8 (p2, c1, k60).
+1730468638: New client connected from 192.168.65.1:33997 as auto-476BE29D-2DEF-1294-3E5B-ADD5C6AFB416 (p2, c1, k60).
+1730468638: New connection from 192.168.65.1:34000 on port 1883.
+1730468638: New client connected from 192.168.65.1:34000 as auto-21AFF2C3-BED0-26CE-E6C0-D730E6B82BE4 (p2, c1, k60).
+1730468664: New connection from 172.21.0.7:55690 on port 1883.
+1730468664: New client connected from 172.21.0.7:55690 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730470438: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730472239: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730474040: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730475841: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730478434: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730478434: Client auto-424B9F44-55DD-463B-F092-87278785D79B has exceeded timeout, disconnecting.
+1730478434: Client auto-6D753590-78BB-FFE8-F685-2902A72463B4 has exceeded timeout, disconnecting.
+1730478434: Client auto-ACDFB0F6-4D37-CF5A-EA53-80506E9780A8 has exceeded timeout, disconnecting.
+1730478434: Client auto-476BE29D-2DEF-1294-3E5B-ADD5C6AFB416 has exceeded timeout, disconnecting.
+1730478434: Client auto-21AFF2C3-BED0-26CE-E6C0-D730E6B82BE4 has exceeded timeout, disconnecting.
+1730478434: Client SpringBootClient has exceeded timeout, disconnecting.
+1730478434: New connection from 192.168.65.1:34752 on port 1883.
+1730478434: New connection from 192.168.65.1:34754 on port 1883.
+1730478434: New connection from 192.168.65.1:34753 on port 1883.
+1730478434: New connection from 192.168.65.1:34751 on port 1883.
+1730478434: New connection from 192.168.65.1:34750 on port 1883.
+1730478435: Client <unknown> closed its connection.
+1730478435: Client <unknown> closed its connection.
+1730478435: Client <unknown> closed its connection.
+1730478435: Client <unknown> closed its connection.
+1730478435: New connection from 192.168.65.1:34755 on port 1883.
+1730478435: New connection from 192.168.65.1:34756 on port 1883.
+1730478435: New connection from 192.168.65.1:34757 on port 1883.
+1730478435: New connection from 192.168.65.1:34758 on port 1883.
+1730478435: New connection from 192.168.65.1:34759 on port 1883.
+1730478435: Client <unknown> closed its connection.
+1730478435: New client connected from 192.168.65.1:34755 as auto-A95ECF6C-8467-1183-9BEE-056140460E36 (p2, c1, k60).
+1730478435: New client connected from 192.168.65.1:34756 as auto-3E9F6A3E-EAA4-F43E-00F5-4EC657E92CD0 (p2, c1, k60).
+1730478435: New client connected from 192.168.65.1:34757 as auto-A587F918-DF90-8784-6EA5-1F3FC095F9FE (p2, c1, k60).
+1730478435: New client connected from 192.168.65.1:34758 as auto-D50A0E22-BB3A-96B4-BD68-F610517A1630 (p2, c1, k60).
+1730478435: New client connected from 192.168.65.1:34759 as auto-4AAFB9D4-7124-479A-4100-5E18764D85B9 (p2, c1, k60).
+1730478436: New connection from 172.21.0.7:56580 on port 1883.
+1730478437: New client connected from 172.21.0.7:56580 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730479161: Client auto-A95ECF6C-8467-1183-9BEE-056140460E36 has exceeded timeout, disconnecting.
+1730479161: Client auto-3E9F6A3E-EAA4-F43E-00F5-4EC657E92CD0 has exceeded timeout, disconnecting.
+1730479161: Client auto-A587F918-DF90-8784-6EA5-1F3FC095F9FE has exceeded timeout, disconnecting.
+1730479161: Client auto-D50A0E22-BB3A-96B4-BD68-F610517A1630 has exceeded timeout, disconnecting.
+1730479161: Client auto-4AAFB9D4-7124-479A-4100-5E18764D85B9 has exceeded timeout, disconnecting.
+1730479161: Client SpringBootClient has exceeded timeout, disconnecting.
+1730479161: New connection from 192.168.65.1:34760 on port 1883.
+1730479161: New connection from 192.168.65.1:34762 on port 1883.
+1730479161: New connection from 192.168.65.1:34764 on port 1883.
+1730479161: New connection from 192.168.65.1:34761 on port 1883.
+1730479161: New connection from 192.168.65.1:34763 on port 1883.
+1730479162: Client <unknown> closed its connection.
+1730479162: Client <unknown> closed its connection.
+1730479162: Client <unknown> closed its connection.
+1730479162: Client <unknown> closed its connection.
+1730479162: New connection from 192.168.65.1:34766 on port 1883.
+1730479162: New connection from 192.168.65.1:34767 on port 1883.
+1730479162: New connection from 192.168.65.1:34765 on port 1883.
+1730479162: New connection from 192.168.65.1:34768 on port 1883.
+1730479162: New connection from 192.168.65.1:34769 on port 1883.
+1730479162: Client <unknown> closed its connection.
+1730479162: New client connected from 192.168.65.1:34766 as auto-EED12BAE-2F97-5525-E81C-02947B721BD0 (p2, c1, k60).
+1730479162: New client connected from 192.168.65.1:34767 as auto-56BA2C3E-2D47-507F-72E3-529372251222 (p2, c1, k60).
+1730479162: New client connected from 192.168.65.1:34765 as auto-E1AA3C2E-D50A-8328-60F9-F8EC41CFD362 (p2, c1, k60).
+1730479162: New client connected from 192.168.65.1:34768 as auto-53F855E4-F2A4-768B-7E39-1D93EF8B3CB6 (p2, c1, k60).
+1730479162: New client connected from 192.168.65.1:34769 as auto-18FF372F-ECA6-7E08-7439-4B307924FB62 (p2, c1, k60).
+1730479162: New connection from 172.21.0.7:47328 on port 1883.
+1730479162: New client connected from 172.21.0.7:47328 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730480235: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730482036: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730483837: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730485638: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730487439: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730489687: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730489687: Client auto-EED12BAE-2F97-5525-E81C-02947B721BD0 has exceeded timeout, disconnecting.
+1730489687: Client auto-56BA2C3E-2D47-507F-72E3-529372251222 has exceeded timeout, disconnecting.
+1730489687: Client auto-E1AA3C2E-D50A-8328-60F9-F8EC41CFD362 has exceeded timeout, disconnecting.
+1730489687: Client auto-53F855E4-F2A4-768B-7E39-1D93EF8B3CB6 has exceeded timeout, disconnecting.
+1730489687: Client auto-18FF372F-ECA6-7E08-7439-4B307924FB62 has exceeded timeout, disconnecting.
+1730489687: Client SpringBootClient has exceeded timeout, disconnecting.
+1730489687: New connection from 192.168.65.1:34780 on port 1883.
+1730489687: New connection from 192.168.65.1:34779 on port 1883.
+1730489687: New connection from 192.168.65.1:34781 on port 1883.
+1730489687: New connection from 192.168.65.1:34782 on port 1883.
+1730489687: New connection from 192.168.65.1:34783 on port 1883.
+1730489688: Client <unknown> closed its connection.
+1730489688: New connection from 192.168.65.1:34784 on port 1883.
+1730489688: Client <unknown> closed its connection.
+1730489688: Client <unknown> closed its connection.
+1730489688: New client connected from 192.168.65.1:34784 as auto-57F2D5A7-B86A-88FB-E2D9-52073C528949 (p2, c1, k60).
+1730489688: New connection from 192.168.65.1:34785 on port 1883.
+1730489688: New connection from 192.168.65.1:34786 on port 1883.
+1730489688: New connection from 192.168.65.1:34787 on port 1883.
+1730489688: New connection from 192.168.65.1:34788 on port 1883.
+1730489688: Client <unknown> closed its connection.
+1730489688: Client <unknown> closed its connection.
+1730489688: New client connected from 192.168.65.1:34785 as auto-71053949-FD5F-F671-1370-572A78015D6E (p2, c1, k60).
+1730489688: New client connected from 192.168.65.1:34786 as auto-978FF461-A15F-83DD-27E0-F22897526DA3 (p2, c1, k60).
+1730489688: New client connected from 192.168.65.1:34787 as auto-62F2A570-D47A-E897-25C2-A4175081D06D (p2, c1, k60).
+1730489688: New client connected from 192.168.65.1:34788 as auto-8331AF26-E4D8-B33B-FCC7-9E479607F95C (p2, c1, k60).
+1730489688: New connection from 172.21.0.7:54390 on port 1883.
+1730489688: New client connected from 172.21.0.7:54390 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730489840: Client auto-57F2D5A7-B86A-88FB-E2D9-52073C528949 has exceeded timeout, disconnecting.
+1730489840: Client auto-71053949-FD5F-F671-1370-572A78015D6E has exceeded timeout, disconnecting.
+1730489840: Client auto-978FF461-A15F-83DD-27E0-F22897526DA3 has exceeded timeout, disconnecting.
+1730489840: Client auto-62F2A570-D47A-E897-25C2-A4175081D06D has exceeded timeout, disconnecting.
+1730489840: Client auto-8331AF26-E4D8-B33B-FCC7-9E479607F95C has exceeded timeout, disconnecting.
+1730489840: Client SpringBootClient has exceeded timeout, disconnecting.
+1730489840: New connection from 192.168.65.1:34790 on port 1883.
+1730489840: New connection from 192.168.65.1:34791 on port 1883.
+1730489840: New connection from 192.168.65.1:34789 on port 1883.
+1730489840: New connection from 192.168.65.1:34793 on port 1883.
+1730489840: New connection from 192.168.65.1:34792 on port 1883.
+1730489841: Client <unknown> closed its connection.
+1730489841: Client <unknown> closed its connection.
+1730489841: Client <unknown> closed its connection.
+1730489841: Client <unknown> closed its connection.
+1730489841: Client <unknown> closed its connection.
+1730489841: New connection from 192.168.65.1:34798 on port 1883.
+1730489841: New connection from 192.168.65.1:34795 on port 1883.
+1730489841: New connection from 192.168.65.1:34796 on port 1883.
+1730489841: New connection from 192.168.65.1:34797 on port 1883.
+1730489841: New connection from 192.168.65.1:34794 on port 1883.
+1730489841: New client connected from 192.168.65.1:34798 as auto-2913AB99-3D13-B879-6DFA-C2C623E8DC0B (p2, c1, k60).
+1730489841: New client connected from 192.168.65.1:34795 as auto-9063DB51-9456-99BC-336A-4B6EDDE5B8C4 (p2, c1, k60).
+1730489841: New client connected from 192.168.65.1:34796 as auto-540BC618-E37A-E2CD-9385-312125BBDD8A (p2, c1, k60).
+1730489841: New client connected from 192.168.65.1:34797 as auto-A05EB442-5FA5-BAE3-BF3C-2510968351CC (p2, c1, k60).
+1730489841: New client connected from 192.168.65.1:34794 as auto-A31271B9-3836-8560-4DE4-0E282B67D7D3 (p2, c1, k60).
+1730489841: New connection from 172.21.0.7:47870 on port 1883.
+1730489841: New client connected from 172.21.0.7:47870 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730495425: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730495425: Client auto-2913AB99-3D13-B879-6DFA-C2C623E8DC0B has exceeded timeout, disconnecting.
+1730495425: Client auto-9063DB51-9456-99BC-336A-4B6EDDE5B8C4 has exceeded timeout, disconnecting.
+1730495425: Client auto-540BC618-E37A-E2CD-9385-312125BBDD8A has exceeded timeout, disconnecting.
+1730495425: Client auto-A05EB442-5FA5-BAE3-BF3C-2510968351CC has exceeded timeout, disconnecting.
+1730495425: Client auto-A31271B9-3836-8560-4DE4-0E282B67D7D3 has exceeded timeout, disconnecting.
+1730495425: Client SpringBootClient has exceeded timeout, disconnecting.
+1730495425: New connection from 192.168.65.1:34802 on port 1883.
+1730495425: New connection from 192.168.65.1:34799 on port 1883.
+1730495425: New connection from 192.168.65.1:34800 on port 1883.
+1730495425: New connection from 192.168.65.1:34801 on port 1883.
+1730495425: New connection from 192.168.65.1:34803 on port 1883.
+1730495426: Client <unknown> closed its connection.
+1730495426: Client <unknown> closed its connection.
+1730495426: Client <unknown> closed its connection.
+1730495426: New connection from 192.168.65.1:34804 on port 1883.
+1730495426: New connection from 192.168.65.1:34805 on port 1883.
+1730495426: New connection from 192.168.65.1:34806 on port 1883.
+1730495426: New client connected from 192.168.65.1:34804 as auto-8C9CE85A-15BB-C477-96EB-98BFA286C399 (p2, c1, k60).
+1730495426: Client <unknown> closed its connection.
+1730495426: Client <unknown> closed its connection.
+1730495426: New client connected from 192.168.65.1:34805 as auto-3FC3A236-3D3A-3408-3996-9840E6BF3A12 (p2, c1, k60).
+1730495426: New client connected from 192.168.65.1:34806 as auto-E25586F1-53E0-354E-93FB-ADB5260AEC23 (p2, c1, k60).
+1730495426: New connection from 192.168.65.1:34807 on port 1883.
+1730495426: New connection from 192.168.65.1:34808 on port 1883.
+1730495426: New client connected from 192.168.65.1:34807 as auto-6C657C57-5EC7-380C-7559-BD0D360B14D0 (p2, c1, k60).
+1730495426: New client connected from 192.168.65.1:34808 as auto-27248CA3-5E57-ADC3-6928-400895BA6ED3 (p2, c1, k60).
+1730495426: New connection from 172.21.0.7:39874 on port 1883.
+1730495427: New client connected from 172.21.0.7:39874 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730500561: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730500561: Client auto-8C9CE85A-15BB-C477-96EB-98BFA286C399 has exceeded timeout, disconnecting.
+1730500561: Client auto-3FC3A236-3D3A-3408-3996-9840E6BF3A12 has exceeded timeout, disconnecting.
+1730500561: Client auto-E25586F1-53E0-354E-93FB-ADB5260AEC23 has exceeded timeout, disconnecting.
+1730500561: Client auto-6C657C57-5EC7-380C-7559-BD0D360B14D0 has exceeded timeout, disconnecting.
+1730500561: Client auto-27248CA3-5E57-ADC3-6928-400895BA6ED3 has exceeded timeout, disconnecting.
+1730500561: Client SpringBootClient has exceeded timeout, disconnecting.
+1730500561: New connection from 192.168.65.1:34809 on port 1883.
+1730500561: New connection from 192.168.65.1:34810 on port 1883.
+1730500561: New connection from 192.168.65.1:34811 on port 1883.
+1730500561: New connection from 192.168.65.1:34813 on port 1883.
+1730500561: New connection from 192.168.65.1:34812 on port 1883.
+1730500562: Client <unknown> closed its connection.
+1730500562: New connection from 192.168.65.1:34814 on port 1883.
+1730500562: Client <unknown> closed its connection.
+1730500562: New client connected from 192.168.65.1:34814 as auto-B49D0239-0172-540D-F50E-9227095C880D (p2, c1, k60).
+1730500562: New connection from 192.168.65.1:34815 on port 1883.
+1730500562: New connection from 192.168.65.1:34818 on port 1883.
+1730500562: New connection from 192.168.65.1:34817 on port 1883.
+1730500562: New connection from 192.168.65.1:34816 on port 1883.
+1730500562: Client <unknown> closed its connection.
+1730500562: Client <unknown> closed its connection.
+1730500562: Client <unknown> closed its connection.
+1730500562: New client connected from 192.168.65.1:34815 as auto-33CF96EF-117C-1F40-57AE-02C80546DB53 (p2, c1, k60).
+1730500562: New client connected from 192.168.65.1:34818 as auto-30127A1D-8BFB-D792-52E9-E8BBDCE0FDA4 (p2, c1, k60).
+1730500562: New client connected from 192.168.65.1:34817 as auto-ECF7C1A4-969D-588B-5101-AC413F49C673 (p2, c1, k60).
+1730500562: New client connected from 192.168.65.1:34816 as auto-40FBF784-1B83-FAC0-A9C3-B20BAAAAECB7 (p2, c1, k60).
+1730500562: New connection from 172.21.0.7:50336 on port 1883.
+1730500562: New client connected from 172.21.0.7:50336 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730505278: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730505278: Client auto-B49D0239-0172-540D-F50E-9227095C880D has exceeded timeout, disconnecting.
+1730505278: Client auto-33CF96EF-117C-1F40-57AE-02C80546DB53 has exceeded timeout, disconnecting.
+1730505278: Client auto-30127A1D-8BFB-D792-52E9-E8BBDCE0FDA4 has exceeded timeout, disconnecting.
+1730505278: Client auto-ECF7C1A4-969D-588B-5101-AC413F49C673 has exceeded timeout, disconnecting.
+1730505278: Client auto-40FBF784-1B83-FAC0-A9C3-B20BAAAAECB7 has exceeded timeout, disconnecting.
+1730505278: Client SpringBootClient has exceeded timeout, disconnecting.
+1730505278: New connection from 192.168.65.1:34820 on port 1883.
+1730505278: New connection from 192.168.65.1:34819 on port 1883.
+1730505278: New connection from 192.168.65.1:34821 on port 1883.
+1730505278: New connection from 192.168.65.1:34822 on port 1883.
+1730505278: New connection from 192.168.65.1:34823 on port 1883.
+1730505279: Client <unknown> closed its connection.
+1730505279: Client <unknown> closed its connection.
+1730505279: Client <unknown> closed its connection.
+1730505279: Client <unknown> closed its connection.
+1730505279: Client <unknown> closed its connection.
+1730505279: New connection from 192.168.65.1:34826 on port 1883.
+1730505279: New connection from 192.168.65.1:34824 on port 1883.
+1730505279: New connection from 192.168.65.1:34827 on port 1883.
+1730505279: New connection from 192.168.65.1:34825 on port 1883.
+1730505279: New connection from 192.168.65.1:34828 on port 1883.
+1730505279: New connection from 172.21.0.7:56056 on port 1883.
+1730505280: New client connected from 192.168.65.1:34826 as auto-D23929F9-9C6B-82EE-8E35-C997D326C409 (p2, c1, k60).
+1730505280: New client connected from 192.168.65.1:34824 as auto-430163A3-1322-491B-47B1-0C0605895A5E (p2, c1, k60).
+1730505280: New client connected from 192.168.65.1:34827 as auto-27EEA928-F080-2AE8-24E3-701B1D095268 (p2, c1, k60).
+1730505280: New client connected from 192.168.65.1:34825 as auto-AAF6F933-63A2-4DF2-0597-05044A4EA4B5 (p2, c1, k60).
+1730505280: New client connected from 192.168.65.1:34828 as auto-73769BD0-A5B1-A4FD-0A1B-E5E75D78E98A (p2, c1, k60).
+1730505280: New client connected from 172.21.0.7:56056 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730509224: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730509224: Client auto-D23929F9-9C6B-82EE-8E35-C997D326C409 has exceeded timeout, disconnecting.
+1730509224: Client auto-430163A3-1322-491B-47B1-0C0605895A5E has exceeded timeout, disconnecting.
+1730509224: Client auto-27EEA928-F080-2AE8-24E3-701B1D095268 has exceeded timeout, disconnecting.
+1730509224: Client auto-AAF6F933-63A2-4DF2-0597-05044A4EA4B5 has exceeded timeout, disconnecting.
+1730509224: Client auto-73769BD0-A5B1-A4FD-0A1B-E5E75D78E98A has exceeded timeout, disconnecting.
+1730509224: Client SpringBootClient has exceeded timeout, disconnecting.
+1730509224: New connection from 192.168.65.1:34829 on port 1883.
+1730509224: New connection from 192.168.65.1:34833 on port 1883.
+1730509224: New connection from 192.168.65.1:34830 on port 1883.
+1730509224: New connection from 192.168.65.1:34831 on port 1883.
+1730509224: New connection from 192.168.65.1:34832 on port 1883.
+1730509225: Client <unknown> closed its connection.
+1730509225: Client <unknown> closed its connection.
+1730509225: Client <unknown> closed its connection.
+1730509225: New connection from 192.168.65.1:34834 on port 1883.
+1730509225: New connection from 192.168.65.1:34835 on port 1883.
+1730509225: New connection from 192.168.65.1:34836 on port 1883.
+1730509225: New connection from 192.168.65.1:34837 on port 1883.
+1730509225: New connection from 192.168.65.1:34838 on port 1883.
+1730509225: New connection from 172.21.0.7:46220 on port 1883.
+1730509225: Client <unknown> closed its connection.
+1730509225: Client <unknown> closed its connection.
+1730509225: New client connected from 192.168.65.1:34834 as auto-36B37719-19D6-070C-9972-B51CF2236440 (p2, c1, k60).
+1730509225: New client connected from 192.168.65.1:34835 as auto-79E30EF8-A7D5-8612-1BE4-7B70B4306A72 (p2, c1, k60).
+1730509225: New client connected from 192.168.65.1:34836 as auto-8362A68F-F68D-1723-50BF-E9E12763C9B5 (p2, c1, k60).
+1730509225: New client connected from 192.168.65.1:34837 as auto-FD41A8CF-7D63-F4F5-88FA-4B9AB1644425 (p2, c1, k60).
+1730509225: New client connected from 192.168.65.1:34838 as auto-ED8B8F46-79CD-2900-08AD-F207D782C75B (p2, c1, k60).
+1730509226: New client connected from 172.21.0.7:46220 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730514245: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730514245: Client auto-36B37719-19D6-070C-9972-B51CF2236440 has exceeded timeout, disconnecting.
+1730514245: Client auto-79E30EF8-A7D5-8612-1BE4-7B70B4306A72 has exceeded timeout, disconnecting.
+1730514245: Client auto-8362A68F-F68D-1723-50BF-E9E12763C9B5 has exceeded timeout, disconnecting.
+1730514245: Client auto-FD41A8CF-7D63-F4F5-88FA-4B9AB1644425 has exceeded timeout, disconnecting.
+1730514245: Client auto-ED8B8F46-79CD-2900-08AD-F207D782C75B has exceeded timeout, disconnecting.
+1730514245: Client SpringBootClient has exceeded timeout, disconnecting.
+1730514245: New connection from 192.168.65.1:34839 on port 1883.
+1730514245: New connection from 192.168.65.1:34842 on port 1883.
+1730514245: New connection from 192.168.65.1:34841 on port 1883.
+1730514245: New connection from 192.168.65.1:34840 on port 1883.
+1730514245: New connection from 192.168.65.1:34843 on port 1883.
+1730514246: Client <unknown> closed its connection.
+1730514246: Client <unknown> closed its connection.
+1730514246: Client <unknown> closed its connection.
+1730514246: New connection from 192.168.65.1:34845 on port 1883.
+1730514246: New connection from 192.168.65.1:34844 on port 1883.
+1730514246: New connection from 192.168.65.1:34846 on port 1883.
+1730514246: New connection from 172.21.0.7:46070 on port 1883.
+1730514246: New connection from 192.168.65.1:34848 on port 1883.
+1730514246: New connection from 192.168.65.1:34847 on port 1883.
+1730514246: Client <unknown> closed its connection.
+1730514246: Client <unknown> closed its connection.
+1730514246: New client connected from 192.168.65.1:34845 as auto-14602D3F-5457-C6BE-0D88-0E12B031DFB1 (p2, c1, k60).
+1730514246: New client connected from 192.168.65.1:34844 as auto-E8593F58-E66A-98EC-5E84-AC9267E7925E (p2, c1, k60).
+1730514246: New client connected from 192.168.65.1:34846 as auto-6843A50C-ED61-6C4E-ACFB-0B1FA673C52D (p2, c1, k60).
+1730514246: New client connected from 192.168.65.1:34848 as auto-B6A551B6-6ED5-6A3D-B04F-A09585570E40 (p2, c1, k60).
+1730514246: New client connected from 192.168.65.1:34847 as auto-076B06C0-97CC-54E5-4B0F-8A2BFDF26CA1 (p2, c1, k60).
+1730514246: New client connected from 172.21.0.7:46070 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730517329: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730517329: Client auto-14602D3F-5457-C6BE-0D88-0E12B031DFB1 has exceeded timeout, disconnecting.
+1730517329: Client auto-E8593F58-E66A-98EC-5E84-AC9267E7925E has exceeded timeout, disconnecting.
+1730517329: Client auto-6843A50C-ED61-6C4E-ACFB-0B1FA673C52D has exceeded timeout, disconnecting.
+1730517329: Client SpringBootClient has exceeded timeout, disconnecting.
+1730517329: Client auto-B6A551B6-6ED5-6A3D-B04F-A09585570E40 has exceeded timeout, disconnecting.
+1730517329: Client auto-076B06C0-97CC-54E5-4B0F-8A2BFDF26CA1 has exceeded timeout, disconnecting.
+1730517329: New connection from 192.168.65.1:34849 on port 1883.
+1730517329: New connection from 192.168.65.1:34851 on port 1883.
+1730517329: New connection from 192.168.65.1:34852 on port 1883.
+1730517329: New connection from 192.168.65.1:34850 on port 1883.
+1730517329: New connection from 192.168.65.1:34853 on port 1883.
+1730517330: Client <unknown> closed its connection.
+1730517330: New connection from 192.168.65.1:34854 on port 1883.
+1730517330: New client connected from 192.168.65.1:34854 as auto-E4E7C336-E0A9-DC20-BD70-ECE645F8E406 (p2, c1, k60).
+1730517330: Client <unknown> closed its connection.
+1730517330: Client <unknown> closed its connection.
+1730517330: New connection from 192.168.65.1:34855 on port 1883.
+1730517330: New connection from 192.168.65.1:34856 on port 1883.
+1730517330: New connection from 192.168.65.1:34857 on port 1883.
+1730517330: New connection from 192.168.65.1:34858 on port 1883.
+1730517330: Client <unknown> closed its connection.
+1730517330: Client <unknown> closed its connection.
+1730517330: New client connected from 192.168.65.1:34855 as auto-FB53C7A7-5C66-F763-7C7C-97C97A49672B (p2, c1, k60).
+1730517330: New client connected from 192.168.65.1:34856 as auto-1F331F24-2E15-5DE7-AF6A-B2B5A71D480D (p2, c1, k60).
+1730517330: New client connected from 192.168.65.1:34857 as auto-A0D2D945-1C10-D75F-FB2C-C032E12046FA (p2, c1, k60).
+1730517330: New client connected from 192.168.65.1:34858 as auto-22EFA32B-46B5-F025-2B53-2B28D91004A9 (p2, c1, k60).
+1730517330: New connection from 172.21.0.7:36844 on port 1883.
+1730517331: New client connected from 172.21.0.7:36844 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730520180: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730520180: Client auto-E4E7C336-E0A9-DC20-BD70-ECE645F8E406 has exceeded timeout, disconnecting.
+1730520180: Client auto-FB53C7A7-5C66-F763-7C7C-97C97A49672B has exceeded timeout, disconnecting.
+1730520180: Client auto-1F331F24-2E15-5DE7-AF6A-B2B5A71D480D has exceeded timeout, disconnecting.
+1730520180: Client auto-A0D2D945-1C10-D75F-FB2C-C032E12046FA has exceeded timeout, disconnecting.
+1730520180: Client auto-22EFA32B-46B5-F025-2B53-2B28D91004A9 has exceeded timeout, disconnecting.
+1730520180: Client SpringBootClient has exceeded timeout, disconnecting.
+1730520180: New connection from 192.168.65.1:34861 on port 1883.
+1730520180: New connection from 192.168.65.1:34859 on port 1883.
+1730520180: New connection from 192.168.65.1:34860 on port 1883.
+1730520180: New connection from 192.168.65.1:34863 on port 1883.
+1730520180: New connection from 192.168.65.1:34862 on port 1883.
+1730520181: Client <unknown> closed its connection.
+1730520181: New connection from 192.168.65.1:34864 on port 1883.
+1730520181: New connection from 192.168.65.1:34865 on port 1883.
+1730520181: Client <unknown> closed its connection.
+1730520181: New connection from 192.168.65.1:34866 on port 1883.
+1730520181: New connection from 192.168.65.1:34867 on port 1883.
+1730520181: New connection from 192.168.65.1:34868 on port 1883.
+1730520181: Client <unknown> closed its connection.
+1730520181: Client <unknown> closed its connection.
+1730520181: New client connected from 192.168.65.1:34864 as auto-250B0617-6FD7-9425-9CC6-7B2D8CB9C788 (p2, c1, k60).
+1730520181: Client <unknown> closed its connection.
+1730520181: New client connected from 192.168.65.1:34865 as auto-598E821B-73A7-743D-F03F-985C8FB88E68 (p2, c1, k60).
+1730520181: New connection from 172.21.0.7:54400 on port 1883.
+1730520181: New client connected from 192.168.65.1:34866 as auto-EEEBF93C-868C-5D14-BABD-BB8CC02E2E36 (p2, c1, k60).
+1730520181: New client connected from 192.168.65.1:34867 as auto-3B9C2141-9AA0-29DE-DD39-FE774759DD9F (p2, c1, k60).
+1730520181: New client connected from 192.168.65.1:34868 as auto-F5814F17-53E5-0D1B-FFDC-6BCD4C079D40 (p2, c1, k60).
+1730520182: New client connected from 172.21.0.7:54400 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730522544: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730522544: Client auto-250B0617-6FD7-9425-9CC6-7B2D8CB9C788 has exceeded timeout, disconnecting.
+1730522544: Client auto-598E821B-73A7-743D-F03F-985C8FB88E68 has exceeded timeout, disconnecting.
+1730522544: Client auto-EEEBF93C-868C-5D14-BABD-BB8CC02E2E36 has exceeded timeout, disconnecting.
+1730522544: Client auto-3B9C2141-9AA0-29DE-DD39-FE774759DD9F has exceeded timeout, disconnecting.
+1730522544: Client auto-F5814F17-53E5-0D1B-FFDC-6BCD4C079D40 has exceeded timeout, disconnecting.
+1730522544: Client SpringBootClient has exceeded timeout, disconnecting.
+1730522545: New connection from 192.168.65.1:34869 on port 1883.
+1730522545: New connection from 192.168.65.1:34872 on port 1883.
+1730522545: New connection from 192.168.65.1:34873 on port 1883.
+1730522545: New connection from 192.168.65.1:34871 on port 1883.
+1730522545: New connection from 192.168.65.1:34870 on port 1883.
+1730522546: Client <unknown> closed its connection.
+1730522546: Client <unknown> closed its connection.
+1730522546: Client <unknown> closed its connection.
+1730522546: Client <unknown> closed its connection.
+1730522546: New connection from 192.168.65.1:34875 on port 1883.
+1730522546: New connection from 192.168.65.1:34877 on port 1883.
+1730522546: New connection from 192.168.65.1:34874 on port 1883.
+1730522546: New connection from 192.168.65.1:34876 on port 1883.
+1730522546: New connection from 192.168.65.1:34878 on port 1883.
+1730522546: Client <unknown> closed its connection.
+1730522546: New client connected from 192.168.65.1:34875 as auto-9BAE58C4-3D31-C197-F4A5-2F47EF49D69A (p2, c1, k60).
+1730522546: New client connected from 192.168.65.1:34877 as auto-F180BA0C-859D-CCAE-7433-509E856CD05C (p2, c1, k60).
+1730522546: New client connected from 192.168.65.1:34874 as auto-D8D13D3D-A53E-E1D9-1865-BB8F7D09884D (p2, c1, k60).
+1730522546: New client connected from 192.168.65.1:34876 as auto-8B16E751-8329-E064-E130-F786BE3F1DC7 (p2, c1, k60).
+1730522546: New client connected from 192.168.65.1:34878 as auto-8C52C3FC-8719-04B7-6905-165D63853C13 (p2, c1, k60).
+1730522546: New connection from 172.21.0.7:42450 on port 1883.
+1730522546: New client connected from 172.21.0.7:42450 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730523146: Client auto-9BAE58C4-3D31-C197-F4A5-2F47EF49D69A has exceeded timeout, disconnecting.
+1730523146: Client auto-F180BA0C-859D-CCAE-7433-509E856CD05C has exceeded timeout, disconnecting.
+1730523146: Client auto-D8D13D3D-A53E-E1D9-1865-BB8F7D09884D has exceeded timeout, disconnecting.
+1730523146: Client auto-8C52C3FC-8719-04B7-6905-165D63853C13 has exceeded timeout, disconnecting.
+1730523146: Client SpringBootClient has exceeded timeout, disconnecting.
+1730523146: New connection from 192.168.65.1:34879 on port 1883.
+1730523146: New connection from 192.168.65.1:34880 on port 1883.
+1730523146: New connection from 192.168.65.1:34881 on port 1883.
+1730523146: New connection from 192.168.65.1:34882 on port 1883.
+1730523147: Client <unknown> closed its connection.
+1730523147: New connection from 192.168.65.1:34883 on port 1883.
+1730523147: New client connected from 192.168.65.1:34883 as auto-36FD0073-22CD-D037-E439-E7D4179D1819 (p2, c1, k60).
+1730523147: Client <unknown> closed its connection.
+1730523147: Client <unknown> closed its connection.
+1730523147: Client <unknown> closed its connection.
+1730523147: New connection from 192.168.65.1:34884 on port 1883.
+1730523147: New connection from 192.168.65.1:34885 on port 1883.
+1730523147: New connection from 192.168.65.1:34886 on port 1883.
+1730523147: New client connected from 192.168.65.1:34884 as auto-89FA3DEB-4324-B6F2-F1CC-E4D648CD62E0 (p2, c1, k60).
+1730523147: New client connected from 192.168.65.1:34885 as auto-D27221A2-269B-4829-358C-4C99F3F8DC31 (p2, c1, k60).
+1730523147: New client connected from 192.168.65.1:34886 as auto-97221583-D142-C987-464B-DCE3A9FCE874 (p2, c1, k60).
+1730523147: New connection from 172.21.0.7:49410 on port 1883.
+1730523147: New client connected from 172.21.0.7:49410 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730525160: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730525160: Client auto-8B16E751-8329-E064-E130-F786BE3F1DC7 has exceeded timeout, disconnecting.
+1730525160: Client auto-36FD0073-22CD-D037-E439-E7D4179D1819 has exceeded timeout, disconnecting.
+1730525160: Client auto-89FA3DEB-4324-B6F2-F1CC-E4D648CD62E0 has exceeded timeout, disconnecting.
+1730525160: Client auto-D27221A2-269B-4829-358C-4C99F3F8DC31 has exceeded timeout, disconnecting.
+1730525160: Client auto-97221583-D142-C987-464B-DCE3A9FCE874 has exceeded timeout, disconnecting.
+1730525160: Client SpringBootClient has exceeded timeout, disconnecting.
+1730525160: New connection from 192.168.65.1:34889 on port 1883.
+1730525160: New connection from 192.168.65.1:34890 on port 1883.
+1730525160: New connection from 192.168.65.1:34888 on port 1883.
+1730525160: New connection from 192.168.65.1:34887 on port 1883.
+1730525160: New connection from 192.168.65.1:34891 on port 1883.
+1730525161: Client <unknown> closed its connection.
+1730525161: Client <unknown> closed its connection.
+1730525161: Client <unknown> closed its connection.
+1730525161: Client <unknown> closed its connection.
+1730525161: Client <unknown> closed its connection.
+1730525161: New connection from 192.168.65.1:34892 on port 1883.
+1730525161: New connection from 172.21.0.7:32988 on port 1883.
+1730525161: New connection from 192.168.65.1:34894 on port 1883.
+1730525161: New connection from 192.168.65.1:34895 on port 1883.
+1730525161: New connection from 192.168.65.1:34893 on port 1883.
+1730525161: New connection from 192.168.65.1:34896 on port 1883.
+1730525161: New client connected from 192.168.65.1:34892 as auto-9C5C06BC-19D1-9A1A-0B8E-0B5832C26511 (p2, c1, k60).
+1730525161: New client connected from 192.168.65.1:34894 as auto-E6898DB0-EEC0-7C1F-F618-C7E8490830D7 (p2, c1, k60).
+1730525161: New client connected from 192.168.65.1:34895 as auto-6C714BF3-7789-CE73-4E48-73530FAF3B1A (p2, c1, k60).
+1730525161: New client connected from 192.168.65.1:34893 as auto-AFEB4EAB-828C-0184-DCEA-68E5B0081B73 (p2, c1, k60).
+1730525161: New client connected from 192.168.65.1:34896 as auto-1464C856-E181-9593-C4EF-6F870480E963 (p2, c1, k60).
+1730525161: New client connected from 172.21.0.7:32988 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730531085: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730531085: Client auto-9C5C06BC-19D1-9A1A-0B8E-0B5832C26511 has exceeded timeout, disconnecting.
+1730531085: Client SpringBootClient has exceeded timeout, disconnecting.
+1730531085: Client auto-E6898DB0-EEC0-7C1F-F618-C7E8490830D7 has exceeded timeout, disconnecting.
+1730531085: Client auto-6C714BF3-7789-CE73-4E48-73530FAF3B1A has exceeded timeout, disconnecting.
+1730531085: Client auto-AFEB4EAB-828C-0184-DCEA-68E5B0081B73 has exceeded timeout, disconnecting.
+1730531085: Client auto-1464C856-E181-9593-C4EF-6F870480E963 has exceeded timeout, disconnecting.
+1730531085: New connection from 192.168.65.1:34901 on port 1883.
+1730531085: New connection from 192.168.65.1:34898 on port 1883.
+1730531085: New connection from 192.168.65.1:34897 on port 1883.
+1730531085: New connection from 192.168.65.1:34899 on port 1883.
+1730531085: New connection from 192.168.65.1:34900 on port 1883.
+1730531086: Client <unknown> closed its connection.
+1730531086: Client <unknown> closed its connection.
+1730531086: New connection from 192.168.65.1:34903 on port 1883.
+1730531086: New connection from 192.168.65.1:34902 on port 1883.
+1730531086: New connection from 172.21.0.7:58582 on port 1883.
+1730531086: New connection from 192.168.65.1:34906 on port 1883.
+1730531086: New connection from 192.168.65.1:34904 on port 1883.
+1730531086: New connection from 192.168.65.1:34905 on port 1883.
+1730531086: Client <unknown> closed its connection.
+1730531086: Client <unknown> closed its connection.
+1730531086: Client <unknown> closed its connection.
+1730531086: New client connected from 192.168.65.1:34903 as auto-77B16176-649B-89A4-F83D-A9D4CF9B154F (p2, c1, k60).
+1730531086: New client connected from 192.168.65.1:34902 as auto-857AD996-92CF-4389-49C1-3454D06C726E (p2, c1, k60).
+1730531086: New client connected from 192.168.65.1:34906 as auto-7748B364-0D61-834E-2D37-9A483D30D3B1 (p2, c1, k60).
+1730531086: New client connected from 192.168.65.1:34904 as auto-6EB430EA-652B-F556-7CAF-D6FDC7BE4097 (p2, c1, k60).
+1730531086: New client connected from 192.168.65.1:34905 as auto-3CBF1718-AF9E-C356-62A6-B8103DA5C5FC (p2, c1, k60).
+1730531086: New client connected from 172.21.0.7:58582 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730536130: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730536130: Client auto-77B16176-649B-89A4-F83D-A9D4CF9B154F has exceeded timeout, disconnecting.
+1730536130: Client auto-857AD996-92CF-4389-49C1-3454D06C726E has exceeded timeout, disconnecting.
+1730536130: Client SpringBootClient has exceeded timeout, disconnecting.
+1730536130: Client auto-7748B364-0D61-834E-2D37-9A483D30D3B1 has exceeded timeout, disconnecting.
+1730536130: Client auto-6EB430EA-652B-F556-7CAF-D6FDC7BE4097 has exceeded timeout, disconnecting.
+1730536130: Client auto-3CBF1718-AF9E-C356-62A6-B8103DA5C5FC has exceeded timeout, disconnecting.
+1730536130: New connection from 192.168.65.1:34910 on port 1883.
+1730536130: New connection from 192.168.65.1:34911 on port 1883.
+1730536130: New connection from 192.168.65.1:34909 on port 1883.
+1730536130: New connection from 192.168.65.1:34908 on port 1883.
+1730536130: New connection from 192.168.65.1:34907 on port 1883.
+1730536131: Client <unknown> closed its connection.
+1730536131: Client <unknown> closed its connection.
+1730536131: Client <unknown> closed its connection.
+1730536131: New connection from 192.168.65.1:34912 on port 1883.
+1730536131: New connection from 192.168.65.1:34913 on port 1883.
+1730536131: New connection from 192.168.65.1:34914 on port 1883.
+1730536131: New connection from 192.168.65.1:34915 on port 1883.
+1730536131: New connection from 192.168.65.1:34916 on port 1883.
+1730536131: Client <unknown> closed its connection.
+1730536131: Client <unknown> closed its connection.
+1730536131: New client connected from 192.168.65.1:34912 as auto-7DC38C58-239E-D386-21A0-4EB1D87C6BA6 (p2, c1, k60).
+1730536131: New client connected from 192.168.65.1:34913 as auto-122B3BB7-1544-AAF8-3B59-BF21108A2BA8 (p2, c1, k60).
+1730536131: New client connected from 192.168.65.1:34914 as auto-B814A0D7-9668-2244-27F6-F0819DFE1D3C (p2, c1, k60).
+1730536131: New client connected from 192.168.65.1:34915 as auto-301FB38E-BFDC-67F7-6062-6602ECBE01D8 (p2, c1, k60).
+1730536131: New client connected from 192.168.65.1:34916 as auto-8E4A7A00-47CF-69D9-C31F-29F3EC9C40F7 (p2, c1, k60).
+1730536131: New connection from 172.21.0.7:44088 on port 1883.
+1730536131: New client connected from 172.21.0.7:44088 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730541113: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730541113: Client auto-7DC38C58-239E-D386-21A0-4EB1D87C6BA6 has exceeded timeout, disconnecting.
+1730541113: Client auto-122B3BB7-1544-AAF8-3B59-BF21108A2BA8 has exceeded timeout, disconnecting.
+1730541113: Client auto-B814A0D7-9668-2244-27F6-F0819DFE1D3C has exceeded timeout, disconnecting.
+1730541113: Client auto-301FB38E-BFDC-67F7-6062-6602ECBE01D8 has exceeded timeout, disconnecting.
+1730541113: Client auto-8E4A7A00-47CF-69D9-C31F-29F3EC9C40F7 has exceeded timeout, disconnecting.
+1730541113: Client SpringBootClient has exceeded timeout, disconnecting.
+1730541113: New connection from 192.168.65.1:34917 on port 1883.
+1730541113: New connection from 192.168.65.1:34918 on port 1883.
+1730541113: New connection from 192.168.65.1:34919 on port 1883.
+1730541113: New connection from 192.168.65.1:34921 on port 1883.
+1730541113: New connection from 192.168.65.1:34920 on port 1883.
+1730541114: Client <unknown> closed its connection.
+1730541114: Client <unknown> closed its connection.
+1730541114: Client <unknown> closed its connection.
+1730541114: Client <unknown> closed its connection.
+1730541114: Client <unknown> closed its connection.
+1730541114: New connection from 192.168.65.1:34922 on port 1883.
+1730541114: New connection from 192.168.65.1:34923 on port 1883.
+1730541114: New connection from 192.168.65.1:34925 on port 1883.
+1730541114: New connection from 192.168.65.1:34924 on port 1883.
+1730541114: New connection from 192.168.65.1:34926 on port 1883.
+1730541114: New client connected from 192.168.65.1:34922 as auto-323362A3-D82F-DCA3-8D98-80BFA149F3F6 (p2, c1, k60).
+1730541114: New client connected from 192.168.65.1:34923 as auto-3118F823-2A1D-420C-21D7-9195A0C405D0 (p2, c1, k60).
+1730541114: New client connected from 192.168.65.1:34925 as auto-095F8122-BAC0-DA31-13DD-000D5B674FD8 (p2, c1, k60).
+1730541114: New client connected from 192.168.65.1:34924 as auto-2359157D-DA2B-BE93-ACF3-6CF1D8C4CE7B (p2, c1, k60).
+1730541114: New client connected from 192.168.65.1:34926 as auto-05B18981-C04F-E1B8-770D-18339EB0F775 (p2, c1, k60).
+1730541114: New connection from 172.21.0.7:55216 on port 1883.
+1730541114: New client connected from 172.21.0.7:55216 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730545773: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730545773: Client auto-323362A3-D82F-DCA3-8D98-80BFA149F3F6 has exceeded timeout, disconnecting.
+1730545773: Client auto-3118F823-2A1D-420C-21D7-9195A0C405D0 has exceeded timeout, disconnecting.
+1730545773: Client auto-095F8122-BAC0-DA31-13DD-000D5B674FD8 has exceeded timeout, disconnecting.
+1730545773: Client auto-2359157D-DA2B-BE93-ACF3-6CF1D8C4CE7B has exceeded timeout, disconnecting.
+1730545773: Client auto-05B18981-C04F-E1B8-770D-18339EB0F775 has exceeded timeout, disconnecting.
+1730545773: Client SpringBootClient has exceeded timeout, disconnecting.
+1730545773: New connection from 192.168.65.1:34927 on port 1883.
+1730545773: New connection from 192.168.65.1:34928 on port 1883.
+1730545773: New connection from 192.168.65.1:34929 on port 1883.
+1730545773: New connection from 192.168.65.1:34930 on port 1883.
+1730545773: New connection from 192.168.65.1:34931 on port 1883.
+1730545774: Client <unknown> closed its connection.
+1730545774: New connection from 192.168.65.1:34932 on port 1883.
+1730545774: Client <unknown> closed its connection.
+1730545774: Client <unknown> closed its connection.
+1730545774: New client connected from 192.168.65.1:34932 as auto-F3ACEC8A-1A44-2B01-D4B3-4AEA6DFB58F5 (p2, c1, k60).
+1730545774: Client <unknown> closed its connection.
+1730545774: Client <unknown> closed its connection.
+1730545774: New connection from 192.168.65.1:34933 on port 1883.
+1730545774: New connection from 192.168.65.1:34934 on port 1883.
+1730545774: New connection from 192.168.65.1:34935 on port 1883.
+1730545774: New connection from 192.168.65.1:34936 on port 1883.
+1730545774: New client connected from 192.168.65.1:34933 as auto-F641C6A6-DD68-177B-1C6D-64CA56DFA0D9 (p2, c1, k60).
+1730545774: New client connected from 192.168.65.1:34934 as auto-5265005D-AA27-8724-C262-4C7037E7025A (p2, c1, k60).
+1730545774: New client connected from 192.168.65.1:34935 as auto-D1CBD73E-ACEC-95AF-3BD9-46360E69B8AF (p2, c1, k60).
+1730545774: New client connected from 192.168.65.1:34936 as auto-400E78A7-E3E9-8DC9-BA0A-ECE10D5B0F85 (p2, c1, k60).
+1730545774: New connection from 172.21.0.7:38428 on port 1883.
+1730545774: New client connected from 172.21.0.7:38428 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730550003: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730550003: Client auto-F3ACEC8A-1A44-2B01-D4B3-4AEA6DFB58F5 has exceeded timeout, disconnecting.
+1730550003: Client auto-F641C6A6-DD68-177B-1C6D-64CA56DFA0D9 has exceeded timeout, disconnecting.
+1730550003: Client auto-5265005D-AA27-8724-C262-4C7037E7025A has exceeded timeout, disconnecting.
+1730550003: Client auto-D1CBD73E-ACEC-95AF-3BD9-46360E69B8AF has exceeded timeout, disconnecting.
+1730550003: Client auto-400E78A7-E3E9-8DC9-BA0A-ECE10D5B0F85 has exceeded timeout, disconnecting.
+1730550003: Client SpringBootClient has exceeded timeout, disconnecting.
+1730550004: New connection from 192.168.65.1:34937 on port 1883.
+1730550004: New connection from 192.168.65.1:34938 on port 1883.
+1730550004: New connection from 192.168.65.1:34940 on port 1883.
+1730550004: New connection from 192.168.65.1:34941 on port 1883.
+1730550004: New connection from 192.168.65.1:34939 on port 1883.
+1730550005: New connection from 172.21.0.7:47554 on port 1883.
+1730550005: Client <unknown> closed its connection.
+1730550005: Client <unknown> closed its connection.
+1730550005: Client <unknown> closed its connection.
+1730550005: Client <unknown> closed its connection.
+1730550005: Client <unknown> closed its connection.
+1730550005: New connection from 192.168.65.1:34946 on port 1883.
+1730550005: New connection from 192.168.65.1:34943 on port 1883.
+1730550005: New connection from 192.168.65.1:34942 on port 1883.
+1730550005: New connection from 192.168.65.1:34945 on port 1883.
+1730550005: New connection from 192.168.65.1:34944 on port 1883.
+1730550005: New client connected from 192.168.65.1:34946 as auto-DF09DDD9-C342-06A2-54EF-4A22DACE478F (p2, c1, k60).
+1730550005: New client connected from 192.168.65.1:34943 as auto-6DD41C51-4069-0B28-976D-8FBAB70883AE (p2, c1, k60).
+1730550005: New client connected from 192.168.65.1:34942 as auto-2D45B1F2-5364-0148-9B21-2032561571C2 (p2, c1, k60).
+1730550005: New client connected from 192.168.65.1:34945 as auto-F02D3F4F-8F28-5E0F-BD9C-F4B35161262E (p2, c1, k60).
+1730550005: New client connected from 192.168.65.1:34944 as auto-C2060844-ED2D-1A79-F6FC-A39416C1DC7B (p2, c1, k60).
+1730550005: New client connected from 172.21.0.7:47554 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730551714: Client SpringBootClient has exceeded timeout, disconnecting.
+1730551714: Client auto-DF09DDD9-C342-06A2-54EF-4A22DACE478F has exceeded timeout, disconnecting.
+1730551714: Client auto-6DD41C51-4069-0B28-976D-8FBAB70883AE has exceeded timeout, disconnecting.
+1730551714: Client auto-2D45B1F2-5364-0148-9B21-2032561571C2 has exceeded timeout, disconnecting.
+1730551714: Client auto-F02D3F4F-8F28-5E0F-BD9C-F4B35161262E has exceeded timeout, disconnecting.
+1730551714: Client auto-C2060844-ED2D-1A79-F6FC-A39416C1DC7B has exceeded timeout, disconnecting.
+1730551714: New connection from 192.168.65.1:34948 on port 1883.
+1730551714: New connection from 192.168.65.1:34947 on port 1883.
+1730551714: New connection from 192.168.65.1:34950 on port 1883.
+1730551714: New connection from 192.168.65.1:34949 on port 1883.
+1730551714: New connection from 192.168.65.1:34951 on port 1883.
+1730551715: Client <unknown> closed its connection.
+1730551715: New connection from 192.168.65.1:34952 on port 1883.
+1730551715: New client connected from 192.168.65.1:34952 as auto-B923E096-2850-C9CF-52C3-C5767B4868B6 (p2, c1, k60).
+1730551715: Client <unknown> closed its connection.
+1730551715: New connection from 172.21.0.7:48696 on port 1883.
+1730551715: New connection from 192.168.65.1:34953 on port 1883.
+1730551715: New connection from 192.168.65.1:34954 on port 1883.
+1730551715: Client <unknown> closed its connection.
+1730551715: New client connected from 192.168.65.1:34953 as auto-C4794DEE-9FF2-93D0-F7F9-B82AA6F2D463 (p2, c1, k60).
+1730551715: New client connected from 192.168.65.1:34954 as auto-C431C6D2-EDE8-6F8A-ABB3-7E89C6237F65 (p2, c1, k60).
+1730551715: Client <unknown> closed its connection.
+1730551715: New connection from 192.168.65.1:34955 on port 1883.
+1730551715: New client connected from 192.168.65.1:34955 as auto-A817B5EE-0A99-B68B-E872-BC41DEED15AF (p2, c1, k60).
+1730551715: Client <unknown> closed its connection.
+1730551715: New connection from 192.168.65.1:34956 on port 1883.
+1730551715: New client connected from 192.168.65.1:34956 as auto-CFFD9F14-0DD8-1809-BDF7-3D59BEA68FDE (p2, c1, k60).
+1730551715: New client connected from 172.21.0.7:48696 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730551827: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730551827: Client SpringBootClient has exceeded timeout, disconnecting.
+1730551828: New connection from 172.21.0.7:48170 on port 1883.
+1730551828: New client connected from 172.21.0.7:48170 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730552924: Client auto-C4794DEE-9FF2-93D0-F7F9-B82AA6F2D463 has exceeded timeout, disconnecting.
+1730552924: Client auto-CFFD9F14-0DD8-1809-BDF7-3D59BEA68FDE has exceeded timeout, disconnecting.
+1730552924: Client SpringBootClient has exceeded timeout, disconnecting.
+1730552924: New connection from 192.168.65.1:34957 on port 1883.
+1730552924: New connection from 192.168.65.1:34958 on port 1883.
+1730552925: Client <unknown> closed its connection.
+1730552925: New connection from 192.168.65.1:34959 on port 1883.
+1730552925: New client connected from 192.168.65.1:34959 as auto-6C7BD784-3D7E-E199-1CAD-9C6C8CBB3E13 (p2, c1, k60).
+1730552925: Client <unknown> closed its connection.
+1730552925: New connection from 192.168.65.1:34960 on port 1883.
+1730552925: New client connected from 192.168.65.1:34960 as auto-0777A831-09B9-26E7-93A8-F869BD5F711B (p2, c1, k60).
+1730552925: New connection from 172.21.0.7:56432 on port 1883.
+1730552925: New client connected from 172.21.0.7:56432 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730558037: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730558037: Client auto-B923E096-2850-C9CF-52C3-C5767B4868B6 has exceeded timeout, disconnecting.
+1730558037: Client auto-C431C6D2-EDE8-6F8A-ABB3-7E89C6237F65 has exceeded timeout, disconnecting.
+1730558037: Client auto-A817B5EE-0A99-B68B-E872-BC41DEED15AF has exceeded timeout, disconnecting.
+1730558037: Client auto-6C7BD784-3D7E-E199-1CAD-9C6C8CBB3E13 has exceeded timeout, disconnecting.
+1730558037: Client auto-0777A831-09B9-26E7-93A8-F869BD5F711B has exceeded timeout, disconnecting.
+1730558037: Client SpringBootClient has exceeded timeout, disconnecting.
+1730558037: New connection from 192.168.65.1:34961 on port 1883.
+1730558037: New connection from 192.168.65.1:34962 on port 1883.
+1730558037: New connection from 192.168.65.1:34963 on port 1883.
+1730558037: New connection from 192.168.65.1:34964 on port 1883.
+1730558037: New connection from 192.168.65.1:34965 on port 1883.
+1730558038: Client <unknown> closed its connection.
+1730558038: Client <unknown> closed its connection.
+1730558038: New connection from 192.168.65.1:34966 on port 1883.
+1730558038: New connection from 192.168.65.1:34967 on port 1883.
+1730558038: New client connected from 192.168.65.1:34966 as auto-F0631F94-5940-C4AC-F46E-4EF43086C36B (p2, c1, k60).
+1730558038: New client connected from 192.168.65.1:34967 as auto-0A5BB9EB-846E-2613-E1CA-A68976342847 (p2, c1, k60).
+1730558038: Client <unknown> closed its connection.
+1730558038: Client <unknown> closed its connection.
+1730558038: Client <unknown> closed its connection.
+1730558038: New connection from 192.168.65.1:34968 on port 1883.
+1730558038: New connection from 192.168.65.1:34969 on port 1883.
+1730558038: New connection from 192.168.65.1:34970 on port 1883.
+1730558038: New client connected from 192.168.65.1:34968 as auto-BB42A285-2F27-65BD-B11F-4EA4C1885C35 (p2, c1, k60).
+1730558038: New client connected from 192.168.65.1:34969 as auto-CCB49E3B-0ADB-A083-EB96-29328B0CA2F0 (p2, c1, k60).
+1730558038: New client connected from 192.168.65.1:34970 as auto-D722A17B-A811-8390-E964-58463F0B14A5 (p2, c1, k60).
+1730558038: New connection from 172.21.0.7:35714 on port 1883.
+1730558038: New client connected from 172.21.0.7:35714 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730558839: Client auto-F0631F94-5940-C4AC-F46E-4EF43086C36B has exceeded timeout, disconnecting.
+1730558839: Client auto-0A5BB9EB-846E-2613-E1CA-A68976342847 has exceeded timeout, disconnecting.
+1730558839: Client auto-BB42A285-2F27-65BD-B11F-4EA4C1885C35 has exceeded timeout, disconnecting.
+1730558839: Client auto-CCB49E3B-0ADB-A083-EB96-29328B0CA2F0 has exceeded timeout, disconnecting.
+1730558839: Client auto-D722A17B-A811-8390-E964-58463F0B14A5 has exceeded timeout, disconnecting.
+1730558839: Client SpringBootClient has exceeded timeout, disconnecting.
+1730558839: New connection from 192.168.65.1:34972 on port 1883.
+1730558839: New connection from 192.168.65.1:34973 on port 1883.
+1730558839: New connection from 192.168.65.1:34975 on port 1883.
+1730558839: New connection from 192.168.65.1:34974 on port 1883.
+1730558839: New connection from 192.168.65.1:34971 on port 1883.
+1730558840: Client <unknown> closed its connection.
+1730558840: Client <unknown> closed its connection.
+1730558840: Client <unknown> closed its connection.
+1730558840: Client <unknown> closed its connection.
+1730558840: Client <unknown> closed its connection.
+1730558840: New connection from 192.168.65.1:34978 on port 1883.
+1730558840: New connection from 192.168.65.1:34976 on port 1883.
+1730558840: New connection from 192.168.65.1:34980 on port 1883.
+1730558840: New connection from 192.168.65.1:34977 on port 1883.
+1730558840: New connection from 192.168.65.1:34979 on port 1883.
+1730558840: New client connected from 192.168.65.1:34978 as auto-D35CD840-D779-4B9E-A155-02BB8A3D020F (p2, c1, k60).
+1730558840: New client connected from 192.168.65.1:34976 as auto-0F448535-0DC8-7FBB-D443-019B6C328EDF (p2, c1, k60).
+1730558840: New client connected from 192.168.65.1:34980 as auto-5BFCE309-CB69-28A7-6F2A-3ED42D340154 (p2, c1, k60).
+1730558840: New client connected from 192.168.65.1:34977 as auto-9F2A4570-A8F8-310B-CAD8-BEA3A5E7C0F6 (p2, c1, k60).
+1730558840: New client connected from 192.168.65.1:34979 as auto-58A4E019-F61F-0CC5-4DBB-008E4CE8F7CB (p2, c1, k60).
+1730558840: New connection from 172.21.0.7:52942 on port 1883.
+1730558840: New client connected from 172.21.0.7:52942 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730675527: mosquitto version 2.0.20 starting
+1730675527: Config loaded from /mosquitto/config/mosquitto.conf.
+1730675527: Opening ipv4 listen socket on port 1883.
+1730675527: Opening ipv6 listen socket on port 1883.
+1730675527: mosquitto version 2.0.20 running
+1730675536: mosquitto version 2.0.20 terminating
+1730675536: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730675537: mosquitto version 2.0.20 starting
+1730675537: Config loaded from /mosquitto/config/mosquitto.conf.
+1730675537: Opening ipv4 listen socket on port 1883.
+1730675537: Opening ipv6 listen socket on port 1883.
+1730675537: mosquitto version 2.0.20 running
+1730675561: New connection from 172.21.0.8:54568 on port 1883.
+1730675561: New client connected from 172.21.0.8:54568 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730675843: Client SpringBootClient disconnected.
+1730675849: New connection from 172.21.0.8:41284 on port 1883.
+1730675849: New client connected from 172.21.0.8:41284 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730675925: Client SpringBootClient disconnected.
+1730675931: New connection from 172.21.0.8:35334 on port 1883.
+1730675932: New client connected from 172.21.0.8:35334 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730675991: Client SpringBootClient disconnected.
+1730676019: New connection from 172.21.0.8:45584 on port 1883.
+1730676019: New client connected from 172.21.0.8:45584 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730676080: Client SpringBootClient disconnected.
+1730676087: New connection from 172.21.0.8:52866 on port 1883.
+1730676087: New client connected from 172.21.0.8:52866 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730676089: Client SpringBootClient disconnected.
+1730676095: New connection from 172.21.0.8:52878 on port 1883.
+1730676095: New client connected from 172.21.0.8:52878 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730676220: Client SpringBootClient disconnected.
+1730676226: New connection from 172.21.0.8:50750 on port 1883.
+1730676227: New client connected from 172.21.0.8:50750 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730677338: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730679139: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730680055: Client SpringBootClient has exceeded timeout, disconnecting.
+1730680056: New connection from 172.21.0.8:52904 on port 1883.
+1730680056: New client connected from 172.21.0.8:52904 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730680413: Client SpringBootClient has exceeded timeout, disconnecting.
+1730680414: New connection from 172.21.0.8:44920 on port 1883.
+1730680414: New client connected from 172.21.0.8:44920 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730680741: Client SpringBootClient has exceeded timeout, disconnecting.
+1730680742: New connection from 172.21.0.8:49082 on port 1883.
+1730680742: New client connected from 172.21.0.8:49082 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730681129: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730681129: Client SpringBootClient has exceeded timeout, disconnecting.
+1730681130: New connection from 172.21.0.8:58210 on port 1883.
+1730681130: New client connected from 172.21.0.8:58210 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730683320: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730683320: Client SpringBootClient has exceeded timeout, disconnecting.
+1730683321: New connection from 172.21.0.8:38312 on port 1883.
+1730683322: New client connected from 172.21.0.8:38312 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730683648: Client SpringBootClient has exceeded timeout, disconnecting.
+1730683649: New connection from 172.21.0.8:47704 on port 1883.
+1730683649: New client connected from 172.21.0.8:47704 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730684005: Client SpringBootClient has exceeded timeout, disconnecting.
+1730684006: New connection from 172.21.0.8:55488 on port 1883.
+1730684006: New client connected from 172.21.0.8:55488 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730684483: Client SpringBootClient has exceeded timeout, disconnecting.
+1730684484: New connection from 172.21.0.8:36178 on port 1883.
+1730684484: New client connected from 172.21.0.8:36178 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730684870: Client SpringBootClient has exceeded timeout, disconnecting.
+1730684871: New connection from 172.21.0.8:42510 on port 1883.
+1730684872: New client connected from 172.21.0.8:42510 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730685259: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730685259: Client SpringBootClient has exceeded timeout, disconnecting.
+1730685260: New connection from 172.21.0.8:38258 on port 1883.
+1730685261: New client connected from 172.21.0.8:38258 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730685588: Client SpringBootClient has exceeded timeout, disconnecting.
+1730685589: New connection from 172.21.0.8:36994 on port 1883.
+1730685589: New client connected from 172.21.0.8:36994 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730685946: Client SpringBootClient has exceeded timeout, disconnecting.
+1730685947: New connection from 172.21.0.8:57210 on port 1883.
+1730685948: New client connected from 172.21.0.8:57210 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730686605: Client SpringBootClient has exceeded timeout, disconnecting.
+1730686606: New connection from 172.21.0.8:54020 on port 1883.
+1730686606: New client connected from 172.21.0.8:54020 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730686993: Client SpringBootClient has exceeded timeout, disconnecting.
+1730686994: New connection from 172.21.0.8:50610 on port 1883.
+1730686994: New client connected from 172.21.0.8:50610 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730687060: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730688861: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730690662: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730692463: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730694264: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730695708: Client SpringBootClient has exceeded timeout, disconnecting.
+1730695709: New connection from 172.21.0.8:38664 on port 1883.
+1730695710: New client connected from 172.21.0.8:38664 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730696065: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730698047: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730698047: Client SpringBootClient has exceeded timeout, disconnecting.
+1730698048: New connection from 172.21.0.8:41142 on port 1883.
+1730698048: New client connected from 172.21.0.8:41142 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730698405: Client SpringBootClient has exceeded timeout, disconnecting.
+1730698406: New connection from 172.21.0.8:37900 on port 1883.
+1730698406: New client connected from 172.21.0.8:37900 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730698483: Client SpringBootClient has exceeded timeout, disconnecting.
+1730698484: New connection from 172.21.0.8:52802 on port 1883.
+1730698485: New client connected from 172.21.0.8:52802 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730699797: Client SpringBootClient has exceeded timeout, disconnecting.
+1730699798: New connection from 172.21.0.8:36506 on port 1883.
+1730699798: New client connected from 172.21.0.8:36506 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730699848: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730701649: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730706219: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730706219: Client SpringBootClient has exceeded timeout, disconnecting.
+1730706220: New connection from 172.21.0.8:42226 on port 1883.
+1730706220: New client connected from 172.21.0.8:42226 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730710268: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730710268: Client SpringBootClient has exceeded timeout, disconnecting.
+1730710269: New connection from 172.21.0.8:55578 on port 1883.
+1730710270: New client connected from 172.21.0.8:55578 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730713213: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730713213: Client SpringBootClient has exceeded timeout, disconnecting.
+1730713214: New connection from 172.21.0.8:60300 on port 1883.
+1730713214: New client connected from 172.21.0.8:60300 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730718025: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730718025: Client SpringBootClient has exceeded timeout, disconnecting.
+1730718026: New connection from 172.21.0.8:44110 on port 1883.
+1730718026: New client connected from 172.21.0.8:44110 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730724033: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730724033: Client SpringBootClient has exceeded timeout, disconnecting.
+1730724034: New connection from 172.21.0.8:34380 on port 1883.
+1730724034: New client connected from 172.21.0.8:34380 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730724894: Client SpringBootClient has exceeded timeout, disconnecting.
+1730724895: New connection from 172.21.0.8:47992 on port 1883.
+1730724896: New client connected from 172.21.0.8:47992 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730725834: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730727635: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730729436: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730731237: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730733038: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730734839: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730736640: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730738441: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730740242: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730742043: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730743547: Client SpringBootClient has exceeded timeout, disconnecting.
+1730743549: New connection from 172.21.0.8:40198 on port 1883.
+1730743549: New client connected from 172.21.0.8:40198 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730745498: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730745498: Client SpringBootClient has exceeded timeout, disconnecting.
+1730745499: New connection from 172.21.0.8:46098 on port 1883.
+1730745499: New client connected from 172.21.0.8:46098 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730750705: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730750705: Client SpringBootClient has exceeded timeout, disconnecting.
+1730750706: New connection from 172.21.0.8:36552 on port 1883.
+1730750707: New client connected from 172.21.0.8:36552 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730756367: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730756367: Client SpringBootClient has exceeded timeout, disconnecting.
+1730756368: New connection from 172.21.0.8:43848 on port 1883.
+1730756369: New client connected from 172.21.0.8:43848 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730761211: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730761211: Client SpringBootClient has exceeded timeout, disconnecting.
+1730761212: New connection from 172.21.0.8:37100 on port 1883.
+1730761212: New client connected from 172.21.0.8:37100 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730767034: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730767034: Client SpringBootClient has exceeded timeout, disconnecting.
+1730767035: New connection from 172.21.0.8:36012 on port 1883.
+1730767035: New client connected from 172.21.0.8:36012 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730771751: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730771751: Client SpringBootClient has exceeded timeout, disconnecting.
+1730771752: New connection from 172.21.0.8:58042 on port 1883.
+1730771753: New client connected from 172.21.0.8:58042 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730773801: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730773801: Client SpringBootClient has exceeded timeout, disconnecting.
+1730773802: New connection from 172.21.0.8:55464 on port 1883.
+1730773803: New client connected from 172.21.0.8:55464 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730777763: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730777763: Client SpringBootClient has exceeded timeout, disconnecting.
+1730777765: New connection from 172.21.0.8:36594 on port 1883.
+1730777765: New client connected from 172.21.0.8:36594 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730781221: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730781221: Client SpringBootClient has exceeded timeout, disconnecting.
+1730781222: New connection from 172.21.0.8:39402 on port 1883.
+1730781223: New client connected from 172.21.0.8:39402 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730784313: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730784313: Client SpringBootClient has exceeded timeout, disconnecting.
+1730784314: New connection from 172.21.0.8:45186 on port 1883.
+1730784314: New client connected from 172.21.0.8:45186 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730790108: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730790108: Client SpringBootClient has exceeded timeout, disconnecting.
+1730790109: New connection from 172.21.0.8:35198 on port 1883.
+1730790109: New client connected from 172.21.0.8:35198 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730794989: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730794989: Client SpringBootClient has exceeded timeout, disconnecting.
+1730794990: New connection from 172.21.0.8:41914 on port 1883.
+1730794990: New client connected from 172.21.0.8:41914 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730800955: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730800955: Client SpringBootClient has exceeded timeout, disconnecting.
+1730800956: New connection from 172.21.0.8:42872 on port 1883.
+1730800957: New client connected from 172.21.0.8:42872 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730805456: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730805456: Client SpringBootClient has exceeded timeout, disconnecting.
+1730805457: New connection from 172.21.0.8:46624 on port 1883.
+1730805457: New client connected from 172.21.0.8:46624 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730808105: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730808105: Client SpringBootClient has exceeded timeout, disconnecting.
+1730808106: New connection from 172.21.0.8:57138 on port 1883.
+1730808106: New client connected from 172.21.0.8:57138 as SpringBootClient (p2, c1, k20, u'alejandro').
+1730809906: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730811707: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730812456: Client SpringBootClient disconnected.
+1730812463: mosquitto version 2.0.20 terminating
+1730812463: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1730812469: mosquitto version 2.0.20 starting
+1730812469: Config loaded from /mosquitto/config/mosquitto.conf.
+1730812469: Opening ipv4 listen socket on port 1883.
+1730812469: Opening ipv6 listen socket on port 1883.
+1730812469: mosquitto version 2.0.20 running
+1730812486: New connection from 172.21.0.7:46830 on port 1883.
+1730812486: New client connected from 172.21.0.7:46830 as SpringBootClient (p2, c1, k20, u'alejandro').

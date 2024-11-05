@@ -3,6 +3,7 @@ package com.tpi.server.application.services.deviceConfiguration;
 import com.tpi.server.domain.enums.AlertType;
 import com.tpi.server.domain.interfaces.IConfigurationService;
 import com.tpi.server.domain.models.DeviceConfiguration;
+import com.tpi.server.infrastructure.exceptions.AlertTypeNotFoundException;
 import com.tpi.server.infrastructure.repositories.DeviceConfigurationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class ConfigurationServiceImpl implements IConfigurationService {
             case HighTemperature -> deviceConfig.isHighTemperatureActive();
             case HighHumidity -> deviceConfig.isHighHumidityActive();
             case LostDevice -> deviceConfig.isLostDeviceActive();
-            default -> throw new IllegalArgumentException("Tipo de alerta no reconocido: " + alertType);
+            default -> throw new AlertTypeNotFoundException(alertType);
         };
     }
 }
