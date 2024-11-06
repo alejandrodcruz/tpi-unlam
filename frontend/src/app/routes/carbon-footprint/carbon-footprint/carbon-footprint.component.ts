@@ -121,7 +121,7 @@ getTotalCo2(): void {
 
   if (userId !== null) {
     // Obtener datos del mes actual
-    this.carbonServ.getTotalKwhRealTime(userId, startTimeCurrentMonth)
+    this.carbonServ.getTotalKwhRealTime()
       .subscribe(
         (data: TotalEnergy) => {
           const totalKwh = data.totalEnergy;

@@ -35,13 +35,34 @@ public class EmailServiceImpl implements IEmailService {
 
             Context context = new Context();
             context.setVariable("message", emailDTO.getBody());
-            String contentHtml = templateEngine.process("email", context);
+            String contentHtml = templateEngine.process("code-email", context);
 
             mimeMessageHelper.setText(contentHtml, true);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
             throw new RuntimeException("Error al enviar mail", e);
         }
+    }
 
+    public void sendAlertEmail(EmailRequest emailDTO) throws MessagingException {
+        try {
+            MimeMessage mimeMessage =
+                    mailSender.createMimeMessage();
+
+            MimeMessageHelper mimeMessageHelper =
+                    new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            mimeMessageHelper.setTo("nicolas.larsen96@gmail.com");
+            mimeMessageHelper.setSubject(emailDTO.getSubject());
+
+            Context context = new Context();
+            context.setVariable("message", emailDTO.getBody());
+            String contentHtml = templateEngine.process("alert-email", context);
+
+            mimeMessageHelper.setText(contentHtml, true);
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Error al enviar mail", e);
+        }
     }
 }

@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
@@ -28,28 +27,27 @@ public class GetTotalEnergyConsumptionUseCase {
     private final DeviceRepository deviceRepository;
     private final SimpMessagingTemplate messagingTemplate;
 
+    private Integer userId;
+    private String startTime;
+    private String endTime;
+    private String deviceId;
+
+    public void startEnergyWS(Integer userId, String startTime, String endTime, String deviceId) {
+        this.userId = userId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.deviceId = deviceId;
+    }
+
     @Scheduled(fixedRate = 5000)
-    public void sendTotalEnergyConsumption() {
-
-        Integer userId = 1;
-        String startTime = new Date().toString();
-        String endTime = new Date().toString();
-        String deviceId = "blah";
-
-        //TotalEnergyDetailedResponse data = execute(userId, startTime, endTime, deviceId);
-
-        //messagingTemplate.convertAndSend("/topic/consume", data);
+    public void startEnergySendTotalEnergyConsumptionWS() {
+        if (userId == null || startTime == null || endTime == null) {
+            return;
+        }
+        TotalEnergyDetailedResponse data = execute(userId, startTime, endTime, deviceId);
+        messagingTemplate.convertAndSend("/topic/consume", data);
     }
 
-    public GetTotalEnergyConsumptionUseCase(MeasurementRepository measurementRepository,
-                                            UserRepository userRepository,
-                                            DeviceRepository deviceRepository) {
-        this.measurementRepository = measurementRepository;
-        this.userRepository = userRepository;
-        this.deviceRepository = deviceRepository;
-    }
-
-    @Transactional
     public TotalEnergyDetailedResponse execute(Integer userId, String startTime, String endTime, String deviceId) {
 
         validateTimeRange(startTime, endTime);

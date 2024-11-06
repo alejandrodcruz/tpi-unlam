@@ -5,8 +5,10 @@ import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +19,36 @@ public class GetUserMeasurementsUseCase {
 
     private final MeasurementRepository measurementRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public GetUserMeasurementsUseCase(MeasurementRepository measurementRepository, UserRepository userRepository) {
+    @Autowired
+    public GetUserMeasurementsUseCase(MeasurementRepository measurementRepository, UserRepository userRepository, SimpMessagingTemplate messagingTemplate) {
         this.measurementRepository = measurementRepository;
         this.userRepository = userRepository;
+        this.messagingTemplate = messagingTemplate;
     }
 
-    @Transactional
+    private Integer userId;
+    private List<String> fields;
+    private String timeRange;
+    private String deviceId;
+
+    public void startWS(Integer userId, List<String> fields, String timeRange, String deviceId) {
+        this.userId = userId;
+        this.fields = fields;
+        this.timeRange = timeRange;
+        this.deviceId = deviceId;
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void startMeasurentsWS() {
+        if (userId == null || fields == null || timeRange == null) {
+            return;
+        }
+        List<Measurement> data = execute(userId, fields, timeRange, deviceId);
+        messagingTemplate.convertAndSend("/topic/measurements", data);
+    }
+
     public List<Measurement> execute(Integer userId, List<String> fields, String timeRange, String deviceId) {
 
         User user = userRepository.findById(userId).orElse(null);

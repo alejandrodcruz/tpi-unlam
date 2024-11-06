@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
-import { interval, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UserService } from './user.service';
+import {WebSocketService} from "./web-socket.service";
 
 
 
@@ -20,14 +21,34 @@ export class CarbonService {
 
   private selectedDevice: string | null = null;
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(private http: HttpClient,
+              private userService: UserService,
+              private webSocketService: WebSocketService) {
 
     this.userService.selectedDevice$.subscribe(deviceId => {
       this.selectedDevice = deviceId;
     });
 
   }
-  
+
+  startEnergyUpdates(userId: number, startTime: Date): Observable<void> {
+    const params = new HttpParams()
+      .set('userId', userId.toString())
+      .set('startTime', startTime.toISOString())
+      .set('endTime', new Date().toISOString())
+      .set('deviceId', this.selectedDevice || '');
+
+    return this.http.post<void>(`${this.apiUrl}/start-energy`, {}, { params });
+  }
+
+  getTotalKwhRealTime(): Observable<TotalEnergy> {
+    return this.webSocketService.listenConsumeTopic().pipe(
+      map((message: any) => {
+        return JSON.parse(message.body) as TotalEnergy;
+      })
+    );
+  }
+
   getTotalKwh(userId: number, startTime: Date, endTime: Date, deviceId: string = this.selectedDevice || ''): Observable<TotalEnergy> {
     let params = new HttpParams()
       .set('userId', userId.toString())
@@ -40,15 +61,6 @@ export class CarbonService {
 
     return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
 
-  }
-
-  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {
-    return interval(pollingInterval).pipe(
-      switchMap(() => {
-        const endTime = new Date(); // Actualizar endTime aquí
-        return this.getTotalKwh(userId, startTime, endTime);
-      })
-    );
   }
 
 }

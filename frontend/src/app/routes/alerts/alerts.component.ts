@@ -49,7 +49,7 @@ export class AlertsComponent implements OnInit {
       this.loadAlerts();
     });
 
-    this.webSocketService.listenTopic().subscribe(() => {
+    this.webSocketService.listenAlertsTopic().subscribe(() => {
       this.loadAlerts();
     });
   }

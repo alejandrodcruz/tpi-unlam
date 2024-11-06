@@ -5,7 +5,7 @@ import { Measurement, MeasurementsService } from '../../shared/services/measurem
 import { AuthService } from '../../shared/services/auth.service';
 import { Subscription } from 'rxjs';
 import { CarbonService } from '../../shared/services/carbon.service';
-import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
+import {WebSocketService} from "../../shared/services/web-socket.service";
 @Component({
   selector: 'app-card-real-time',
   standalone: true,
@@ -26,7 +26,6 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   horaActual!: Date;
   private horaSubscription!: Subscription;
   private measurementsServiceSubscription!: Subscription;
-  private consumoSubscription!: Subscription;
   currentDate = new Date();
 
   @Input() iconClasses: string = '';
@@ -42,13 +41,13 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   @Input() humidity: number = 0;
   @Input() consumo: number = 0;
   public tipoDato: string="";
-  public totalEnergy: any;
 
   constructor(
               private measurementsService: MeasurementsService,
               private authService: AuthService,
               private currenttimeService: CurrenttimeService,
-              private carbonService: CarbonService) {}
+              private carbonService: CarbonService,
+              private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
 
@@ -61,19 +60,16 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
 
     if (this.titleCard === 'Consumo') {
       this.tipoDato = 'energy';
-      this.getkwhConsumo();
+      this.getkwhConsume();
     }
-
 
   }
 
   getMeasurements() {
     const userId = this.authService.getUserId();
-    const fields = ['humidity', 'temperature', 'timestamp', 'energy']; //campos espesificos
-    const timeRange = '10s';
 
     if (userId !== null) {
-      this.measurementsServiceSubscription = this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
+      this.measurementsServiceSubscription = this.measurementsService.getUserMeasurementsRealTime()
         .subscribe(
           (data) => {
             this.measurements = data;
@@ -115,22 +111,19 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
     );
   }
 
-  getkwhConsumo(): void {
+  getkwhConsume(): void {
     const userId = this.authService.getUserId();
     const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
     const startTimeCurrentMonth = new Date(FirstDayOfCurrentMonth);
-
     if (userId !== null) {
-      this.consumoSubscription = this.carbonService.getTotalKwhRealTime(userId, startTimeCurrentMonth)
-        .subscribe(
-          (data: TotalEnergy) => {
-            this.consumo = data.energyCost;
-            this.dataCardProgress = data.energyCost;
-          },
-          (error) => {
-            console.error('Error al obtener el total de CO₂:', error);
-          }
-        );
+      this.carbonService.startEnergyUpdates(userId, startTimeCurrentMonth)
+        .subscribe(() => {
+          this.webSocketService.listenConsumeTopic().subscribe((message: any) => {
+            const wsData = JSON.parse(message.body);
+            this.consumo = wsData.energyCost;
+            this.dataCardProgress = wsData.energyCost;
+          })
+        });
     }
   }
 
@@ -150,9 +143,6 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
     }
     if (this.measurementsServiceSubscription) {
       this.measurementsServiceSubscription.unsubscribe();
-    }
-    if (this.consumoSubscription) {
-      this.consumoSubscription.unsubscribe();
     }
   }
 }

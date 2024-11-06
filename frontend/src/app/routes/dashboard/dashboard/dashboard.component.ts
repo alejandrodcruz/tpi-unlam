@@ -97,26 +97,25 @@ export class DashboardComponent implements OnInit {
 
   getMeasurements() {
     const userId = this.authService.getUserId();
-    const fields = ['voltage', 'current', 'power', 'energy']; //campos espesificos
-    const timeRange = '10s';
 
     if (userId !== null) {
-      this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
-        .subscribe(
-          (data) => {
-            this.measurements = data;
-            if (data.length > 0) {
-              // Asignar los valores de las mediciones al componente
-            this.voltage = parseFloat(data[0].voltage.toFixed(2));
-            this.current = parseFloat(data[0].current.toFixed(2));
-            this.power = parseFloat(data[0].power.toFixed(2));
-            this.energy = parseFloat(data[0].energy.toFixed(2));
+      this.measurementsService.startMeasurentsUpdates(userId).subscribe(() => {
+        this.measurementsService.getUserMeasurementsRealTime()
+          .subscribe(
+            (data) => {
+              this.measurements = data;
+              if (data.length > 0) {
+                this.voltage = parseFloat(data[0].voltage.toFixed(2));
+                this.current = parseFloat(data[0].current.toFixed(2));
+                this.power = parseFloat(data[0].power.toFixed(2));
+                this.energy = parseFloat(data[0].energy.toFixed(2));
+              }
+            },
+            (error) => {
+              console.error('Error al obtener las mediciones', error);
             }
-          },
-          (error) => {
-            console.error('Error al obtener las mediciones', error);
-          }
-        );
+          );
+      })
     } else {
       console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
     }

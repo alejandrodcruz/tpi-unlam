@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {interval, map, Observable, switchMap} from 'rxjs';
+import { map, Observable } from 'rxjs';
+import {WebSocketService} from "./web-socket.service";
 
 export interface Measurement {
   deviceId: string;
@@ -20,27 +21,12 @@ export class MeasurementsService {
   private apiUrl = 'http://localhost:8080/measurements';
   private deviceId: string | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private webSocketService: WebSocketService) {
   }
 
   setDeviceId(deviceId: string) {
     this.deviceId = deviceId;
-  }
-
-  getDeviceId(): string | null {
-    return this.deviceId;
-  }
-
-  getUserMeasurements(userId: number, fields: string[], timeRange: string = '1h'): Observable<Measurement[]> {
-    let params = new HttpParams()
-      .set('userId', userId)
-      .set('fields', fields.join(','))
-      .set('timeRange', timeRange);
-
-      if (this.deviceId) {
-        params = params.set('deviceId', this.deviceId);
-      }
-    return this.http.get<Measurement[]>(this.apiUrl, {params});
   }
 
   getTotalEnergy(userId: number, fields: string[], timeRange: string = '1h'): Observable<number> {
@@ -60,9 +46,25 @@ export class MeasurementsService {
     );
   }
 
-  getUserMeasurementsRealTime(userId: number, fields: string[], timeRange: string = '1h', pollingInterval: number = 5000): Observable<Measurement[]> {
-    return interval(pollingInterval).pipe(
-      switchMap(() => this.getUserMeasurements(userId, fields, timeRange))
-    );
+  startMeasurentsUpdates(userId: number): Observable<void> {
+    const fields = ['voltage', 'current', 'power', 'energy'];
+    const timeRange = '10s';
+
+    let params = new HttpParams()
+      .set('userId', userId)
+      .set('fields', fields.join(','))
+      .set('timeRange', timeRange)
+      .set('deviceId', this.deviceId || '');
+
+
+    return this.http.post<void>(`${this.apiUrl}/start-measurements`, {}, { params });
+  }
+
+  getUserMeasurementsRealTime(): Observable<Measurement[]> {
+      return this.webSocketService.listenMeasurentsTopic().pipe(
+        map((message: any) => {
+          return JSON.parse(message.body) as Measurement[];
+        })
+      );
   }
 }

@@ -2,11 +2,13 @@ package com.tpi.server.application.usecases.alert;
 
 import com.tpi.server.application.usecases.mailer.EmailServiceImpl;
 import com.tpi.server.domain.models.Alert;
+import com.tpi.server.domain.models.Device;
 import com.tpi.server.infrastructure.dtos.AlertDTO;
 import com.tpi.server.infrastructure.dtos.AlertResponse;
 import com.tpi.server.infrastructure.dtos.EmailRequest;
 import com.tpi.server.infrastructure.exceptions.AlertNotFoundException;
 import com.tpi.server.infrastructure.repositories.AlertRepository;
+import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.utils.AlertMessageUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,6 +31,8 @@ public class AlertUseCase {
     private final SimpMessagingTemplate messagingTemplate;
 
     private final AlertRepository alertRepository;
+
+    private final DeviceRepository deviceRepository;
 
     @Autowired
     private final EmailServiceImpl emailService;
@@ -56,10 +60,10 @@ public class AlertUseCase {
             // Establecer mensaje y enviar a través del WebSocket
             alertData.setMessage(AlertMessageUtils.getAlertMessage(alertData.getType()));
             messagingTemplate.convertAndSend("/topic/alerts", alertData);
-            emailService.sendEmail(EmailRequest.builder()
-                    .destination(getEmail())
-                    .subject("Alaerta dectada")
-                    .body(alertData.getMessage())
+            emailService.sendAlertEmail(EmailRequest.builder()
+                    .destination(getEmail(alertData.getDeviceId()))
+                    .subject("Lytics. "+ alertData.getName() + " nueva alerta detectada.")
+                    .body(alertData.getName() + ". " + alertData.getMessage())
                     .build());
         } catch (Exception e) {
             logger.error("Error al guardar la alerta: {}", alertData);
@@ -68,8 +72,9 @@ public class AlertUseCase {
     }
 
     //todo get user email
-    private String getEmail() {
-        return "nicolas.larsen96@gmail.com";
+    private String getEmail(String deviceId) {
+        Device device = deviceRepository.findDeviceByDeviceId(deviceId);
+        return device.getUser().getEmail();
     }
 
 
@@ -92,7 +97,7 @@ public class AlertUseCase {
                 .type(alert.getType())
                 .alertMessage(AlertMessageUtils.getAlertMessage(alert.getType()))
                 .value(alert.getValue())
-                .date(new Date())
+                .date(alert.getDate())
                 .name(alert.getName())
                 .build();
     }
