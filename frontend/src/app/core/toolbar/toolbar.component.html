@@ -41,14 +41,14 @@
   </div>
 
     <div class="flex items-center space-x-4">
-    <a [routerLink]="['alerts']" class="relative">
+    <!--<a [routerLink]="['alerts']" class="relative">
       <button class="btn btn-ghost relative">
         <i class="fa-xl text-red-600 fa-solid fa-bell"></i>
       </button>
-    </a>
+     </a>-->
 
     <div class="relative p-2">
-      <button class="flex items-center space-x-2">
+      <button class="flex items-center space-x-3">
         <div class="avatar placeholder">
           <div *ngIf="user$ | async as user" class="bg-neutral text-neutral-content w-8 rounded-full">
             <span class="text-3xl">{{ getFirstLetterInUppercase(user.username) }}</span>
