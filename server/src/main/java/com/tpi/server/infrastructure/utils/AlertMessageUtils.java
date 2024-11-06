@@ -8,8 +8,8 @@ public class AlertMessageUtils {
             case EnergyLoss -> "Interrupción total del suministro eléctrico.";
             case HighConsumption -> "Exceso de consumo.";
             case LostDevice -> "Pérdida de conexión con el dispositivo.";
-            case LowTension -> "Baja de tension, el voltaje en la red es inferior al rango normal.";
-            case HighTension -> "Alta tension, el voltaje en la red es superior al rango normal.";
+            case LowTension -> "Baja de tensión, el voltaje en la red es inferior al rango normal.";
+            case HighTension -> "Alta tensión, el voltaje en la red es superior al rango normal.";
             case HighHumidity -> "Humedad alta.";
             case PeakPowerCurrent -> "Detectamos un pico de Corriente.";
             case HighTemperature -> "Detectamos alta temperatura.";

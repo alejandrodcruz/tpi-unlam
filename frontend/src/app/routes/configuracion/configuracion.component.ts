@@ -135,7 +135,7 @@ export class ConfiguracionComponent implements OnInit {
       const device = devices.find(d => d.deviceId === this.deviceId);
       if (device) {
         this.deviceName = device.name;
-        this.title = "Selecciona la configuracion para " + this.deviceName;
+        this.title = "Selecciona la configuración para " + this.deviceName;
       } else {
         console.warn('Dispositivo no encontrado');
       }
