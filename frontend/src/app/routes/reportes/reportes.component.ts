@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
 import { FormsModule } from "@angular/forms";
-import {NgClass, NgFor, NgIf} from "@angular/common";
+import {DecimalPipe, NgClass, NgFor, NgIf} from "@angular/common";
 import { PanelTitleComponent } from "../panel-title/panel-title.component";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import {ConsumptionService, DeviceDetail} from "../../shared/services/consumption.service";
 import {AuthService} from "../../shared/services/auth.service";
+import {UserService} from "../../shared/services/user.service";
 
 
 @Component({
@@ -19,25 +20,29 @@ import {AuthService} from "../../shared/services/auth.service";
     NgClass,
     NgIf,
     NgFor,
-    PanelTitleComponent
+    PanelTitleComponent,
+    DecimalPipe
   ],
   styleUrls: ['./reportes.component.css']
 })
 export class ReportesComponent {
+  private selectedDevice: string | null = null;
   selectedType: string  = 'Consumo';
   startTime: Date = new Date();
   endTime: Date = new Date()
   userId: number | null = 0;
   data: DeviceDetail[] = [];
   errorMessage: string | null = null;
+  devices: string[] =[];
 
   constructor(private consumptionService: ConsumptionService,
-              private authService: AuthService) {}
-
-  setSelectedType(type: string): void {
-    this.selectedType = type;
-    this.errorMessage = null;
+              private authService: AuthService, private userService: UserService) {
+    this.userService.selectedDevice$.subscribe((deviceId) => {
+      this.selectedDevice = deviceId;
+    });
   }
+
+
 
   generateReporteDatos(): void {
     this.userId = this.authService.getUserId();
@@ -53,10 +58,14 @@ export class ReportesComponent {
       if (!(this.endTime instanceof Date)) {
         this.endTime = new Date(this.endTime);
       }
-      this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime )
-        .subscribe(database => {
-          this.data = database.devicesDetails;
+      const deviceId = this.selectedDevice ?? undefined;
 
+      this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime)
+        .subscribe(response => {
+
+
+          this.data = response.devicesDetails;
+          console.log("Contenido de data:", JSON.stringify(this.data, null, 2));
           this.errorMessage = null;
         }, error => {
           this.errorMessage = "Error al obtener los datos";

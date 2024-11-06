@@ -25,8 +25,8 @@
     <tr *ngFor="let dato of data" class="hover:bg-gray-100 transition-colors">
       <td class="border border-gray-300 p-4 text-center">{{ dato.deviceId }}</td>
       <td class="border border-gray-300 p-4 text-center">{{ dato.name }}</td>
-      <td class="border border-gray-300 p-4 text-center">{{ dato.totalEnergy }} Kwh</td>
-      <td class="border border-gray-300 p-4 text-center">{{ dato.energyCost }} $</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.totalEnergy | number:'1.2-2' }} Kwh</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.energyCost | number:'1.2-2' }} $</td>
     </tr>
     </tbody>
   </table>
