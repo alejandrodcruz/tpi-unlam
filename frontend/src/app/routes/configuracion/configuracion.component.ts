@@ -127,29 +127,29 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Obtiene el deviceId desde el parámetro de la URL
-    this.deviceSelectId = this.route.snapshot.paramMap.get('deviceId') || '';
-    console.log('Device ID desde URL:', this.deviceSelectId);
+    this.userService.selectedDevice$.subscribe(() => {
+      this.deviceId = this.route.snapshot.paramMap.get('deviceId') || '';
+      this.title = "Selecciona la configuracion para " + this.deviceId;
+      console.log("deviceid", this.deviceId);
+    });
 
-    // Establece el título con el deviceId
-    this.title = "Selecciona la configuración para " + this.deviceSelectId;
+    this.userService.selectedDeviceName$.subscribe(() => {
+      this.deviceName = this.userService.getSelectedDeviceName();
+      this.title = "Selecciona la configuracion para " + this.deviceName;
+    });
 
-    // Carga las configuraciones del dispositivo usando el deviceId
-    this.configurationService.getAlertSettings(this.deviceSelectId).subscribe((response) => {
+    this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
       this.alertSettings = { ...this.alertSettings, ...response };
-      console.log("Configuración cargada para el dispositivo:", this.alertSettings);
     });
   }
 
   onAlertChange() {
-    this.alertSettings.deviceId = this.deviceSelectId || '';  // Asegúrate de usar deviceSelectId
+    this.alertSettings.deviceId = this.deviceId
     this.configurationService.updateAlertSettings(this.alertSettings).subscribe((response: any) => {
       console.log('Configuración de alertas actualizada:', response);
     });
   }
-
   goBack(): void {
     this.location.back();
   }
-
 }
