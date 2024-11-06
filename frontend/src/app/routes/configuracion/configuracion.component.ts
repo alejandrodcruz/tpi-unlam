@@ -5,7 +5,7 @@ import {RouterLink} from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import {PanelTitleComponent} from "../panel-title/panel-title.component";
 import { ConfigurationService } from '../../shared/services/configuration.service';
-import {UserService} from "../../shared/services/user.service";
+import {Device, UserService} from "../../shared/services/user.service";
 import { Location } from '@angular/common';
 
 @Component({
@@ -129,13 +129,16 @@ export class ConfiguracionComponent implements OnInit {
   ngOnInit(): void {
     this.userService.selectedDevice$.subscribe(() => {
       this.deviceId = this.route.snapshot.paramMap.get('deviceId') || '';
-      this.title = "Selecciona la configuracion para " + this.deviceId;
-      console.log("deviceid", this.deviceId);
     });
 
-    this.userService.selectedDeviceName$.subscribe(() => {
-      this.deviceName = this.userService.getSelectedDeviceName();
-      this.title = "Selecciona la configuracion para " + this.deviceName;
+    this.userService.getUserDevices().subscribe((devices: Device[]) => {
+      const device = devices.find(d => d.deviceId === this.deviceId);
+      if (device) {
+        this.deviceName = device.name;
+        this.title = "Selecciona la configuracion para " + this.deviceName;
+      } else {
+        console.warn('Dispositivo no encontrado');
+      }
     });
 
     this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
