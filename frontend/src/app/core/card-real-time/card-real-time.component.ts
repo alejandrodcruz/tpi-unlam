@@ -59,7 +59,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
       this.getHoraActual();
     }
 
-    if (this.titleCard === 'Consumo') {
+    if (this.titleCard === 'Consumo Mensual') {
       this.tipoDato = 'energy';
       this.getkwhConsumo();
     }
