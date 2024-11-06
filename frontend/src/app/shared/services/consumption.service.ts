@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { Observable, of, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 
 export interface DeviceDetail {
   deviceId: string;
@@ -74,19 +74,21 @@ getPreviousMonthConsumption(userId: number, deviceId: string): Observable<number
   );
 }
 
-// Proyección para el mes actual
+// Proyección para el mes actual usando el consumo del último día
 getProjectedCurrentMonthConsumption(userId: number, deviceId: string): Observable<number> {
-  const endTime = new Date();
-  const startTime = new Date(endTime.getFullYear(), endTime.getMonth(), 1); // Primer día del mes actual
-  const daysInMonth = new Date(endTime.getFullYear(), endTime.getMonth() + 1, 0).getDate();
-  const daysElapsed = endTime.getDate();
+  const today = new Date();
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+  const daysElapsed = today.getDate();
+  const daysRemaining = daysInMonth - daysElapsed;
 
-  return this.getTotalKwhAndConsumption(userId, startTime, endTime, deviceId).pipe(
-    switchMap(response => {
-      const projectedConsumption = (response.energyCost / daysElapsed) * daysInMonth;
-      return of(projectedConsumption);
+  return forkJoin({
+    currentMonthConsumption: this.getCurrentMonthConsumption(userId, deviceId),
+    lastDayConsumption: this.getLastDayConsumption(userId, deviceId)
+  }).pipe(
+    map(({ currentMonthConsumption, lastDayConsumption }) => {
+      const projectedConsumption = currentMonthConsumption + (lastDayConsumption * daysRemaining);
+      return projectedConsumption;
     })
   );
 }
-
 }

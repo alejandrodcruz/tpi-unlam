@@ -10,10 +10,13 @@ export interface Device {
   assigned: true;
   name: string;
 
-  lastDayConsumption?: number; // Consumo del último día
-  currentMonthConsumption?: number; // Consumo del mes actual
-  previousMonthConsumption?: number; // Consumo del mes anterior
+  lastDayConsumption?: number;
+  currentMonthConsumption?: number;
+  previousMonthConsumption?: number;
   projectedCurrentMonthConsumption?: number;
+  savingsPercentage?: number;
+  isSaving?: boolean;
+  monetaryDifference?: number;
 }
 
 @Injectable({

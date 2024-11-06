@@ -1,75 +1,40 @@
-<app-panel-title title="Reportes" description="Selecciona un tipo de gráfico y un rango de fechas antes de hacer clic en Buscar."></app-panel-title>
-<div class="flex justify-between space-x-6 w-full px-4 mb-1">
-  <div
-    (click)="setSelectedType('Consumo')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Consumo'}">
-    <i class='fas fa-lightbulb' style='font-size:42px; color:#fbc102'></i>
-    <p class="text-xs">Consumo</p>
-  </div>
-
-  <div
-    (click)="setSelectedType('Amperaje')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Amperaje'}">
-    <i class='fas fa-plug' style='font-size:42px;color:#71aaef'></i>
-    <p class="text-xs">Amperaje</p>
-  </div>
-
-  <div
-    (click)="setSelectedType('Potencia')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Potencia'}">
-    <i class='fas fa-battery-three-quarters' style='font-size:48px;color:#ea4c4c'></i>
-    <p class="text-xs">Potencia</p>
-  </div>
-
-  <div
-    (click)="setSelectedType('Frecuencia')"
-    class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-2 w-1/4 cursor-pointer transform transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 active:scale-95 mb-6"
-    [ngClass]="{'bg-blue-200': selectedType === 'Frecuencia'}">
-    <i class='fas fa-poll' style='font-size:48px;color:#2d812b'></i>
-    <p class="text-xs">Frecuencia</p>
-  </div>
-</div>
-
-
+<app-panel-title title="Reportes" description="Genere su reporte de consumo"></app-panel-title>
 
 <div class="mb-6 bg-white">
   <div class="flex flex-col  space-y-4 py-6 px-10">
-    <h2 >Filtrar por Fecha</h2>
-    <div class="flex space-x-4 ">
-      <input [(ngModel)]="startDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
-      <input [(ngModel)]="endDate" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
-      <button
-        (click)="generateGraficoUrl()"
-        class="bg-primary text-white p-2 rounded hover:bg-primaryhover"
-      >Buscar</button>
+    <h2>Filtrar por Fecha</h2>
+    <div class="flex space-x-4">
+      <input [(ngModel)]="startTime" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <input [(ngModel)]="endTime" type="date" class="border border-gray-300 p-2 rounded" [disabled]="!selectedType">
+      <button (click)="generateReporteDatos()" class="bg-primary text-white p-2 rounded hover:bg-primaryhover">Buscar</button>
     </div>
   </div>
 </div>
 
-<div class="flex justify-center py-6 px-10">
-  <div class="w-full max-w-4xl mx-auto">
-    <p *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</p>
-
-    <div class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 mt-1">
-      <div class="card bg-base-100 shadow-xl p-4 w-full lg:w-2/3">
-        <p class="text-mx font-semibold text-gray-700 mb-4">
-          {{ selectedType }}
-        </p>
-        <div class="border rounded-lg h-64 flex items-center justify-center"> <!-- Agregado flex y justify-center -->
-          <iframe
-            *ngIf="graficoUrl"
-            [src]="graficoUrl"
-            width="600"
-            height="400"
-            frameborder="0">
-          </iframe>
-          <p *ngIf="!graficoUrl">Selecciona un tipo de gráfico y un rango de fechas para visualizarlo.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="table-responsive px-4 md:px-8 lg:px-16 my-4">
+  <table class="table-auto w-full max-w-4xl mx-auto border-collapse border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+    <thead>
+    <tr class="bg-gray-200 text-gray-700">
+      <th class="border border-gray-300 p-4 text-center">Identificador</th>
+      <th class="border border-gray-300 p-4 text-center">Dispositivo</th>
+      <th class="border border-gray-300 p-4 text-center">Consumo</th>
+      <th class="border border-gray-300 p-4 text-center">Costo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let dato of data" class="hover:bg-gray-100 transition-colors">
+      <td class="border border-gray-300 p-4 text-center">{{ dato.deviceId }}</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.name }}</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.totalEnergy }} Kwh</td>
+      <td class="border border-gray-300 p-4 text-center">{{ dato.energyCost }} $</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
+
+<div class="text-center mt-4">
+  <button (click)="exportToPDF()" class="bg-primary text-white p-2 rounded">
+    Descargar en PDF
+  </button>
+</div>

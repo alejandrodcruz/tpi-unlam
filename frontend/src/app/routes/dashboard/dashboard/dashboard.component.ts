@@ -10,6 +10,7 @@ import {DashboardPanelComponent} from "../../../core/dashboard-panel/dashboard-p
 import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { LoadingComponent } from '../../../core/loading/loading.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,8 @@ import { LoadingComponent } from '../../../core/loading/loading.component';
     CommonModule,
     CardRealTimeComponent,
     DashboardPanelComponent,
-    LoadingComponent
+    LoadingComponent,
+    RouterLink
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
