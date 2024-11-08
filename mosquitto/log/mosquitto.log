@@ -696,3 +696,76 @@
 1730915551: Client SpringBootClient closed its connection.
 1730915552: New connection from 172.18.0.8:56468 on port 1883.
 1730915552: New client connected from 172.18.0.8:56468 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731045115: mosquitto version 2.0.20 starting
+1731045115: Config loaded from /mosquitto/config/mosquitto.conf.
+1731045115: Opening ipv4 listen socket on port 1883.
+1731045115: Opening ipv6 listen socket on port 1883.
+1731045115: mosquitto version 2.0.20 running
+1731045144: New connection from 172.21.0.1:48998 on port 1883.
+1731045144: New client connected from 172.21.0.1:48998 as auto-C0EC5078-533A-EA39-479E-67E0177A88CA (p2, c1, k60).
+1731045189: New connection from 172.21.0.7:56298 on port 1883.
+1731045190: New client connected from 172.21.0.7:56298 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731045936: Client SpringBootClient disconnected.
+1731045942: mosquitto version 2.0.20 terminating
+1731045942: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1731094209: mosquitto version 2.0.20 starting
+1731094209: Config loaded from /mosquitto/config/mosquitto.conf.
+1731094209: Opening ipv4 listen socket on port 1883.
+1731094209: Opening ipv6 listen socket on port 1883.
+1731094209: mosquitto version 2.0.20 running
+1731094210: New connection from 172.18.0.1:53278 on port 1883.
+1731094210: New client connected from 172.18.0.1:53278 as auto-871C9761-0D82-51AD-A259-D926597C8D7F (p2, c1, k60).
+1731094295: New connection from 172.18.0.8:47122 on port 1883.
+1731094295: New client connected from 172.18.0.8:47122 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731094388: Client SpringBootClient disconnected.
+1731094399: New connection from 172.18.0.8:47148 on port 1883.
+1731094400: New client connected from 172.18.0.8:47148 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731094406: Client SpringBootClient disconnected.
+1731094418: New connection from 172.18.0.8:47174 on port 1883.
+1731094418: New client connected from 172.18.0.8:47174 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731094460: Client auto-871C9761-0D82-51AD-A259-D926597C8D7F closed its connection.
+1731094479: New connection from 172.18.0.1:53448 on port 1883.
+1731094480: Client <unknown> closed its connection.
+1731094480: New connection from 172.18.0.1:53452 on port 1883.
+1731094480: New client connected from 172.18.0.1:53452 as auto-60C18D47-07DA-ACE3-FF50-7C9435697218 (p2, c1, k60).
+1731094586: Client SpringBootClient disconnected.
+1731095060: mosquitto version 2.0.20 terminating
+1731095060: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1731095630: mosquitto version 2.0.20 starting
+1731095630: Config loaded from /mosquitto/config/mosquitto.conf.
+1731095630: Opening ipv4 listen socket on port 1883.
+1731095630: Opening ipv6 listen socket on port 1883.
+1731095630: mosquitto version 2.0.20 running
+1731095696: New connection from 172.20.0.8:44822 on port 1883.
+1731095697: New client connected from 172.20.0.8:44822 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731095704: New connection from 172.20.0.1:53664 on port 1883.
+1731095704: New client connected from 172.20.0.1:53664 as auto-13FFCB1E-2E39-277B-DC5C-47145F47CA27 (p2, c1, k60).
+1731096683: Client SpringBootClient disconnected.
+1731096689: mosquitto version 2.0.20 terminating
+1731096689: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1731097240: mosquitto version 2.0.20 starting
+1731097240: Config loaded from /mosquitto/config/mosquitto.conf.
+1731097240: Opening ipv4 listen socket on port 1883.
+1731097240: Opening ipv6 listen socket on port 1883.
+1731097240: mosquitto version 2.0.20 running
+1731097307: New connection from 172.21.0.8:46360 on port 1883.
+1731097308: New client connected from 172.21.0.8:46360 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731097337: New connection from 172.21.0.1:53996 on port 1883.
+1731097337: New client connected from 172.21.0.1:53996 as auto-D76B7ED1-F1D2-CB3F-8229-47DE77B5D732 (p2, c1, k60).
+1731099041: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1731100842: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1731101434: Client SpringBootClient disconnected.
+1731101440: mosquitto version 2.0.20 terminating
+1731101440: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1731101520: mosquitto version 2.0.20 starting
+1731101520: Config loaded from /mosquitto/config/mosquitto.conf.
+1731101520: Opening ipv4 listen socket on port 1883.
+1731101520: Opening ipv6 listen socket on port 1883.
+1731101520: mosquitto version 2.0.20 running
+1731101521: New connection from 172.22.0.1:55276 on port 1883.
+1731101521: New client connected from 172.22.0.1:55276 as auto-C48BB606-CD50-2E6A-2252-BD41ECB6BD3B (p2, c1, k60).
+1731101595: New connection from 172.22.0.7:35686 on port 1883.
+1731101595: New client connected from 172.22.0.7:35686 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731102401: Client SpringBootClient disconnected.
+1731102408: mosquitto version 2.0.20 terminating
+1731102408: Saving in-memory database to /mosquitto/data//mosquitto.db.

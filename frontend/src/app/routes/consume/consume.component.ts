@@ -7,7 +7,7 @@ import {CardRealTimeComponent} from "../../core/card-real-time/card-real-time.co
 import { Device, UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { ConsumptionService } from '../../shared/services/consumption.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 
 
 
@@ -27,6 +27,7 @@ import { forkJoin } from 'rxjs';
 export class ConsumeComponent implements OnInit {
   devices: Device[] = [];
   userId: number;
+  private destroy$ = new Subject<void>();
 
   constructor(private userService: UserService, private authService: AuthService,
     private consumptionService: ConsumptionService)
@@ -35,7 +36,7 @@ export class ConsumeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.userService.getUserDevices().subscribe((devices) => {
+      this.userService.getUserDevices().pipe(takeUntil(this.destroy$)).subscribe((devices) => {
         this.devices = devices;
         this.devices.forEach(device => {
           const lastDay$ = this.consumptionService.getLastDayConsumption(this.userId, device.deviceId);
@@ -48,7 +49,7 @@ export class ConsumeComponent implements OnInit {
             currentMonthConsumption: currentMonth$,
             previousMonthConsumption: previousMonth$,
             projectedCurrentMonthConsumption: projectedCurrentMonth$
-          }).subscribe(({ lastDayConsumption, currentMonthConsumption, previousMonthConsumption, projectedCurrentMonthConsumption }) => {
+          }).pipe(takeUntil(this.destroy$)).subscribe(({ lastDayConsumption, currentMonthConsumption, previousMonthConsumption, projectedCurrentMonthConsumption }) => {
             device.lastDayConsumption = parseFloat(lastDayConsumption.toFixed(2));
             device.currentMonthConsumption = parseFloat(currentMonthConsumption.toFixed(2));
             device.previousMonthConsumption = parseFloat(previousMonthConsumption.toFixed(2));
@@ -65,7 +66,6 @@ export class ConsumeComponent implements OnInit {
               device.isSaving = difference < 0;
               device.monetaryDifference = parseFloat(difference.toFixed(2));
             } else {
-              // Si no hay consumo anterior, establecemos las propiedades como 'undefined'
               device.savingsPercentage = undefined;
               device.isSaving = undefined;
               device.monetaryDifference = undefined;
@@ -74,6 +74,13 @@ export class ConsumeComponent implements OnInit {
         });
       });
     }
+
+    ngOnDestroy(): void {
+      // Emite un valor para completar todas las suscripciones que observan `destroy$`
+      this.destroy$.next();
+      this.destroy$.complete();
+    }
+
 
     getAbsoluteValue(value: number | undefined): number {
       return value !== undefined ? Math.abs(value) : 0;

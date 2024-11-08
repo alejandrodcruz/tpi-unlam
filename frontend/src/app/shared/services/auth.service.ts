@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap, of } from 'rxjs';
@@ -19,14 +18,13 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private LOGIN_URL = 'http://localhost:8080/auth';
 
   private tokenSubject = new BehaviorSubject<string | null>(this.getTokenFromStorage());
   public token$ = this.tokenSubject.asObservable();
   private userIdSubject = new BehaviorSubject<number | null>(this.getUserIdFromStorage());
   public userId$ = this.userIdSubject.asObservable();
 
-  constructor(private httpCliente: HttpClient, private router: Router, private httpService: HttpService) {}
+constructor( private router: Router, private httpService: HttpService) {}
 
   login(username: string, password: string): Observable<any> {
     return this.httpService.post<any>({ username, password }, 'auth/login').pipe(

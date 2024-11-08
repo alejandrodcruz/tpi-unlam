@@ -1,7 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { HttpService } from '../utils/httpService';
 
 export interface DeviceDetail {
   deviceId: string;
@@ -16,31 +16,30 @@ export interface TotalEnergyResponse {
   devicesDetails: DeviceDetail[];
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ConsumptionService {
-  private apiUrl = 'http://localhost:8080/measurements';
   private selectedDevice: string | null = null;
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(private httpService: HttpService, private userService: UserService) {
     this.userService.selectedDevice$.subscribe((deviceId) => {
       this.selectedDevice = deviceId;
     });
   }
 
   getTotalKwhAndConsumption(userId: number, startTime: Date, endTime: Date, deviceId: string = this.selectedDevice || ''): Observable<TotalEnergyResponse> {
-    let params = new HttpParams()
-      .set('userId', userId.toString())
-      .set('startTime', startTime.toISOString())
-      .set('endTime', endTime.toISOString());
+    const params: Record<string, string> = {
+      userId: userId.toString(),
+      startTime: startTime.toISOString(),
+      endTime: endTime.toISOString(),
+    };
 
     if (deviceId) {
-      params = params.set('deviceId', deviceId);
+      params['deviceId'] = deviceId;
     }
 
-    return this.http.get<TotalEnergyResponse>(`${this.apiUrl}/total-energy`, { params });
+    return this.httpService.get<TotalEnergyResponse>('measurements/total-energy', params);
   }
 
   // Consumo del último día
