@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {interval, map, Observable, switchMap} from 'rxjs';
+import { HttpService } from '../utils/httpService';
 
 export interface Measurement {
   deviceId: string;
@@ -17,10 +17,10 @@ export interface Measurement {
   providedIn: 'root'
 })
 export class MeasurementsService {
-  private apiUrl = 'http://localhost:8080/measurements';
+  private controller = 'measurements';
   private deviceId: string | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private httpService: HttpService) {
   }
 
   setDeviceId(deviceId: string) {
@@ -32,28 +32,30 @@ export class MeasurementsService {
   }
 
   getUserMeasurements(userId: number, fields: string[], timeRange: string = '1h'): Observable<Measurement[]> {
-    let params = new HttpParams()
-      .set('userId', userId)
-      .set('fields', fields.join(','))
-      .set('timeRange', timeRange);
+    const params: Record<string, string> = {
+      userId: userId.toString(),
+      fields: fields.join(','),
+      timeRange: timeRange,
+    };
 
-      if (this.deviceId) {
-        params = params.set('deviceId', this.deviceId);
-      }
-    return this.http.get<Measurement[]>(this.apiUrl, {params});
+    if (this.deviceId) {
+      params['deviceId'] = this.deviceId;
+    }
+
+    return this.httpService.get<Measurement[]>(this.controller, params);
   }
 
   getTotalEnergy(userId: number, fields: string[], timeRange: string = '1h'): Observable<number> {
-    let params = new HttpParams()
-      .set('userId', userId)
-      .set('fields', fields.join(','))
-      .set('timeRange', timeRange);
+    const params: Record<string, string> = {
+      userId: userId.toString(),
+      fields: fields.join(','),
+      timeRange: timeRange,
+    };
 
-      if (this.deviceId) {
-        params = params.set('deviceId', this.deviceId);
-      }
-
-    return this.http.get<Measurement[]>(this.apiUrl, {params}).pipe(
+    if (this.deviceId) {
+      params['deviceId'] = this.deviceId;
+    }
+    return this.httpService.get<Measurement[]>(this.controller, params).pipe(
       map(measurements => {
         return measurements.reduce((totalEnergy, measurement) => totalEnergy + measurement.energy, 0);
       })

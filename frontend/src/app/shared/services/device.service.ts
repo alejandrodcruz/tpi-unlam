@@ -15,6 +15,8 @@ export interface DeviceUser {
   providedIn: 'root'
 })
 export class DeviceService {
+  private controller = 'devices';
+
   private devicesSubject = new BehaviorSubject<DeviceUser[]>([]);
   public devices$ = this.devicesSubject.asObservable();
 
@@ -27,7 +29,7 @@ export class DeviceService {
       throw new Error("No se ha encontrado el userId");
     }
 
-    return this.httpService.get<DeviceUser[]>(`devices/user/${userId}`).pipe(
+    return this.httpService.get<DeviceUser[]>(`${this.controller}/user/${userId}`).pipe(
       tap(devices => this.devicesSubject.next(devices))
     );
   }
@@ -46,17 +48,16 @@ export class DeviceService {
       addressId: addressId
     };
 
-    return this.httpService.post<any>(body, 'devices/pair-device');
+    return this.httpService.post<any>(body, `${this.controller}/pair-device`);
   }
 
   updateDevice(deviceId: string, name: string): Observable<DeviceUser> {
     const body = { name: name };
-    return this.httpService.put<DeviceUser>(body, `devices/${deviceId}`);
+    return this.httpService.put<DeviceUser>(body, `${this.controller}/${deviceId}`);
   }
 
-
   deleteDevice(deviceId: string): Observable<any> {
-    return this.httpService.delete<any>(`devices/${deviceId}`).pipe(
+    return this.httpService.delete<any>(`${this.controller}/${deviceId}`).pipe(
       tap(() => {
         // Elimina el dispositivo de la lista local después de eliminarlo del backend
         const updatedDevices = this.devicesSubject.value.filter(device => device.deviceId !== deviceId);

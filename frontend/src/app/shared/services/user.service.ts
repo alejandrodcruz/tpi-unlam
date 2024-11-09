@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import { AuthService } from './auth.service';
@@ -10,7 +9,6 @@ export interface Device {
   pairingCode: string;
   assigned: true;
   name: string;
-
   lastDayConsumption?: number;
   currentMonthConsumption?: number;
   previousMonthConsumption?: number;
@@ -25,8 +23,7 @@ export interface Device {
 })
 export class UserService {
 
-  private url = 'http://localhost:8080/devices';
-  private urlUser = 'http://localhost:8080/user';
+  private controller = 'user';
 
   private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this.userSubject.asObservable();
@@ -37,7 +34,7 @@ export class UserService {
   private selectedDeviceNameSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   public selectedDeviceName$: Observable<string> = this.selectedDeviceNameSubject.asObservable();
 
-  constructor(private httpClient: HttpClient, private authService: AuthService, private httpService: HttpService) {}
+  constructor(private authService: AuthService, private httpService: HttpService) {}
 
   getUserDevices(): Observable<Device[]> {
     const userId = this.authService.getUserId();
@@ -67,13 +64,8 @@ export class UserService {
     const userId = this.authService.getUserId();
 
     if (userId !== null) {
-      this.httpClient.get<User>(`${this.urlUser}/${userId}`).subscribe({
-        next: (user) => {
-          this.userSubject.next(user);
-        },
-        error: (error) => {
-          console.error('Error al obtener los datos del usuario:', error);
-        }
+      this.httpService.get<User>(`${this.controller}/${userId}`).subscribe((user) => {
+        this.userSubject.next(user);
       });
     }
   }

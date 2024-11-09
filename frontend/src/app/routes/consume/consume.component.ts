@@ -9,8 +9,6 @@ import { AuthService } from '../../shared/services/auth.service';
 import { ConsumptionService } from '../../shared/services/consumption.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 
-
-
 @Component({
   selector: 'consume',
   standalone: true,
