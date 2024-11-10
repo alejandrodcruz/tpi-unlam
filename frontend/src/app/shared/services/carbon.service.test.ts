@@ -54,7 +54,7 @@ describe('CarbonService', () => {
         startTime: startTime.toISOString(),
         endTime: endTime.toISOString(),
         deviceId: 'device123',
-      });
+      }, false);
       done();
     });
   });
