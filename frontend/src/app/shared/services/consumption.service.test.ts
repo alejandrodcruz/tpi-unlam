@@ -39,7 +39,7 @@ describe('ConsumptionService', () => {
     expect(consumptionService).toBeTruthy();
   });
 
-  it('should call HttpService.get when getTotalKwhAndConsumption is called', (done) => {
+  it('should call getTotalKwhAndConsumption', (done) => {
     const mockResponse: TotalEnergyResponse = {
       totalEnergy: 500,
       energyCost: 100,

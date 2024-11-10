@@ -39,7 +39,7 @@ describe('CarbonService', () => {
     expect(carbonService).toBeTruthy();
   });
 
-  it('should call HttpService.get when getTotalKwh is called', (done) => {
+  it('should call getTotalKwh ', (done) => {
     const mockResponse: TotalEnergy = { totalEnergy: 100, energyCost: 50, deviceId: 'device123' };
     httpServiceSpy.get.mockReturnValue(of(mockResponse));
 

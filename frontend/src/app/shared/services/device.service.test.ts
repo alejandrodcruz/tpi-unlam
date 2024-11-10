@@ -38,7 +38,7 @@ describe('DeviceService', () => {
     expect(deviceService).toBeTruthy();
   });
 
-  it('should call HttpService.get and update devices$ when getUserDevices is called', (done) => {
+  it('should get the  devices$ when getUserDevices is called', (done) => {
     const mockUserId = 1;
     const mockDevices: DeviceUser[] = [
       { deviceId: 'device1', pairingCode: '1234', assigned: true, name: 'Device 1' },
@@ -55,7 +55,7 @@ describe('DeviceService', () => {
     });
   });
 
-  it('should call HttpService.post when pairDevice is called', (done) => {
+  it('should call pairDevice', (done) => {
     const mockUserId = 1;
     const mockResponse = { success: true };
     const pairingCode = '1234';
@@ -80,7 +80,7 @@ describe('DeviceService', () => {
     });
   });
 
-  it('should call HttpService.put when updateDevice is called', (done) => {
+  it('should call updateDevice', (done) => {
     const mockDeviceId = 'device1';
     const mockName = 'Updated Device';
     const mockDevice: DeviceUser = { deviceId: 'device1', pairingCode: '1234', assigned: true, name: 'Updated Device' };
@@ -97,7 +97,7 @@ describe('DeviceService', () => {
     });
   });
 
-  it('should call HttpService.delete and update devices$ when deleteDevice is called', (done) => {
+  it('should delete and update devices$ when deleteDevice is called', (done) => {
     const mockDeviceId = 'device1';
     const mockDevices: DeviceUser[] = [
       { deviceId: 'device1', pairingCode: '1234', assigned: true, name: 'Device 1' },

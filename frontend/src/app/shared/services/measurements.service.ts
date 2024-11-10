@@ -42,7 +42,7 @@ export class MeasurementsService {
       params['deviceId'] = this.deviceId;
     }
 
-    return this.httpService.get<Measurement[]>(this.controller, params);
+    return this.httpService.get<Measurement[]>(this.controller, params, false);
   }
 
   getTotalEnergy(userId: number, fields: string[], timeRange: string = '1h'): Observable<number> {

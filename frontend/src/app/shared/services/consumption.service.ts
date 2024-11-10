@@ -39,7 +39,7 @@ export class ConsumptionService {
       params['deviceId'] = deviceId;
     }
 
-    return this.httpService.get<TotalEnergyResponse>('measurements/total-energy', params);
+    return this.httpService.get<TotalEnergyResponse>('measurements/total-energy', params, false);
   }
 
   // Consumo del último día

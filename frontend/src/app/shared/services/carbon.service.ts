@@ -34,7 +34,7 @@ export class CarbonService {
     if (deviceId) {
       params['deviceId'] = deviceId;
     }
-    return this.httpService.get<TotalEnergy>('measurements/total-energy', params);
+    return this.httpService.get<TotalEnergy>('measurements/total-energy', params, false);
   }
 
   getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {

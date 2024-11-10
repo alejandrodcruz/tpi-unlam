@@ -26,17 +26,19 @@ export class HttpService {
     return headers;
   }
 
-  public post<T>(body: any, controller: string): Observable<T> {
+  public post<T>(body: any, controller: string, showToast: boolean = true): Observable<T> {
     return this.http.post<T>(`${this.url}/${controller}`, body).pipe(
       catchError((error) => {
-        console.log('Post error', error.message);
-        this.toast.warning(error.message);
+        console.log('Post error', error.error.message);
+        if (showToast) {
+          this.toast.warning(error.error.message);
+        }
         return throwError(() => error);
       })
     );
   }
 
-  public get<T>(controller: string, params?: any): Observable<T> {
+  public get<T>(controller: string, params?: any, showToast: boolean = true): Observable<T> {
     let httpParams = new HttpParams();
     if (params) {
       Object.keys(params).forEach((key) => {
@@ -49,10 +51,12 @@ export class HttpService {
         }
       });
     }
-    return this.http.get<T>(`${this.url}/${controller}`, { params: httpParams }).pipe(
+    return this.http.get<T>(`${this.url}/${controller}`, { params: httpParams}).pipe(
       catchError((error) => {
         console.log('Get error', error.message);
-        this.toast.warning(error.message);
+        if (showToast) {
+          this.toast.warning(error.message);
+        }
         return throwError(() => error);
       })
     );
@@ -62,8 +66,8 @@ export class HttpService {
     const headers = this.createHeaders();
     return this.http.put<T>(`${this.url}/${controller}`, body, { headers }).pipe(
       catchError((error) => {
-        console.log('Put error', error.message);
-        this.toast.warning(error.message);
+        console.log('Put error', error.error.message);
+        this.toast.warning(error.error.message);
         return throwError(() => error);
       })
     );
@@ -76,10 +80,10 @@ export class HttpService {
         httpParams = httpParams.append(key, params[key]);
       });
     }
-    return this.http.delete<T>(`${this.url}/${controller}`, { params: httpParams }).pipe(
+    return this.http.delete<T>(`${this.url}/${controller}`, { params: httpParams}).pipe(
       catchError((error) => {
-        console.log('Delete error', error.message);
-        this.toast.warning(error.message);
+        console.log('Delete error', error.error.message);
+        this.toast.warning(error.error.message);
         return throwError(() => error);
       })
     );

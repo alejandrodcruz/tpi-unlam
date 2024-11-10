@@ -30,7 +30,7 @@ describe('MeasurementsService', () => {
     expect(measurementsService).toBeTruthy();
   });
 
-  it('should call HttpService.get with correct params in getUserMeasurements', (done) => {
+  it('should getUserMeasurements with correct params', (done) => {
     const mockUserId = 1;
     const mockFields = ['voltage', 'current'];
     const mockTimeRange = '1h';
@@ -51,7 +51,7 @@ describe('MeasurementsService', () => {
     });
   });
 
-  it('should call HttpService.get and calculate total energy in getTotalEnergy', (done) => {
+  it('should calculate total energy in getTotalEnergy', (done) => {
     const mockUserId = 1;
     const mockFields = ['energy'];
     const mockTimeRange = '1h';
@@ -73,7 +73,7 @@ describe('MeasurementsService', () => {
     });
   });
 
-  it('should call HttpService.get at intervals in getUserMeasurementsRealTime', (done) => {
+  it('should call intervals in getUserMeasurementsRealTime', (done) => {
     const mockUserId = 1;
     const mockFields = ['voltage', 'current'];
     const mockTimeRange = '1h';

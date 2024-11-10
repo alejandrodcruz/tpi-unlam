@@ -39,7 +39,7 @@ describe('UserService', () => {
     expect(userService).toBeTruthy();
   });
 
-  it('should call HttpService.get with correct URL in getUserDevices', (done) => {
+  it('should call correct URL in getUserDevices', (done) => {
     const mockUserId = 1;
     const mockDevices: Device[] = [
       { deviceId: 'device1', pairingCode: '1234', assigned: true, name: 'Device 1' },
@@ -71,7 +71,7 @@ describe('UserService', () => {
     expect(userService.getSelectedDeviceName()).toBe(mockDeviceName);
   });
 
-  it('should call HttpService.get and update userSubject in getUserData', (done) => {
+  it('should update userSubject in getUserData', (done) => {
     const mockUserId = 1;
     const mockUser: User = { id: 1, username: 'Juan', email: 'juan@test.com' };
 

@@ -30,7 +30,7 @@ describe('AddressService', () => {
     expect(addressService).toBeTruthy();
   });
 
-  it('should call HttpService.get with correct URL in getAddressesByUser', (done) => {
+  it('should call correct URL in getAddressesByUser', (done) => {
     const mockUserId = 1;
     const mockAddresses: Address[] = [
       { id: 1, street: '123 Main St', city: 'Anytown', country: 'Country A' },
@@ -46,7 +46,7 @@ describe('AddressService', () => {
     });
   });
 
-  it('should call HttpService.post with correct URL and body in addAddress', (done) => {
+  it('should call correct URL and body in addAddress', (done) => {
     const mockUserId = 1;
     const mockAddress: Address = { id: 3, street: '789 Pine St', city: 'Newtown', country: 'Country C' };
     const mockResponse: Address = { id: 3, street: '789 Pine St', city: 'Newtown', country: 'Country C' };
@@ -60,7 +60,7 @@ describe('AddressService', () => {
     });
   });
 
-  it('should call HttpService.put with correct URL and body in updateAddress', (done) => {
+  it('should call correct URL and body in updateAddress', (done) => {
     const mockAddressId = 1;
     const mockAddress: Address = { id: 1, street: '123 Updated St', city: 'Updated City', country: 'Updated Country' };
     const mockResponse: Address = { id: 1, street: '123 Updated St', city: 'Updated City', country: 'Updated Country' };
@@ -73,8 +73,7 @@ describe('AddressService', () => {
       done();
     });
   });
-
-  it('should call HttpService.delete with correct URL in deleteAddress', (done) => {
+  it('should call correct URL in deleteAddress', (done) => {
     const mockAddressId = 1;
 
     httpServiceSpy.delete.mockReturnValue(of(undefined));
