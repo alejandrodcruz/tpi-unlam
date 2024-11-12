@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpService } from '../utils/httpService';
 
 export interface Address {
   id: number;
@@ -13,23 +13,27 @@ export interface Address {
   providedIn: 'root'
 })
 export class AddressService {
-  private apiUrl = 'http://localhost:8080/address';
 
-  constructor(private http: HttpClient) { }
+  private controller = 'address';
+
+  constructor(private httpService: HttpService) { }
+
 
   getAddressesByUser(userId: number): Observable<Address[]> {
-    return this.http.get<Address[]>(`${this.apiUrl}/user/${userId}`);
+    return this.httpService.get<Address[]>(`${this.controller}/user/${userId}`);
   }
 
   addAddress(userId: number, address: Address): Observable<Address> {
-    return this.http.post<Address>(`${this.apiUrl}/user/${userId}`, address);
+    return this.httpService.post<Address>(address, `${this.controller}/user/${userId}`);
   }
 
   updateAddress(addressId: number, address: Address): Observable<Address> {
-    return this.http.put<Address>(`${this.apiUrl}/${addressId}`, address);
+
+    return this.httpService.put<Address>(address, `${this.controller}/${addressId}`);
   }
 
   deleteAddress(addressId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${addressId}`);
+
+    return this.httpService.delete<void>(`${this.controller}/${addressId}`);
   }
 }

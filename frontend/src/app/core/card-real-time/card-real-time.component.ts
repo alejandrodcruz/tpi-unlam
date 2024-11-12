@@ -3,7 +3,8 @@ import { CurrenttimeService } from '../../shared/services/currenttime.service';
 import {DatePipe, NgClass, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import { Measurement, MeasurementsService } from '../../shared/services/measurements.service';
 import { AuthService } from '../../shared/services/auth.service';
-import { Subscription } from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CarbonService } from '../../shared/services/carbon.service';
 import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
 @Component({
@@ -21,7 +22,7 @@ import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.mo
   styleUrl: './card-real-time.component.css'
 })
 export class CardRealTimeComponent implements OnInit, OnDestroy {
-
+  private destroy$ = new Subject<void>();
   measurements: Measurement[] = [];
   horaActual!: Date;
   private horaSubscription!: Subscription;
@@ -59,7 +60,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
       this.getHoraActual();
     }
 
-    if (this.titleCard === 'Consumo') {
+    if (this.titleCard === 'Consumo Mensual') {
       this.tipoDato = 'energy';
       this.getkwhConsumo();
     }
@@ -74,6 +75,7 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
 
     if (userId !== null) {
       this.measurementsServiceSubscription = this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           (data) => {
             this.measurements = data;
@@ -145,6 +147,9 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
     if (this.horaSubscription) {
       this.horaSubscription.unsubscribe();
     }

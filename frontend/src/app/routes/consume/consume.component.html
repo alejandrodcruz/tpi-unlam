@@ -1,4 +1,4 @@
-<app-panel-title title="Consumo" description="Este es el consumo que registramos de tu dispositivo."></app-panel-title>
+<app-panel-title title="Consumo" description="Este es el consumo que registramos de tus dispositivos."></app-panel-title>
 
 <div class="px-3">
   <div class="flex flex-col space-y-4">
@@ -14,26 +14,49 @@
       </div>
 
       <!-- Información de consumo -->
-      <div class="stat-desc grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+      <div class="stat-desc grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mt-4">
 
         <div class="stat-item">
           <h4 class="text-sm font-semibold">Último Día</h4>
-          <p class="text-base">{{ device.lastDayConsumption }} $ AR</p>
+          <p class="text-base text-gray-800">{{ device.lastDayConsumption }} $ AR</p>
         </div>
 
         <div class="stat-item">
           <h4 class="text-sm font-semibold">Mes Actual</h4>
-          <p class="text-base">{{ device.currentMonthConsumption }} $ AR</p>
+          <p class="text-base text-gray-800">{{ device.currentMonthConsumption }} $ AR</p>
         </div>
 
         <div class="stat-item">
           <h4 class="text-sm font-semibold">Mes Anterior</h4>
-          <p class="text-base">{{ device.previousMonthConsumption }} $ AR</p>
+          <p class="text-base text-gray-800">{{ device.previousMonthConsumption }} $ AR</p>
         </div>
 
         <div class="stat-item">
           <h4 class="text-sm font-semibold">Proyección Mes Actual</h4>
-          <p class="text-base">{{ device.projectedCurrentMonthConsumption }} $ AR</p>
+          <p class="text-base text-gray-800">{{ device.projectedCurrentMonthConsumption }} $ AR</p>
+        </div>
+
+        <div class="stat-item">
+          <h4 class="text-sm font-semibold">Comparación con Mes Anterior</h4>
+          <p class="text-base flex items-center">
+            <span [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+              {{ getAbsoluteValue(device.savingsPercentage) }}% ({{ device.isSaving ? 'Ahorrado' : 'Gastado de más' }})
+            </span>
+            <!-- Iconos -->
+            <span *ngIf="device.isSaving !== undefined">
+              <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
+              </svg>
+              <svg *ngIf="device.isSaving === false" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
+              </svg>
+            </span>
+          </p>
+
+
+          <p class="text-base" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+            {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
+          </p>
         </div>
       </div>
     </div>

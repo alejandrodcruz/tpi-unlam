@@ -5,4 +5,5 @@ import jakarta.mail.MessagingException;
 
 public interface IEmailService {
     public void sendEmail(EmailRequest emailDTO) throws MessagingException;
+    public void sendAlertEmail(EmailRequest emailDTO) throws MessagingException;
 }

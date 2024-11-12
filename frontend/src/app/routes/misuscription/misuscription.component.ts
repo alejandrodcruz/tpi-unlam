@@ -5,6 +5,7 @@ import { PanelTitleComponent } from '../panel-title/panel-title.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../../shared/services/user.service';
+import { User } from '../../shared/domain/user';
 
 // Declarar MercadoPago para evitar errores de TypeScript
 declare var MercadoPago: any;
@@ -18,9 +19,11 @@ declare var MercadoPago: any;
 })
 export class MisuscriptionComponent implements OnInit, AfterViewInit {
   isModalOpen: boolean = false;
-  user = {
-    name: 'John Doe',
-    email: 'johndoe@example.com'
+  user: User = {
+    id: 0,
+    username: '',
+    email: '',
+    password: ''
   };
 
   openModal() {
@@ -36,9 +39,18 @@ export class MisuscriptionComponent implements OnInit, AfterViewInit {
     this.closeModal();
   }*/
 
-  constructor(authService: AuthService, userService: UserService ) { }
+  constructor(private authService: AuthService, private userService: UserService ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.userService.getUserData();
+
+    this.userService.user$.subscribe((user) => {
+      if(user){
+        this.user = user;
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     const mp = new MercadoPago('APP_USR-b7a395dd-bddd-4d7a-a6f8-a91643a6b3b8', {

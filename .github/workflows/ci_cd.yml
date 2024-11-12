@@ -102,6 +102,6 @@ jobs:
       - name: Ejecutar pruebas de Angular
         run: |
           cd frontend
-          # ng test --watch=false --browsers=ChromeHeadless
+          npm test
 
       - run: echo "🍏 El estado de la tarea es ${{ job.status }}."

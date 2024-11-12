@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap, of } from 'rxjs';
+import { HttpService } from '../utils/httpService';
 
 export interface User {
   id?: number;
@@ -18,28 +18,28 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private LOGIN_URL = 'http://localhost:8080/auth';
 
   private tokenSubject = new BehaviorSubject<string | null>(this.getTokenFromStorage());
   public token$ = this.tokenSubject.asObservable();
   private userIdSubject = new BehaviorSubject<number | null>(this.getUserIdFromStorage());
   public userId$ = this.userIdSubject.asObservable();
 
-  constructor(private httpCliente: HttpClient, private router: Router) {}
+constructor( private router: Router, private httpService: HttpService) {}
 
   login(username: string, password: string): Observable<any> {
-    return this.httpCliente.post<any>(`${this.LOGIN_URL}/login`, { username, password }).pipe(
-      tap(response => {
-        if (response.token) {
+    return this.httpService.post<any>({ username, password }, 'auth/login', false ).pipe(
+      tap((response) => {
+        if (response && response.token) {
           this.setToken(response.token);
           this.setUserId(response.id);
+
         }
       })
     );
   }
 
   register(user: User): Observable<any> {
-    return this.httpCliente.post<any>(`${this.LOGIN_URL}/register`, user).pipe(
+    return this.httpService.post<any>( user, 'auth/register').pipe(
       tap(response => {
         console.log('User registered:', response);
       })

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -15,7 +14,7 @@ import java.util.Date;
 public class AlertResponse {
     private String deviceId;
     private AlertType type;
-    private String date;
+    private Date date;
     private String alertMessage;
     private String name;
     private double value;
