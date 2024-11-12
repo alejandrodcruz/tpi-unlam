@@ -140,10 +140,30 @@ services:
     networks:
       - my_network
 
+  caddy:
+    image: caddy:latest
+    container_name: caddy_server
+    restart: unless-stopped
+    ports:
+      - "80:80"    # Puerto HTTP
+      - "443:443"  # Puerto HTTPS
+      - "8443:8443" # Puerto HTTPS adicional para el backend
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - angular-app
+      - spring-boot-app
+    networks:
+      - my_network
+
 volumes:
   mysql_data:
   influxdb_data:
   grafana_data:
+  caddy_data:
+  caddy_config:
 
 networks:
   my_network:
