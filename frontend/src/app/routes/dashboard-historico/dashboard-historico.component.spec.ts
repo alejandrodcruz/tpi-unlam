@@ -1,148 +1,70 @@
+
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardHistoricoComponent } from './dashboard-historico.component';
 import { HistorialService } from "../../shared/services/historial.service";
-import { of, throwError } from "rxjs";
-
-
+import { UserService } from '../../shared/services/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 describe('DashboardHistoricoComponent', () => {
   let component: DashboardHistoricoComponent;
   let fixture: ComponentFixture<DashboardHistoricoComponent>;
-  let mockHistorialService: jasmine.SpyObj<HistorialService>;
+  let mockHistorialService: jest.Mocked<HistorialService>;
+  let mockUserService: jest.Mocked<UserService>;
+  let sanitizer: DomSanitizer;
 
   beforeEach(async () => {
-    // Crear un mock de HistorialService => getConsumoMensual
-    mockHistorialService = jasmine.createSpyObj('HistorialService', ['getConsumoMensual']);
+    mockHistorialService = {
+    } as jest.Mocked<HistorialService>;
 
-    // Crea un mock de HistorialService => getConsumoDiario
-    mockHistorialService = jasmine.createSpyObj('HistorialService', ['getConsumoDiario']);
-
+    mockUserService = {
+      selectedDevice$: of('device123')
+    } as jest.Mocked<UserService>;
 
     await TestBed.configureTestingModule({
-      declarations: [DashboardHistoricoComponent],
+      imports: [DashboardHistoricoComponent],
       providers: [
-        {provide: HistorialService, useValue: mockHistorialService} // Usamos el mock
+        { provide: HistorialService, useValue: mockHistorialService },
+        { provide: UserService, useValue: mockUserService },
+        { provide: DomSanitizer, useValue: { bypassSecurityTrustResourceUrl: jest.fn(url => url) } }
       ]
-    })
-      .compileComponents();
-  });
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardHistoricoComponent);
     component = fixture.componentInstance;
+    sanitizer = TestBed.inject(DomSanitizer);
+    fixture.detectChanges();
   });
 
-  it('el componente deberia crearse', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    expect(component).toBeDefined();
   });
 
-
-  it('deberia llamar a loadConsumoMensual y setear consumoMensual ', () => {
-
-    // --------------- preparacion   ----------------------
-    const mockConsumoMensual = 'http://localhost:8080/historial';
-
-
-    // ---------------- ejecucion  ----------------------------
-    // mock al servicio  para compararlo con el componente
-    mockHistorialService.getConsumoMensual.and.returnValue(of(mockConsumoMensual));
-
-    // el componente cuando se ejecuta llama al servicio  mockHistorialService.getConsumoMensual
-    component.cargarConsumoMensual();
-
-
-    // ---------------- verificacion  --------------------------
-  // compara los resultados
-    expect(component.consumoMensual).equal(mockConsumoMensual);
-    //expect(mockHistorialService.getConsumoMensual).toHaveBeenCalled();
+  it('debería suscribirse a selectedDevice y llamar a updateIframeUrl con el dispositivo seleccionado', () => {
+    const updateIframeUrlSpy = jest.spyOn(component, 'updateIframeUrl');
+    component.ngOnInit();
+    expect(component.selectedDevice).toBe('device123');
+    expect(updateIframeUrlSpy).toHaveBeenCalled();
   });
 
+  it('debería actualizar las URLs seguras al llamar a updateIframeUrl con un dispositivo seleccionado', () => {
+    component.selectedDevice = 'device123';
+    component.updateIframeUrl();
 
+    const powerUrl = 'http://localhost:3000/d-solo/ee1me0bqeal8gf/power-last-year?orgId=1&panelId=1&var-deviceId=device123&refresh=5s';
+    const voltageUrl = 'http://localhost:3000/d-solo/ae1mdiw2xsb28c/voltage-last-year?orgId=1&panelId=1&var-deviceId=device123&refresh=5s';
+    const histEnergyMonthUrl = 'http://localhost:3000/d-solo/fe1mcple571fkf/hist-energy-month?orgId=1&panelId=1&var-deviceId=device123&refresh=5s';
+    const histEnergyUrl = 'http://localhost:3000/d-solo/ae1m3p3ni09vke/hist-energy?orgId=1&panelId=1&var-deviceId=device123&refresh=5s';
 
-  it('deberia mostrar un error cuando loadConsumoMensual falla', () => {
+    expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(powerUrl);
+    expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(voltageUrl);
+    expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(histEnergyMonthUrl);
+    expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(histEnergyUrl);
 
-    // --------------- preparacion   ----------------------
-    const mockError = new Error('Error fetching consumo mensual');
-
-    // ---------------- ejecucion  ----------------------------
-    // Configurar el mock para devolver un error
-    mockHistorialService.getConsumoMensual.and.returnValue(throwError(() => mockError));
-
-    spyOn(console, 'error');
-
-    component.cargarConsumoMensual();
-
-    // ---------------- verificacion  --------------------------
-    expect(component.consumoMensual.length).equal(0); // Verificamos que no haya datos
-  });
-
-
-
-  it('deberia llamar a loadConsumoDiario y setear consumoDiario', ()=>{
-
-    // --------------- preparacion   ----------------------
-    const mockConsumoDiario =
-      'http://localhost:8080/historial';
-
-    // ---------------- ejecucion  ----------------------------
-    mockHistorialService.getConsumoDiario.and.returnValue(of(mockConsumoDiario));
-    component.cargarConsumoDiario();
-
-    // ---------------- verificacion  --------------------------
-    expect(component.consumoDiario).equal(mockConsumoDiario);
-  });
-
-
-  it('deberia mostrar un error cuando loadConsumoDiario falla', () => {
-
-    // --------------- preparacion   ----------------------
-    const mockError = new Error('Error fetching consumo diario');
-
-    // ---------------- ejecucion  ----------------------------
-    // Configurar el mock para devolver un error
-    mockHistorialService.getConsumoDiario.and.returnValue(throwError(() => mockError));
-
-    spyOn(console, 'error');
-
-    component.cargarConsumoDiario();
-
-    // ---------------- verificacion  --------------------------
-    expect(component.consumoDiario.length).equal(0); // Verificamos que no haya datos
-  });
-
-
-  it('deberia llamar a loadAlertasHistoricas y setear alertasHistoricas', ()=>{
-
-    // --------------- preparacion   ----------------------
-    const mockAlertasHistoricas = [
-      {tipo: 'corte', descripcion: 'Corte de energía registrado el 12/09/2024 a las 14:00'},
-      {tipo: 'dispositivo', descripcion: 'Nuevo dispositivo agregado el 05/08/2024: Aire Acondicionado'},
-      {tipo: 'corte', descripcion: 'Corte de energía registrado el 22/07/2024 a las 10:30'}]
-
-    // ---------------- ejecucion  ----------------------------
-    mockHistorialService.getAlertasHistoricas.and.returnValue(of(mockAlertasHistoricas));
-    component.loadAlertasHistoricas();
-
-    // ---------------- verificacion  --------------------------
-    expect(component.alertasHistoricas).equal(mockAlertasHistoricas);
-  });
-
-  it('deberia mostrar un error cuando loadAlertasHistoricas falla', () => {
-
-    // --------------- preparacion   ----------------------
-    const mockError = new Error('Error fetching alertas Historicas');
-
-    // ---------------- ejecucion  ----------------------------
-    // Configurar el mock para devolver un error
-    mockHistorialService.getAlertasHistoricas.and.returnValue(throwError(() => mockError));
-
-    spyOn(console, 'error');
-
-    component.loadAlertasHistoricas();
-
-    // ---------------- verificacion  --------------------------
-    expect(component.alertasHistoricas.length).equal(0); // Verificamos que no haya datos
+    expect(component.powerLastYearUrl).toBe(powerUrl);
+    expect(component.voltageLastYearUrl).toBe(voltageUrl);
+    expect(component.histEnergyMonthUrl).toBe(histEnergyMonthUrl);
+    expect(component.histEnergyUrl).toBe(histEnergyUrl);
   });
 });
-
-
