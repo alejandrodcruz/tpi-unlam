@@ -15,6 +15,7 @@
   <table class="table-auto w-full max-w-4xl mx-auto border-collapse border border-gray-300 shadow-lg rounded-lg overflow-hidden">
     <thead>
     <tr class="bg-gray-200 text-gray-700">
+      <th class="border border-gray-300 p-4 text-center">Locacion</th>
       <th class="border border-gray-300 p-4 text-center">Identificador</th>
       <th class="border border-gray-300 p-4 text-center">Dispositivo</th>
       <th class="border border-gray-300 p-4 text-center">Consumo</th>
@@ -23,6 +24,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let dato of data" class="hover:bg-gray-100 transition-colors">
+      <td class="border border-gray-300 p-4 text-center">{{addresses[0].street}}</td>
       <td class="border border-gray-300 p-4 text-center">{{ dato.deviceId }}</td>
       <td class="border border-gray-300 p-4 text-center">{{ dato.name }}</td>
       <td class="border border-gray-300 p-4 text-center">{{ dato.totalEnergy | number:'1.2-2' }} Kwh</td>

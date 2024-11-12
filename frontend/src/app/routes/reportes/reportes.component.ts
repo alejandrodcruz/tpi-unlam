@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
 import { FormsModule } from "@angular/forms";
-import {DecimalPipe, NgClass, NgFor, NgIf} from "@angular/common";
+import { DecimalPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { PanelTitleComponent } from "../panel-title/panel-title.component";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import {ConsumptionService, DeviceDetail} from "../../shared/services/consumption.service";
-import {AuthService} from "../../shared/services/auth.service";
-import {UserService} from "../../shared/services/user.service";
+import { ConsumptionService, DeviceDetail } from "../../shared/services/consumption.service";
+import { AuthService } from "../../shared/services/auth.service";
+import { UserService } from "../../shared/services/user.service";
+import { Address, AddressService } from "../../shared/services/address.service";
+
 
 
 @Component({
@@ -34,17 +36,20 @@ export class ReportesComponent {
   data: DeviceDetail[] = [];
   errorMessage: string | null = null;
   devices: string[] =[];
+  addresses: Address[] = [];
 
   constructor(private consumptionService: ConsumptionService,
-              private authService: AuthService, private userService: UserService) {
+              private authService: AuthService,
+              private userService: UserService,
+              private addressService: AddressService) {
     this.userService.selectedDevice$.subscribe((deviceId) => {
       this.selectedDevice = deviceId;
     });
   }
 
 
-
   generateReporteDatos(): void {
+
     this.userId = this.authService.getUserId();
 
     if (!this.selectedType || !this.startTime || !this.endTime || !this.userId) {
@@ -59,6 +64,13 @@ export class ReportesComponent {
         this.endTime = new Date(this.endTime);
       }
       const deviceId = this.selectedDevice ?? undefined;
+
+      this.addressService.getAddressesByUser(this.userId).subscribe((addresses) => {
+        this.addresses = addresses;
+        this.addresses.forEach(address => {
+          console.log("contenido de la variable Street:", address.street);
+        });
+      });
 
       this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime)
         .subscribe(response => {
@@ -121,7 +133,7 @@ export class ReportesComponent {
 // Tabla de Datos
     doc.setFontSize(12);
     let startingY = 50;
-    const tableColumnHeaders = ["Identificador", "Dispositivo", "Consumo", "Costo"];
+    const tableColumnHeaders = ["Locacion", "Identificador", "Dispositivo", "Consumo", "Costo"];
     const tableData = [];
 
 for (let dato of this.data) {
@@ -132,6 +144,7 @@ for (let dato of this.data) {
   const energyCostFormatted = energyCostValue.toFixed(2) + ' $';
 
   tableData.push([
+    this.addresses[0].street,
     dato.deviceId,
     dato.name,
     totalEnergyFormatted,
