@@ -37,13 +37,20 @@ export class ReportesComponent {
   errorMessage: string | null = null;
   devices: string[] =[];
   addresses: Address[] = [];
+  username: string | null = null;
 
   constructor(private consumptionService: ConsumptionService,
               private authService: AuthService,
               private userService: UserService,
               private addressService: AddressService) {
+    this.userService.getUserData();
     this.userService.selectedDevice$.subscribe((deviceId) => {
       this.selectedDevice = deviceId;
+    });
+    this.userService.user$.subscribe((user) => {
+      if (user) {
+        this.username = user.username;
+      }
     });
   }
 
@@ -68,7 +75,8 @@ export class ReportesComponent {
       this.addressService.getAddressesByUser(this.userId).subscribe((addresses) => {
         this.addresses = addresses;
         this.addresses.forEach(address => {
-          console.log("contenido de la variable Street:", address.street);
+          console.log("contenido de la variable Street:", address.street,
+            "usuario logueado: ",this.username);
         });
       });
 
@@ -125,15 +133,20 @@ export class ReportesComponent {
     doc.setLineWidth(0.5);
     doc.line(10, 30, pageWidth - 10, 30); // Línea de separación
 
-// Subtítulo
+// subtitulo
     doc.setFontSize(12);
     doc.setTextColor(0);
-    doc.text("Resúmen de Consumo desde "+ this.startTime.toLocaleDateString('es-AR') + ' al ' + this.endTime.toLocaleDateString('es-AR'), 15, 40);
+    doc.text("Usuario: "+ this.username , 15, 40);
+
+// linea
+    doc.setFontSize(8);
+    doc.setTextColor(0);
+    doc.text("Resúmen de Consumo desde "+ this.startTime.toLocaleDateString('es-AR') + ' al ' + this.endTime.toLocaleDateString('es-AR'), 15, 45);
 
 // Tabla de Datos
     doc.setFontSize(12);
     let startingY = 50;
-    const tableColumnHeaders = ["Locacion", "Identificador", "Dispositivo", "Consumo", "Costo"];
+    const tableColumnHeaders = ["Locación", "Identificador", "Dispositivo", "Consumo", "Costo"];
     const tableData = [];
 
 for (let dato of this.data) {
@@ -179,140 +192,3 @@ for (let dato of this.data) {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import { Component } from '@angular/core';
-import { SidebarComponent } from "../../core/sidebar/sidebar.component";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatInputModule } from "@angular/material/input";
-import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
-import { NgClass, NgIf } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
-import { ReportesService } from "../../shared/services/reportes.service";
-import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
-import {PanelTitleComponent} from "../panel-title/panel-title.component";
-
-registerLocaleData(localeEs);
-
-@Component({
-  selector: 'app-reportes',
-  standalone: true,
-  imports: [
-    SidebarComponent,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    FormsModule,
-    NgIf,
-    SafeUrlPipe,
-    PanelTitleComponent
-  ],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-  ],
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.css']
-})
-export class ReportesComponent {
-
-  constructor(private reportesService: ReportesService) {
-  }
-
-  startDate: Date | null = null;
-  endDate: Date | null = null;
-  dateError: string = '';
-  graficoUrl: string = '';
-
-  ngOnInit(): void{
-    this.graficoUrl = this.reportesService.getGrafico();
-  }
-
-  onDateChange() {
-    const today = new Date();
-
-    if (this.startDate && this.startDate > today) {
-      this.dateError = 'La fecha de inicio no puede ser una fecha futura.';
-    } else if (this.endDate && this.endDate > today) {
-      this.dateError = 'La fecha de finalización no puede ser una fecha futura.';
-    } else {
-      if (this.startDate && this.endDate) {
-        if (this.startDate > this.endDate) {
-          this.dateError = 'La fecha de inicio no puede ser posterior a la fecha de finalización.';
-        } else if (this.endDate < this.startDate) {
-          this.dateError = 'La fecha de finalización no puede ser anterior a la fecha de inicio.';
-        } else {
-          this.dateError = '';
-        }
-      }
-    }
-  }
-
-  isConsumoSelected: boolean = false;
-  isAmperajeSelected: boolean = false;
-  isPotenciaSelected: boolean = false;
-  isFrecuenciaSelected: boolean = false;
-
-  toggleSelection(type: string) {
-    this.isConsumoSelected = false;
-    this.isAmperajeSelected = false;
-    this.isPotenciaSelected = false;
-    this.isFrecuenciaSelected = false;
-
-    switch (type) {
-      case 'consumo':
-        this.isConsumoSelected = true;
-        break;
-      case 'amperaje':
-        this.isAmperajeSelected = true;
-        break;
-      case 'potencia':
-        this.isPotenciaSelected = true;
-        break;
-      case 'frecuencia':
-        this.isFrecuenciaSelected = true;
-        break;
-    }
-  }
-}
-
-*/
-
-/*
-import { Component } from '@angular/core';
-import {SidebarComponent} from "../../core/sidebar/sidebar.component";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-
-@Component({
-  selector: 'app-reportes',
-  standalone: true,
-  imports: [
-    SidebarComponent,
-    FontAwesomeModule
-  ],
-  templateUrl: './reportes.component.html',
-  styleUrl: './reportes.component.css'
-})
-export class ReportesComponent {
-
-}
-*/
