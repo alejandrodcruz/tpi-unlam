@@ -33,7 +33,7 @@ describe('DashboardHistoricoComponent', () => {
   });
 
   it('el componente deberia crearse', () => {
-    expect(component).equal(true);
+    expect(component).toBeTruthy();
   });
 
 
