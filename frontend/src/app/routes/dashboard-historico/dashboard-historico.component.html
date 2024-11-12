@@ -3,28 +3,28 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-1 px-3">
 
-  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarConsumoUltimoMes')">
+  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" >
     <p class="text-mx font-semibold text-gray-700 mb-4">Watts del Ultimo Año</p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
       <iframe [src]="powerLastYearUrl"  class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
-  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarConsumoUltimoAño')">
+  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" >
     <p class="text-mx font-semibold text-gray-700 mb-4">Voltaje del Ultimo Año    </p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
       <iframe [src]="voltageLastYearUrl" class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
-  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarPotencia')">
+  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" >
     <p class="text-mx font-semibold text-gray-700 mb-4">Consumo del Ultimo Mes</p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
       <iframe [src]="histEnergyMonthUrl" class="w-full h-full object-contain"></iframe>
     </div>
   </div>
 
-  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" (click)="abrirModal('cargarVoltaje')">
+  <div class="card bg-base-100 shadow-xl p-4 cursor-pointer" >
     <p class="text-mx font-semibold text-gray-700 mb-4">Consumo del Ultimo Año</p>
     <div class="border rounded-lg flex items-center justify-center overflow-hidden" style="height: 300px;">
       <iframe [src]="histEnergyUrl" class="w-full h-full object-contain"></iframe>
