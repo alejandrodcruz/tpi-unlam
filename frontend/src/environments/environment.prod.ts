@@ -1,4 +1,3 @@
 export const environment = {
   production: true,
-  serverUrl: 'https://localhost:8443'
-};
+  serverUrl: 'https://lytics.dyndns.org'};

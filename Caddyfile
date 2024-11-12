@@ -1,21 +1,14 @@
-# Servir el frontend en https://localhost
-localhost {
-    tls internal
+lytics.dyndns.org {
     encode gzip
 
-    reverse_proxy angular-app:4200
-
-    header {
-        Strict-Transport-Security "max-age=31536000;"
+    # Matcher
+    @api {
+        path_regexp api ^/(auth|configurations|ws|alert|user|address|measurements|devices|devices/register-device|devices/pair-device)(/.*)?$
     }
-}
 
-# Servir el backend en https://localhost:8443
-localhost:8443 {
-    tls internal
-    encode gzip
+    reverse_proxy @api spring-boot-app:8080
 
-    reverse_proxy spring-boot-app:8080
+    reverse_proxy /* angular-app:4200
 
     header {
         Strict-Transport-Security "max-age=31536000;"
