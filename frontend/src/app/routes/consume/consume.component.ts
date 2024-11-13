@@ -26,6 +26,7 @@ export class ConsumeComponent implements OnInit {
   devices: Device[] = [];
   userId: number;
   private destroy$ = new Subject<void>();
+  totalCurrentMonthConsumption: number = 0;
 
   constructor(private userService: UserService, private authService: AuthService,
     private consumptionService: ConsumptionService)
@@ -68,9 +69,16 @@ export class ConsumeComponent implements OnInit {
               device.isSaving = undefined;
               device.monetaryDifference = undefined;
             }
+            this.calculateTotalCurrentMonthConsumption();
           });
         });
       });
+    }
+
+    calculateTotalCurrentMonthConsumption(): void {
+      this.totalCurrentMonthConsumption = this.devices.reduce((total, device) => {
+        return total + (device.currentMonthConsumption || 0);
+      }, 0);
     }
 
     ngOnDestroy(): void {
