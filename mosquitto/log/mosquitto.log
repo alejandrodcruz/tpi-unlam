@@ -864,3 +864,13 @@
 1731599411: Saving in-memory database to /mosquitto/data//mosquitto.db.
 1731601212: Saving in-memory database to /mosquitto/data//mosquitto.db.
 1731602178: Client auto-692DEEB5-45C9-F7CE-3D47-8FFBC910582E closed its connection.
+1731619809: mosquitto version 2.0.20 starting
+1731619809: Config loaded from /mosquitto/config/mosquitto.conf.
+1731619809: Opening ipv4 listen socket on port 1883.
+1731619809: Opening ipv6 listen socket on port 1883.
+1731619809: mosquitto version 2.0.20 running
+1731620146: New connection from 172.18.0.7:60902 on port 1883.
+1731620147: New client connected from 172.18.0.7:60902 as SpringBootClient (p2, c1, k20, u'alejandro').
+1731620480: New connection from 172.18.0.1:46086 on port 1883.
+1731620480: New client connected from 172.18.0.1:46086 as auto-6A9FA5F3-67AE-E96C-5899-FD2F82137FFA (p2, c1, k60).
+1731621610: Saving in-memory database to /mosquitto/data//mosquitto.db.
