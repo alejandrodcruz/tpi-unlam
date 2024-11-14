@@ -1,64 +1,62 @@
 <app-panel-title title="Consumo" description="Este es el consumo que registramos de tus dispositivos."></app-panel-title>
 
 <div class="px-3 mb-4">
-  <div class="stat shadow-lg w-full bg-white p-4">
-    <h3 class="stat-title">Total Gastado en el Mes Actual</h3>
-    <p class="stat-value">{{ totalCurrentMonthConsumption | number:'1.2-2' }} $ AR</p>
+  <div class="stat shadow bg-white">
+    <h3 class="stat-title text-gray-700">Total Gastado en el Mes Actual</h3>
+    <p class="text-2xl font-bold">{{ totalCurrentMonthConsumption | number:'1.2-2' }} $ AR</p>
   </div>
 </div>
 
-<div class="px-3">
-  <div class="flex flex-col gap-4">
-    <div class="stats shadow" *ngFor="let device of devices">
-      <div class="flex items-center mb-4">
-        <div class="stat-figure text-primary p-2">
-          <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="32" height="32">
-        </div>
-        <div class="text-lg font-semibold">{{ device.name }}</div>
+<div class="flex flex-col gap-2 px-3">
+<div class="stats shadow" *ngFor="let device of devices">
+  <div class="stat grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6">
+    <div class="flex items-center">
+      <div class="stat-figure text-primary p-2">
+        <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="32" height="32">
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-        <div class="stat flex flex-col items-start">
-          <h4 class="stat-title text-gray-800">Último Día</h4>
-          <p class="stat-value">{{ device.lastDayConsumption | number:'1.2-2' }} $ AR</p>
-        </div>
-
-        <div class="stats flex flex-col items-start">
-          <h4 class="stat-title text-gray-800">Mes Actual</h4>
-          <p class="stat-value">{{ device.currentMonthConsumption | number:'1.2-2' }} $ AR</p>
-        </div>
-
-        <div class="stats flex flex-col items-start">
-          <h4 class="stat-title text-gray-800">Mes Anterior</h4>
-          <p class="stat-value">{{ device.previousMonthConsumption | number:'1.2-2' }} $ AR</p>
-        </div>
-
-        <div class="stats flex flex-col items-start">
-          <h4 class="stat-title text-gray-800">Proyección Mes Actual</h4>
-          <p class="stat-value">{{ device.projectedCurrentMonthConsumption | number:'1.2-2' }} $ AR</p>
-        </div>
-
-        <div class="stats flex flex-col items-start">
-          <h4 class="stat-title text-gray-800">Comparación con Mes Anterior</h4>
-          <p class="text-base flex items-center">
-            <span [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
-              {{ getAbsoluteValue(device.savingsPercentage) }}% ({{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }})
-            </span>
-            <!-- Iconos -->
-            <span *ngIf="device.isSaving !== undefined">
-              <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
-              </svg>
-              <svg *ngIf="!device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
-              </svg>
-            </span>
-          </p>
-          <p class="text-base" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
-            {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
-          </p>
-        </div>
-      </div>
+      <div class="text-lg font-semibold">{{ device.name }}</div>
     </div>
+    <div class="stat">
+    <div class="stat-title text-gray-700">Último Día</div>
+    <div class="text-2xl font-bold">{{ device.lastDayConsumption | number:'1.2-2' }} $ AR</div>
+
+    </div>
+    <div class="stat">
+      <div class="stat-title text-gray-700">Mes Actual</div>
+      <div class="text-2xl font-bold">{{ device.currentMonthConsumption | number:'1.2-2' }} $ AR</div>
+
+      </div>
+      <div class="stat">
+        <div class="stat-title text-gray-700">Mes Anterior</div>
+        <div class="text-2xl font-bold">{{ device.previousMonthConsumption | number:'1.2-2' }} $ AR</div>
+
+        </div>
+        <div class="stat">
+          <div class="stat-title text-gray-700">Proyección Mes Actual</div>
+          <div class="text-2xl font-bold">{{ device.projectedCurrentMonthConsumption | number:'1.2-2' }} $ AR</div>
+
+          </div>
+          <div class="stat">
+            <div class="stat-title text-gray-700">Comparación con Mes Anterior</div>
+            <p class="stat-title flex items-center">
+              <span [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+                {{ getAbsoluteValue(device.savingsPercentage) }}% ({{ device.isSaving ? 'Reducción del consumo' : 'Aumento del consumo'}})
+              </span>
+              <!-- Iconos -->
+              <span *ngIf="device.isSaving !== undefined">
+                <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
+                </svg>
+                <svg *ngIf="!device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
+                </svg>
+              </span>
+            </p>
+            <p class="stat-title" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+              {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
+            </p>
+            </div>
   </div>
 </div>
+</div>
+
