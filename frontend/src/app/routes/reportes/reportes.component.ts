@@ -184,7 +184,7 @@ export class ReportesComponent {
 
     // Calcular el Y para la fila de totales manualmente
     const rowHeight = 10; // Altura estimada de cada fila en la tabla
-    const finalY = startingY + (tableData.length * rowHeight) + 10; // Ajustar el espacio
+    const finalY = startingY + (tableData.length * rowHeight) + 20; // Ajustar el espacio
 
     // Fila de totales
     autoTable(doc, {
