@@ -79,13 +79,13 @@ export class ReportesComponent {
             "usuario logueado: ",this.username);
         });
       });
-
+console.log("contenido de la variable strarTime: ",this.startTime, "endTime: ", this.endTime);
       this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime)
         .subscribe(response => {
 
 
           this.data = response.devicesDetails;
-          console.log("Contenido de data:", JSON.stringify(this.data, null, 2));
+          console.log("Contenido de data:",this.data);
           this.errorMessage = null;
         }, error => {
           this.errorMessage = "Error al obtener los datos";

@@ -19,9 +19,11 @@ export class ReportesService {
     }
     let url = '';
     if(selectType == 'Consumo'){
-        url = `http://localhost:8080/api/measurements/total-energy?userId=${userId}&startTime=${startDate}T00:00:00Z&endTime=${endDate}T00:00:00Z`;
+        url = `http://localhost:8080/measurements/total-energy?userId=${userId}&startTime=${startDate}T00:00:00Z&endTime=${endDate}T00:00:00Z`;
+
     }else if(selectType == 'intensidad'){
-        url = `http://localhost:8080/api/measurements?fields=current&startTime=${startDate}T00:00:00Z&endTime=${endDate}T23:59:59Z&userId=${userId}`;
+        url = `http://localhost:8080/measurements?fields=current&startTime=${startDate}T00:00:00Z&endTime=${endDate}T23:59:59Z&userId=${userId}`;
+
 
     }
 
