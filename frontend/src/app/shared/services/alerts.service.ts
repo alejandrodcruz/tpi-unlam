@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpService} from "../utils/httpService";
-import {Address} from "./address.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +20,9 @@ export class AlertsService {
     return this.httpService.get(`${this.controller}/get-alerts`);
   }
 
-  /*getAlertsForDeviceId(deviceId: string): Observable<any> {
-    const body = { deviceId };
-    return this.http.post(`http://localhost:8080/alert/getUserAlerts`, body);
-  }*/// CHEQUEAR ESTE SERVICIO CON NICO
-
   getAlertsForDeviceId(deviceId: string): Observable<any> {
-    return this.httpService.post({ deviceId }, `alert/getUserAlerts`);
+    const body = { deviceId };
+    return this.httpService.post({ body }, `alert/getUserAlerts`);
   }
 
 
