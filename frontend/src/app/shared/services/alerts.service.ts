@@ -21,8 +21,7 @@ export class AlertsService {
   }
 
   getAlertsForDeviceId(deviceId: string): Observable<any> {
-    const body = { deviceId };
-    return this.httpService.post({ body }, `alert/getUserAlerts`);
+    return this.httpService.post({ deviceId }, `alert/getUserAlerts`);
   }
 
 
