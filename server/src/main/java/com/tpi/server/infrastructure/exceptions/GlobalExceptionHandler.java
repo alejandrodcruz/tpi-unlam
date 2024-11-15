@@ -1,11 +1,14 @@
 package com.tpi.server.infrastructure.exceptions;
 
+import com.tpi.server.application.usecases.alert.AlertUseCase;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -23,6 +26,8 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @Data
     @NoArgsConstructor
@@ -57,6 +62,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidDataException.class)
     public ResponseEntity<ErrorResponse> handleInvalidDataException(InvalidDataException ex) {
         return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(AlertException.class)
+    public void handleAlertException(AlertException ex) {
+        logger.error(ex.getMessage());
+    }
+
+    @ExceptionHandler(AlertGetUserException.class)
+    public void handleGetUserException(AlertGetUserException ex) {
+        logger.error(ex.getMessage());
+    }
+
+    @ExceptionHandler(GetEmailForAlertException.class)
+    public void handleGetEmailForAlertException(GetEmailForAlertException ex) {
+        logger.error(ex.getMessage());
+    }
+
+    @ExceptionHandler(SendEmailException.class)
+    public void handleSendEmailException(SendEmailException ex) {
+        logger.error(ex.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

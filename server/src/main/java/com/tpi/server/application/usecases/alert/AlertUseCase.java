@@ -6,6 +6,9 @@ import com.tpi.server.domain.models.Device;
 import com.tpi.server.infrastructure.dtos.AlertDTO;
 import com.tpi.server.infrastructure.dtos.AlertResponse;
 import com.tpi.server.infrastructure.dtos.EmailRequest;
+import com.tpi.server.infrastructure.exceptions.AlertException;
+import com.tpi.server.infrastructure.exceptions.AlertGetUserException;
+import com.tpi.server.infrastructure.exceptions.GetEmailForAlertException;
 import com.tpi.server.infrastructure.repositories.AlertRepository;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.utils.AlertMessageUtils;
@@ -53,31 +56,38 @@ public class AlertUseCase {
                     .value(alertData.getValue())
                     .name(alertData.getName())
                     .build();
-            alertRepository.save(alert);
-            logger.trace("Save alerta:{}", alert);
 
             // Establecer mensaje y enviar a través del WebSocket
             alertData.setMessage(AlertMessageUtils.getAlertMessage(alertData.getType()));
+            String userMail = getEmail(alertData.getDeviceId());
             messagingTemplate.convertAndSend("/topic/alerts", alertData);
             emailService.sendAlertEmail(EmailRequest.builder()
-                    .destination(getEmail(alertData.getDeviceId()))
+                    .destination(userMail)
                     .subject("Lytics. "+ alertData.getName() + " nueva alerta detectada.")
                     .body(alertData.getName() + ". " + alertData.getMessage())
                     .build());
-        } catch (Exception e) {
-            logger.error("Error al guardar la alerta: {}", alertData);
-            throw new RuntimeException("No se pudo crear la alerta");
+            alertRepository.save(alert);
+            logger.trace("Save alerta:{}", alert);
+        }
+        catch (GetEmailForAlertException e) {
+            throw new GetEmailForAlertException(alertData.getDeviceId());
+        }
+        catch (Exception e) {
+            throw new AlertException(alertData);
         }
     }
 
-    //todo get user email
-    private String getEmail(String deviceId) {
-        Device device = deviceRepository.findDeviceByDeviceId(deviceId);
-        return device.getUser().getEmail();
+    private String getEmail(String deviceId) throws GetEmailForAlertException {
+        try {
+            Device device = deviceRepository.findDeviceByDeviceId(deviceId);
+            return device.getUser().getEmail();
+        }
+        catch (Exception exception) {
+            throw new GetEmailForAlertException(deviceId);
+        }
     }
 
-
-    public List<AlertResponse> getUserAlertsByDeviceId(String deviceId) throws RuntimeException {
+    public List<AlertResponse> getUserAlertsByDeviceId(String deviceId) throws AlertGetUserException {
         try {
             List<Alert> alerts = alertRepository.findAllByDeviceIdOrderByDateDesc(deviceId);
 
@@ -86,7 +96,7 @@ public class AlertUseCase {
                     .collect(Collectors.toList());
         }
         catch (Exception exception) {
-            throw new RuntimeException(deviceId);
+            throw new AlertGetUserException(deviceId);
         }
     }
 
