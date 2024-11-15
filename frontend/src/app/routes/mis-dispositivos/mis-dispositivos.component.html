@@ -1,72 +1,41 @@
-<app-panel-title title="Mis Dispositivos" description="Esta es una breve descripción de la página de inicio."></app-panel-title>
-<div class="py-1 px-3 ">
+<app-panel-title title="Mis Dispositivos" description="Gestión de Dispositivos: Encuentra, agrega, edita y configura alertas para todos tus dispositivos."></app-panel-title>
+
+<div class="py-1 px-3">
   <div class="p-2">
-    <button class="bg-secondary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openCodeModal()">Agregar Lytics</button>
-    <button class="bg-primary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openModal()">Agregar Dispositivo de casa</button>
+
+    <button class="bg-primary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openDevicePopup()">Agregar Dispositivo</button>
   </div>
 
-  <!-- Lista de dispositivos -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <section id="dispo" class="py-4 bg-gray-100">
+    <div class="container mx-auto px-3 text-center">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <!-- Tarjeta de dispositivo -->
+        <div *ngFor="let dispositivo of dispositivos" class="bg-white p-4 rounded-lg shadow-md transform transition-transform hover:scale-105 flex flex-col items-center">
 
-  </div>
-
-  <div *ngIf="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white p-4 rounded shadow-lg w-full sm:w-2/3 lg:w-1/3">
-      <h3 class="text-lg font-semibold">Agregar Dispositivo</h3>
-
-      <input type="text" [(ngModel)]="nuevoDispositivoNombre" placeholder="Nombre del dispositivo" class="border p-2 w-full mb-4">
-
-      <input type="text" [(ngModel)]="nuevoDispositivoTipo" placeholder="Tipo de dispositivo" class="border p-2 w-full mb-4">
-
-      <input type="text" [(ngModel)]="nuevoDispositivoEstado" placeholder="Estado del dispositivo" class="border p-2 w-full mb-4">
-
-      <div class="flex justify-end space-x-2">
-        <button class="bg-primary text-white px-4 py-2 rounded" (click)="agregarDispositivo()">Guardar</button>
-        <button class="text-red-500 px-4 py-2" (click)="closeModal()">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="isCodeModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white p-4 rounded shadow-lg w-full sm:w-2/3 lg:w-1/3">
-      <h3 class="text-lg font-semibold">Escribir Código Emparejamiento</h3>
-
-      <textarea [(ngModel)]="nuevoCodigo" placeholder="Ingresa tu código aquí" class="border p-2 w-full mb-4"></textarea>
-
-      <div class="flex justify-end space-x-2">
-        <button class="bg-secondary text-white px-4 py-2 rounded" (click)="guardarCodigo()">Enviar</button>
-        <button class="text-red-500 px-4 py-2" (click)="closeCodeModal()">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<section id="dispo" class="py-4 bg-gray-100">
-  <div class="container mx-auto px-4 text-center">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-
-      <!-- Dispositivo de casa -->
-      <div *ngFor="let dispositivo of dispositivos" class="bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 relative">
-        <div class="flex items-center mb-4">
-          <div class="text-3xl mr-4">{{ getIconoPorTipo(dispositivo.tipo) }}</div>
-          <div>
-            <h3 class="text-lg font-semibold">{{ dispositivo.nombre }}</h3>
-            <p class="text-sm text-gray-600">Tipo: {{ dispositivo.tipo }}</p>
-            <p class="text-sm text-gray-600">Estado: {{ dispositivo.estado }}</p>
+          <div class="absolute top-2 right-2 flex space-x-2">
+            <button (click)="goToConfiguration(dispositivo.deviceId)" class="text-green-500 hover:text-green-700 p-1">
+              <i class="fa-solid fa-cog"></i>
+            </button>
+            <button (click)="editDevice(dispositivo)" class="text-blue-500 hover:text-blue-700 p-1">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+            <button (click)="deleteDevice(dispositivo.deviceId)" class="text-red-500 hover:text-red-700">
+              <i class="fa-solid fa-trash"></i>
+            </button>
           </div>
+
+          <div class="bg-blue-100 rounded-full p-3 mb-2 flex items-center justify-center w-16 h-16">
+            <img [src]="'../../../assets/icon/' + dispositivo.name + '.png'" alt="{{ dispositivo.name }}" width="40" height="40">
+          </div>
+          <h3 class="text-sm font-semibold">{{ dispositivo.name }}</h3>
         </div>
-        <!-- Aca podria ir la imagen de los dispositivos
-         <img src="../../../assets/img/Dispositivo 1.webp" alt="Dispositivo 1" class="w-full h-auto rounded-lg">
-        <h5 class="font-bold text-primary mb-1">Modelo</h5>
-        <h4 class="mt-1 font-semibold text-gray-900 text-lg">No Invasivo</h4>-->
       </div>
-
-
-      <div class="bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 relative">
-        <img src="../../../assets/img/Dispositivo.webp" alt="Dispositivo 2" class="w-full h-auto rounded-lg mb-4">
-       </div>
-
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Popup de asociación de dispositivo -->
+  <app-device-popup
+    [isOpen]="isDevicePopupOpen"
+    (closePopup)="closeDevicePopup()">
+  </app-device-popup>
+</div>

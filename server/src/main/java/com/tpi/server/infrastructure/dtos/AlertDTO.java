@@ -1,17 +1,13 @@
 package com.tpi.server.infrastructure.dtos;
 
 import com.tpi.server.domain.enums.AlertType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.Date;
+import lombok.*;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class AlertDTO {
     private String deviceId;
     private AlertType type;

@@ -13,7 +13,7 @@ public class InfluxDBConfig {
     private String token;
     @Value("${INFLUXDB_ORG}")
     private String org;
-    @Value("${INFLUXDB_BUCKET}")
+    @Value("${INFLUXDB_BUCKET_REALTIME}")
     private String bucket;
     @Value("${INFLUXDB_URL}")
     private String url;
