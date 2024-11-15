@@ -9,8 +9,7 @@ import { ConsumptionService, DeviceDetail } from "../../shared/services/consumpt
 import { AuthService } from "../../shared/services/auth.service";
 import { UserService } from "../../shared/services/user.service";
 import { Address, AddressService } from "../../shared/services/address.service";
-
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reportes',
@@ -40,11 +39,14 @@ export class ReportesComponent {
   username: string | null = null;
   consumoTotal: number = 0;
   costoTotal: number = 0;
+  logoBase64: string | null = null;
+  urlLogo: string = "../../../../assets/img/Lytics_new_logo.png";
 
   constructor(private consumptionService: ConsumptionService,
               private authService: AuthService,
               private userService: UserService,
-              private addressService: AddressService) {
+              private addressService: AddressService,
+              private http: HttpClient) {
     this.userService.getUserData();
     this.userService.selectedDevice$.subscribe((deviceId) => {
       this.selectedDevice = deviceId;
@@ -54,8 +56,20 @@ export class ReportesComponent {
         this.username = user.username;
       }
     });
+
+
+    this.loadLogoBase64();
   }
 
+  private loadLogoBase64(): void {
+    this.http.get(this.urlLogo, { responseType: 'blob' }).subscribe(blob => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.logoBase64 = reader.result as string;
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
 
   generateReporteDatos(): void {
     this.userId = this.authService.getUserId();
@@ -74,9 +88,6 @@ export class ReportesComponent {
 
       this.addressService.getAddressesByUser(this.userId).subscribe((addresses) => {
         this.addresses = addresses;
-        this.addresses.forEach(address => {
-          console.log("contenido de la variable Street:", address.street, "usuario logueado: ", this.username);
-        });
       });
 
       this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime)
@@ -94,7 +105,6 @@ export class ReportesComponent {
     }
   }
 
-
   exportToPDF(): void {
     if (this.data.length === 0 || !Array.isArray(this.data)) {
       this.errorMessage = 'No hay datos disponibles para exportar.';
@@ -105,7 +115,6 @@ export class ReportesComponent {
     const currentDate = new Date();
     const appName = 'Lytics';
 
-    // Configuración de propiedades del documento
     doc.setProperties({
       title: 'Informe Lytics',
       subject: 'Informe de Consumo',
@@ -114,6 +123,16 @@ export class ReportesComponent {
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
+
+    if (this.logoBase64 && this.logoBase64.startsWith('data:image/')) {
+      const imgProps = doc.getImageProperties(this.logoBase64);
+      const imgWidth = 17;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+      doc.addImage(this.logoBase64, 'JPEG', 10, 10, imgWidth, imgHeight);
+    } else {
+      console.error("La imagen Base64 no es válida o no tiene el prefijo correcto.");
+    }
 
     // Encabezado
     doc.setFontSize(22);
@@ -214,7 +233,4 @@ export class ReportesComponent {
     // Guardar el PDF
     doc.save('reporte.pdf');
   }
-
-
-
 }
