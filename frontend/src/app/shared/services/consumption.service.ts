@@ -33,13 +33,14 @@ export class ConsumptionService {
       userId: userId.toString(),
       startTime: startTime.toISOString(),
       endTime: endTime.toISOString(),
+
     };
-
+/*
     if (deviceId) {
-      params['deviceId'] = deviceId;
-    }
-
+      params['deviceId'] = deviceId;    /////////////     problema
+    }*/
     return this.httpService.get<TotalEnergyResponse>('measurements/total-energy', params, false);
+
   }
 
   // Consumo del último día
