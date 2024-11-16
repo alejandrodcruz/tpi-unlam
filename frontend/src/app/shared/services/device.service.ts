@@ -29,7 +29,7 @@ export class DeviceService {
       throw new Error("No se ha encontrado el userId");
     }
 
-    return this.httpService.get<DeviceUser[]>(`${this.controller}/user/${userId}`).pipe(
+    return this.httpService.get<DeviceUser[]>(`${this.controller}/user/${userId}`, false).pipe(
       tap(devices => this.devicesSubject.next(devices))
     );
   }
