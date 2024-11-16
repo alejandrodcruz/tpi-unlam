@@ -155,6 +155,31 @@ public class GlobalExceptionHandler {
         return buildResponseEntity(HttpStatus.FORBIDDEN, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(NoAddressesFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoAddressesFoundException(NoAddressesFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoConfigurationsFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoConfigurationsFoundException(NoConfigurationsFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoDevicesFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoDevicesFoundException(NoDevicesFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoProfilesFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoProfilesFoundException(NoProfilesFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(UserNotAuthenticatedException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotAuthenticatedException(UserNotAuthenticatedException ex) {
+        return buildResponseEntity(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
+    }
+
     private ResponseEntity<ErrorResponse> buildResponseEntity(HttpStatus status, String message, List<String> errors) {
         ErrorResponse.ErrorResponseBuilder builder = ErrorResponse.builder()
                 .status(status.value())

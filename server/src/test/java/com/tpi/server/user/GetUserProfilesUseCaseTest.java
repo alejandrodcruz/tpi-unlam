@@ -1,11 +1,11 @@
 package com.tpi.server.user;
 
-import com.tpi.server.application.usecases.user.GetUserAddressesUseCase;
-import com.tpi.server.domain.models.Address;
+import com.tpi.server.application.usecases.user.GetUserProfilesUseCase;
+import com.tpi.server.domain.models.Profile;
 import com.tpi.server.domain.models.User;
-import com.tpi.server.infrastructure.exceptions.NoAddressesFoundException;
+import com.tpi.server.infrastructure.exceptions.NoProfilesFoundException;
 import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
-import com.tpi.server.infrastructure.repositories.AddressRepository;
+import com.tpi.server.infrastructure.repositories.ProfileRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,21 +19,21 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class GetUserAddressesUseCaseTest {
+class GetUserProfilesUseCaseTest {
 
     @Mock
-    private AddressRepository addressRepository;
+    private ProfileRepository profileRepository;
 
     @Mock
     private UserRepository userRepository;
 
     @InjectMocks
-    private GetUserAddressesUseCase getUserAddressesUseCase;
+    private GetUserProfilesUseCase getUserProfilesUseCase;
 
     private User user;
-    private Address address1;
-    private Address address2;
-    private List<Address> addresses;
+    private Profile profile1;
+    private Profile profile2;
+    private List<Profile> profiles;
 
     @BeforeEach
     void setUp() {
@@ -45,39 +45,37 @@ class GetUserAddressesUseCaseTest {
                 .hasCompletedOnboarding(true)
                 .build();
 
-        address1 = Address.builder()
+        profile1 = Profile.builder()
                 .id(1L)
-                .street("Calle 1")
-                .city("Ciudad 1")
-                .country("País 1")
+                .profileName("Perfil 1")
+                .preferences("Preferencias 1")
                 .user(user)
                 .build();
 
-        address2 = Address.builder()
+        profile2 = Profile.builder()
                 .id(2L)
-                .street("Calle 2")
-                .city("Ciudad 2")
-                .country("País 2")
+                .profileName("Perfil 2")
+                .preferences("Preferencias 2")
                 .user(user)
                 .build();
 
-        addresses = Arrays.asList(address1, address2);
+        profiles = Arrays.asList(profile1, profile2);
     }
 
     @Test
-    void execute_ReturnsListOfAddresses() {
+    void execute_UserExistsWithProfiles_ReturnsProfiles() {
         Integer userId = 1;
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(addressRepository.findByUserId(userId)).thenReturn(addresses);
+        when(profileRepository.findByUserId(userId)).thenReturn(profiles);
 
-        List<Address> result = getUserAddressesUseCase.execute(userId);
+        List<Profile> result = getUserProfilesUseCase.execute(userId);
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertTrue(result.containsAll(addresses));
+        assertTrue(result.containsAll(profiles));
 
         verify(userRepository, times(1)).findById(userId);
-        verify(addressRepository, times(1)).findByUserId(userId);
+        verify(profileRepository, times(1)).findByUserId(userId);
     }
 
     @Test
@@ -86,28 +84,28 @@ class GetUserAddressesUseCaseTest {
         when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
 
         UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
-            getUserAddressesUseCase.execute(nonExistentUserId);
+            getUserProfilesUseCase.execute(nonExistentUserId);
         });
 
         assertEquals("Usuario con ID " + nonExistentUserId + " no existe.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(nonExistentUserId);
-        verify(addressRepository, never()).findByUserId(anyInt());
+        verify(profileRepository, never()).findByUserId(anyInt());
     }
 
     @Test
-    void execute_UserExistsButHasNoAddresses_ThrowsNoAddressesFoundException() {
+    void execute_UserExistsButHasNoProfiles_ThrowsNoProfilesFoundException() {
         Integer userId = 1;
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(addressRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(profileRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
 
-        NoAddressesFoundException exception = assertThrows(NoAddressesFoundException.class, () -> {
-            getUserAddressesUseCase.execute(userId);
+        NoProfilesFoundException exception = assertThrows(NoProfilesFoundException.class, () -> {
+            getUserProfilesUseCase.execute(userId);
         });
 
-        assertEquals("El usuario con ID " + userId + " no tiene direcciones asociadas.", exception.getMessage());
+        assertEquals("El usuario con ID " + userId + " no tiene perfiles asociados.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(addressRepository, times(1)).findByUserId(userId);
+        verify(profileRepository, times(1)).findByUserId(userId);
     }
 }
