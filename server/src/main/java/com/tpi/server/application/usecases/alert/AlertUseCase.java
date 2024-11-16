@@ -57,7 +57,6 @@ public class AlertUseCase {
                     .name(alertData.getName())
                     .build();
 
-            // Establecer mensaje y enviar a través del WebSocket
             alertData.setMessage(AlertMessageUtils.getAlertMessage(alertData.getType()));
             String userMail = getEmail(alertData.getDeviceId());
             messagingTemplate.convertAndSend("/topic/alerts", alertData);
