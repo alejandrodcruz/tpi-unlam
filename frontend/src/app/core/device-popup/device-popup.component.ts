@@ -6,6 +6,7 @@ import { DeviceService } from '../../shared/services/device.service';
 import { Address } from '../../shared/domain/address';
 import { AddressService } from '../../shared/services/address.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-device-popup',
@@ -55,6 +56,7 @@ deviceNames: string[] = [
 constructor( private deviceService: DeviceService,
   private addressService: AddressService,
   private authService: AuthService,
+  private toast: ToastrService
 ) { }
 
 ngOnInit(): void {
@@ -65,7 +67,8 @@ ngOnInit(): void {
       error: (err) => console.error('Error al obtener direcciones:', err)
     });
   } else {
-    console.error("Error: userId no encontrado.");
+    this.toast.warning("No cuentas con user activo.");
+    this.authService.logout();
   }
 }
 

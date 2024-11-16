@@ -13,6 +13,7 @@ import { LoadingComponent } from '../../../core/loading/loading.component';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,7 +53,8 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService,
               private sanitizer: DomSanitizer,
               private measurementsService: MeasurementsService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private toast: ToastrService) { }
 
   ngOnInit() {
 
@@ -120,7 +122,8 @@ export class DashboardComponent implements OnInit {
         );
         this.subscriptions.add(measurementsSub);
     } else {
-      console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
+      this.toast.warning("No cuentas con user activo.");
+      this.authService.logout();
     }
   }
 
