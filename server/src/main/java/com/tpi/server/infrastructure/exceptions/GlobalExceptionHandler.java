@@ -145,6 +145,11 @@ public class GlobalExceptionHandler {
         return buildResponseEntity(HttpStatus.FORBIDDEN, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(DeviceAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleDeviceAlreadyExistsException(DeviceAlreadyExistsException ex) {
+        return buildResponseEntity(HttpStatus.CONFLICT, ex.getMessage(), null);
+    }
+
     private ResponseEntity<ErrorResponse> buildResponseEntity(HttpStatus status, String message, List<String> errors) {
         ErrorResponse.ErrorResponseBuilder builder = ErrorResponse.builder()
                 .status(status.value())
