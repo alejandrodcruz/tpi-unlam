@@ -150,6 +150,11 @@ public class GlobalExceptionHandler {
         return buildResponseEntity(HttpStatus.CONFLICT, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(DeviceNotOwnedByUserException.class)
+    public ResponseEntity<ErrorResponse> handleDeviceNotOwnedByUserException(DeviceNotOwnedByUserException ex) {
+        return buildResponseEntity(HttpStatus.FORBIDDEN, ex.getMessage(), null);
+    }
+
     private ResponseEntity<ErrorResponse> buildResponseEntity(HttpStatus status, String message, List<String> errors) {
         ErrorResponse.ErrorResponseBuilder builder = ErrorResponse.builder()
                 .status(status.value())
