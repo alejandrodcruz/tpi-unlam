@@ -1,11 +1,11 @@
 package com.tpi.server.user;
 
-import com.tpi.server.application.usecases.user.GetUserAddressesUseCase;
-import com.tpi.server.domain.models.Address;
+import com.tpi.server.application.usecases.user.GetUserDevicesUseCase;
+import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.User;
-import com.tpi.server.infrastructure.exceptions.NoAddressesFoundException;
+import com.tpi.server.infrastructure.exceptions.NoDevicesFoundException;
 import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
-import com.tpi.server.infrastructure.repositories.AddressRepository;
+import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,21 +19,21 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class GetUserAddressesUseCaseTest {
+class GetUserDevicesUseCaseTest {
 
     @Mock
-    private AddressRepository addressRepository;
+    private DeviceRepository deviceRepository;
 
     @Mock
     private UserRepository userRepository;
 
     @InjectMocks
-    private GetUserAddressesUseCase getUserAddressesUseCase;
+    private GetUserDevicesUseCase getUserDevicesUseCase;
 
     private User user;
-    private Address address1;
-    private Address address2;
-    private List<Address> addresses;
+    private Device device1;
+    private Device device2;
+    private List<Device> devices;
 
     @BeforeEach
     void setUp() {
@@ -45,39 +45,35 @@ class GetUserAddressesUseCaseTest {
                 .hasCompletedOnboarding(true)
                 .build();
 
-        address1 = Address.builder()
-                .id(1L)
-                .street("Calle 1")
-                .city("Ciudad 1")
-                .country("País 1")
+        device1 = Device.builder()
+                .deviceId("1L")
+                .name("Dispositivo 1")
                 .user(user)
                 .build();
 
-        address2 = Address.builder()
-                .id(2L)
-                .street("Calle 2")
-                .city("Ciudad 2")
-                .country("País 2")
+        device2 = Device.builder()
+                .deviceId("2L")
+                .name("Dispositivo 2")
                 .user(user)
                 .build();
 
-        addresses = Arrays.asList(address1, address2);
+        devices = Arrays.asList(device1, device2);
     }
 
     @Test
-    void execute_ReturnsListOfAddresses() {
+    void execute_UserExistsWithDevices_ReturnsDevices() {
         Integer userId = 1;
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(addressRepository.findByUserId(userId)).thenReturn(addresses);
+        when(deviceRepository.findByUserId(userId)).thenReturn(devices);
 
-        List<Address> result = getUserAddressesUseCase.execute(userId);
+        List<Device> result = getUserDevicesUseCase.execute(userId);
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertTrue(result.containsAll(addresses));
+        assertTrue(result.containsAll(devices));
 
         verify(userRepository, times(1)).findById(userId);
-        verify(addressRepository, times(1)).findByUserId(userId);
+        verify(deviceRepository, times(1)).findByUserId(userId);
     }
 
     @Test
@@ -86,28 +82,28 @@ class GetUserAddressesUseCaseTest {
         when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
 
         UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
-            getUserAddressesUseCase.execute(nonExistentUserId);
+            getUserDevicesUseCase.execute(nonExistentUserId);
         });
 
         assertEquals("Usuario con ID " + nonExistentUserId + " no existe.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(nonExistentUserId);
-        verify(addressRepository, never()).findByUserId(anyInt());
+        verify(deviceRepository, never()).findByUserId(anyInt());
     }
 
     @Test
-    void execute_UserExistsButHasNoAddresses_ThrowsNoAddressesFoundException() {
+    void execute_UserExistsButHasNoDevices_ThrowsNoDevicesFoundException() {
         Integer userId = 1;
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(addressRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
+        when(deviceRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
 
-        NoAddressesFoundException exception = assertThrows(NoAddressesFoundException.class, () -> {
-            getUserAddressesUseCase.execute(userId);
+        NoDevicesFoundException exception = assertThrows(NoDevicesFoundException.class, () -> {
+            getUserDevicesUseCase.execute(userId);
         });
 
-        assertEquals("El usuario con ID " + userId + " no tiene direcciones asociadas.", exception.getMessage());
+        assertEquals("El usuario con ID " + userId + " no tiene dispositivos asociados.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(userId);
-        verify(addressRepository, times(1)).findByUserId(userId);
+        verify(deviceRepository, times(1)).findByUserId(userId);
     }
 }

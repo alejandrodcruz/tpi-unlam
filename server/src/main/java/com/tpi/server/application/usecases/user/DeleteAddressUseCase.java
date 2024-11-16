@@ -1,5 +1,6 @@
 package com.tpi.server.application.usecases.user;
 
+import com.tpi.server.infrastructure.exceptions.AddressNotFoundException;
 import com.tpi.server.infrastructure.repositories.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class DeleteAddressUseCase {
     @Transactional
     public void execute(Long addressId) {
         if (!addressRepository.existsById(addressId)) {
-            throw new RuntimeException("Dirección no encontrada");
+            throw new AddressNotFoundException(addressId);
         }
         addressRepository.deleteById(addressId);
     }
