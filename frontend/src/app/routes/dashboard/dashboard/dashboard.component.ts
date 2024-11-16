@@ -12,6 +12,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { LoadingComponent } from '../../../core/loading/loading.component';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,6 +47,7 @@ export class DashboardComponent implements OnInit {
   public kwhUrl: SafeResourceUrl | undefined;
 
   isLoading: boolean = false;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private userService: UserService,
               private sanitizer: DomSanitizer,
@@ -100,7 +102,7 @@ export class DashboardComponent implements OnInit {
     const timeRange = '10s';
 
     if (userId !== null) {
-      this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
+      const measurementsSub = this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
         .subscribe(
           (data) => {
             this.measurements = data;
@@ -116,8 +118,14 @@ export class DashboardComponent implements OnInit {
             console.error('Error al obtener las mediciones', error);
           }
         );
+        this.subscriptions.add(measurementsSub);
     } else {
       console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
     }
+  }
+
+  ngOnDestroy() {
+    // Destruir todas las suscripciones al destruir el componente
+    this.subscriptions.unsubscribe();
   }
 }
