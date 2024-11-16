@@ -18,8 +18,7 @@ import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.mo
     DatePipe,
     NgIf
   ],
-  templateUrl: './card-real-time.component.html',
-  styleUrl: './card-real-time.component.css'
+  templateUrl: './card-real-time.component.html'
 })
 export class CardRealTimeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();

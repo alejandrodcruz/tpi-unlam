@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { DeviceService } from '../../shared/services/device.service';
@@ -14,8 +14,7 @@ import { AuthService } from '../../shared/services/auth.service';
             LoadingComponent,
           FormsModule, CommonModule,
   ],
-  templateUrl: './device-popup.component.html',
-  styleUrl: './device-popup.component.css'
+  templateUrl: './device-popup.component.html'
 })
 export class DevicePopupComponent {
 @Input() isOpen: boolean = false;
@@ -56,7 +55,6 @@ deviceNames: string[] = [
 constructor( private deviceService: DeviceService,
   private addressService: AddressService,
   private authService: AuthService,
-  private cdr: ChangeDetectorRef
 ) { }
 
 ngOnInit(): void {
