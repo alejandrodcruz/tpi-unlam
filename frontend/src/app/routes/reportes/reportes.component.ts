@@ -23,8 +23,7 @@ import { HttpClient } from '@angular/common/http';
     NgFor,
     PanelTitleComponent,
     DecimalPipe
-  ],
-  styleUrls: ['./reportes.component.css']
+  ]
 })
 export class ReportesComponent {
   private selectedDevice: string | null = null;

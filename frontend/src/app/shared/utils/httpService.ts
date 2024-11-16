@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment.prod';
 import { AuthService } from '../services/auth.service';
