@@ -35,9 +35,7 @@ export class ConsumptionService {
       endTime: endTime.toISOString(),
     };
 
-    if (deviceId) {
-      params['deviceId'] = deviceId;
-    }
+
 
     return this.httpService.get<TotalEnergyResponse>('measurements/total-energy', params, false);
   }
