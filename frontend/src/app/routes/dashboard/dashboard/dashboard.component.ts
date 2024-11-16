@@ -49,7 +49,8 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService,
               private sanitizer: DomSanitizer,
               private measurementsService: MeasurementsService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   ngOnInit() {
 
@@ -66,6 +67,7 @@ export class DashboardComponent implements OnInit {
       this.devices = devices;
     });
   }
+
   //select desde stat
   selectDevice(deviceId: string) {
     this.isLoading = true;
@@ -97,30 +99,47 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  getMeasurements() {
+  getMeasurements(): void {
     const userId = this.authService.getUserId();
-    const fields = ['voltage', 'current', 'power', 'energy']; //campos espesificos
+    const fields = ['voltage', 'current', 'power', 'energy']; // Campos específicos
     const timeRange = '10s';
 
-    if (userId !== null) {
-      this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
-        .subscribe(
-          (data) => {
-            this.measurements = data;
-            if (data.length > 0) {
-              // Asignar los valores de las mediciones al componente
-            this.voltage = parseFloat(data[0].voltage.toFixed(2));
-            this.current = parseFloat(data[0].current.toFixed(2));
-            this.power = parseFloat(data[0].power.toFixed(2));
-            this.energy = parseFloat(data[0].energy.toFixed(2));
-            }
-          },
-          (error) => {
-            console.error('Error al obtener las mediciones', error);
-          }
-        );
-    } else {
+    if (!userId) {
       console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
+      return;
     }
+
+    this.fetchMeasurements(userId, fields, timeRange);
+  }
+
+  private fetchMeasurements(userId: number, fields: string[], timeRange: string): void {
+    this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange).subscribe({
+      next: (data) => this.handleMeasurementData(data),
+      error: (error) => this.handleError('Error al obtener las mediciones', error),
+    });
+  }
+
+  private handleMeasurementData(data: any[]): void {
+    if (data.length === 0) {
+      console.warn('No se recibieron datos de medición.');
+      return;
+    }
+
+    this.measurements = data;
+
+    // Asignar valores solo si existen
+    this.voltage = this.parseMeasurementValue(data[0]?.voltage);
+    this.current = this.parseMeasurementValue(data[0]?.current);
+    this.power = this.parseMeasurementValue(data[0]?.power);
+    this.energy = this.parseMeasurementValue(data[0]?.energy);
+  }
+
+  private parseMeasurementValue(value: number | undefined): number {
+    return value ? parseFloat(value.toFixed(2)) : 0; // Manejo seguro de valores indefinidos
+  }
+
+  private handleError(message: string, error: any): void {
+    console.error(`${message}:`, error);
+    // Aquí podrías agregar una notificación visual usando Toastr o algún otro servicio de notificaciones
   }
 }
