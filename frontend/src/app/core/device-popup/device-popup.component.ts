@@ -29,29 +29,32 @@ errorMessage: string = '';
 successMessage: string = '';
 addresses: Address[] = [];
 selectedAddressId: number | null = null;
-
-deviceNames: string[] = [
-  'Ventilador',
-  'Televisor',
-  'Secador de Pelo',
-  'Router WiFi',
-  'Radiador Eléctrico',
-  'Plancha',
-  'Microondas',
-  'Lavavajillas',
-  'Lavarropas',
-  'Lámpara LED',
-  'Impresora Láser',
-  'Horno Eléctrico',
-  'Heladera',
-  'Extractor de Aire',
-  'Computadora',
-  'Cargador de Celular',
-  'Calefactor Eléctrico',
-  'Cafetera',
-  'Bomba de Agua',
-  'Aire Acondicionado'
-];
+  deviceNames: string[] = [];
+    /*deviceNames: string[] = [
+      'Ventilador',
+      'Televisor',
+      'Secador de Pelo',
+      'Router WiFi',
+      'Radiador Eléctrico',
+      'Plancha',
+      'Microondas',
+      'Lavavajillas',
+      'Lavarropas',
+      'Lámpara LED',
+      'Impresora Láser',
+      'Horno Eléctrico',
+      'Heladera',
+      'Extractor de Aire',
+      'Computadora',
+      'Cargador de Celular',
+      'Calefactor Eléctrico',
+      'Cafetera',
+      'Bomba de Agua',
+      'Aire Acondicionado'
+    ];*/
+  businessDevices : string[] = ['Impresora', 'PC', 'Router'];
+  homeDevices : string[] = ['Televisor', 'Refrigerador', 'Microondas'];
+  workshopDevices  : string[]= ['Taladro', 'Sierra eléctrica', 'Compresor'];
 
 constructor( private deviceService: DeviceService,
   private addressService: AddressService,
@@ -71,6 +74,32 @@ ngOnInit(): void {
     this.authService.logout();
   }
 }
+
+  onAddressChange(): void {
+    // Encuentra la dirección seleccionada por su ID
+    const selectedAddress = this.addresses.find(address => address.id === Number(this.selectedAddressId));
+    if (selectedAddress) {
+      // Actualiza las opciones del selector de dispositivos según el tipo de dirección
+      switch (selectedAddress.type) {
+        case 'BUSINESS':
+          this.deviceNames = this.businessDevices;
+          break;
+        case 'HOME':
+          this.deviceNames = this.homeDevices;
+          break;
+        case 'WORKSHOP':
+          this.deviceNames = this.workshopDevices;
+          break;
+        default:
+          this.deviceNames = [];
+      }
+    } else {
+      this.deviceNames = [];
+    }
+
+    // Resetea la selección de dispositivo
+    this.nameDevice = '';
+  }
 
 close() {
   this.closePopup.emit();

@@ -12,6 +12,7 @@ export interface User {
   street?: string;
   city?: string;
   country?: string;
+  addressType?:string;
 }
 
 @Injectable({

@@ -80,11 +80,28 @@
             <div class="mt-2">
               <input id="city" formControlName="city" type="text" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid">
+            <label for="typeAdress" class="block text-sm font-medium leading-6 text-gray-900">Ciudad</label>
+            <div id="typeAdress" *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid">
               <span class="text-red-500 text-sm">La ciudad es requerida.</span>
             </div>
           </div>
-
+          <div class="mb-4">
+            <label for="addressType" class="block text-sm font-medium leading-6 text-gray-900">
+              Tipo de Dirección
+            </label>
+            <div class="mt-2">
+              <select
+                id="addressType"
+                formControlName="addressType"
+                class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="" disabled>Seleccione un tipo</option>
+                <option *ngFor="let option of addressTypeOptions" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </div>
+          </div>
           <div class="mb-4">
             <label for="country" class="block text-sm font-medium leading-6 text-gray-900">País</label>
             <div class="mt-2">

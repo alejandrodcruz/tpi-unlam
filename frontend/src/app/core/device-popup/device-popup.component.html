@@ -79,7 +79,7 @@
        <option *ngFor="let deviceName of deviceNames" [value]="deviceName">{{ deviceName }}</option>
       </select>
       <p class="py-4">Elige la dirección:</p>
-      <select class="select select-bordered w-full max-w-xs" [(ngModel)]="selectedAddressId" name="selectedAddressId" required>
+      <select class="select select-bordered w-full max-w-xs" [(ngModel)]="selectedAddressId" name="selectedAddressId" required (change)="onAddressChange()" >
         <option value="" disabled selected>Selecciona una dirección</option>
         <option *ngFor="let address of addresses" [value]="address.id">{{ address.street }}</option>
       </select>

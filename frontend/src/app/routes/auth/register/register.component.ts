@@ -14,6 +14,12 @@ import { CommonModule, Location } from '@angular/common';
 export class RegisterComponent {
   registerForm: FormGroup;
   passwordMismatch: boolean = false;
+  addressTypeOptions = [
+    { value: 'BUSINESS', label: 'Negocio' },
+    { value: 'HOME', label: 'Hogar' },
+    { value: 'WORKSHOP', label: 'Taller' }
+  ];
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -27,7 +33,8 @@ export class RegisterComponent {
       passwordConfirm: ['', Validators.required],
       street: ['', Validators.required],
       city: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
+      addressType: ['']
     });
   }
 
@@ -49,9 +56,9 @@ export class RegisterComponent {
 
     // Verifica si el formulario es válido antes de enviar
     if (this.registerForm.valid) {
-      const { username, email, password, street, city, country } = this.registerForm.value;
-
-      this.authService.register({ username, password, email, street, city, country }).subscribe({
+      const { username, email, password, street, city, country,addressType } = this.registerForm.value;
+      console.log(this.registerForm.value);
+      this.authService.register({ username, password, email, street, city, country , addressType }).subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },
