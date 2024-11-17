@@ -40,7 +40,7 @@ export class UserService {
     const userId = this.authService.getUserId();
 
     if (userId !== null) {
-      return this.httpService.get<Device[]>(`devices/user/${userId}`);
+      return this.httpService.get<Device[]>(`devices/user/${userId}`, false);
     } else {
       return of([]);
     }

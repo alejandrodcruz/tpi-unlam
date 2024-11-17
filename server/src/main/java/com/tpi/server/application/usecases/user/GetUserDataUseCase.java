@@ -1,6 +1,7 @@
 package com.tpi.server.application.usecases.user;
 
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,6 @@ public class GetUserDataUseCase {
 
     public User execute(Integer userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new UserNotFoundException(userId));
     }
 }

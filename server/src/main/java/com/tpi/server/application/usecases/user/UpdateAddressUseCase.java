@@ -1,6 +1,7 @@
 package com.tpi.server.application.usecases.user;
 
 import com.tpi.server.domain.models.Address;
+import com.tpi.server.infrastructure.exceptions.AddressNotFoundException;
 import com.tpi.server.infrastructure.repositories.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class UpdateAddressUseCase {
     @Transactional
     public Address execute(Long addressId, Address updatedAddress) {
         Address address = addressRepository.findById(addressId)
-                .orElseThrow(() -> new RuntimeException("Dirección no encontrada"));
+                .orElseThrow(() -> new AddressNotFoundException(addressId));
 
         address.setStreet(updatedAddress.getStreet());
         address.setCity(updatedAddress.getCity());

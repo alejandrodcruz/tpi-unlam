@@ -4,6 +4,9 @@ import com.tpi.server.domain.models.Address;
 import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.User;
 import com.tpi.server.application.usecases.device.DevicePairingUseCase;
+import com.tpi.server.infrastructure.exceptions.AddressNotFoundException;
+import com.tpi.server.infrastructure.exceptions.AddressNotOwnedByUserException;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.AddressRepository;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
@@ -129,11 +132,11 @@ public class DevicePairingUseCaseTest {
         when(deviceRepository.findByPairingCode(pairingCode)).thenReturn(device);
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        RuntimeException exception = assertThrows(UserNotFoundException.class, () -> {
             devicePairingUseCase.pairDevice(pairingCode, userId, name, addressId);
         });
 
-        assertEquals("Usuario no encontrado", exception.getMessage());
+        assertEquals("Usuario con ID " + userId + " no existe.", exception.getMessage());
         verify(deviceRepository, never()).save(any(Device.class));
     }
 
@@ -156,11 +159,11 @@ public class DevicePairingUseCaseTest {
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(addressRepository.findById(addressId)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        RuntimeException exception = assertThrows(AddressNotFoundException.class, () -> {
             devicePairingUseCase.pairDevice(pairingCode, userId, name, addressId);
         });
 
-        assertEquals("Dirección no encontrada", exception.getMessage());
+        assertEquals("Dirección con ID " + addressId + " no encontrada", exception.getMessage());
         verify(deviceRepository, never()).save(any(Device.class));
     }
 
@@ -191,11 +194,11 @@ public class DevicePairingUseCaseTest {
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        RuntimeException exception = assertThrows(AddressNotOwnedByUserException.class, () -> {
             devicePairingUseCase.pairDevice(pairingCode, userId, name, addressId);
         });
 
-        assertEquals("La dirección no pertenece al usuario", exception.getMessage());
+        assertEquals("La dirección con ID " + addressId + " no pertenece al usuario con ID " + userId, exception.getMessage());
         verify(deviceRepository, never()).save(any(Device.class));
     }
 }

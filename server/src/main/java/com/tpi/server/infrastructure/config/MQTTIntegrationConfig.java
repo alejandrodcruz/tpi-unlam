@@ -61,8 +61,8 @@ public class MQTTIntegrationConfig {
         options.setUserName(mqttUsername);
         options.setPassword(mqttPassword.toCharArray());
         options.setAutomaticReconnect(true);
-        options.setConnectionTimeout(10);
-        options.setKeepAliveInterval(20);
+        options.setConnectionTimeout(30);  // Aumenta el tiempo de espera de conexión
+        options.setKeepAliveInterval(60);  // Aumenta el intervalo de keep-alive
 
         factory.setConnectionOptions(options);
         return factory;

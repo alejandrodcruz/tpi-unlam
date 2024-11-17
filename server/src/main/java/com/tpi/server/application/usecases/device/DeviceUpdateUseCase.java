@@ -4,6 +4,7 @@ import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.User;
 import com.tpi.server.infrastructure.exceptions.DeviceNotFoundException;
 import com.tpi.server.infrastructure.exceptions.DeviceNotOwnerException;
+import com.tpi.server.infrastructure.exceptions.UserNotAuthenticatedException;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ public class DeviceUpdateUseCase {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication.getPrincipal() instanceof User)) {
-            throw new RuntimeException("Usuario no autenticado correctamente.");
+            throw new UserNotAuthenticatedException();
         }
 
         User authenticatedUser = (User) authentication.getPrincipal();
