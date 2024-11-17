@@ -49,7 +49,7 @@
               "viz": false
             },
             "insertNulls": false,
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -108,7 +108,7 @@
             "type": "influxdb",
             "uid": "P951FEA4DE68E13C5"
           },
-          "query": "from(bucket: \"grupo10bucket\")\n  |> range(start: -12mo)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"measurements\")\n  |> filter(fn: (r) => r[\"deviceId\"] == \"$deviceId\")\n  |> filter(fn: (r) => r[\"_field\"] == \"power\")\n  |> aggregateWindow(every: 1d, fn: mean, createEmpty: false)\n  |> yield(name: \"Voltaje, Corriente y Potencia Último Mes\")",
+          "query": "from(bucket: \"grupo10bucket\")\n  |> range(start: -12mo)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"measurements\")\n  |> filter(fn: (r) => r[\"deviceId\"] == \"$deviceId\")\n  |> filter(fn: (r) => r[\"_field\"] == \"power\")\n  |> aggregateWindow(every: 2w, fn: mean, createEmpty: false)\n  |> yield(name: \"Voltaje, Corriente y Potencia Último Mes\")",
           "refId": "A"
         }
       ],
