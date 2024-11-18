@@ -36,12 +36,21 @@ export class CarbonService {
     }
     return this.httpService.get<TotalEnergy>('measurements/total-energy', params, false);
   }
+  getTotalKwhAllDevice(userId: number, startTime: Date, endTime: Date,deviceId:string): Observable<TotalEnergy> {
+    const params: { userId: string; startTime: string; endTime: string;deviceId?:string} = {
+      userId: userId.toString(),
+      startTime: startTime.toISOString(), // Formato ISO 8601
+      endTime: endTime.toISOString(),
+      deviceId: deviceId
+    };
+    return this.httpService.get<TotalEnergy>('measurements/total-energy', params, false);
+  }
 
-  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {
+  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 6000): Observable<TotalEnergy> {
     return interval(pollingInterval).pipe(
       switchMap(() => {
         const endTime = new Date(); // Actualizar endTime aquí
-        return this.getTotalKwh(userId, startTime, endTime);
+        return this.getTotalKwhAllDevice(userId, startTime, endTime,"");
       })
     );
   }
