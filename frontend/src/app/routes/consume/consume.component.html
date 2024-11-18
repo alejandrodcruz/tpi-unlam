@@ -31,7 +31,7 @@
             <button (click)="showModal = true" class="bg-blue-300 text-black rounded-full p-2 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400 animate-pulse">
               <i class="fa-solid fa-code-compare"></i>
             </button>
-            <div class="stat-title font-bold text-gray-500">Mes Anterior</div>
+            <div class="stat-title font-bold text-gray-500">{{ previousMonthTitle }}</div>
           </div>
         <div class="text-2xl font-bold">{{ device.previousMonthConsumption | number:'1.2-2' }} $ AR</div>
 

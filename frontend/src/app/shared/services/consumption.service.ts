@@ -63,10 +63,10 @@ getCurrentMonthConsumption(userId: number, deviceId: string): Observable<number>
   );
 }
 
-// Consumo del mes anterior
-getPreviousMonthConsumption(userId: number, deviceId: string): Observable<number> {
-  const endTime = new Date(new Date().setDate(0)); // Último día del mes anterior
-  const startTime = new Date(endTime.getFullYear(), endTime.getMonth(), 1); // Primer día del mes anterior
+// Consumo de un mes específico
+getMonthConsumption(userId: number, deviceId: string, month: number, year: number): Observable<number> {
+  const startTime = new Date(year, month - 1, 1);
+  const endTime = new Date(year, month, 0);
 
   return this.getTotalKwhAndConsumption(userId, startTime, endTime, deviceId).pipe(
     switchMap(response => of(response.energyCost))
