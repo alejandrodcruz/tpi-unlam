@@ -45,7 +45,7 @@ describe('AuthService', () => {
   });
 
   it('should register a new user', (done) => {
-    const mockUser: User = { username: 'testUser', password: 'testPass', email: 'test@example.com' };
+    const mockUser: User = {type: "", username: 'testUser', password: 'testPass', email: 'test@example.com' };
     const mockResponse = { id: 1, ...mockUser };
     httpServiceSpy.post.mockReturnValue(of(mockResponse));
 
