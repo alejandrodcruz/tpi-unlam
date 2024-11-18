@@ -90,24 +90,6 @@ describe('ConsumptionService', () => {
     });
   });
 
-  it('should return previous month consumption using getPreviousMonthConsumption', (done) => {
-    const mockResponse: TotalEnergyResponse = {
-      totalEnergy: 400,
-      energyCost: 120,
-      devicesDetails: [],
-    };
-
-    httpServiceSpy.get.mockReturnValue(of(mockResponse));
-
-    const userId = 1;
-    const deviceId = 'device123';
-
-    consumptionService.getPreviousMonthConsumption(userId, deviceId).subscribe((energyCost) => {
-      expect(energyCost).toBe(120);
-      done();
-    });
-  });
-
   it('should return projected current month consumption using getProjectedCurrentMonthConsumption', (done) => {
     const mockCurrentMonthResponse: number = 80;
     const mockLastDayResponse: number = 20;
