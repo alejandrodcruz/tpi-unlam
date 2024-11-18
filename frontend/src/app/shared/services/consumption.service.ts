@@ -28,13 +28,16 @@ export class ConsumptionService {
     });
   }
 
-  getTotalKwhAndConsumption(userId: number, startTime: Date, endTime: Date, deviceId: string = this.selectedDevice || ''): Observable<TotalEnergyResponse> {
+  getTotalKwhAndConsumption(userId: number, startTime: Date, endTime: Date, deviceId?:string): Observable<TotalEnergyResponse> {
     const params: Record<string, string> = {
       userId: userId.toString(),
       startTime: startTime.toISOString(),
       endTime: endTime.toISOString(),
 
     };
+    if (deviceId) {
+      params['deviceId'] = deviceId;
+    }
     return this.httpService.get<TotalEnergyResponse>('measurements/total-energy', params, false);
 
   }

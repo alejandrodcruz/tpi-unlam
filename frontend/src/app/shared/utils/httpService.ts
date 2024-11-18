@@ -53,9 +53,9 @@ export class HttpService {
     }
     return this.http.get<T>(`${this.url}/${controller}`, { params: httpParams}).pipe(
       catchError((error) => {
-        console.log('Get error', error.message);
+        console.log('Get error', error.error.message);
         if (showToast) {
-          this.toast.warning(error.message);
+          this.toast.warning(error.error.message);
         }
         return throwError(() => error);
       })

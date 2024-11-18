@@ -27,6 +27,9 @@ export class ConsumeComponent implements OnInit {
   userId: number;
   private destroy$ = new Subject<void>();
   totalCurrentMonthConsumption: number = 0;
+  showModal: boolean = false;
+  selectedMonth: string | null = null;
+  selectedDevice: string | null = null;
 
   constructor(private userService: UserService, private authService: AuthService,
     private consumptionService: ConsumptionService)
@@ -82,7 +85,7 @@ export class ConsumeComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-      // Emite un valor para completar todas las suscripciones que observan `destroy$`
+      // Emite un valor para completar todas las suscripciones que observan destroy$
       this.destroy$.next();
       this.destroy$.complete();
     }
@@ -98,5 +101,39 @@ export class ConsumeComponent implements OnInit {
         return percentage > 100 ? 100 : percentage;
       }
       return 0;
+    }
+
+    onMonthSelected(selectedMonth: string | null): void {
+  if (selectedMonth) {
+    const [year, month] = selectedMonth.split('-').map(Number);
+    const startTime = new Date(year, month - 1, 1);
+    const endTime = new Date(year, month, 0);
+
+    this.consumptionService.getTotalKwhAndConsumption(this.userId, startTime, endTime, this.selectedDevice || '')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response => {
+        const chosenMonthConsumption = response.energyCost;
+        this.updateComparison(chosenMonthConsumption);
+        this.showModal = false; // Cerrar el modal
+      });
+  }
+}
+
+    updateComparison(chosenMonthConsumption: number): void {
+      this.devices.forEach(device => {
+        const projected = device.projectedCurrentMonthConsumption || 0;
+        const difference = projected - chosenMonthConsumption;
+
+        if (chosenMonthConsumption > 0) {
+          const percentageDifference = (difference / chosenMonthConsumption) * 100;
+          device.savingsPercentage = parseFloat(percentageDifference.toFixed(2));
+          device.isSaving = difference < 0;
+          device.monetaryDifference = parseFloat(difference.toFixed(2));
+        } else {
+          device.savingsPercentage = undefined;
+          device.isSaving = undefined;
+          device.monetaryDifference = undefined;
+        }
+      });
     }
   }
