@@ -1,6 +1,5 @@
 package com.tpi.server.infrastructure.exceptions;
 
-import com.tpi.server.application.usecases.alert.AlertUseCase;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +19,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        String error = ex.getName() + " debería ser de tipo " + ex.getRequiredType().getSimpleName();
+        String error = ex.getName() + " debería ser de tipo " + Objects.requireNonNull(ex.getRequiredType()).getSimpleName();
         return buildResponseEntity(HttpStatus.BAD_REQUEST, error, null);
     }
 
