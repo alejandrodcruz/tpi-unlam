@@ -94,9 +94,22 @@
               <span class="text-red-500 text-sm">El país es requerido.</span>
             </div>
           </div>
+          <!-- Lista de Tipo de Locación -->
+          <div class="mb-4">
+            <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Tipo de Dirección</label>
+            <div class="mt-2">
+              <select id="type" formControlName="type" required class="bg-white w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Seleccione un tipo</option>
+                <option *ngFor="let option of addressTypeOptions" [value]="option.value">{{ option.label }}</option>
+              </select>
+            </div>
+            <div *ngIf="registerForm.get('type')?.touched && registerForm.get('type')?.invalid">
+              <span class="text-red-500 text-sm">El tipo de dirección es requerido.</span>
+            </div>
+          </div>
+
         </div>
       </div>
-
       <!-- Botón de envío centrado -->
       <div class="text-center mt-6">
         <button type="submit" class="w-full rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-primaryhover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
