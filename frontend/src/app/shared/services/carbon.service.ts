@@ -46,7 +46,7 @@ export class CarbonService {
     return this.httpService.get<TotalEnergy>('measurements/total-energy', params, false);
   }
 
-  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 6000): Observable<TotalEnergy> {
+  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 6000, deviceId: string,startTimeCurrentMonth: string): Observable<TotalEnergy> {
     return interval(pollingInterval).pipe(
       switchMap(() => {
         const endTime = new Date(); // Actualizar endTime aquí

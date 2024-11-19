@@ -1,4 +1,4 @@
-  import { Component, OnInit } from '@angular/core';
+  import {Component, Input, OnInit} from '@angular/core';
   import { CardInfoComponent } from '../../../core/card/card-info.component';
   import { CommonModule } from '@angular/common';
   import {PanelTitleComponent} from "../../panel-title/panel-title.component";
@@ -9,6 +9,8 @@
   import { FormsModule } from '@angular/forms';
   import { Subject } from 'rxjs';
   import { takeUntil } from 'rxjs/operators';
+  import {SafeResourceUrl} from "@angular/platform-browser";
+  import {UserService} from "../../../shared/services/user.service";
 
   @Component({
     selector: 'app-carbon-footprint',
@@ -34,19 +36,40 @@
 
      currentDate = new Date();
      private destroy$ = new Subject<void>();
-
+     selectedDevice: string = '';
+     devices:any [] = [];
+     isLoading: boolean = false;
 
     constructor(
                 private authService: AuthService,
-                private carbonServ : CarbonService
+                private carbonServ : CarbonService,
+                private userService: UserService
+
               ) {
                 this.emissionsCO2 = 0;
               }
 
   ngOnInit(): void {
       this.getTotalCo2();
+
+    this.userService.selectedDevice$.subscribe(device=> {
+      this.selectedDevice = device;
+    });
+      this.userService.getUserDevices().subscribe((devices) => {
+          this.devices = devices;
+    });
   }
-  // Función para formatear fechas al formato ISO (yyyy-MM-ddTHH:mm:ssZ)
+    selectDevice(deviceId: string) {
+      this.isLoading = true;
+      this.selectedDevice = deviceId;
+      this.userService.selectDevice(deviceId);
+
+
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 4000);}
+  // Función para formatear fechas al formato ISO (yyyy-MM-ddTHH:mm:ssZ)cls
+
    formatDateToISO(date: Date): string {
     // Convertir la fecha a ISO, eliminar la parte de milisegundos y agregar la 'Z'
     return date.toISOString().split('.')[0] + 'Z';
@@ -92,7 +115,7 @@
 
     if (userId !== null) {
       // Obtener datos del mes actual
-      this.carbonServ.getTotalKwhRealTime(userId, startTimeCurrentMonth)
+      this.carbonServ.getTotalKwhRealTime(userId, startTimeCurrentMonth, 60000, this.selectedDevice, FirstDayOfCurrentMonth)
       .pipe(takeUntil(this.destroy$))
         .subscribe(
           (data: TotalEnergy) => {
@@ -162,4 +185,7 @@
     return parseFloat(flightEmissions.toFixed(2));;
   }
 
+    mostrarTotalEnergy() {
+
+    }
   }

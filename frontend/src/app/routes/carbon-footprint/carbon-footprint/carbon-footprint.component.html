@@ -2,24 +2,39 @@
 <div class="py-1 px-3">
   <div class="flex items-center space-x-4">
 
-    <!-- Filtro por dispositivo -->
+
+    <!-- Filtro por dispositivo-->
+    <div class="px-3 mb-2" *ngIf="!isLoading">
+      <div>
+        <div
+          class="stats shadow flex flex-wrap gap-x-6 px-3"
+          *ngFor="let device of devices"
+          (click)="selectDevice(device.deviceId)">
+          <div class="stat-figure" [ngClass]="{'bg-blue-100 rounded-full p-2': selectedDevice === device.deviceId}">
+            <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="34" height="34">
+          </div>
+          <div class="stat-title" >{{ device.name }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtro por dispositivo
     <div class="py-1 px-3">
       <div class="select-container flex items-center bg-white rounded-lg p-4 shadow-lg mb-4">
         <div class="flex flex-col space-y-4 py-6 px-10">
           <h2 class="text-lg font-semibold">Filtrar por Dispositivo</h2>
-          <select class="border border-gray-300 p-2 rounded">
+          <select [(ngModel)]="selectedDevice" class="border border-gray-300 p-2 rounded">
             <option value="all">Todos los dispositivos</option>
-            <option value="device1">Dispositivo 1</option>
-            <option value="device2">Dispositivo 2</option>
-            <option value="device3">Dispositivo 3</option>
-            <!-- Agrega más opciones aquí si es necesario -->
+            <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
+            Puedes reemplazar con tus dispositivos dinámicos
           </select>
-          <button class="bg-primary text-white p-2 rounded hover:bg-primaryhover">
+          <button (click)="mostrarTotalEnergy()" class="bg-primary text-white p-2 rounded hover:bg-primaryhover">
             Mostrar
           </button>
         </div>
       </div>
-    </div>
+    </div>-->
+
 
 
 
@@ -44,7 +59,7 @@
       </div>
       {{emissionsCO2 | json}}
     </div>
-<!--
+
 Contenido de Tooltip:
 
 Árboles plantados: La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.
