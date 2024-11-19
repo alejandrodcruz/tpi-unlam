@@ -27,9 +27,16 @@ export class RegisterComponent {
       passwordConfirm: ['', Validators.required],
       street: ['', Validators.required],
       city: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
+      type: ['', Validators.required]
     });
   }
+
+  addressTypeOptions = [
+    { value: 'HOME', label: 'Casa' },
+    { value: 'BUSINESS', label: 'Negocio' },
+    { value: 'WORKSHOP', label: 'Taller' }
+  ];
 
   goBack() {
     this.location.back(); // Navega a la página anterior
@@ -49,9 +56,9 @@ export class RegisterComponent {
 
     // Verifica si el formulario es válido antes de enviar
     if (this.registerForm.valid) {
-      const { username, email, password, street, city, country } = this.registerForm.value;
+      const { username, email, password, street, city, country, type } = this.registerForm.value;
 
-      this.authService.register({ username, password, email, street, city, country }).subscribe({
+      this.authService.register({ username, password, email, street, city, country, type }).subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },

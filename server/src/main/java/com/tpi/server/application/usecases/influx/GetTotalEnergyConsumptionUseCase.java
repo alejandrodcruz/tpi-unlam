@@ -4,7 +4,9 @@ import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.DeviceDetails;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.DeviceNotOwnedByUserException;
 import com.tpi.server.infrastructure.exceptions.InvalidDataException;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
@@ -36,55 +38,67 @@ public class GetTotalEnergyConsumptionUseCase {
 
         validateTimeRange(startTime, endTime);
 
-        User user = userRepository.findById(userId).orElse(null);
-        if (user == null) {
-            throw new InvalidDataException("El usuario con ID " + userId + " no existe.");
-        }
+        User user = getUserById(userId);
+        Set<Device> devices = getUserDevices(user);
 
-        Set<Device> devices = user.getDevices();
-
-        if (devices == null || devices.isEmpty()) {
-            throw new InvalidDataException("El usuario con ID " + userId + " no tiene dispositivos asociados.");
-        }
-
-        if (deviceId != null && !deviceId.isEmpty()) {
-            boolean ownsDevice = devices.stream()
-                    .anyMatch(device -> device.getDeviceId().equals(deviceId));
-            if (!ownsDevice) {
-                throw new InvalidDataException("El dispositivo con ID " + deviceId + " no pertenece al usuario con ID " + userId + ".");
-            }
-            double totalEnergy = measurementRepository.getTotalEnergyConsumption(
-                    Collections.singletonList(deviceId), startTime, endTime, deviceId);
-
-            String deviceName = deviceRepository.findById(deviceId)
-                    .map(Device::getName)
-                    .orElse("Unknown Device");
-
-            return new TotalEnergyDetailedResponse(totalEnergy,
-                    List.of(new DeviceDetails(deviceId, totalEnergy, deviceName)));
+        if (deviceId != null && !deviceId.trim().isEmpty()) {
+            return getTotalEnergyForSingleDevice(userId, startTime, endTime, deviceId, devices);
         } else {
-            List<String> deviceIds = devices.stream()
-                    .map(Device::getDeviceId)
-                    .collect(Collectors.toList());
-
-            Map<String, Double> devicesDetailsMap = measurementRepository.getTotalEnergyConsumptionPerDevice(
-                    deviceIds, startTime, endTime);
-
-            double totalEnergy = devicesDetailsMap.values().stream()
-                    .mapToDouble(Double::doubleValue)
-                    .sum();
-
-            List<DeviceDetails> devicesDetails = devicesDetailsMap.entrySet().stream()
-                    .map(entry -> {
-                        String name = deviceRepository.findById(entry.getKey())
-                                .map(Device::getName)
-                                .orElse("Unknown Device");
-                        return new DeviceDetails(entry.getKey(), entry.getValue(), name);
-                    })
-                    .collect(Collectors.toList());
-
-            return new TotalEnergyDetailedResponse(totalEnergy, devicesDetails);
+            return getTotalEnergyForAllDevices(startTime, endTime, devices);
         }
+    }
+
+    private User getUserById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
+    private Set<Device> getUserDevices(User user) {
+        return Optional.ofNullable(user.getDevices())
+                .filter(devices -> !devices.isEmpty())
+                .orElseThrow(() -> new InvalidDataException("El usuario con ID " + user.getId() + " no tiene dispositivos asociados."));
+    }
+
+    private TotalEnergyDetailedResponse getTotalEnergyForSingleDevice(Integer userId, String startTime, String endTime,
+                                                                      String deviceId, Set<Device> devices) {
+
+        Device device = devices.stream()
+                .filter(dev -> dev.getDeviceId().equals(deviceId))
+                .findFirst()
+                .orElseThrow(() -> new DeviceNotOwnedByUserException(deviceId, userId));
+
+        double totalEnergy = measurementRepository.getTotalEnergyConsumption(
+                Collections.singletonList(deviceId), startTime, endTime, deviceId);
+
+        String deviceName = Optional.ofNullable(device.getName()).orElse("Unknown Device");
+
+        DeviceDetails deviceDetails = new DeviceDetails(deviceId, totalEnergy, deviceName);
+
+        return new TotalEnergyDetailedResponse(totalEnergy, List.of(deviceDetails));
+    }
+
+    private TotalEnergyDetailedResponse getTotalEnergyForAllDevices(String startTime, String endTime, Set<Device> devices) {
+
+        List<String> deviceIds = devices.stream()
+                .map(Device::getDeviceId)
+                .collect(Collectors.toList());
+
+        Map<String, Double> devicesDetailsMap = measurementRepository.getTotalEnergyConsumptionPerDevice(
+                deviceIds, startTime, endTime);
+
+        double totalEnergy = devicesDetailsMap.values().stream()
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        List<DeviceDetails> devicesDetails = devices.stream()
+                .map(device -> {
+                    Double energy = devicesDetailsMap.getOrDefault(device.getDeviceId(), 0.0);
+                    String name = Optional.ofNullable(device.getName()).orElse("Unknown Device");
+                    return new DeviceDetails(device.getDeviceId(), energy, name);
+                })
+                .collect(Collectors.toList());
+
+        return new TotalEnergyDetailedResponse(totalEnergy, devicesDetails);
     }
 
     private void validateTimeRange(String startTime, String endTime) {

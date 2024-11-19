@@ -3,14 +3,17 @@ package com.tpi.server.application.usecases.influx;
 import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.Measurement;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.DeviceNotFoundException;
+import com.tpi.server.infrastructure.exceptions.DeviceNotOwnerException;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class GetUserMeasurementsUseCase {
@@ -23,35 +26,37 @@ public class GetUserMeasurementsUseCase {
         this.userRepository = userRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Measurement> execute(Integer userId, List<String> fields, String timeRange, String deviceId) {
-
-        User user = userRepository.findById(userId).orElse(null);
-        if (user == null) {
-            return new ArrayList<>();
-        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
         Set<Device> devices = user.getDevices();
+        validateUserDevices(devices, userId);
 
+        List<String> deviceIds = determineDeviceIds(devices, deviceId, userId);
+
+        return measurementRepository.getMeasurements(deviceIds, fields, timeRange);
+    }
+
+    private void validateUserDevices(Set<Device> devices, Integer userId) {
         if (devices == null || devices.isEmpty()) {
-            return new ArrayList<>();
+            throw new DeviceNotFoundException("El usuario con ID " + userId + " no posee dispositivos asociados.");
         }
+    }
 
-        List<String> deviceIds = new ArrayList<>();
-
+    private List<String> determineDeviceIds(Set<Device> devices, String deviceId, Integer userId) {
         if (deviceId != null && !deviceId.isEmpty()) {
             boolean ownsDevice = devices.stream()
                     .anyMatch(device -> device.getDeviceId().equals(deviceId));
             if (!ownsDevice) {
-                return new ArrayList<>();
+                throw new DeviceNotOwnerException(deviceId, userId);
             }
-            deviceIds.add(deviceId);
+            return List.of(deviceId);
         } else {
-            for (Device device : devices) {
-                deviceIds.add(device.getDeviceId());
-            }
+            return devices.stream()
+                    .map(Device::getDeviceId)
+                    .collect(Collectors.toList());
         }
-
-        return measurementRepository.getMeasurements(deviceIds, fields, timeRange);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CardInfoComponent } from "../../core/card/card-info.component";
 import { FormsModule } from "@angular/forms";
 import { AlertsService } from "../../shared/services/alerts.service";

@@ -1,6 +1,7 @@
 package com.tpi.server.application.usecases.auth;
 
 import com.tpi.server.application.services.security.JwtService;
+import com.tpi.server.domain.enums.AddressType;
 import com.tpi.server.domain.enums.Role;
 import com.tpi.server.domain.models.Address;
 import com.tpi.server.domain.models.User;
@@ -37,11 +38,14 @@ public class AuthRegister {
                 .role(Role.USER)
                 .build();
 
+        AddressType addressType = registerRequest.getType() != null ? registerRequest.getType() : AddressType.HOME;
+
         Address address = Address.builder()
                 .street(registerRequest.getStreet())
                 .city(registerRequest.getCity())
                 .country(registerRequest.getCountry())
                 .user(user)
+                .type(addressType)
                 .build();
 
         user.getAddresses().add(address);

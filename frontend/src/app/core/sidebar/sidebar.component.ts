@@ -9,8 +9,7 @@ import {WebSocketService} from "../../shared/services/web-socket.service";
   selector: 'app-sidebar',
   standalone: true,
   imports: [MatListModule, RouterLink, CommonModule],
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent {
    @Input() isSidebarOpen = true;

@@ -5,7 +5,9 @@ import com.tpi.server.domain.models.Device;
 import com.tpi.server.domain.models.DeviceDetails;
 import com.tpi.server.domain.models.TotalEnergyDetailedResponse;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.DeviceNotOwnedByUserException;
 import com.tpi.server.infrastructure.exceptions.InvalidDataException;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.DeviceRepository;
 import com.tpi.server.infrastructure.repositories.MeasurementRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
@@ -55,6 +57,7 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         Device device1 = new Device();
         device1.setDeviceId("device1");
         device1.setName("Device 1");
+
         Device device2 = new Device();
         device2.setDeviceId("device2");
         device2.setName("Device 2");
@@ -73,9 +76,6 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         when(measurementRepository.getTotalEnergyConsumptionPerDevice(anyList(), eq(startTime), eq(endTime)))
                 .thenReturn(devicesDetails);
 
-        when(deviceRepository.findById("device1")).thenReturn(Optional.of(device1));
-        when(deviceRepository.findById("device2")).thenReturn(Optional.of(device2));
-
         TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
         List<DeviceDetails> expectedDevicesDetails = Arrays.asList(
@@ -84,13 +84,11 @@ public class GetTotalEnergyConsumptionUseCaseTest {
         );
 
         assertEquals(expectedTotalEnergy, response.getTotalEnergy());
-        assertEquals(expectedDevicesDetails, response.getDevicesDetails()); // Actualiza esto
-        assertNull(response.getDeviceId());
+        assertEquals(expectedDevicesDetails.size(), response.getDevicesDetails().size());
+        assertTrue(response.getDevicesDetails().containsAll(expectedDevicesDetails));
 
         verify(userRepository, times(1)).findById(userId);
         verify(measurementRepository, times(1)).getTotalEnergyConsumptionPerDevice(anyList(), eq(startTime), eq(endTime));
-        verify(deviceRepository, times(1)).findById("device1");
-        verify(deviceRepository, times(1)).findById("device2");
     }
 
     @Test
@@ -121,19 +119,19 @@ public class GetTotalEnergyConsumptionUseCaseTest {
                 eq(Collections.singletonList(deviceId)), eq(startTime), eq(endTime), eq(deviceId)))
                 .thenReturn(expectedTotalEnergy);
 
-        when(deviceRepository.findById(deviceId)).thenReturn(Optional.of(device1));
-
         TotalEnergyDetailedResponse response = getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
 
         List<DeviceDetails> expectedDevicesDetails = Collections.singletonList(
                 new DeviceDetails(deviceId, expectedTotalEnergy, "Device 1")
         );
-        assertEquals(expectedDevicesDetails, response.getDevicesDetails());
+
+        assertEquals(expectedTotalEnergy, response.getTotalEnergy());
+        assertEquals(expectedDevicesDetails.size(), response.getDevicesDetails().size());
+        assertTrue(response.getDevicesDetails().containsAll(expectedDevicesDetails));
 
         verify(userRepository, times(1)).findById(userId);
         verify(measurementRepository, times(1)).getTotalEnergyConsumption(
                 eq(Collections.singletonList(deviceId)), eq(startTime), eq(endTime), eq(deviceId));
-        verify(deviceRepository, times(1)).findById(deviceId);
     }
 
     @Test
@@ -145,11 +143,11 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
             getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
         });
 
-        assertEquals("El usuario con ID " + userId + " no existe.", exception.getMessage());
+        assertEquals("Usuario con ID " + userId + " no existe.", exception.getMessage());
 
         verify(userRepository, times(1)).findById(userId);
         verifyNoMoreInteractions(measurementRepository);
@@ -199,7 +197,7 @@ public class GetTotalEnergyConsumptionUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+        DeviceNotOwnedByUserException exception = assertThrows(DeviceNotOwnedByUserException.class, () -> {
             getTotalEnergyConsumptionUseCase.execute(userId, startTime, endTime, deviceId);
         });
 

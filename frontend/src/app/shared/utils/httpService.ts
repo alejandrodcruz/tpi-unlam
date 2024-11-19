@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment.prod';
 import { AuthService } from '../services/auth.service';
@@ -53,9 +53,9 @@ export class HttpService {
     }
     return this.http.get<T>(`${this.url}/${controller}`, { params: httpParams}).pipe(
       catchError((error) => {
-        console.log('Get error', error.message);
+        console.log('Get error', error.error.message);
         if (showToast) {
-          this.toast.warning(error.message);
+          this.toast.warning(error.error.message);
         }
         return throwError(() => error);
       })

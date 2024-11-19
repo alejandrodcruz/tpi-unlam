@@ -2,12 +2,12 @@ package com.tpi.server.domain.models;
 
 import com.tpi.server.domain.enums.AlertType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 @Data

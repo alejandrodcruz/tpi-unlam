@@ -2,6 +2,7 @@ package com.tpi.server.user;
 
 import com.tpi.server.application.usecases.user.GetUserDataUseCase;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,12 +45,15 @@ class GetUserDataUseCaseTest {
     }
 
     @Test
-    void userDoesNotExistThrowsRuntimeException() {
-        when(userRepository.findById(2)).thenReturn(Optional.empty());
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            getUserDataUseCase.execute(2);
+    void userDoesNotExistThrowsUserNotFoundException() {
+        Integer nonExistentUserId = 2;
+        when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
+
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
+            getUserDataUseCase.execute(nonExistentUserId);
         });
-        assertEquals("Usuario no encontrado", exception.getMessage());
-        verify(userRepository, times(1)).findById(2);
+
+        assertEquals("Usuario con ID " + nonExistentUserId + " no existe.", exception.getMessage());
+        verify(userRepository, times(1)).findById(nonExistentUserId);
     }
 }

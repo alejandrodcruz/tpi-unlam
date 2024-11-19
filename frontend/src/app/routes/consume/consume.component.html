@@ -1,64 +1,82 @@
 <app-panel-title title="Consumo" description="Este es el consumo que registramos de tus dispositivos."></app-panel-title>
 
-<div class="px-3">
-  <div class="flex flex-col space-y-4">
-    <div class="stat shadow-lg w-full bg-white" *ngFor="let device of devices">
-      <div class="flex items-center">
-        <!-- Icono del dispositivo -->
-        <div class="stat-figure text-primary mr-4">
-          <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="32" height="32">
-        </div>
+<div class="px-3 mb-4">
+  <div class="stat shadow bg-white">
+    <h3 class="stat-title text-gray-500">Total Gastado en el Mes Actual</h3>
+    <p class="text-2xl font-bold">{{ totalCurrentMonthConsumption | number:'1.2-2' }} $ AR</p>
+  </div>
+</div>
 
-        <!-- Nombre del dispositivo -->
-        <div class="stat-title text-lg font-semibold">{{ device.name }}</div>
+<div class="flex flex-col gap-2 px-3">
+<div class="stats shadow" *ngFor="let device of devices">
+  <div class="stat grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6">
+    <div class="flex items-center">
+      <div class="stat-figure text-primary p-2">
+        <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="32" height="32">
       </div>
+      <div class="text-lg font-semibold">{{ device.name }}</div>
+    </div>
+    <div class="stat">
+    <div class="stat-title font-bold text-gray-500">Último Día</div>
+    <div class="text-2xl font-bold">{{ device.lastDayConsumption | number:'1.2-2' }} $ AR</div>
 
-      <!-- Información de consumo -->
-      <div class="stat-desc grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mt-4">
+    </div>
+    <div class="stat">
+      <div class="stat-title font-bold text-gray-500">Mes Actual</div>
+      <div class="text-2xl font-bold">{{ device.currentMonthConsumption | number:'1.2-2' }} $ AR</div>
 
-        <div class="stat-item">
-          <h4 class="text-sm font-semibold">Último Día</h4>
-          <p class="text-base text-gray-800">{{ device.lastDayConsumption }} $ AR</p>
-        </div>
-
-        <div class="stat-item">
-          <h4 class="text-sm font-semibold">Mes Actual</h4>
-          <p class="text-base text-gray-800">{{ device.currentMonthConsumption }} $ AR</p>
-        </div>
-
-        <div class="stat-item">
-          <h4 class="text-sm font-semibold">Mes Anterior</h4>
-          <p class="text-base text-gray-800">{{ device.previousMonthConsumption }} $ AR</p>
-        </div>
-
-        <div class="stat-item">
-          <h4 class="text-sm font-semibold">Proyección Mes Actual</h4>
-          <p class="text-base text-gray-800">{{ device.projectedCurrentMonthConsumption }} $ AR</p>
-        </div>
-
-        <div class="stat-item">
-          <h4 class="text-sm font-semibold">Comparación con Mes Anterior</h4>
-          <p class="text-base flex items-center">
-            <span [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
-              {{ getAbsoluteValue(device.savingsPercentage) }}% ({{ device.isSaving ? 'Ahorrado' : 'Gastado de más' }})
-            </span>
-            <!-- Iconos -->
-            <span *ngIf="device.isSaving !== undefined">
-              <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
-              </svg>
-              <svg *ngIf="device.isSaving === false" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
-              </svg>
-            </span>
-          </p>
-
-
-          <p class="text-base" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
-            {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
-          </p>
-        </div>
       </div>
+      <div class="stat p-1">
+          <div class="flex items-center">
+            <button (click)="showModal = true" class="bg-blue-300 text-black rounded-full p-2 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400 animate-pulse">
+              <i class="fa-solid fa-code-compare"></i>
+            </button>
+            <div class="stat-title font-bold text-gray-500">{{ previousMonthTitle }}</div>
+          </div>
+        <div class="text-2xl font-bold">{{ device.previousMonthConsumption | number:'1.2-2' }} $ AR</div>
+
+        </div>
+        <div class="stat">
+          <div class="stat-title font-bold text-gray-500">Proyección Mes Actual</div>
+          <div class="text-2xl font-bold">{{ device.projectedCurrentMonthConsumption | number:'1.2-2' }} $ AR</div>
+
+          </div>
+          <div class="stat p-1">
+              <div class="stat-title font-bold text-gray-500">Comparación con Mes Elegido</div>
+
+            <p class="stat-title flex items-center">
+              <span [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+                {{ getAbsoluteValue(device.savingsPercentage) }}% ({{ device.isSaving ? 'Reducción del consumo' : 'Aumento del consumo'}})
+              </span>
+              <!-- Iconos -->
+              <span *ngIf="device.isSaving !== undefined">
+                <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
+                </svg>
+                <svg *ngIf="!device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
+                </svg>
+              </span>
+            </p>
+            <p class="stat-title" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+              {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
+            </p>
+            </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal -->
+<input type="checkbox" id="month-selector-modal" class="modal-toggle" [checked]="showModal" />
+<div class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Selecciona un Mes</h3>
+
+    <input type="month" class="input input-bordered w-full" [(ngModel)]="selectedMonth" />
+
+    <div class="modal-action">
+      <button class="btn bg-primary text-white hover:bg-primaryhover" (click)="onMonthSelected(selectedMonth)">Aceptar</button>
+      <button class="btn" (click)="showModal = false">Cancelar</button>
     </div>
   </div>
 </div>

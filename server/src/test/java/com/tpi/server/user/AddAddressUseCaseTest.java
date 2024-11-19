@@ -3,6 +3,7 @@ package com.tpi.server.user;
 import com.tpi.server.application.usecases.user.AddAddressUseCase;
 import com.tpi.server.domain.models.Address;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.AddressRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,17 +74,18 @@ class AddAddressUseCaseTest {
     }
 
     @Test
-    void userDoesNotExistThrowsRuntimeException() {
+    void userDoesNotExistThrowsUserNotFoundException() {
         // Arrange
-        when(userRepository.findById(2)).thenReturn(Optional.empty());
+        Integer nonExistentUserId = 2;
+        when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            addAddressUseCase.execute(addressToAdd, 2);
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
+            addAddressUseCase.execute(addressToAdd, nonExistentUserId);
         });
 
-        assertEquals("Usuario no encontrado", exception.getMessage());
-        verify(userRepository, times(1)).findById(2);
+        assertEquals("Usuario con ID " + nonExistentUserId + " no existe.", exception.getMessage());
+        verify(userRepository, times(1)).findById(nonExistentUserId);
         verify(addressRepository, never()).save(any(Address.class));
     }
 }

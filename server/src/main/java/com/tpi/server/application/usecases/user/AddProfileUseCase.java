@@ -2,6 +2,7 @@ package com.tpi.server.application.usecases.user;
 
 import com.tpi.server.domain.models.Profile;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.ProfileRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class AddProfileUseCase {
 
     public Profile execute(Profile profile, Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new UserNotFoundException(userId));
         profile.setUser(user);
         return profileRepository.save(profile);
     }

@@ -1,6 +1,8 @@
 package com.tpi.server.application.usecases.mailer;
 
 import com.tpi.server.infrastructure.dtos.EmailRequest;
+import com.tpi.server.infrastructure.exceptions.AlertException;
+import com.tpi.server.infrastructure.exceptions.SendEmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,7 +24,7 @@ public class EmailServiceImpl implements IEmailService {
     }
 
     @Override
-    public void sendEmail(EmailRequest emailDTO) throws MessagingException {
+    public void sendEmail(EmailRequest emailDTO) throws SendEmailException {
         try {
             MimeMessage mimeMessage =
                     mailSender.createMimeMessage();
@@ -40,11 +42,11 @@ public class EmailServiceImpl implements IEmailService {
             mimeMessageHelper.setText(contentHtml, true);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
-            throw new RuntimeException("Error al enviar mail", e);
+            throw new SendEmailException();
         }
     }
 
-    public void sendAlertEmail(EmailRequest emailDTO) throws MessagingException {
+    public void sendAlertEmail(EmailRequest emailDTO) throws SendEmailException {
         try {
             MimeMessage mimeMessage =
                     mailSender.createMimeMessage();
@@ -62,7 +64,7 @@ public class EmailServiceImpl implements IEmailService {
             mimeMessageHelper.setText(contentHtml, true);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
-            throw new RuntimeException("Error al enviar mail", e);
+            throw new SendEmailException();
         }
     }
 }

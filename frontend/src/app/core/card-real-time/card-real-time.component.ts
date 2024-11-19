@@ -7,6 +7,7 @@ import {Subject, Subscription} from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CarbonService } from '../../shared/services/carbon.service';
 import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-card-real-time',
   standalone: true,
@@ -18,8 +19,7 @@ import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.mo
     DatePipe,
     NgIf
   ],
-  templateUrl: './card-real-time.component.html',
-  styleUrl: './card-real-time.component.css'
+  templateUrl: './card-real-time.component.html'
 })
 export class CardRealTimeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -49,7 +49,8 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
               private measurementsService: MeasurementsService,
               private authService: AuthService,
               private currenttimeService: CurrenttimeService,
-              private carbonService: CarbonService) {}
+              private carbonService: CarbonService,
+              private toast: ToastrService) {}
 
   ngOnInit(): void {
 
@@ -102,7 +103,8 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
           }
         );
     } else {
-      console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
+      this.toast.warning("No cuentas con user activo.");
+      this.authService.logout();
     }
   }
 
@@ -133,6 +135,9 @@ export class CardRealTimeComponent implements OnInit, OnDestroy {
             console.error('Error al obtener el total de CO₂:', error);
           }
         );
+    }else {
+      this.toast.warning("No cuentas con user activo.");
+      this.authService.logout();
     }
   }
 
