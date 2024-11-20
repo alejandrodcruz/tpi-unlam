@@ -1,5 +1,5 @@
 # Frontend
-localhost {
+https://localhost {
     tls internal
     encode gzip
 
@@ -11,7 +11,7 @@ localhost {
 }
 
 # Backend
-api.localhost {
+https://api.localhost {
     tls internal
     encode gzip
 
@@ -23,7 +23,7 @@ api.localhost {
 }
 
 # Grafana
-grafana.localhost {
+https://grafana.localhost {
     tls internal
     encode gzip
 
@@ -35,7 +35,7 @@ grafana.localhost {
 }
 
 # InfluxDB
-influxdb.localhost {
+https://influxdb.localhost {
     tls internal
     encode gzip
 
@@ -47,7 +47,7 @@ influxdb.localhost {
 }
 
 # phpMyAdmin
-phpmyadmin.localhost {
+https://phpmyadmin.localhost {
     tls internal
     encode gzip
 
