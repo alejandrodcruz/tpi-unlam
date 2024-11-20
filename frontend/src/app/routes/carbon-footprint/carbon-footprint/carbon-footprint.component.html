@@ -1,41 +1,9 @@
 <app-panel-title title="Tu Huella de Carbono" description="Visualiza el impacto ambiental que genera tu consumo energético. Puedes ver el impacto sumado de todos tus dispositivos o de un dispositivo en particular."></app-panel-title>
+<div *ngIf="isLoading">
+  <app-loading></app-loading>
+</div>
 <div class="py-1 px-3">
   <div class="flex items-center space-x-4">
-
-
-    <!-- Filtro por dispositivo-->
-    <div class="px-3 mb-2" *ngIf="!isLoading">
-      <div>
-        <div
-          class="stats shadow flex flex-wrap gap-x-6 px-3"
-          *ngFor="let device of devices"
-          (click)="selectDevice(device.deviceId)">
-          <div class="stat-figure" [ngClass]="{'bg-blue-100 rounded-full p-2': selectedDevice === device.deviceId}">
-            <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="34" height="34">
-          </div>
-          <div class="stat-title" >{{ device.name }}</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Filtro por dispositivo
-    <div class="py-1 px-3">
-      <div class="select-container flex items-center bg-white rounded-lg p-4 shadow-lg mb-4">
-        <div class="flex flex-col space-y-4 py-6 px-10">
-          <h2 class="text-lg font-semibold">Filtrar por Dispositivo</h2>
-          <select [(ngModel)]="selectedDevice" class="border border-gray-300 p-2 rounded">
-            <option value="all">Todos los dispositivos</option>
-            <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
-            Puedes reemplazar con tus dispositivos dinámicos
-          </select>
-          <button (click)="mostrarTotalEnergy()" class="bg-primary text-white p-2 rounded hover:bg-primaryhover">
-            Mostrar
-          </button>
-        </div>
-      </div>
-    </div>-->
-
-
 
 
     <!--<div class="select-container flex items-center bg-white rounded-lg p-4 shadow-lg">
@@ -71,121 +39,143 @@ Kilómetros en avión: El equivalente de CO₂ generado en vuelos comerciales. U
 Emisiones de gases contaminantes: La cantidad de CO₂ generada por el uso de energía, representada en kilogramos de gases contaminantes." -->
 
   </div>
-    <div class="container mx-auto py-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8" >
-          <app-card-info
-          [iconClasses]="'fa-solid fa-tree'"
-          [titleCard]="'Arboles'"
-          [showMonthPrevious] = true
-          [dataCardProgress]= KwhToTreeCO2AbsorptionCurrent
-          [dataCardProgressPrevious]=KwhToTreeCO2AbsorptionPrevious
-          [subtitleCard]="'Cantidad a plantar'"
-          [valueProgress]="10"
-          [maxProgress]="100"
-          [colorProgress]="'progress progress-success w-ful'"
-          [tooltipText] ="'La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.'"
-          ></app-card-info>
-          <app-card-info
-          [iconClasses]="'fa-solid fa-plane'"
-          [titleCard]="'Vuelos'"
-          [showMonthPrevious] = true
-          [unit]="'Km'"
-          [dataCardProgress]=KwhToFlightEmissionsCurrent
-          [dataCardProgressPrevious]=KwhToFlightEmissionsPrevious
-          [subtitleCard]="'Km en avión'"
-          [valueProgress]="40"
-          [maxProgress]="100"
-          [colorProgress]="'progress progress-error w-ful'"
-          [tooltipText] ="'El equivalente de CO₂ generado en vuelos comerciales. Un vuelo de corta distancia emite alrededor de 250 g de CO₂ por pasajero-km, mientras que uno de larga distancia puede emitir hasta 500 g por pasajero-km.'"
-          ></app-card-info>
-          <app-card-info
-          [iconClasses]="'fa-solid fa-car'"
-          [titleCard]="'Autos'"
-          [showMonthPrevious] = true
-          [unit]="'Km'"
-          [dataCardProgress]=KwhToVehicleEmissionsCurrent
-          [dataCardProgressPrevious]=KwhToVehicleEmissionsPrevious
-          [subtitleCard]="'Km en auto'"
-          [valueProgress]="50"
-          [maxProgress]="100"
-          [colorProgress]="'progress progress-info w-ful'"
-          [tooltipText] ="'Los kilómetros que se recorrerían en un vehículo promedio, emitiendo CO₂. Un automóvil emite alrededor de 120 g de CO₂ por kilómetro.'"
-          ></app-card-info>
-          <app-card-info
-          [iconClasses]="'fa-solid fa-heart-crack'"
-          [titleCard]="'Gases contaminantes'"
-          [showMonthPrevious] = true
-          [unit]="'Kg'"
-          [dataCardProgress]=KwhToCO2EmissionsCurrent
-          [dataCardProgressPrevious]=KwhToCO2EmissionsPrevious
-          [subtitleCard]="'kg en gases'"
-          [valueProgress]="50"
-          [maxProgress]="100"
-          [colorProgress]="'progress progress-warning w-ful'"
-          [tooltipText] ="'La cantidad de gases contaminantes generada por el uso de energía, representada en kilogramos de gases contaminantes.'"
-          ></app-card-info>
+  <!-- Contenedor de dispositivos sin slider -->
+  <div class="flex items-center justify-start flex-wrap space-x-4">
+    <!-- Card de cada dispositivo -->
+    <div
+      class="stats shadow cursor-pointer p-4"
+      (click)="selectDevice('')">
+      <div class="stat-figure" [ngClass]="{'bg-blue-100 rounded-full p-2': selectedDevice === ''}">
+      </div>
+      <div class="stat-title">Todos</div>
+    </div>
+    <div
+      class="stats shadow cursor-pointer p-4"
+      *ngFor="let device of devices"
+      (click)="selectDevice(device.deviceId)">
+      <div class="stat-figure" [ngClass]="{'bg-blue-100 rounded-full p-2': selectedDevice === device.deviceId}">
+        <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="34" height="34">
+      </div>
+      <div class="stat-title">{{ device.name }}</div>
+    </div>
+  </div>
+
+
+<div class="container mx-auto py-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8" >
+      <app-card-info
+        [iconClasses]="'fa-solid fa-tree'"
+        [titleCard]="'Arboles'"
+        [showMonthPrevious] = true
+        [dataCardProgress]= KwhToTreeCO2AbsorptionCurrent
+        [dataCardProgressPrevious]=KwhToTreeCO2AbsorptionPrevious
+        [subtitleCard]="'Cantidad a plantar'"
+        [valueProgress]="10"
+        [maxProgress]="100"
+        [colorProgress]="'progress progress-success w-ful'"
+        [tooltipText] ="'La cantidad de árboles necesarios para absorber el CO₂ emitido por tu consumo. Un árbol puede absorber aproximadamente 21 kg de CO₂ al año.'"
+      ></app-card-info>
+      <app-card-info
+        [iconClasses]="'fa-solid fa-plane'"
+        [titleCard]="'Vuelos'"
+        [showMonthPrevious] = true
+        [unit]="'Km'"
+        [dataCardProgress]=KwhToFlightEmissionsCurrent
+        [dataCardProgressPrevious]=KwhToFlightEmissionsPrevious
+        [subtitleCard]="'Km en avión'"
+        [valueProgress]="40"
+        [maxProgress]="100"
+        [colorProgress]="'progress progress-error w-ful'"
+        [tooltipText] ="'El equivalente de CO₂ generado en vuelos comerciales. Un vuelo de corta distancia emite alrededor de 250 g de CO₂ por pasajero-km, mientras que uno de larga distancia puede emitir hasta 500 g por pasajero-km.'"
+      ></app-card-info>
+      <app-card-info
+        [iconClasses]="'fa-solid fa-car'"
+        [titleCard]="'Autos'"
+        [showMonthPrevious] = true
+        [unit]="'Km'"
+        [dataCardProgress]=KwhToVehicleEmissionsCurrent
+        [dataCardProgressPrevious]=KwhToVehicleEmissionsPrevious
+        [subtitleCard]="'Km en auto'"
+        [valueProgress]="50"
+        [maxProgress]="100"
+        [colorProgress]="'progress progress-info w-ful'"
+        [tooltipText] ="'Los kilómetros que se recorrerían en un vehículo promedio, emitiendo CO₂. Un automóvil emite alrededor de 120 g de CO₂ por kilómetro.'"
+      ></app-card-info>
+      <app-card-info
+        [iconClasses]="'fa-solid fa-heart-crack'"
+        [titleCard]="'Gases contaminantes'"
+        [showMonthPrevious] = true
+        [unit]="'Kg'"
+        [dataCardProgress]=KwhToCO2EmissionsCurrent
+        [dataCardProgressPrevious]=KwhToCO2EmissionsPrevious
+        [subtitleCard]="'kg en gases'"
+        [valueProgress]="50"
+        [maxProgress]="100"
+        [colorProgress]="'progress progress-warning w-ful'"
+        [tooltipText] ="'La cantidad de gases contaminantes generada por el uso de energía, representada en kilogramos de gases contaminantes.'"
+      ></app-card-info>
+    </div>
+  </div>
+
+  <div class="text-center flex flex-col items-center justify-center">
+    <h2 class="text-3xl font-extrabold my-2">Consejos</h2>
+    <h5 class="font-bold text-primary mb-8">Aquí van tus consejos...</h5>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center p-3">
+    <!-- Card 1 -->
+    <div class="card card-compact bg-base-100 w-full shadow-xl">
+      <figure class="h-48">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PNblzbHwiscfazhGYDPInct4EpBSxTNO1A&s"
+          alt="Huella de carbono"
+          class="h-full w-full object-cover"/>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">¿Qué es la huella de carbono?</h2>
+        <p>Explicación clara y concisa sobre qué es la huella de carbono, cómo se genera y cómo el consumo eléctrico contribuye a ella.</p>
+        <div class="card-actions justify ">
+          <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
+             href="https://espanol.epa.gov/la-energia-y-el-medioambiente/emisiones-de-dioxido-de-carbono" target="_blank">Ver</a>
         </div>
       </div>
+    </div>
 
-        <div class="text-center flex flex-col items-center justify-center">
-          <h2 class="text-3xl font-extrabold my-2">Consejos</h2>
-        <h5 class="font-bold text-primary mb-8">Aquí van tus consejos...</h5>
+    <!-- Card 2 -->
+    <div class="card card-compact bg-base-100 w-full shadow-xl">
+      <figure class="h-48">
+        <img
+          src="https://www.infocampo.com.ar/wp-content/uploads/2024/10/WhatsApp-Image-2024-10-03-at-17.51.56.jpeg"
+          alt="Sustentabilidad"
+          class="h-full w-full object-cover"/>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Sustentabilidad</h2>
+        <p>Sustentabilidad: en el campo argentino, reducir la huella de carbono ya es una “especialidad”.</p>
+        <div class="card-actions justify">
+          <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
+             href="https://www.infocampo.com.ar/sustentabilidad-en-el-campo-argentino-reducir-la-huella-de-carbono-ya-es-una-especialidad/" target="_blank">Ver</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center p-3">
-          <!-- Card 1 -->
-          <div class="card card-compact bg-base-100 w-full shadow-xl">
-            <figure class="h-48">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PNblzbHwiscfazhGYDPInct4EpBSxTNO1A&s"
-                alt="Huella de carbono"
-                class="h-full w-full object-cover"/>
-            </figure>
-            <div class="card-body">
-              <h2 class="card-title">¿Qué es la huella de carbono?</h2>
-              <p>Explicación clara y concisa sobre qué es la huella de carbono, cómo se genera y cómo el consumo eléctrico contribuye a ella.</p>
-              <div class="card-actions justify ">
-                <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
-                href="https://espanol.epa.gov/la-energia-y-el-medioambiente/emisiones-de-dioxido-de-carbono" target="_blank">Ver</a>
-              </div>
-            </div>
-          </div>
+      </div>
+    </div>
 
-          <!-- Card 2 -->
-          <div class="card card-compact bg-base-100 w-full shadow-xl">
-            <figure class="h-48">
-              <img
-                src="https://www.infocampo.com.ar/wp-content/uploads/2024/10/WhatsApp-Image-2024-10-03-at-17.51.56.jpeg"
-                alt="Sustentabilidad"
-                class="h-full w-full object-cover"/>
-            </figure>
-            <div class="card-body">
-              <h2 class="card-title">Sustentabilidad</h2>
-              <p>Sustentabilidad: en el campo argentino, reducir la huella de carbono ya es una “especialidad”.</p>
-              <div class="card-actions justify">
-                <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
-                href="https://www.infocampo.com.ar/sustentabilidad-en-el-campo-argentino-reducir-la-huella-de-carbono-ya-es-una-especialidad/" target="_blank">Ver</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="card card-compact bg-base-100 w-full shadow-xl">
-            <figure class="h-48">
-              <img
-                src="https://www.murcia.com/noticias/fotos/1118132557w2.jpg"
-                alt="Factura de luz y gas"
-                class="h-full w-full object-cover"/>
-            </figure>
-            <div class="card-body">
-              <h2 class="card-title">10 formas de reducir tu huella de carbono</h2>
-              <p>Sé verde, te damos algunos sencillos consejos que puedes incorporar a tu vida cotidiana y lograr un planeta más vivible.</p>
-              <div class="card-actions justify">
-                <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
-                href="https://www.ngenespanol.com/naturaleza/10-formas-de-reducir-tu-huella-de-carbono/" target="_blank">Ver</a>
-              </div>
-            </div>
-          </div>
+    <!-- Card 3 -->
+    <div class="card card-compact bg-base-100 w-full shadow-xl">
+      <figure class="h-48">
+        <img
+          src="https://www.murcia.com/noticias/fotos/1118132557w2.jpg"
+          alt="Factura de luz y gas"
+          class="h-full w-full object-cover"/>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">10 formas de reducir tu huella de carbono</h2>
+        <p>Sé verde, te damos algunos sencillos consejos que puedes incorporar a tu vida cotidiana y lograr un planeta más vivible.</p>
+        <div class="card-actions justify">
+          <a class="no-underline mt-6 inline-block bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primaryhover"
+             href="https://www.ngenespanol.com/naturaleza/10-formas-de-reducir-tu-huella-de-carbono/" target="_blank">Ver</a>
         </div>
+      </div>
+    </div>
+  </div>
 
 
 </div>

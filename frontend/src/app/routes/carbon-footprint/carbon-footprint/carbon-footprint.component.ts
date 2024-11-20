@@ -1,88 +1,92 @@
-  import {Component, Input, OnInit} from '@angular/core';
-  import { CardInfoComponent } from '../../../core/card/card-info.component';
-  import { CommonModule } from '@angular/common';
-  import {PanelTitleComponent} from "../../panel-title/panel-title.component";
-  import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
-  import { AuthService } from '../../../shared/services/auth.service';
-  import { CarbonService } from '../../../shared/services/carbon.service';
-  import { TotalEnergy } from '../models/totalEnergy.models';
-  import { FormsModule } from '@angular/forms';
-  import { Subject } from 'rxjs';
-  import { takeUntil } from 'rxjs/operators';
-  import {SafeResourceUrl} from "@angular/platform-browser";
-  import {UserService} from "../../../shared/services/user.service";
+import { Component, OnInit } from '@angular/core';
+import { CardInfoComponent } from '../../../core/card/card-info.component';
+import { CommonModule } from '@angular/common';
+import { PanelTitleComponent } from "../../panel-title/panel-title.component";
+import { Measurement } from '../../../shared/services/measurements.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { CarbonService } from '../../../shared/services/carbon.service';
+import { TotalEnergy } from '../models/totalEnergy.models';
+import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../../shared/services/user.service';
+import {LoadingComponent} from "../../../core/loading/loading.component";
 
-  @Component({
-    selector: 'app-carbon-footprint',
-    standalone: true,
-    imports: [CardInfoComponent, CommonModule, PanelTitleComponent,FormsModule],
-    templateUrl: './carbon-footprint.component.html',
-    styleUrl: './carbon-footprint.component.css'
-  })
-  export class CarbonFootprintComponent implements OnInit{
-     measurements: Measurement[] = [];
-     emissionsCO2: number;  // Propiedad para almacenar el total de CO2
-     startDate: string | null = null;
-     endDate: string | null = null;
-     KwhToCO2EmissionsCurrent : number  = 0;
-     KwhToTreeCO2AbsorptionCurrent :number  = 0;
-     KwhToVehicleEmissionsCurrent : number  = 0;
-     KwhToFlightEmissionsCurrent : number  = 0;
+@Component({
+  selector: 'app-carbon-footprint',
+  standalone: true,
+  imports: [CardInfoComponent, CommonModule, PanelTitleComponent, FormsModule, LoadingComponent],
+  templateUrl: './carbon-footprint.component.html',
+  styleUrl: './carbon-footprint.component.css'
+})
+export class CarbonFootprintComponent implements OnInit {
+  measurements: Measurement[] = [];
+  emissionsCO2: number; // Propiedad para almacenar el total de CO2
+  startDate: string | null = null;
+  endDate: string | null = null;
+  KwhToCO2EmissionsCurrent: number = 0;
+  KwhToTreeCO2AbsorptionCurrent: number = 0;
+  KwhToVehicleEmissionsCurrent: number = 0;
+  KwhToFlightEmissionsCurrent: number = 0;
 
-     KwhToCO2EmissionsPrevious: number  = 0;
-     KwhToTreeCO2AbsorptionPrevious :number  = 0;
-     KwhToVehicleEmissionsPrevious : number  = 0;
-     KwhToFlightEmissionsPrevious : number  = 0;
+  KwhToCO2EmissionsPrevious: number = 0;
+  KwhToTreeCO2AbsorptionPrevious: number = 0;
+  KwhToVehicleEmissionsPrevious: number = 0;
+  KwhToFlightEmissionsPrevious: number = 0;
 
-     currentDate = new Date();
-     private destroy$ = new Subject<void>();
-     selectedDevice: string = '';
-     devices:any [] = [];
-     isLoading: boolean = false;
+  currentDate = new Date();
+  private destroy$ = new Subject<void>();
+  selectedDevice: string = '';
+  devices: any[] = [];
+  isLoading: boolean = false;
 
-    constructor(
-                private authService: AuthService,
-                private carbonServ : CarbonService,
-                private userService: UserService
-
-              ) {
-                this.emissionsCO2 = 0;
-              }
+  constructor(
+    private authService: AuthService,
+    private carbonServ: CarbonService,
+    private userService: UserService,
+    private toast: ToastrService
+  ) {
+    this.emissionsCO2 = 0;
+  }
 
   ngOnInit(): void {
-      this.getTotalCo2();
+    this.getTotalCo2();
 
-    this.userService.selectedDevice$.subscribe(device=> {
+    // Suscribirse al dispositivo seleccionado
+    this.userService.selectedDevice$.subscribe(device => {
       this.selectedDevice = device;
     });
-      this.userService.getUserDevices().subscribe((devices) => {
-          this.devices = devices;
+
+    // Obtener dispositivos del usuario
+    this.userService.getUserDevices().subscribe((devices) => {
+      this.devices = devices;
     });
   }
-    selectDevice(deviceId: string) {
-      this.isLoading = true;
-      this.selectedDevice = deviceId;
-      this.userService.selectDevice(deviceId);
 
+  selectDevice(deviceId: string) {
+    this.isLoading = true;
+    this.selectedDevice = deviceId;
+    this.userService.selectDevice(deviceId);
 
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 4000);}
-  // Función para formatear fechas al formato ISO (yyyy-MM-ddTHH:mm:ssZ)cls
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 4000);
+  }
 
-   formatDateToISO(date: Date): string {
-    // Convertir la fecha a ISO, eliminar la parte de milisegundos y agregar la 'Z'
+  // Función para formatear fechas al formato ISO (yyyy-MM-ddTHH:mm:ssZ)
+  formatDateToISO(date: Date): string {
     return date.toISOString().split('.')[0] + 'Z';
   }
 
   // Obtener el primer día del mes actual
-   getFirstDayOfCurrentMonth(): string {
+  getFirstDayOfCurrentMonth(): string {
     const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
     return this.formatDateToISO(date);
   }
 
   // Obtener el primer día del mes anterior
-   getFirstDayOfPreviousMonth(): string {
+  getFirstDayOfPreviousMonth(): string {
     const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 1);
     return this.formatDateToISO(date);
   }
@@ -94,7 +98,6 @@
   }
 
   ngOnDestroy(): void {
-    // Emitir un valor para completar todas las suscripciones
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -115,8 +118,8 @@
 
     if (userId !== null) {
       // Obtener datos del mes actual
-      this.carbonServ.getTotalKwhRealTime(userId, startTimeCurrentMonth, 60000, this.selectedDevice, FirstDayOfCurrentMonth)
-      .pipe(takeUntil(this.destroy$))
+      this.carbonServ.getTotalKwhRealTime(userId, startTimeCurrentMonth)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           (data: TotalEnergy) => {
             const totalKwh = data.totalEnergy;
@@ -134,8 +137,8 @@
         );
 
       // Obtener datos del mes anterior
-      this.carbonServ.getTotalKwhAllDevice(userId, startTimePreviousMonth, endTimePreviousMonth, '')
-      .pipe(takeUntil(this.destroy$))
+      this.carbonServ.getTotalKwh(userId, startTimePreviousMonth, endTimePreviousMonth)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           (data: TotalEnergy) => {
             const totalKwhPrevious = data.totalEnergy;
@@ -146,46 +149,35 @@
             this.KwhToTreeCO2AbsorptionPrevious = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsPrevious);
             this.KwhToVehicleEmissionsPrevious = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsPrevious);
             this.KwhToFlightEmissionsPrevious = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsPrevious, false);
-
           },
           (error) => {
             console.error('Error al obtener el total de CO2 del mes anterior:', error);
           }
         );
     } else {
-      console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
+      this.toast.warning("No cuentas con un usuario activo.");
+      this.authService.logout();
     }
   }
 
-
-  convertKwhToCO2Emissions(totalKwh: number): number{
+  convertKwhToCO2Emissions(totalKwh: number): number {
     return totalKwh * this.carbonServ.emissionFactor;
   }
 
-  //Un árbol absorbe aproximadamente 21 kg de CO₂ por año (según la FAO y otros estudios ambientales, aunque esto puede variar).
   convertKwhToTreeCO2Absorption(co2Emissions: number): number {
-    const treesNeeded = co2Emissions / 21; // 21 kg de CO₂ absorbidos por árbol al año
+    const treesNeeded = co2Emissions / 21;
     return parseFloat(treesNeeded.toFixed(2));
   }
 
-  //Un automóvil promedio emite 120 g de CO2 por kilómetro recorrido.
-
   convertKwhToVehicleEmissions(co2Emissions: number): number {
-    const co2PerKilometer = 0.12; // 120g de CO2 por kilómetro en kg
+    const co2PerKilometer = 0.12;
     const vehicleEmissions = co2Emissions / co2PerKilometer;
-    return parseFloat(vehicleEmissions.toFixed(2));;
+    return parseFloat(vehicleEmissions.toFixed(2));
   }
-
-  /* Un vuelo comercial emite aproximadamente 250 g de CO2 por pasajero-km en un vuelo de corta distancia
-  y puede llegar hasta 0.5 kg de CO2 por pasajero-km en vuelos largos. */
 
   convertKwhToFlightEmissions(co2Emissions: number, isLongDistance: boolean): number {
-    const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25; // kg de CO2 por pasajero-km
+    const co2PerPassengerKm = isLongDistance ? 0.5 : 0.25;
     const flightEmissions = co2Emissions / co2PerPassengerKm;
-    return parseFloat(flightEmissions.toFixed(2));;
+    return parseFloat(flightEmissions.toFixed(2));
   }
-
-    mostrarTotalEnergy() {
-
-    }
-  }
+}

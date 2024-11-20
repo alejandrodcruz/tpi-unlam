@@ -31,6 +31,7 @@ export class CarbonService {
       startTime: startTime.toISOString(), // Formato ISO 8601
       endTime: endTime.toISOString(),
     };
+    console.log("esto lo que contiene devaceId",this.selectedDevice);
     if (deviceId) {
       params['deviceId'] = deviceId;
     }
@@ -41,12 +42,13 @@ export class CarbonService {
       userId: userId.toString(),
       startTime: startTime.toISOString(), // Formato ISO 8601
       endTime: endTime.toISOString(),
-      deviceId: deviceId
+      deviceId: deviceId.toString(),
     };
+    //console.log("esto lo que contiene params",params);
     return this.httpService.get<TotalEnergy>('measurements/total-energy', params, false);
   }
 
-  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 6000, deviceId: string,startTimeCurrentMonth: string): Observable<TotalEnergy> {
+  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {
     return interval(pollingInterval).pipe(
       switchMap(() => {
         const endTime = new Date(); // Actualizar endTime aquí
@@ -54,5 +56,14 @@ export class CarbonService {
       })
     );
   }
+  getTotalKwhRealTimeDevice(userId: number, startTime: Date, pollingInterval: number = 6000, deviceId: string): Observable<TotalEnergy> {
+    return interval(pollingInterval).pipe(
+      switchMap(() => {
+        const endTime = new Date(); // Actualizar endTime aquí
+        return this.getTotalKwhAllDevice(userId, startTime, endTime,deviceId);
+      })
+    );
+  }
 
 }
+
