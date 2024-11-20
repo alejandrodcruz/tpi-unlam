@@ -33,8 +33,8 @@ describe('AddressService', () => {
   it('should call correct URL in getAddressesByUser', (done) => {
     const mockUserId = 1;
     const mockAddresses: Address[] = [
-      { id: 1, street: '123 Main St', city: 'Anytown', country: 'Country A' },
-      { id: 2, street: '456 Elm St', city: 'Othertown', country: 'Country B' },
+      { id: 1, street: '123 Main St', city: 'Anytown', country: 'Country A' , type: "HOME"},
+      { id: 2, street: '456 Elm St', city: 'Othertown', country: 'Country B', type: "HOME" },
     ];
 
     httpServiceSpy.get.mockReturnValue(of(mockAddresses));
@@ -48,8 +48,8 @@ describe('AddressService', () => {
 
   it('should call correct URL and body in addAddress', (done) => {
     const mockUserId = 1;
-    const mockAddress: Address = { id: 3, street: '789 Pine St', city: 'Newtown', country: 'Country C' };
-    const mockResponse: Address = { id: 3, street: '789 Pine St', city: 'Newtown', country: 'Country C' };
+    const mockAddress: Address = { id: 3, street: '789 Pine St', city: 'Newtown', country: 'Country C' ,type: "HOME"};
+    const mockResponse: Address = { id: 3, street: '789 Pine St', city: 'Newtown', country: 'Country C' ,type: "HOME"};
 
     httpServiceSpy.post.mockReturnValue(of(mockResponse));
 
@@ -62,8 +62,8 @@ describe('AddressService', () => {
 
   it('should call correct URL and body in updateAddress', (done) => {
     const mockAddressId = 1;
-    const mockAddress: Address = { id: 1, street: '123 Updated St', city: 'Updated City', country: 'Updated Country' };
-    const mockResponse: Address = { id: 1, street: '123 Updated St', city: 'Updated City', country: 'Updated Country' };
+    const mockAddress: Address = { id: 1, street: '123 Updated St', city: 'Updated City', country: 'Updated Country' ,type: "HOME"};
+    const mockResponse: Address = { id: 1, street: '123 Updated St', city: 'Updated City', country: 'Updated Country' ,type: "HOME"};
 
     httpServiceSpy.put.mockReturnValue(of(mockResponse));
 

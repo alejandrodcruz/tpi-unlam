@@ -2,6 +2,7 @@ package com.tpi.server.user;
 
 import com.tpi.server.application.usecases.user.UpdateAddressUseCase;
 import com.tpi.server.domain.models.Address;
+import com.tpi.server.infrastructure.exceptions.AddressNotFoundException;
 import com.tpi.server.infrastructure.repositories.AddressRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,13 +56,15 @@ class UpdateAddressUseCaseTest {
     }
 
     @Test
-    void addressDoesNotExistThrowsRuntimeException() {
+    void addressDoesNotExistThrowsAddressNotFoundException() {
         when(addressRepository.findById(2L)).thenReturn(Optional.empty());
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+
+        AddressNotFoundException exception = assertThrows(AddressNotFoundException.class, () -> {
             updateAddressUseCase.execute(2L, updatedAddressData);
         });
 
-        assertEquals("Dirección no encontrada", exception.getMessage());
+        assertEquals("Dirección con ID 2 no encontrada", exception.getMessage());
+
         verify(addressRepository, times(1)).findById(2L);
         verify(addressRepository, never()).save(any(Address.class));
     }

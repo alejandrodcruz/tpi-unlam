@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,12 +19,15 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @Data
     @NoArgsConstructor
@@ -59,6 +64,26 @@ public class GlobalExceptionHandler {
         return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(AlertException.class)
+    public void handleAlertException(AlertException ex) {
+        logger.error(ex.getMessage());
+    }
+
+    @ExceptionHandler(AlertGetUserException.class)
+    public void handleGetUserException(AlertGetUserException ex) {
+        logger.error(ex.getMessage());
+    }
+
+    @ExceptionHandler(GetEmailForAlertException.class)
+    public void handleGetEmailForAlertException(GetEmailForAlertException ex) {
+        logger.error(ex.getMessage());
+    }
+
+    @ExceptionHandler(SendEmailException.class)
+    public void handleSendEmailException(SendEmailException ex) {
+        logger.error(ex.getMessage());
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException ex) {
         List<String> errors = ex.getConstraintViolations()
@@ -82,7 +107,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        String error = ex.getName() + " debería ser de tipo " + ex.getRequiredType().getSimpleName();
+        String error = ex.getName() + " debería ser de tipo " + Objects.requireNonNull(ex.getRequiredType()).getSimpleName();
         return buildResponseEntity(HttpStatus.BAD_REQUEST, error, null);
     }
 
@@ -108,6 +133,51 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
         // Puedes agregar logging aquí si es necesario
         return buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrió un error no controlado.", null);
+    }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleAddressNotFoundException(AddressNotFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(AddressNotOwnedByUserException.class)
+    public ResponseEntity<ErrorResponse> handleAddressNotOwnedByUserException(AddressNotOwnedByUserException ex) {
+        return buildResponseEntity(HttpStatus.FORBIDDEN, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(DeviceAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleDeviceAlreadyExistsException(DeviceAlreadyExistsException ex) {
+        return buildResponseEntity(HttpStatus.CONFLICT, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(DeviceNotOwnedByUserException.class)
+    public ResponseEntity<ErrorResponse> handleDeviceNotOwnedByUserException(DeviceNotOwnedByUserException ex) {
+        return buildResponseEntity(HttpStatus.FORBIDDEN, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoAddressesFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoAddressesFoundException(NoAddressesFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoConfigurationsFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoConfigurationsFoundException(NoConfigurationsFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoDevicesFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoDevicesFoundException(NoDevicesFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoProfilesFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoProfilesFoundException(NoProfilesFoundException ex) {
+        return buildResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(UserNotAuthenticatedException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotAuthenticatedException(UserNotAuthenticatedException ex) {
+        return buildResponseEntity(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
     }
 
     private ResponseEntity<ErrorResponse> buildResponseEntity(HttpStatus status, String message, List<String> errors) {

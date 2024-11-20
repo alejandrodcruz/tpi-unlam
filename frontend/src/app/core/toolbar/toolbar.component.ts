@@ -8,6 +8,7 @@ import { Address } from '../../shared/domain/address';
 import { AuthService } from '../../shared/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/domain/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-toolbar',
@@ -33,7 +34,8 @@ export class ToolbarComponent implements OnInit {
   constructor(private userService: UserService,
               private measurementsService: MeasurementsService,
               private addressService: AddressService,
-              private authService: AuthService)
+              private authService: AuthService,
+              private toast: ToastrService)
               {this.user$ = this.userService.user$;}
 
   ngOnInit(): void {
@@ -51,7 +53,8 @@ export class ToolbarComponent implements OnInit {
       this.addresses = addresses;
     });
     } else {
-    console.error('Error: no existe user.');
+      this.toast.warning("No cuentas con user activo.");
+      this.authService.logout();
     }
 
     this.userService.getUserData();

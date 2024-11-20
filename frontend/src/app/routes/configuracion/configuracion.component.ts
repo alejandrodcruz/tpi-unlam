@@ -22,7 +22,6 @@ import { Location } from '@angular/common';
 })
 export class ConfiguracionComponent implements OnInit {
   selectedProfile: string | null = null;
-  deviceSelectId: string | null = null;
   public deviceId: string = '';
   public deviceName: string = '';
   public title: string = '';

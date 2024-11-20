@@ -1,7 +1,6 @@
 package com.tpi.server.application.usecases.deviceConfiguration;
 
 import com.tpi.server.application.services.deviceConfiguration.ConfigurationServiceImpl;
-import com.tpi.server.domain.enums.AlertType;
 import com.tpi.server.domain.models.DeviceConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,9 +21,5 @@ public class AddConfigurationUseCase {
         }
 
         return saveDeviceConfiguration.execute(deviceConfiguration);
-    }
-
-    public boolean isAlertActive(String deviceId, AlertType alertType) {
-        return configurationService.isAlertActive(deviceId, alertType);
     }
 }

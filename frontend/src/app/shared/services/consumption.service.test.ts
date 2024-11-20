@@ -42,15 +42,13 @@ describe('ConsumptionService', () => {
     const userId = 1;
     const startTime = new Date('2024-10-01T00:00:00Z');
     const endTime = new Date('2024-11-01T00:00:00Z');
-    const deviceId = 'device123';
 
-    consumptionService.getTotalKwhAndConsumption(userId, startTime, endTime, deviceId).subscribe((data) => {
+    consumptionService.getTotalKwhAndConsumption(userId, startTime, endTime ).subscribe((data) => {
       expect(data).toEqual(mockResponse);
       expect(httpServiceSpy.get).toHaveBeenCalledWith('measurements/total-energy', {
         userId: userId.toString(),
         startTime: startTime.toISOString(),
         endTime: endTime.toISOString(),
-        deviceId: deviceId,
       }, false);
       done();
     });
@@ -88,24 +86,6 @@ describe('ConsumptionService', () => {
 
     consumptionService.getCurrentMonthConsumption(userId, deviceId).subscribe((energyCost) => {
       expect(energyCost).toBe(75);
-      done();
-    });
-  });
-
-  it('should return previous month consumption using getPreviousMonthConsumption', (done) => {
-    const mockResponse: TotalEnergyResponse = {
-      totalEnergy: 400,
-      energyCost: 120,
-      devicesDetails: [],
-    };
-
-    httpServiceSpy.get.mockReturnValue(of(mockResponse));
-
-    const userId = 1;
-    const deviceId = 'device123';
-
-    consumptionService.getPreviousMonthConsumption(userId, deviceId).subscribe((energyCost) => {
-      expect(energyCost).toBe(120);
       done();
     });
   });

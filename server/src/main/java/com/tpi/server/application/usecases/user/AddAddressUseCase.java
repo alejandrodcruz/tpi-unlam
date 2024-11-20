@@ -2,6 +2,7 @@ package com.tpi.server.application.usecases.user;
 
 import com.tpi.server.domain.models.Address;
 import com.tpi.server.domain.models.User;
+import com.tpi.server.infrastructure.exceptions.UserNotFoundException;
 import com.tpi.server.infrastructure.repositories.AddressRepository;
 import com.tpi.server.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class AddAddressUseCase {
 
     public Address execute(Address address, Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new UserNotFoundException(userId));
         address.setUser(user);
         return addressRepository.save(address);
     }

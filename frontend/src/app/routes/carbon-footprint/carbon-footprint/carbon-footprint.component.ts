@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CardInfoComponent } from '../../../core/card/card-info.component';
 import { CommonModule } from '@angular/common';
 import {PanelTitleComponent} from "../../panel-title/panel-title.component";
-import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
+import { Measurement } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { CarbonService } from '../../../shared/services/carbon.service';
 import { TotalEnergy } from '../models/totalEnergy.models';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -38,7 +39,8 @@ export class CarbonFootprintComponent implements OnInit{
 
   constructor(
               private authService: AuthService,
-              private carbonServ : CarbonService
+              private carbonServ : CarbonService,
+              private toast: ToastrService
             ) {
               this.emissionsCO2 = 0;
             }
@@ -130,7 +132,8 @@ getTotalCo2(): void {
         }
       );
   } else {
-    console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
+    this.toast.warning("No cuentas con un usuario activo.");
+    this.authService.logout();
   }
 }
 
