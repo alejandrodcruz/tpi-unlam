@@ -1,57 +1,39 @@
-# Frontend
-https://localhost {
-    tls internal
-    encode gzip
-
-    reverse_proxy angular-app:4200
-
-    header {
-        Strict-Transport-Security "max-age=31536000;"
+https://lytics.dyndns.org {
+    tls {
+        # Puedes proporcionar tu correo electrónico si lo deseas
     }
-}
-
-# Backend
-https://api.localhost {
-    tls internal
     encode gzip
 
-    reverse_proxy spring-boot-app:8080
-
-    header {
-        Strict-Transport-Security "max-age=31536000;"
+    # Rutas para el backend
+    @backend {
+        path_regexp backend_path ^/(api|auth|configurations|ws|alert|user|address|measurements|devices|v3/api-docs|swagger-ui|swagger-ui.html)(/.*)?
     }
-}
+    reverse_proxy @backend spring-boot-app:8080
 
-# Grafana
-https://grafana.localhost {
-    tls internal
-    encode gzip
-
-    reverse_proxy grafana:3000
-
-    header {
-        Strict-Transport-Security "max-age=31536000;"
+    # Rutas para Grafana
+    handle_path /grafana/* {
+        reverse_proxy grafana:3000
     }
-}
 
-# InfluxDB
-https://influxdb.localhost {
-    tls internal
-    encode gzip
-
-    reverse_proxy influxdb:8086
-
-    header {
-        Strict-Transport-Security "max-age=31536000;"
+    # Rutas para InfluxDB
+    handle_path /influxdb/* {
+        reverse_proxy influxdb:8086
     }
-}
 
-# phpMyAdmin
-https://phpmyadmin.localhost {
-    tls internal
-    encode gzip
+    # Rutas para phpMyAdmin
+    handle_path /phpmyadmin/* {
+        reverse_proxy phpmyadmin:80
+    }
 
-    reverse_proxy phpmyadmin:80
+    # Rutas para Mosquitto (si es necesario)
+    handle_path /mqtt/* {
+        reverse_proxy mosquitto:1883
+    }
+
+    # El resto de las solicitudes se manejan por el frontend
+    handle {
+        reverse_proxy angular-app:4200
+    }
 
     header {
         Strict-Transport-Security "max-age=31536000;"
