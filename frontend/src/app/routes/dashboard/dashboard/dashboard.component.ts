@@ -67,10 +67,13 @@ export class DashboardComponent implements OnInit {
         this.updateIframeUrl();
       }
     });
+
     this.userService.getUserDevices().subscribe((devices) => {
       this.devices = devices;
     });
+
   }
+
   //select desde stat
   selectDevice(deviceId: string) {
     this.isLoading = true;
@@ -86,6 +89,16 @@ export class DashboardComponent implements OnInit {
     const selectedDeviceObj = this.devices.find(device => device.deviceId === deviceId);
     if (selectedDeviceObj) {
       this.userService.selectDeviceName(selectedDeviceObj.name);
+    }
+  }
+
+  scroll(direction: 'left' | 'right', container: HTMLElement) {
+    const cardWidth = container.firstElementChild?.getBoundingClientRect().width || 200;
+
+    if (direction === 'left') {
+      container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: cardWidth, behavior: 'smooth' });
     }
   }
 
