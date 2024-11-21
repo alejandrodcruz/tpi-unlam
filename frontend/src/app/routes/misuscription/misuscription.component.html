@@ -41,35 +41,64 @@
     <h2 class="text-2xl font-bold mb-4">Tus Planes Actuales</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-      <!-- Plan Personal -->
-      <div class="card card-compact bg-base-100 shadow-xl">
+      <!-- Plan Basico -->
+      <div class="card card-compact bg-base-100 shadow-xl text-center">
         <div class="card-body">
-          <h3 class="card-title text-lg font-bold">Plan Personal</h3>
-          <p class="text-xl font-bold">$59 / año</p>
-          <p>Acceso a todas las funciones básicas de Lytics para gestión y optimización del consumo energético.</p>
+          <h2 class="card-title text-lg font-bold">Plan Básico  </h2>
+          <p class="text-xl font-bold">$ 10.000 mensuales</p>
+          <p class="py-2"><strong>Detalles del Plan Básico:</strong></p>
+          <div class="flex justify-center pb-6">
+            <ul class="list-disc pl-6">
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Ubicación
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Tiempo Real
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Huella de Carbono
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Notificaciones
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Informes
+              </li>
+            </ul>
+          </div>
           <div class="card-actions justify-center">
-            <label for="modal-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Administrar</label>
+            <label for="modal-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Abonar</label>
           </div>
         </div>
       </div>
 
-      <!-- Modal Plan Personal -->
+      <!-- Modal Plan Basico -->
       <input type="checkbox" id="modal-plan-personal" class="modal-toggle" />
       <div class="modal">
         <div class="modal-box">
-          <h3 class="font-bold text-lg">Plan Personal - Lytics</h3>
-          <p class="py-4"><strong>Detalles del Plan Personal:</strong></p>
-          <ul class="list-disc pl-6">
-            <li>Acceso completo a la biblioteca de funciones básicas de Lytics.</li>
-            <li>Actualizaciones automáticas para monitoreo de consumo energético.</li>
-            <li>Soporte por email.</li>
-          </ul>
+          <h3 class="font-bold text-lg">Plan Básico</h3>
+
 
           <!-- Sección de Configuración -->
           <div class="py-4">
-            <h4 class="font-bold mb-2">Configuración</h4>
+            <h4 class="font-bold mb-2">Abono</h4>
             <label class="block">
-              <span class="text-gray-700">Frecuencia de Pago</span>
+              <span class="text-gray-700">Modo de Pago</span>
               <select class="form-select mt-1 block w-full">
                 <option>Anual</option>
                 <option>Mensual</option>
@@ -81,91 +110,147 @@
             </label>
           </div>
 
-          <!-- Botón de pago para el Plan Personal -->
+          <!-- Botón de pago para el Plan Basico -->
           <div class="modal-action">
-            <button id="pay-button-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Pagar Plan Personal</button>
+            <button id="pay-button-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Pagar</button>
             <label for="modal-plan-personal" class="btn bg-primary text-white hover:bg-primaryhover">Cerrar</label>
           </div>
         </div>
       </div>
 
-      <!-- Plan Empresarial -->
-      <div class="card card-compact bg-base-100 shadow-xl">
+      <!-- Plan Estandar -->
+      <div class="card card-compact bg-base-100 shadow-xl text-center">
         <div class="card-body">
-          <h3 class="card-title text-lg font-bold">Plan Empresarial</h3>
-          <p class="text-xl font-bold">$199 / año</p>
-          <p>Acceso a todas las funciones premium para empresas que buscan optimización energética avanzada.</p>
+          <h3 class="card-title text-lg font-bold">Plan Estándar</h3>
+          <p class="text-xl font-bold">$15.000 mensuales</p>
+          <p><strong>Detalle del Plan Estándar:</strong></p>
+          <div class="flex justify-center pb-6">
+            <ul class="list-disc pl-6">
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Ubicación
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Tiempo Real
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Huella de Carbono
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Notificaciones
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Informes
+              </li>
+            </ul>
+          </div>
           <div class="card-actions justify-center">
-            <label for="modal-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Administrar</label>
+            <label for="modal-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Abonar</label>
           </div>
         </div>
       </div>
 
-      <!-- Modal Plan Empresarial -->
+      <!-- Modal Plan Estandar -->
       <input type="checkbox" id="modal-plan-empresarial" class="modal-toggle" />
       <div class="modal">
         <div class="modal-box">
-          <h3 class="font-bold text-lg">Plan Empresarial - Lytics</h3>
-          <p class="py-4"><strong>Detalles del Plan Empresarial:</strong></p>
-          <ul class="list-disc pl-6">
-            <li>Acceso a todas las funciones premium.</li>
-            <li>Soporte prioritario para optimización de grandes instalaciones.</li>
-            <li>Actualizaciones avanzadas y reportes detallados.</li>
-          </ul>
+          <h3 class="font-bold text-lg">Plan Estándar</h3>
 
           <!-- Sección de Configuración -->
-          <div class="py-4">
-            <h4 class="font-bold mb-2">Configuración</h4>
-            <label class="block">
-              <span class="text-gray-700">Frecuencia de Pago</span>
-              <select class="form-select mt-1 block w-full">
-                <option>Anual</option>
-                <option>Mensual</option>
-              </select>
-            </label>
-            <label class="block mt-3">
-              <input type="checkbox" class="form-checkbox" />
-              <span class="ml-2">Recibir notificaciones por email</span>
-            </label>
-          </div>
+        <div class="py-4">
+          <h4 class="font-bold mb-2">Abono</h4>
+          <label class="block">
+            <span class="text-gray-700">Modo de Pago</span>
+            <select class="form-select mt-1 block w-full">
+              <option>Anual</option>
+              <option>Mensual</option>
+            </select>
+          </label>
+          <label class="block mt-3">
+            <input type="checkbox" class="form-checkbox" />
+            <span class="ml-2">Recibir notificaciones por email</span>
+          </label>
+        </div>
 
-          <!-- Botón de pago para el Plan Empresarial -->
+          <!-- Botón de pago para el Plan Estandar -->
           <div class="modal-action">
-            <button id="pay-button-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Pagar Plan Empresarial</button>
+            <button id="pay-button-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Pagar</button>
             <label for="modal-plan-empresarial" class="btn bg-primary text-white hover:bg-primaryhover">Cerrar</label>
           </div>
         </div>
       </div>
 
-      <!-- Plan Profesional -->
-      <div class="card card-compact bg-base-100 shadow-xl">
+      <!-- Plan Empresa -->
+      <div class="card card-compact bg-base-100 shadow-xl text-center">
         <div class="card-body">
-          <h3 class="card-title text-lg font-bold">Plan Profesional</h3>
-          <p class="text-xl font-bold">$250 / año</p>
-          <p>Acceso completo a todas las funciones y soporte técnico 24/7.</p>
+          <h3 class="card-title text-lg font-bold">Plan Empresa</h3>
+          <p class="text-xl font-bold">$25.000 mensuales</p>
+          <p class="py-2"><strong>Detalles del Plan Empresa:</strong></p>
+          <div class="flex justify-center pb-6">
+            <ul class="list-disc pl-6">
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Ubicación
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Tiempo Real
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Huella de Carbono
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Notificaciones
+              </li>
+              <li class="flex items-center">
+                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Informes
+              </li>
+            </ul>
+          </div>
           <div class="card-actions justify-center">
-            <label for="modal-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Administrar</label>
+            <label for="modal-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Abonar</label>
           </div>
         </div>
       </div>
 
-      <!-- Modal Plan Profesional -->
+      <!-- Modal Plan Empresa -->
       <input type="checkbox" id="modal-plan-profesional" class="modal-toggle" />
       <div class="modal">
         <div class="modal-box">
-          <h3 class="font-bold text-lg">Plan Profesional - Lytics</h3>
-          <p class="py-4"><strong>Detalles del Plan Profesional:</strong></p>
-          <ul class="list-disc pl-6">
-            <li>Soporte técnico 24/7.</li>
-            <li>Acceso completo a todas las funciones.</li>
-            <li>Actualizaciones premium y análisis personalizados.</li>
-          </ul>
+          <h3 class="font-bold text-lg">Plan Empresa</h3>
 
           <!-- Sección de Configuración -->
           <div class="py-4">
-            <h4 class="font-bold mb-2">Configuración</h4>
+            <h4 class="font-bold mb-2">Abono</h4>
             <label class="block">
-              <span class="text-gray-700">Frecuencia de Pago</span>
+              <span class="text-gray-700">Modo de Pago</span>
               <select class="form-select mt-1 block w-full">
                 <option>Anual</option>
                 <option>Mensual</option>
@@ -177,9 +262,9 @@
             </label>
           </div>
 
-          <!-- Botón de pago para el Plan Profesional -->
+          <!-- Botón de pago para el Plan Empresa -->
           <div class="modal-action">
-            <button id="pay-button-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Pagar Plan Profesional</button>
+            <button id="pay-button-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Pagar</button>
             <label for="modal-plan-profesional" class="btn bg-primary text-white hover:bg-primaryhover">Cerrar</label>
           </div>
         </div>
