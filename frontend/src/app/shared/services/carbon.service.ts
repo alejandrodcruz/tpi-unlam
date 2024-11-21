@@ -20,15 +20,11 @@ export class CarbonService {
   constructor(private http: HttpClient) { }
 
 
-  getTotalKwh(userId: number, startTime: Date, endTime: Date, deviceId?: string): Observable<TotalEnergy> {
+  getTotalKwh(userId: number, startTime: Date, endTime: Date): Observable<TotalEnergy> {
     let params = new HttpParams()
       .set('userId', userId.toString())
       .set('startTime', startTime.toISOString())  // Formato ISO 8601
       .set('endTime', endTime.toISOString());
-
-    if (deviceId) {
-      params = params.set('deviceId', deviceId);
-    }
 
     return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
 
@@ -37,7 +33,7 @@ export class CarbonService {
     return interval(pollingInterval).pipe(
       switchMap(() => {
         const endTime = new Date(); // Actualizar endTime aquí
-        return this.getTotalKwh(userId, startTime, endTime, deviceId);
+        return this.getTotalKwh(userId, startTime, endTime);
       })
     );
   }
