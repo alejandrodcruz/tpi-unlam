@@ -1,96 +1,114 @@
 <div class="modal" [class.modal-open]="isOpen">
-  <div class="modal-box">
+  <div class="modal-box relative">
+
+    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" (click)="close()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
     <h3 class="font-bold text-lg">Asociar un Dispositivo</h3>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading">
 
-    <!-- Paso 1 -->
-    <div *ngIf="step === 1">
-      <p class="py-4">No tienes un dispositivo asociado. Para asociar uno, sigue estos pasos:</p>
-      <ol class="list-decimal list-inside">
-        <li>Asegúrate de que el dispositivo Lytics esté conectado a la red eléctrica.</li>
-      </ol>
-    </div>
-
-    <!-- Paso 2 -->
-    <div *ngIf="step === 2">
-      <p class="py-4">Conectarlo a tu red:</p>
-      <ol class="list-decimal list-inside">
-        <li>Desde tu celular, busca el dispositivo Lytics en tu red Wi-Fi.</li>
-      </ol>
-
-      <div class="mt-4 flex justify-center">
-        <div class="p-2">
-          <img src="../../../assets/img/Dispo1.jpg" alt=""
-          class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105 object-cover" />
-        </div>
+      <!-- Paso 1 -->
+      <div *ngIf="step === 1">
+        <p class="py-4">Vamos a configurar tu nuevo dispositivo, sigue estos pasos:</p>
+        <ol class="list-decimal list-inside">
+          <li>Asegúrate de que el dispositivo Lytics esté conectado a la red eléctrica.</li>
+        </ol>
       </div>
-    </div>
 
-     <!-- Paso 3 -->
-     <div *ngIf="step === 3">
-      <p class="py-4">Sigue con el emparejamiento:</p>
-      <ol class="list-decimal list-inside">
-        <li>Conecta el dispositivo a tu red Wi-Fi.</li>
-        <li>Verifica la conexión.</li>
-      </ol>
+      <!-- Paso 2 -->
+      <div *ngIf="step === 2">
+        <p class="py-4">Conectarlo a tu red:</p>
+        <ol class="list-decimal list-inside">
+          <li>Desde tu celular, busca el dispositivo Lytics en tu red Wi-Fi.</li>
+        </ol>
 
-      <div class="mt-4 flex justify-center">
-        <div class="p-2">
-          <img src="../../../assets/img/Dispo2.jpg" alt=""
-          class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105 object-cover" />
+        <div class="mt-4 flex justify-center">
+          <div class="p-2">
+            <img src="../../../assets/img/Dispo1.jpg" alt=""
+                 class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105 object-cover" />
+          </div>
         </div>
       </div>
 
-    </div>
-  <!-- Paso 4 -->
-  <div *ngIf="step === 4">
-    <p class="py-4">Sigue con el emparejamiento:</p>
-    <ol class="list-decimal list-inside">
-      <li>Obtén el código de emparejamiento.</li>
-    </ol>
+      <!-- Paso 3 -->
+      <div *ngIf="step === 3">
+        <p class="py-4">Sigue con el emparejamiento:</p>
+        <ol class="list-decimal list-inside">
+          <li>Conecta el dispositivo a tu red Wi-Fi.</li>
+          <li>Verifica la conexión.</li>
+        </ol>
 
-    <div class="mt-4 flex justify-center">
-      <div class="p-2">
-        <img src="../../../assets/img/Dispo4.jpg" alt=""
-        class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105 object-cover" />
+        <div class="mt-4 flex justify-center">
+          <div class="p-2">
+            <img src="../../../assets/img/Dispo2.jpg" alt=""
+                 class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105 object-cover" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Paso 4 -->
+      <div *ngIf="step === 4">
+        <p class="py-4">Sigue con el emparejamiento:</p>
+        <ol class="list-decimal list-inside">
+          <li>Obtén el código de emparejamiento.</li>
+        </ol>
+
+        <div class="mt-4 flex justify-center">
+          <div class="p-2">
+            <img src="../../../assets/img/Dispo4.jpg" alt=""
+                 class="rounded-lg w-full border border-gray-300 transition-transform duration-300 transform hover:scale-105 object-cover" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Paso 5 -->
+      <div *ngIf="step === 5">
+        <p class="py-4">Ahora ingresa el código de emparejamiento que obtuviste:</p>
+        <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Código de emparejamiento"
+               [(ngModel)]="pairingCode" name="pairingCode" required />
+        <div *ngIf="errorMessage" class="text-red-500 mt-2">
+          {{ errorMessage }}
+        </div>
+        <p class="py-4">Elige la dirección:</p>
+        <select class="select select-bordered w-full max-w-xs" [(ngModel)]="selectedAddressId" (change)="onAddressChange()" name="selectedAddressId" required>
+          <option value="" disabled selected>Selecciona una dirección</option>
+          <option *ngFor="let address of addresses" [value]="address.id">
+            {{ address.street }}, {{ address.city }}, {{ address.country }} ({{ getAddressTypeLabel(address.type) }})
+          </option>
+        </select>
+        <p class="py-4">Elige el tipo de dispositivo:</p>
+        <select class="select select-bordered w-full max-w-xs" [(ngModel)]="nameDevice" [disabled]="!selectedAddressId" name="nameDevice" required>
+          <option value="" disabled selected>Selecciona un dispositivo</option>
+          <option *ngFor="let deviceName of deviceNames" [value]="deviceName">{{ deviceName }}</option>
+        </select>
+      </div>
+
+      <!-- Paso 6 -->
+      <div *ngIf="step === 6">
+        <p class="py-4">¡Listo! Has completado el emparejamiento.</p>
+        <p class="py-4">Puedes ver tu dispositivo en la lista de dispositivos asociados.</p>
+      </div>
+
+      <div class="modal-action">
+        <!-- Botón de atrás -->
+        <button class="btn" *ngIf="step > 1 && step < 6" (click)="previousStep()">Atrás</button>
+
+        <!-- Botón de siguiente o enviar -->
+        <button class="btn" *ngIf="step < 5" (click)="nextStep()">Siguiente</button>
+
+        <!-- Botón de finalizar cuando estás en el último paso -->
+        <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 5"
+                (click)="submitCode()">Finalizar</button>
+
+        <!-- Botón de cerrar -->
+        <button class="btn" *ngIf="step === 6" (click)="close()">Cerrar</button>
       </div>
     </div>
-
-  </div>
-    <!-- Paso 5 -->
-    <div *ngIf="step === 5">
-      <p class="py-4">Ahora ingresa el código de emparejamiento que obtuviste:</p>
-      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Código de emparejamiento"
-      [(ngModel)]="pairingCode" name="pairingCode" required />
-      <div *ngIf="errorMessage" class="text-red-500 mt-2">
-        {{ errorMessage }}
-      </div>
-      <!--<p class="py-4">Puedes darle un nombre a tu dispositivo:</p>
-      <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Nombre del dispositivo(opcional)"
-      [(ngModel)]="nameDevice" name="nameDevice" required/>-->
-    </div>
-
-    <!-- Paso 6 -->
-    <div *ngIf="step === 6">
-      <p class="py-4">¡Listo! Has completado el emparejamiento.</p>
-      <p class="py-4">Puedes ver tu dispositivo en la lista de dispositivos asociados.</p>
-    </div>
-
-    <div class="modal-action">
-      <!-- Botón de atrás -->
-      <button class="btn" *ngIf="step > 1 && step < 6" (click)="previousStep()">Atrás</button>
-
-      <!-- Botón de siguiente o enviar -->
-      <button class="btn" *ngIf="step < 5" (click)="nextStep()">Siguiente</button>
-
-      <!-- Botón de finalizar cuando estás en el último paso -->
-      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" *ngIf="step === 5"
-      (click)="submitCode()">Finalizar</button>
-
-      <!-- Botón de cerrar -->
-      <button class="btn" *ngIf="step === 6" (click)="close()">Cerrar</button>
-    </div>
-  </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TotalEnergy } from '../../routes/carbon-footprint/models/totalEnergy.models';
 import { interval, Observable, switchMap } from 'rxjs';
-
+import { UserService } from './user.service';
+import { HttpService } from '../utils/httpService';
 
 
 @Injectable({
@@ -15,21 +15,29 @@ export class CarbonService {
 
   emissionFactor : number = 0.4;
 
-  private apiUrl = 'http://localhost:8080/api/measurements';
+  private selectedDevice: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpService: HttpService, private userService: UserService) {
 
-
-  getTotalKwh(userId: number, startTime: Date, endTime: Date): Observable<TotalEnergy> {
-    let params = new HttpParams()
-      .set('userId', userId.toString())
-      .set('startTime', startTime.toISOString())  // Formato ISO 8601
-      .set('endTime', endTime.toISOString());
-
-    return this.http.get<TotalEnergy>(`${this.apiUrl}/total-energy`, { params });
+    this.userService.selectedDevice$.subscribe(deviceId => {
+      this.selectedDevice = deviceId;
+    });
 
   }
-  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000, deviceId?: string): Observable<TotalEnergy> {
+
+  getTotalKwh(userId: number, startTime: Date, endTime: Date, deviceId: string = this.selectedDevice || ''): Observable<TotalEnergy> {
+    const params: { userId: string; startTime: string; endTime: string; deviceId?: string } = {
+      userId: userId.toString(),
+      startTime: startTime.toISOString(), // Formato ISO 8601
+      endTime: endTime.toISOString(),
+    };
+    if (deviceId) {
+      params['deviceId'] = deviceId;
+    }
+    return this.httpService.get<TotalEnergy>('measurements/total-energy', params, false);
+  }
+
+  getTotalKwhRealTime(userId: number, startTime: Date, pollingInterval: number = 4000): Observable<TotalEnergy> {
     return interval(pollingInterval).pipe(
       switchMap(() => {
         const endTime = new Date(); // Actualizar endTime aquí

@@ -12,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Device {
 
     @Id
@@ -25,4 +26,8 @@ public class Device {
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 }

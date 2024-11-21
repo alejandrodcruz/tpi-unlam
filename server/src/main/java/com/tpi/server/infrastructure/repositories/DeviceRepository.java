@@ -10,4 +10,5 @@ import java.util.List;
 public interface DeviceRepository extends JpaRepository<Device, String> {
     Device findByPairingCode(String pairingCode);
     List<Device> findByUserId(Integer userId);
+    Device findDeviceByDeviceId(String deviceId);
 }

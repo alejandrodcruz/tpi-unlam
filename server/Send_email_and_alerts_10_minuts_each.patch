@@ -1,0 +1,197 @@
+Subject: [PATCH] Send email and alerts 10 minuts each
+---
+Index: server/src/main/java/com/tpi/server/application/usecases/alert/AlertUseCase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/com/tpi/server/application/usecases/alert/AlertUseCase.java b/server/src/main/java/com/tpi/server/application/usecases/alert/AlertUseCase.java
+--- a/server/src/main/java/com/tpi/server/application/usecases/alert/AlertUseCase.java	(revision 5f7414c805448e364472465282ca9c799c5dcafc)
++++ b/server/src/main/java/com/tpi/server/application/usecases/alert/AlertUseCase.java	(revision ec02100ebbd0518317eb847376f2248db6e62f6a)
+@@ -1,17 +1,22 @@
+ package com.tpi.server.application.usecases.alert;
+ 
++import com.tpi.server.application.usecases.mailer.EmailServiceImpl;
+ import com.tpi.server.domain.models.Alert;
+ import com.tpi.server.infrastructure.dtos.AlertDTO;
+ import com.tpi.server.infrastructure.dtos.AlertResponse;
++import com.tpi.server.infrastructure.dtos.EmailRequest;
+ import com.tpi.server.infrastructure.exceptions.AlertNotFoundException;
+ import com.tpi.server.infrastructure.repositories.AlertRepository;
+ import com.tpi.server.infrastructure.utils.AlertMessageUtils;
+ import lombok.RequiredArgsConstructor;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
++import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.messaging.simp.SimpMessagingTemplate;
+ import org.springframework.stereotype.Service;
++import java.util.Calendar;
+ 
++import java.util.Date;
+ import java.util.List;
+ import java.util.stream.Collectors;
+ 
+@@ -25,24 +30,47 @@
+ 
+     private final AlertRepository alertRepository;
+ 
++    @Autowired
++    private final EmailServiceImpl emailService;
++
+     public void createAlert(AlertDTO alertData) {
+         try {
++            Calendar calendar = Calendar.getInstance();
++            calendar.add(Calendar.MINUTE, -10);
++            Date tenMinutesAgo = calendar.getTime();
++
++            if (alertRepository.existsByTypeAndDeviceIdAndDateAfter(alertData.getType(), alertData.getDeviceId(), tenMinutesAgo)) {
++                logger.trace("Alerta duplicada detectada: no se creará una nueva alerta.");
++                return;
++            }
+             Alert alert = Alert.builder()
+                     .type(alertData.getType())
+-                    .date(alertData.getDate())
++                    .date(new Date())
+                     .deviceId(alertData.getDeviceId())
+                     .value(alertData.getValue())
+                     .name(alertData.getName())
+                     .build();
+             alertRepository.save(alert);
+             logger.trace("Save alerta:{}", alert);
++
++            // Establecer mensaje y enviar a través del WebSocket
+             alertData.setMessage(AlertMessageUtils.getAlertMessage(alertData.getType()));
+             messagingTemplate.convertAndSend("/topic/alerts", alertData);
++            emailService.sendEmail(EmailRequest.builder()
++                    .destination(getEmail())
++                    .subject("Alaerta dectada")
++                    .body(alertData.getMessage())
++                    .build());
+         } catch (Exception e) {
+-            logger.error("Error al guardar la alerta", e);
+-            throw new RuntimeException("No se pudo crear la alerta", e);
++            logger.error("Error al guardar la alerta: {}", alertData);
++            throw new RuntimeException("No se pudo crear la alerta");
+         }
+     }
++
++    //todo get user email
++    private String getEmail() {
++        return "nicolas.larsen96@gmail.com";
++    }
+ 
+ 
+     public List<AlertResponse> getUserAlertsByDeviceId(String deviceId) throws AlertNotFoundException {
+@@ -64,7 +92,7 @@
+                 .type(alert.getType())
+                 .alertMessage(AlertMessageUtils.getAlertMessage(alert.getType()))
+                 .value(alert.getValue())
+-                .date(alert.getDate())
++                .date(new Date())
+                 .name(alert.getName())
+                 .build();
+     }
+Index: server/src/main/java/com/tpi/server/domain/models/Alert.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/com/tpi/server/domain/models/Alert.java b/server/src/main/java/com/tpi/server/domain/models/Alert.java
+--- a/server/src/main/java/com/tpi/server/domain/models/Alert.java	(revision 5f7414c805448e364472465282ca9c799c5dcafc)
++++ b/server/src/main/java/com/tpi/server/domain/models/Alert.java	(revision ec02100ebbd0518317eb847376f2248db6e62f6a)
+@@ -28,8 +28,10 @@
+ 
+     private AlertType type;
+ 
+-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+-    private String date;
++    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
++    @Temporal(TemporalType.TIMESTAMP)
++    private Date date;
++
+ 
+     private double value;
+ 
+Index: server/src/main/java/com/tpi/server/infrastructure/dtos/AlertDTO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertDTO.java b/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertDTO.java
+--- a/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertDTO.java	(revision 5f7414c805448e364472465282ca9c799c5dcafc)
++++ b/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertDTO.java	(revision ec02100ebbd0518317eb847376f2248db6e62f6a)
+@@ -1,17 +1,13 @@
+ package com.tpi.server.infrastructure.dtos;
+ 
+ import com.tpi.server.domain.enums.AlertType;
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-import java.util.Date;
++import lombok.*;
+ 
+ @Data
+ @Builder
+ @AllArgsConstructor
+ @NoArgsConstructor
++@ToString
+ public class AlertDTO {
+     private String deviceId;
+     private AlertType type;
+Index: server/src/main/java/com/tpi/server/infrastructure/dtos/AlertResponse.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertResponse.java b/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertResponse.java
+--- a/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertResponse.java	(revision 5f7414c805448e364472465282ca9c799c5dcafc)
++++ b/server/src/main/java/com/tpi/server/infrastructure/dtos/AlertResponse.java	(revision ec02100ebbd0518317eb847376f2248db6e62f6a)
+@@ -5,7 +5,6 @@
+ import lombok.Builder;
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+-
+ import java.util.Date;
+ 
+ @Data
+@@ -15,7 +14,7 @@
+ public class AlertResponse {
+     private String deviceId;
+     private AlertType type;
+-    private String date;
++    private Date date;
+     private String alertMessage;
+     private String name;
+     private double value;
+Index: server/src/main/java/com/tpi/server/infrastructure/repositories/AlertRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/com/tpi/server/infrastructure/repositories/AlertRepository.java b/server/src/main/java/com/tpi/server/infrastructure/repositories/AlertRepository.java
+--- a/server/src/main/java/com/tpi/server/infrastructure/repositories/AlertRepository.java	(revision 5f7414c805448e364472465282ca9c799c5dcafc)
++++ b/server/src/main/java/com/tpi/server/infrastructure/repositories/AlertRepository.java	(revision ec02100ebbd0518317eb847376f2248db6e62f6a)
+@@ -1,12 +1,14 @@
+ package com.tpi.server.infrastructure.repositories;
+ 
++import com.tpi.server.domain.enums.AlertType;
+ import com.tpi.server.domain.models.Alert;
+ import org.springframework.data.jpa.repository.JpaRepository;
+ 
++import java.util.Date;
+ import java.util.List;
+ 
+ public interface AlertRepository extends JpaRepository<Alert, Long> {
+     List<Alert> findAllByDeviceIdOrderByDateDesc(String deviceId);
+-    List<Alert> getAlertsByDeviceId(String deviceId);
++    boolean existsByTypeAndDeviceIdAndDateAfter(AlertType type, String deviceId, Date date);
+     List<Alert> findAll();
+ }
+diff --git a/mosquitto/data/mosquitto.db b/mosquitto/data/mosquitto.db
+index 2e11da357f210ad486e8f7ed83b80a98a925bacc..7c54b4544af6b4ca3f9382bb6893f5d4ec47ff03
+GIT binary patch
+literal 47
+mc${O{%8;91Tv(b}Qj)KblEeT3Y(UHi!~%f_(;y-o5DEbG90w=>
+

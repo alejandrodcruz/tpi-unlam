@@ -16,13 +16,14 @@
       <div>
         <span class="text-sm font-semibold">Locación</span>
         <select class="p-2 border-none outline-none bg-transparent text-gray-500">
-          <option>Hogar 1</option>
-          <option>Oficina</option>
+          <option *ngFor="let address of addresses" [value]="address.id">
+            {{ address.street }} ({{ getAddressTypeLabel(address.type) }})
+          </option>
         </select>
       </div>
     </div>
 
-    <div class="select-container flex items-center bg-white rounded-lg p-4 shadow-lg">
+    <!--<div class="select-container flex items-center bg-white rounded-lg p-4 shadow-lg">
       <i class="px-1 fa-lg fa-solid fa-house-laptop"></i>
       <div>
         <span class="text-sm font-semibold">Dispositivo</span>
@@ -36,18 +37,18 @@
       <div class="ml-1 bg-blue-100 rounded-full p-1 flex items-center justify-center mb-1">
         <img [src]="'../../../assets/icon/' + deviceName + '.png'" alt="" width="32" height="32">
       </div>
-    </div>
+    </div>-->
   </div>
 
     <div class="flex items-center space-x-4">
-    <a [routerLink]="['alerts']" class="relative">
+    <!--<a [routerLink]="['alerts']" class="relative">
       <button class="btn btn-ghost relative">
         <i class="fa-xl text-red-600 fa-solid fa-bell"></i>
       </button>
-    </a>
+     </a>-->
 
     <div class="relative p-2">
-      <button class="flex items-center space-x-2">
+      <button class="flex items-center space-x-3">
         <div class="avatar placeholder">
           <div *ngIf="user$ | async as user" class="bg-neutral text-neutral-content w-8 rounded-full">
             <span class="text-3xl">{{ getFirstLetterInUppercase(user.username) }}</span>

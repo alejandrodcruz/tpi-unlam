@@ -28,8 +28,10 @@ public class Alert {
 
     private AlertType type;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private String date;
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
 
     private double value;
 

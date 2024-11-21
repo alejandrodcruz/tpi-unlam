@@ -2,9 +2,13 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService, Device } from '../../shared/services/user.service';
 import {RouterLink} from "@angular/router";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
+import { MeasurementsService } from '../../shared/services/measurements.service';
+import { AddressService } from '../../shared/services/address.service';
+import { Address } from '../../shared/domain/address';
+import { AuthService } from '../../shared/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/domain/user';
-import { MeasurementsService } from '../../shared/services/measurements.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,10 +29,20 @@ export class ToolbarComponent implements OnInit {
   selectedDevice: string = "";
   deviceName: string = "";
   user$: Observable<User | null>;
+  addresses: Address[] = [];
 
-  constructor(private userService: UserService, private measurementsService: MeasurementsService) {
-    this.user$ = this.userService.user$;
-  }
+  addressTypeOptions = [
+    { value: 'HOME', label: 'Casa' },
+    { value: 'BUSINESS', label: 'Negocio' },
+    { value: 'WORKSHOP', label: 'Taller' }
+  ];
+
+  constructor(private userService: UserService,
+              private measurementsService: MeasurementsService,
+              private addressService: AddressService,
+              private authService: AuthService,
+              private toast: ToastrService)
+              {this.user$ = this.userService.user$;}
 
   ngOnInit(): void {
     this.userService.getUserDevices().subscribe((devices) => {
@@ -39,6 +53,15 @@ export class ToolbarComponent implements OnInit {
       this.deviceName = this.devices.find(device => device.deviceId === this.selectedDevice)?.name || "";
       this.measurementsService.setDeviceId(this.selectedDevice);
     });
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+    this.addressService.getAddressesByUser(userId).subscribe((addresses) => {
+      this.addresses = addresses;
+    });
+    } else {
+      this.toast.warning("No cuentas con user activo.");
+      this.authService.logout();
+    }
 
     this.userService.getUserData();
 
@@ -49,17 +72,23 @@ export class ToolbarComponent implements OnInit {
   }
 
   onDeviceChange(event: any) {
-    var selectedDevice = event.target.value;
+    const selectedDevice = event.target.value;
     if (selectedDevice) {
       this.selectedDevice = selectedDevice;
       console.log("selectedDevice", selectedDevice);
       this.userService.selectDevice(selectedDevice);
       this.measurementsService.setDeviceId(selectedDevice);
+      this.deviceName = this.devices.find(device => device.deviceId === selectedDevice)?.name || "";
     }
   }
 
   getFirstLetterInUppercase(name: string | null): string {
     if (!name) return '';
     return name.charAt(0).toUpperCase();
+  }
+
+  getAddressTypeLabel(type: string): string {
+    const option = this.addressTypeOptions.find(opt => opt.value === type);
+    return option ? option.label : type;
   }
 }

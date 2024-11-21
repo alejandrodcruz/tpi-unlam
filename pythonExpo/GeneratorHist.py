@@ -40,8 +40,8 @@ def generate_device_data(device, timestamp):
     voltage = random.uniform(210, 230)
     current = varied_power / voltage
     energy = (varied_power * (5 / 3600))
-    temperature = random.uniform(20, 30)
-    humidity = random.uniform(30, 50)
+    temperature = random.uniform(26, 27)
+    humidity = random.uniform(45, 46)
 
     point = Point("measurements") \
         .tag("deviceId", device["deviceId"]) \

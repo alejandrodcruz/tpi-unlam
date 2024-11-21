@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {NgClass} from "@angular/common";
-
+import { ActivatedRoute } from '@angular/router';
 import {RouterLink} from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import {PanelTitleComponent} from "../panel-title/panel-title.component";
 import { ConfigurationService } from '../../shared/services/configuration.service';
-import {UserService} from "../../shared/services/user.service";
+import {Device, UserService} from "../../shared/services/user.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-configuracion',
@@ -96,8 +97,10 @@ export class ConfiguracionComponent implements OnInit {
     highHumidityActive: false,
   };
 
-  constructor(private configurationService: ConfigurationService,
-              private userService: UserService) {}
+  constructor(private route: ActivatedRoute,
+              private configurationService: ConfigurationService,
+              private userService: UserService,
+              private location: Location) {}
 
   selectProfile(profile: string) {
     this.selectedProfile = profile;
@@ -124,14 +127,17 @@ export class ConfiguracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.selectedDevice$.subscribe(() => {
-      this.deviceId = this.userService.getSelectedDevice();
-      this.title = "Selecciona la configuracion para " + this.deviceId;
-      console.log("deviceid", this.deviceId);
+      this.deviceId = this.route.snapshot.paramMap.get('deviceId') || '';
     });
 
-    this.userService.selectedDeviceName$.subscribe(() => {
-      this.deviceName = this.userService.getSelectedDeviceName();
-      this.title = "Selecciona la configuracion para " + this.deviceName;
+    this.userService.getUserDevices().subscribe((devices: Device[]) => {
+      const device = devices.find(d => d.deviceId === this.deviceId);
+      if (device) {
+        this.deviceName = device.name;
+        this.title = "Selecciona la configuración para " + this.deviceName;
+      } else {
+        console.warn('Dispositivo no encontrado');
+      }
     });
 
     this.configurationService.getAlertSettings(this.deviceId).subscribe((response: { deviceId: string; highConsumptionValue: number; highTensionValue: number; lowTensionValue: number; energyLossActive: boolean; peakPowerCurrentValue: number; highTemperatureValue: number; highHumidityValue: number; lostDeviceActive: boolean; highConsumptionActive: boolean; highTensionActive: boolean; lowTensionActive: boolean; peakPowerCurrentActive: boolean; highTemperatureActive: boolean; highHumidityActive: boolean; }) => {
@@ -144,5 +150,8 @@ export class ConfiguracionComponent implements OnInit {
     this.configurationService.updateAlertSettings(this.alertSettings).subscribe((response: any) => {
       console.log('Configuración de alertas actualizada:', response);
     });
+  }
+  goBack(): void {
+    this.location.back();
   }
 }

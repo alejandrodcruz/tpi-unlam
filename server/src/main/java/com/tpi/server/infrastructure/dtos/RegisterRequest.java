@@ -1,5 +1,6 @@
 package com.tpi.server.infrastructure.dtos;
 
+import com.tpi.server.domain.enums.AddressType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
+    private String street;
+    private String city;
+    private String country;
+    private AddressType type;
+
 }

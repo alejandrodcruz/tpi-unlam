@@ -60,7 +60,7 @@ class UpdateUserDataUseCaseTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             updateUserDataUseCase.execute(2, updatedUserData);
         });
-        assertEquals("Usuario no encontrado", exception.getMessage());
+        assertEquals("Usuario con ID 2 no existe.", exception.getMessage());
         verify(userRepository, times(1)).findById(2);
         verify(userRepository, never()).save(any(User.class));
     }

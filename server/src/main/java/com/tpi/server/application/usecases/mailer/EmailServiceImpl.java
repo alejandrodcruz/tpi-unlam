@@ -1,6 +1,8 @@
 package com.tpi.server.application.usecases.mailer;
 
 import com.tpi.server.infrastructure.dtos.EmailRequest;
+import com.tpi.server.infrastructure.exceptions.AlertException;
+import com.tpi.server.infrastructure.exceptions.SendEmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,7 +24,7 @@ public class EmailServiceImpl implements IEmailService {
     }
 
     @Override
-    public void sendEmail(EmailRequest emailDTO) throws MessagingException {
+    public void sendEmail(EmailRequest emailDTO) throws SendEmailException {
         try {
             MimeMessage mimeMessage =
                     mailSender.createMimeMessage();
@@ -35,13 +37,34 @@ public class EmailServiceImpl implements IEmailService {
 
             Context context = new Context();
             context.setVariable("message", emailDTO.getBody());
-            String contentHtml = templateEngine.process("email", context);
+            String contentHtml = templateEngine.process("code-email", context);
 
             mimeMessageHelper.setText(contentHtml, true);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
-            throw new RuntimeException("Error al enviar mail", e);
+            throw new SendEmailException();
         }
+    }
 
+    public void sendAlertEmail(EmailRequest emailDTO) throws SendEmailException {
+        try {
+            MimeMessage mimeMessage =
+                    mailSender.createMimeMessage();
+
+            MimeMessageHelper mimeMessageHelper =
+                    new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            mimeMessageHelper.setTo("nicolas.larsen96@gmail.com");
+            mimeMessageHelper.setSubject(emailDTO.getSubject());
+
+            Context context = new Context();
+            context.setVariable("message", emailDTO.getBody());
+            String contentHtml = templateEngine.process("alert-email", context);
+
+            mimeMessageHelper.setText(contentHtml, true);
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            throw new SendEmailException();
+        }
     }
 }

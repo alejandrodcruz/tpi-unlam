@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CardInfoComponent } from '../../../core/card/card-info.component';
 import { CommonModule } from '@angular/common';
 import {PanelTitleComponent} from "../../panel-title/panel-title.component";
-import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
+import { Measurement } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { CarbonService } from '../../../shared/services/carbon.service';
 import { TotalEnergy } from '../models/totalEnergy.models';
 import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -31,12 +34,13 @@ export class CarbonFootprintComponent implements OnInit{
    KwhToFlightEmissionsPrevious : number  = 0;
 
    currentDate = new Date();
-
+   private destroy$ = new Subject<void>();
 
 
   constructor(
               private authService: AuthService,
-              private carbonServ : CarbonService
+              private carbonServ : CarbonService,
+              private toast: ToastrService
             ) {
               this.emissionsCO2 = 0;
             }
@@ -68,42 +72,11 @@ getLastDayOfPreviousMonth(): string {
   return this.formatDateToISO(date);
 }
 
-
-
-/* getTotalCo2(): void {
-
-  const userId = this.authService.getUserId();
-  const startTime = new Date('2024-10-01T00:00:00Z');
-  const endTime = new Date('2024-11-01T00:00:00Z');
-
-  const FirstDayOfCurrentMonth = this.getFirstDayOfCurrentMonth();
-  const FirstDayOfPreviousMonth = this.getFirstDayOfPreviousMonth();
-  const LastDayOfPreviousMonth = this.getLastDayOfPreviousMonth();
-
-  if (userId !== null) {
-    this.carbonServ.getTotalKwh(userId, startTime, endTime)
-      .subscribe(
-        (data: TotalEnergy) => {
-          const totalKwh = data.totalEnergy;
-          this.emissionsCO2 = this.convertKwhToCO2Emissions(totalKwh);
-          console.log('Total CO2:', this.emissionsCO2);
-
-          this.KwhToCO2EmissionsCurrent = parseFloat(this.emissionsCO2.toFixed(2));
-            console.log("Emisiones CO2 convertidas:", this.KwhToCO2EmissionsCurrent);
-
-            this.KwhToTreeCO2AbsorptionCurrent = this.convertKwhToTreeCO2Absorption(this.KwhToCO2EmissionsCurrent);
-            this.KwhToVehicleEmissionsCurrent = this.convertKwhToVehicleEmissions(this.KwhToCO2EmissionsCurrent);
-            this.KwhToFlightEmissionsCurrent = this.convertKwhToFlightEmissions(this.KwhToCO2EmissionsCurrent, false);
-        },
-        (error) => {
-          console.error('Error al obtener el total de CO2:', error);
-        }
-      );
-  } else {
-    console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
-  }
+ngOnDestroy(): void {
+  // Emitir un valor para completar todas las suscripciones
+  this.destroy$.next();
+  this.destroy$.complete();
 }
- */
 
 getTotalCo2(): void {
   const userId = this.authService.getUserId();
@@ -122,6 +95,7 @@ getTotalCo2(): void {
   if (userId !== null) {
     // Obtener datos del mes actual
     this.carbonServ.getTotalKwhRealTime(userId, startTimeCurrentMonth)
+    .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data: TotalEnergy) => {
           const totalKwh = data.totalEnergy;
@@ -140,6 +114,7 @@ getTotalCo2(): void {
 
     // Obtener datos del mes anterior
     this.carbonServ.getTotalKwh(userId, startTimePreviousMonth, endTimePreviousMonth)
+    .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data: TotalEnergy) => {
           const totalKwhPrevious = data.totalEnergy;
@@ -157,7 +132,8 @@ getTotalCo2(): void {
         }
       );
   } else {
-    console.error('Error: Por favor selecciona ambas fechas y asegúrate de estar autenticado.');
+    this.toast.warning("No cuentas con un usuario activo.");
+    this.authService.logout();
   }
 }
 

@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { ReportesService } from "../../shared/services/reportes.service";
 import { SafeUrlPipe } from "../../shared/pipes/safe-url.pipe";
 import { FormsModule } from "@angular/forms";
-import { NgClass, NgIf } from "@angular/common";
-import {PanelTitleComponent} from "../panel-title/panel-title.component";
+import { DecimalPipe, NgClass, NgFor, NgIf } from "@angular/common";
+import { PanelTitleComponent } from "../panel-title/panel-title.component";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { ConsumptionService, DeviceDetail } from "../../shared/services/consumption.service";
+import { AuthService } from "../../shared/services/auth.service";
+import { UserService } from "../../shared/services/user.service";
+import { Address, AddressService } from "../../shared/services/address.service";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reportes',
@@ -14,183 +20,215 @@ import {PanelTitleComponent} from "../panel-title/panel-title.component";
     FormsModule,
     NgClass,
     NgIf,
-    PanelTitleComponent
-  ],
-  styleUrls: ['./reportes.component.css']
+    NgFor,
+    PanelTitleComponent,
+    DecimalPipe
+  ]
 })
 export class ReportesComponent {
-  selectedType: string | null = null;
-  startDate: string | null = null;
-  endDate: string | null = null;
-  graficoUrl: string | null = null;
+  private selectedDevice: string | null = null;
+  startTime: Date = new Date();
+  endTime: Date = new Date()
+  userId: number | null = 0;
+  data: DeviceDetail[] = [];
   errorMessage: string | null = null;
+  devices: string[] =[];
+  addresses: Address[] = [];
+  username: string | null = null;
+  consumoTotal: number = 0;
+  costoTotal: number = 0;
+  logoBase64: string | null = null;
+  urlLogo: string = "../../../../assets/img/Lytics_new_logo.png";
 
-  constructor(private reportesService: ReportesService) {}
+  constructor(private consumptionService: ConsumptionService,
+              private authService: AuthService,
+              private userService: UserService,
+              private addressService: AddressService,
+              private http: HttpClient) {
+    this.userService.getUserData();
+    this.userService.selectedDevice$.subscribe((deviceId) => {
+      this.selectedDevice = deviceId;
+    });
+    this.userService.user$.subscribe((user) => {
+      if (user) {
+        this.username = user.username;
+      }
+    });
 
-  setSelectedType(type: string): void {
-    this.selectedType = type;
-    this.graficoUrl = '';
-    this.errorMessage = null;
+
+    this.loadLogoBase64();
   }
 
-  generateGraficoUrl(): void {
-    if (!this.selectedType || !this.startDate || !this.endDate) {
-      this.errorMessage = "Por favor, selecciona un tipo de gráfico y un rango de fechas antes de buscar.";
+  private loadLogoBase64(): void {
+    this.http.get(this.urlLogo, { responseType: 'blob' }).subscribe(blob => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.logoBase64 = reader.result as string;
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  generateReporteDatos(): void {
+    this.userId = this.authService.getUserId();
+
+    if (!this.startTime || !this.endTime || !this.userId) {
+      this.errorMessage = "Por favor, selecciona un tipo de reporte y un rango de fechas antes de buscar.";
+      return;
+    } else {
+      if (!(this.startTime instanceof Date)) {
+        this.startTime = new Date(this.startTime);
+      }
+      if (!(this.endTime instanceof Date)) {
+        this.endTime = new Date(this.endTime);
+      }
+      const deviceId = this.selectedDevice ?? undefined;
+
+      this.addressService.getAddressesByUser(this.userId).subscribe((addresses) => {
+        this.addresses = addresses;
+      });
+
+      this.consumptionService.getTotalKwhAndConsumption(this.userId, this.startTime, this.endTime)
+        .subscribe(response => {
+          this.data = response.devicesDetails;
+          this.errorMessage = null;
+
+          // Calcular la suma total de consumo
+          this.consumoTotal = this.data.reduce((total, device) => total + device.totalEnergy, 0);
+          this.costoTotal = this.data.reduce((total, device) => total + device.energyCost, 0);
+
+        }, error => {
+          this.errorMessage = "Error al obtener los datos";
+        });
+    }
+  }
+
+  exportToPDF(): void {
+    if (this.data.length === 0 || !Array.isArray(this.data)) {
+      this.errorMessage = 'No hay datos disponibles para exportar.';
       return;
     }
 
-    this.reportesService.getGraficoUrl(this.selectedType, this.startDate, this.endDate)
-      .subscribe(
-        (url: string) => {
-          if (url.startsWith('Error')) {
-            this.errorMessage = url;
-          } else {
-            this.graficoUrl = url;
-            this.errorMessage = null;
-          }
-        },
-        (error) => {
-          this.errorMessage = 'Error al obtener la URL del gráfico: ' + error;
-        }
-      );
-  }
-}
+    const doc = new jsPDF();
+    const currentDate = new Date();
+    const appName = 'Lytics';
 
+    doc.setProperties({
+      title: 'Informe Lytics',
+      subject: 'Informe de Consumo',
+      author: appName,
+    });
 
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
 
+    if (this.logoBase64 && this.logoBase64.startsWith('data:image/')) {
+      const imgProps = doc.getImageProperties(this.logoBase64);
+      const imgWidth = 17;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import { Component } from '@angular/core';
-import { SidebarComponent } from "../../core/sidebar/sidebar.component";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatInputModule } from "@angular/material/input";
-import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
-import { NgClass, NgIf } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
-import { ReportesService } from "../../shared/services/reportes.service";
-import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
-import {PanelTitleComponent} from "../panel-title/panel-title.component";
-
-registerLocaleData(localeEs);
-
-@Component({
-  selector: 'app-reportes',
-  standalone: true,
-  imports: [
-    SidebarComponent,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    FormsModule,
-    NgIf,
-    SafeUrlPipe,
-    PanelTitleComponent
-  ],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-  ],
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.css']
-})
-export class ReportesComponent {
-
-  constructor(private reportesService: ReportesService) {
-  }
-
-  startDate: Date | null = null;
-  endDate: Date | null = null;
-  dateError: string = '';
-  graficoUrl: string = '';
-
-  ngOnInit(): void{
-    this.graficoUrl = this.reportesService.getGrafico();
-  }
-
-  onDateChange() {
-    const today = new Date();
-
-    if (this.startDate && this.startDate > today) {
-      this.dateError = 'La fecha de inicio no puede ser una fecha futura.';
-    } else if (this.endDate && this.endDate > today) {
-      this.dateError = 'La fecha de finalización no puede ser una fecha futura.';
+      doc.addImage(this.logoBase64, 'JPEG', 10, 10, imgWidth, imgHeight);
     } else {
-      if (this.startDate && this.endDate) {
-        if (this.startDate > this.endDate) {
-          this.dateError = 'La fecha de inicio no puede ser posterior a la fecha de finalización.';
-        } else if (this.endDate < this.startDate) {
-          this.dateError = 'La fecha de finalización no puede ser anterior a la fecha de inicio.';
-        } else {
-          this.dateError = '';
-        }
-      }
+      console.error("La imagen Base64 no es válida o no tiene el prefijo correcto.");
     }
-  }
 
-  isConsumoSelected: boolean = false;
-  isAmperajeSelected: boolean = false;
-  isPotenciaSelected: boolean = false;
-  isFrecuenciaSelected: boolean = false;
+    // Encabezado
+    doc.setFontSize(22);
+    doc.text("Informe de Consumo", pageWidth / 2, 20, { align: 'center' });
 
-  toggleSelection(type: string) {
-    this.isConsumoSelected = false;
-    this.isAmperajeSelected = false;
-    this.isPotenciaSelected = false;
-    this.isFrecuenciaSelected = false;
+    doc.setFontSize(14);
+    doc.setTextColor(100);
+    doc.text(appName, pageWidth - 10, 15, { align: 'right' });
+    doc.text(`Fecha: ${currentDate.toLocaleDateString('es-AR')}`, pageWidth - 10, 25, { align: 'right' });
 
-    switch (type) {
-      case 'consumo':
-        this.isConsumoSelected = true;
-        break;
-      case 'amperaje':
-        this.isAmperajeSelected = true;
-        break;
-      case 'potencia':
-        this.isPotenciaSelected = true;
-        break;
-      case 'frecuencia':
-        this.isFrecuenciaSelected = true;
-        break;
+    doc.setLineWidth(0.5);
+    doc.line(10, 30, pageWidth - 10, 30);
+
+    // Subtítulo
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text("Usuario: " + this.username, 15, 40);
+
+    // Línea de resumen
+    doc.setFontSize(8);
+    doc.setTextColor(0);
+    doc.text("Resumen de Consumo desde " + this.startTime.toLocaleDateString('es-AR') + ' al ' + this.endTime.toLocaleDateString('es-AR'), 15, 45);
+
+    // Tabla de datos
+    const startingY = 50;
+    const tableColumnHeaders = ["Locación", "Identificador", "Dispositivo", "Consumo", "Costo"];
+    const tableData = [];
+
+    let consumoTotal = 0;
+    let costoTotal = 0;
+
+    for (let dato of this.data) {
+      const totalEnergyValue = Number(dato.totalEnergy);
+      const energyCostValue = Number(dato.energyCost);
+
+      consumoTotal += totalEnergyValue;
+      costoTotal += energyCostValue;
+
+      tableData.push([
+        this.addresses[0].street,
+        dato.deviceId,
+        dato.name,
+        totalEnergyValue.toFixed(2) + ' Kwh',
+        energyCostValue.toFixed(2) + ' $'
+      ]);
     }
+
+    // Generar tabla de datos
+    autoTable(doc, {
+      head: [tableColumnHeaders],
+      body: tableData,
+      startY: startingY,
+      styles: {
+        halign: 'center',
+        valign: 'middle',
+        fontSize: 10,
+        cellPadding: 4,
+      },
+      headStyles: {
+        fillColor: [41, 128, 185],
+        textColor: [255, 255, 255],
+        fontSize: 12,
+      },
+      alternateRowStyles: { fillColor: [240, 240, 240] },
+      tableLineWidth: 0.2,
+      tableLineColor: [200, 200, 200],
+    });
+
+    // Calcular el Y para la fila de totales manualmente
+    const rowHeight = 10; // Altura estimada de cada fila en la tabla
+    const finalY = startingY + (tableData.length * rowHeight) + 20; // Ajustar el espacio
+
+    // Fila de totales
+    autoTable(doc, {
+      body: [[
+        "Total",
+        "                                 ", // Espacio vacío para las columnas sin totales
+        "                                 ",
+        consumoTotal.toFixed(2) + ' Kwh',
+        costoTotal.toFixed(2) + ' $'
+      ]],
+      startY: finalY,
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+        fontStyle: 'bold',
+        halign: 'center',
+      },
+      tableLineWidth: 0.2,
+      tableLineColor: [200, 200, 200],
+    });
+
+    // Pie de página
+    doc.setFontSize(10);
+    doc.setTextColor(150);
+    doc.text(`Generado por ${appName}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+    // Guardar el PDF
+    doc.save('reporte.pdf');
   }
 }
-
-*/
-
-/*
-import { Component } from '@angular/core';
-import {SidebarComponent} from "../../core/sidebar/sidebar.component";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-
-@Component({
-  selector: 'app-reportes',
-  standalone: true,
-  imports: [
-    SidebarComponent,
-    FontAwesomeModule
-  ],
-  templateUrl: './reportes.component.html',
-  styleUrl: './reportes.component.css'
-})
-export class ReportesComponent {
-
-}
-*/

@@ -37,18 +37,21 @@ export class HomeComponent implements OnInit {
   }
 
   checkUserDevice() {
-
     this.deviceService.getUserDevices().subscribe(
-      (devices) => {
-        if (devices && devices.length > 0) {
-          this.startTour();
-
-        } else {
-          this.openDevicePopup();
+      {
+        next: (devices) => {
+          if (devices && devices.length > 0) {
+            this.startTour();
+          } else {
+            this.openDevicePopup();
+          }
+        },
+        error: (error) => {
+          console.error('Error al obtener los dispositivos del usuario:', error);
+          if (error.status === 404) {
+            this.openDevicePopup();
+          }
         }
-      },
-      (error) => {
-        console.error('Error al obtener los dispositivos del usuario:', error);
       }
     );
   }

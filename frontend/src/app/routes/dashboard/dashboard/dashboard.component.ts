@@ -5,10 +5,15 @@ import { CardInfoComponent } from "../../../core/card/card-info.component";
 import { CommonModule, NgClass } from "@angular/common";
 import {CardRealTimeComponent} from "../../../core/card-real-time/card-real-time.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {UserService} from "../../../shared/services/user.service";
+import {Device, UserService} from "../../../shared/services/user.service";
 import {DashboardPanelComponent} from "../../../core/dashboard-panel/dashboard-panel.component";
 import { Measurement, MeasurementsService } from '../../../shared/services/measurements.service';
 import { AuthService } from '../../../shared/services/auth.service';
+import { LoadingComponent } from '../../../core/loading/loading.component';
+import { RouterLink } from '@angular/router';
+import { environment } from '../../../../environments/environment.prod';
+import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,13 +25,15 @@ import { AuthService } from '../../../shared/services/auth.service';
     NgClass,
     CommonModule,
     CardRealTimeComponent,
-    DashboardPanelComponent
+    DashboardPanelComponent,
+    LoadingComponent,
+    RouterLink
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  devices: Device[] = [];
   measurements: Measurement[] = [];
   public voltage: number | undefined;
   public current: number | undefined;
@@ -40,10 +47,14 @@ export class DashboardComponent implements OnInit {
   public wattUrl: SafeResourceUrl | undefined;
   public kwhUrl: SafeResourceUrl | undefined;
 
+  isLoading: boolean = false;
+  private subscriptions: Subscription = new Subscription();
+
   constructor(private userService: UserService,
               private sanitizer: DomSanitizer,
               private measurementsService: MeasurementsService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private toast: ToastrService) { }
 
   ngOnInit() {
 
@@ -56,18 +67,47 @@ export class DashboardComponent implements OnInit {
         this.updateIframeUrl();
       }
     });
+
+    this.userService.getUserDevices().subscribe((devices) => {
+      this.devices = devices;
+    });
+
+  }
+
+  //select desde stat
+  selectDevice(deviceId: string) {
+    this.isLoading = true;
+    this.selectedDevice = deviceId;
+    this.userService.selectDevice(deviceId);
+    this.measurementsService.setDeviceId(deviceId);
+
+    setTimeout(() => {
+      this.updateIframeUrl();
+      this.isLoading = false;
+    }, 4000);
+
+    const selectedDeviceObj = this.devices.find(device => device.deviceId === deviceId);
+    if (selectedDeviceObj) {
+      this.userService.selectDeviceName(selectedDeviceObj.name);
+    }
+  }
+
+  scroll(direction: 'left' | 'right', container: HTMLElement) {
+    const cardWidth = container.firstElementChild?.getBoundingClientRect().width || 200;
+
+    if (direction === 'left') {
+      container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    }
   }
 
   updateIframeUrl() {
     if (this.selectedDevice) {
-      const voltUrl = `http://localhost:3000/d-solo/ee09ykb533ncwf/voltage?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
-      this.voltUrl = this.sanitizer.bypassSecurityTrustResourceUrl(voltUrl);
-      const ampUrl = `http://localhost:3000/d-solo/de09ym86tk2rkf/current?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
-      this.ampUrl = this.sanitizer.bypassSecurityTrustResourceUrl(ampUrl);
-      const wattUrl = `http://localhost:3000/d-solo/ae09ynm4xgrggd/power?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
-      this.wattUrl = this.sanitizer.bypassSecurityTrustResourceUrl(wattUrl);
-      const kwhUrl = `http://localhost:3000/d-solo/fe09yozs0bl6od/energy?orgId=1&panelId=1&var-deviceId=${this.selectedDevice}&refresh=5s`;
-      this.kwhUrl = this.sanitizer.bypassSecurityTrustResourceUrl(kwhUrl);
+      this.voltUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.voltUrl}${this.selectedDevice}`);
+      this.ampUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.ampUrl}${this.selectedDevice}`);
+      this.wattUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.wattUrl}${this.selectedDevice}`);
+      this.kwhUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.kwhUrl}${this.selectedDevice}`);
     }
   }
 
@@ -77,7 +117,7 @@ export class DashboardComponent implements OnInit {
     const timeRange = '10s';
 
     if (userId !== null) {
-      this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
+      const measurementsSub = this.measurementsService.getUserMeasurementsRealTime(userId, fields, timeRange)
         .subscribe(
           (data) => {
             this.measurements = data;
@@ -93,8 +133,15 @@ export class DashboardComponent implements OnInit {
             console.error('Error al obtener las mediciones', error);
           }
         );
+        this.subscriptions.add(measurementsSub);
     } else {
-      console.error('Error: El usuario no está autenticado o el ID de usuario no es válido.');
+      this.toast.warning("No cuentas con user activo.");
+      this.authService.logout();
     }
+  }
+
+  ngOnDestroy() {
+    // Destruir todas las suscripciones al destruir el componente
+    this.subscriptions.unsubscribe();
   }
 }
