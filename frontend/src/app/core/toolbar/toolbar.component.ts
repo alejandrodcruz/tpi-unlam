@@ -31,6 +31,12 @@ export class ToolbarComponent implements OnInit {
   user$: Observable<User | null>;
   addresses: Address[] = [];
 
+  addressTypeOptions = [
+    { value: 'HOME', label: 'Casa' },
+    { value: 'BUSINESS', label: 'Negocio' },
+    { value: 'WORKSHOP', label: 'Taller' }
+  ];
+
   constructor(private userService: UserService,
               private measurementsService: MeasurementsService,
               private addressService: AddressService,
@@ -79,5 +85,10 @@ export class ToolbarComponent implements OnInit {
   getFirstLetterInUppercase(name: string | null): string {
     if (!name) return '';
     return name.charAt(0).toUpperCase();
+  }
+
+  getAddressTypeLabel(type: string): string {
+    const option = this.addressTypeOptions.find(opt => opt.value === type);
+    return option ? option.label : type;
   }
 }
