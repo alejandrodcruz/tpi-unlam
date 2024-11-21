@@ -27,7 +27,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ReportesComponent {
   private selectedDevice: string | null = null;
-  selectedType: string  = 'Consumo';
   startTime: Date = new Date();
   endTime: Date = new Date()
   userId: number | null = 0;
@@ -73,7 +72,7 @@ export class ReportesComponent {
   generateReporteDatos(): void {
     this.userId = this.authService.getUserId();
 
-    if (!this.selectedType || !this.startTime || !this.endTime || !this.userId) {
+    if (!this.startTime || !this.endTime || !this.userId) {
       this.errorMessage = "Por favor, selecciona un tipo de reporte y un rango de fechas antes de buscar.";
       return;
     } else {
