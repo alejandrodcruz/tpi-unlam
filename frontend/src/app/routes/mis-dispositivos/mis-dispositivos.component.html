@@ -1,6 +1,14 @@
 <app-panel-title title="Mis Dispositivos" description="Gestión de Dispositivos: Encuentra, agrega, edita y configura alertas para todos tus dispositivos."></app-panel-title>
 
 <div class="py-1 px-3">
+  <app-generic-popup
+  #confirmationModal
+  [title]="modalTitle"
+  [message]="modalMessage"
+  (confirm)="onModalConfirm()"
+  (cancel)="onModalCancel()">
+</app-generic-popup>
+
   <div class="p-2">
 
     <button class="bg-primary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openDevicePopup()">Agregar Dispositivo</button>
@@ -16,10 +24,10 @@
             <button (click)="goToConfiguration(dispositivo.deviceId)" class="text-green-500 hover:text-green-700 p-1">
               <i class="fa-solid fa-cog"></i>
             </button>
-            <button (click)="editDevice(dispositivo)" class="text-blue-500 hover:text-blue-700 p-1">
+            <button (click)="openEditModal(dispositivo)" class="text-blue-500 hover:text-blue-700 p-1">
               <i class="fa-solid fa-pencil"></i>
             </button>
-            <button (click)="deleteDevice(dispositivo.deviceId)" class="text-red-500 hover:text-red-700">
+            <button (click)="openDeleteModal(dispositivo)" class="text-red-500 hover:text-red-700">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
@@ -32,10 +40,10 @@
       </div>
     </div>
   </section>
-
   <!-- Popup de asociación de dispositivo -->
   <app-device-popup
     [isOpen]="isDevicePopupOpen"
     (closePopup)="closeDevicePopup()">
   </app-device-popup>
+
 </div>

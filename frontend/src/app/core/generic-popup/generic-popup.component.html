@@ -1,0 +1,12 @@
+<dialog #modalRef class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">{{ title }}</h3>
+    <p class="py-4">{{ message }}</p>
+    <div class="modal-action">
+      <button class="btn btn-outline" (click)="onCancel()">Cancelar</button>
+      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" (click)="onConfirm()">Aceptar</button>
+    </div>
+  </div>
+</dialog>
+
+

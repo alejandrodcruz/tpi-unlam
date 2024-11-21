@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForOf, NgIf, NgStyle } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Importa el Router
 import { PanelTitleComponent } from "../panel-title/panel-title.component";
 import { Device, UserService } from '../../shared/services/user.service';
 import { DevicePopupComponent } from '../../core/device-popup/device-popup.component';
-import { DeviceService, DeviceUser } from '../../shared/services/device.service';
+import { DeviceService } from '../../shared/services/device.service';
+import { GenericPopupComponent } from '../../core/generic-popup/generic-popup.component';
 
 @Component({
   selector: 'app-mis-dispositivos',
@@ -17,23 +17,30 @@ import { DeviceService, DeviceUser } from '../../shared/services/device.service'
     NgIf,
     FormsModule,
     PanelTitleComponent,
-    DevicePopupComponent
+    DevicePopupComponent,
+    GenericPopupComponent
   ],
   templateUrl: './mis-dispositivos.component.html',
   styleUrls: ['./mis-dispositivos.component.css']
 })
 export class MisDispositivosComponent implements OnInit {
   isDevicePopupOpen = false;
+
+  @ViewChild('confirmationModal') confirmationModal!: GenericPopupComponent;
+  modalTitle = '';
+  modalMessage = '';
+  currentDevice: Device | null = null;
+  modalAction: 'edit' | 'delete' = 'delete';
+
   dispositivos: Device[] = [];
   public deviceId: string = '';
   public deviceName: string = '';
   public title: string = '';
 
   constructor(
-    private http: HttpClient,
     private userService: UserService,
     private deviceService: DeviceService,
-    private router: Router // Inyecta el Router aquí
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -52,28 +59,54 @@ export class MisDispositivosComponent implements OnInit {
 
   closeDevicePopup() {
     this.isDevicePopupOpen = false;
-    this.loadDevices(); // Recargar la lista de dispositivos después de agregar uno nuevo
+    this.loadDevices();
   }
 
-  editDevice(device: DeviceUser) {
-    const newName = prompt("Introduce el nuevo nombre del dispositivo:", device.name);
-    if (newName && newName !== device.name) {
-      this.deviceService.updateDevice(device.deviceId, newName).subscribe(updatedDevice => {
-        device.name = updatedDevice.name;
-      });
-    }
+  openEditModal(device: Device) {
+    this.currentDevice = device;
+    this.modalAction = 'edit';
+    this.modalTitle = 'Editar Dispositivo';
+    this.modalMessage = `¿Deseas editar el dispositivo "${device.name}"?`;
+    this.confirmationModal.open();
   }
 
-  deleteDevice(deviceId: string) {
-    if (confirm("¿Estás seguro de que deseas eliminar este dispositivo?")) {
-      this.deviceService.deleteDevice(deviceId).subscribe(() => {
-        this.dispositivos = this.dispositivos.filter(device => device.deviceId !== deviceId);
+  openDeleteModal(device: Device) {
+    this.currentDevice = device;
+    this.modalAction = 'delete';
+    this.modalTitle = 'Eliminar Dispositivo';
+    this.modalMessage = `¿Estás seguro de que deseas eliminar el dispositivo "${device.name}"?`;
+    this.confirmationModal.open();
+  }
+
+ onModalConfirm() {
+    if (!this.currentDevice) return;
+
+    if (this.modalAction === 'edit') {
+      // Lógica para editar el dispositivo
+      const newName = prompt("Introduce el nuevo nombre del dispositivo:", this.currentDevice.name);
+      if (newName && newName !== this.currentDevice.name) {
+        this.deviceService.updateDevice(this.currentDevice.deviceId, newName).subscribe((updatedDevice) => {
+          this.currentDevice!.name = updatedDevice.name;
+        });
+        this.loadDevices();
+      }
+    } else if (this.modalAction === 'delete') {
+      // Lógica para eliminar el dispositivo
+      this.deviceService.deleteDevice(this.currentDevice.deviceId).subscribe(() => {
+        this.dispositivos = this.dispositivos.filter((device) => device.deviceId !== this.currentDevice!.deviceId);
       });
+      this.loadDevices();
     }
+
+    this.currentDevice = null;
+    this.loadDevices();
+  }
+
+  onModalCancel() {
+    this.currentDevice = null;
   }
 
   goToConfiguration(deviceId: string) {
-
     this.router.navigate(['/home/configuracion', deviceId]);
   }
 
