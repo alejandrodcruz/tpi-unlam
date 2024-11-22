@@ -63,7 +63,10 @@ public class MeasurementUseCase {
                 if (configurationService.isAlertActive(deviceId, alertType)) {
                     double alertValue = alertValueExtractors.get(alertType).apply(measurement);
                     var deviceOptional = deviceRepository.findById(deviceId).stream().findFirst();
-
+                    System.out.println("Aca entra al for each del measure si esta la alerta activa entra:");
+                    System.out.println(deviceId);
+                    System.out.println("Aca device optional");
+                    System.out.println(deviceOptional);
                     deviceOptional.ifPresent(device -> alertService.createAlert(AlertDTO.builder()
                             .type(alertType)
                             .date(measurement.getTimestamp())

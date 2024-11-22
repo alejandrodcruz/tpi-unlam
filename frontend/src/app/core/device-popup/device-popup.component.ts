@@ -194,7 +194,6 @@ export class DevicePopupComponent implements OnInit {
       default:
         this.deviceNames = [];
     }
-    console.log('Dispositivos disponibles para', this.selectedAddressType, ':', this.deviceNames);
   }
   getAddressTypeLabel(type: string): string {
     const option = this.addressTypeOptions.find(opt => opt.value === type);

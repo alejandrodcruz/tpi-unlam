@@ -58,6 +58,12 @@
         </a>
       </li>
       <li class="p-2">
+        <a [routerLink]="['mapa']" class="flex items-center p-2 rounded hover:bg-blue-100 transition" title="Mapa">
+          <i class="fa-lg fa-solid fa-cubes"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mapa</span>
+        </a>
+      </li>
+      <li class="p-2">
         <a [routerLink]="['guides']" class="flex items-center p-2 rounded hover:bg-blue-100 transition" title="Guias y tutoriales">
           <i class="inline-block fa-lg fa-solid fa-book"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Guías y tutoriales</span>

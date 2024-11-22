@@ -9,6 +9,7 @@ export interface Device {
   pairingCode: string;
   assigned: true;
   name: string;
+  addressId: number;
   lastDayConsumption?: number;
   currentMonthConsumption?: number;
   previousMonthConsumption?: number;
