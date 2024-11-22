@@ -10,7 +10,7 @@
       #scrollContainer
     >
       <div
-        class="snap-center flex-shrink-0 w-full md:w-1/2 lg:w-1/6 h-30 bg-white shadow-md rounded-lg flex flex-col items-center justify-center transform transition-transform hover:scale-105 cursor-pointer"
+        class="snap-center flex-shrink-0 w-full md:w-1/2 lg:w-1/6 h-30 p-1 bg-white shadow-md rounded-lg flex flex-col items-center justify-center transform transition-transform hover:scale-105 cursor-pointer"
         *ngFor="let device of devices"
         (click)="selectDevice(device.deviceId)"
         [ngClass]="{'border-2 border-blue-400': selectedDevice === device.deviceId}"

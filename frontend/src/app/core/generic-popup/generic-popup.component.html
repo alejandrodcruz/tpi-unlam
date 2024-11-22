@@ -2,11 +2,28 @@
   <div class="modal-box">
     <h3 class="text-lg font-bold">{{ title }}</h3>
     <p class="py-4">{{ message }}</p>
+
+    <div *ngIf="showInput" class="py-2">
+      <input
+        type="text"
+        [(ngModel)]="inputValue"
+        class="input input-bordered w-full"
+        [placeholder]="inputPlaceholder"
+      />
+    </div>
+
     <div class="modal-action">
       <button class="btn btn-outline" (click)="onCancel()">Cancelar</button>
-      <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover" (click)="onConfirm()">Aceptar</button>
+      <button
+        class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryhover"
+        (click)="onConfirm()"
+        [disabled]="showInput && !inputValue.trim()"
+      >
+        Aceptar
+      </button>
     </div>
   </div>
 </dialog>
+
 
 

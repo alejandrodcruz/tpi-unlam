@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForOf, NgIf, NgStyle } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { Router } from '@angular/router'; // Importa el Router
+import { Router } from '@angular/router';
 import { PanelTitleComponent } from "../panel-title/panel-title.component";
 import { Device, UserService } from '../../shared/services/user.service';
 import { DevicePopupComponent } from '../../core/device-popup/device-popup.component';
@@ -29,6 +29,12 @@ export class MisDispositivosComponent implements OnInit {
   @ViewChild('confirmationModal') confirmationModal!: GenericPopupComponent;
   modalTitle = '';
   modalMessage = '';
+
+  // Nuevas propiedades para manejar la entrada de edición
+  isEditAction: boolean = false;
+  inputPlaceholder: string = '';
+  initialInputValue: string = '';
+
   currentDevice: Device | null = null;
   modalAction: 'edit' | 'delete' = 'delete';
 
@@ -66,7 +72,10 @@ export class MisDispositivosComponent implements OnInit {
     this.currentDevice = device;
     this.modalAction = 'edit';
     this.modalTitle = 'Editar Dispositivo';
-    this.modalMessage = `¿Deseas editar el dispositivo "${device.name}"?`;
+    this.modalMessage = `Introduce el nuevo nombre para el dispositivo "${device.name}":`;
+    this.isEditAction = true;
+    this.inputPlaceholder = 'Nuevo nombre del dispositivo';
+    this.initialInputValue = device.name;
     this.confirmationModal.open();
   }
 
@@ -75,31 +84,45 @@ export class MisDispositivosComponent implements OnInit {
     this.modalAction = 'delete';
     this.modalTitle = 'Eliminar Dispositivo';
     this.modalMessage = `¿Estás seguro de que deseas eliminar el dispositivo "${device.name}"?`;
+    this.isEditAction = false;
     this.confirmationModal.open();
   }
 
- onModalConfirm() {
+  onModalConfirm(inputValue?: string | undefined) {
     if (!this.currentDevice) return;
 
     if (this.modalAction === 'edit') {
-      // Lógica para editar el dispositivo
-      const newName = prompt("Introduce el nuevo nombre del dispositivo:", this.currentDevice.name);
+      const newName = inputValue?.trim();
       if (newName && newName !== this.currentDevice.name) {
-        this.deviceService.updateDevice(this.currentDevice.deviceId, newName).subscribe((updatedDevice) => {
-          this.currentDevice!.name = updatedDevice.name;
-        });
-        this.loadDevices();
+        this.deviceService.updateDevice(this.currentDevice.deviceId, newName).subscribe(
+          (updatedDevice) => {
+            this.currentDevice!.name = updatedDevice.name;
+            this.loadDevices();
+            this.currentDevice = null;
+          },
+          (error) => {
+            console.error('Error actualizando el dispositivo:', error);
+          }
+        );
+      } else {
+        this.currentDevice = null;
       }
     } else if (this.modalAction === 'delete') {
-      // Lógica para eliminar el dispositivo
-      this.deviceService.deleteDevice(this.currentDevice.deviceId).subscribe(() => {
-        this.dispositivos = this.dispositivos.filter((device) => device.deviceId !== this.currentDevice!.deviceId);
-      });
-      this.loadDevices();
+      this.deviceService.deleteDevice(this.currentDevice.deviceId).subscribe(
+        () => {
+          this.dispositivos = this.dispositivos.filter(
+            (device) => device.deviceId !== this.currentDevice!.deviceId
+          );
+          this.loadDevices();
+          this.currentDevice = null;
+        },
+        (error) => {
+          console.error('Error eliminando el dispositivo:', error);
+        }
+      );
+    } else {
+      this.currentDevice = null;
     }
-
-    this.currentDevice = null;
-    this.loadDevices();
   }
 
   onModalCancel() {
