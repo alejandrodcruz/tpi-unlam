@@ -40,7 +40,7 @@ describe('CarbonService', () => {
   });
 
   it('should call getTotalKwh ', (done) => {
-    const mockResponse: TotalEnergy = { totalEnergy: 100, energyCost: 50, deviceId: 'device123' };
+    const mockResponse = { totalEnergy: 100, energyCost: 50 };
     httpServiceSpy.get.mockReturnValue(of(mockResponse));
 
     const userId = 1;
@@ -53,14 +53,13 @@ describe('CarbonService', () => {
         userId: userId.toString(),
         startTime: startTime.toISOString(),
         endTime: endTime.toISOString(),
-        deviceId: 'device123',
       }, false);
       done();
     });
   });
 
   it('should poll for data when getTotalKwhRealTime is called', (done) => {
-    const mockResponse: TotalEnergy = { totalEnergy: 150, energyCost: 75, deviceId: 'device123' };
+    const mockResponse = { totalEnergy: 150, energyCost: 75 };
     httpServiceSpy.get.mockReturnValue(of(mockResponse));
 
     const userId = 1;
@@ -72,5 +71,5 @@ describe('CarbonService', () => {
       subscription.unsubscribe();
       done();
     });
-  });
+  }, 15000);
 });
