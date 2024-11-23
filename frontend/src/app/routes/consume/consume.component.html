@@ -1,13 +1,17 @@
 <app-panel-title title="Consumo" description="Este es el consumo que registramos de tus dispositivos."></app-panel-title>
 
 <div class="flex justify-end gap-4 px-3 mb-4">
-  <!-- Total Gastado en el Mes Actual -->
+
   <div class="stat shadow bg-white">
     <h3 class="stat-title text-xl font-semibold text-gray-500">Total Gastado en el Mes Actual</h3>
     <p class="text-2xl font-bold">{{ totalCurrentMonthConsumption | number:'1.2-2' }} $ AR</p>
   </div>
 
-  <!-- Total de Comparaciones -->
+  <div class="stat shadow bg-white">
+    <h3 class="stat-title text-xl font-semibold text-gray-500">Total del {{previousMonthTitle}}</h3>
+    <p class="text-2xl font-bold">{{ totalSelectedMonthConsumption | number:'1.2-2' }} $ AR</p>
+  </div>
+
   <div class="stat shadow bg-white">
     <h3 class="stat-title text-xl font-semibold text-gray-500">Resultado Total de la Comparación</h3>
     <p class="text-2xl font-bold" [ngClass]="{'text-green-600': totalComparisonSavings < 0, 'text-red-600': totalComparisonSavings > 0}">

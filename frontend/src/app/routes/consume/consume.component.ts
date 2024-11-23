@@ -31,6 +31,7 @@ export class ConsumeComponent implements OnInit, OnDestroy {
   userId: number;
   private destroy$ = new Subject<void>();
   totalCurrentMonthConsumption: number = 0;
+  totalSelectedMonthConsumption: number = 0;
 
   // Nuevas propiedades para la selección de mes
   selectedMonth: string = ''; // Formato 'YYYY-MM'
@@ -87,6 +88,7 @@ export class ConsumeComponent implements OnInit, OnDestroy {
         }
         this.calculateTotalCurrentMonthConsumption();
         this.calculateTotalComparisonSavings();
+        this.calculateTotalSelectedMonthConsumption();
       });
     });
   }
@@ -132,6 +134,12 @@ export class ConsumeComponent implements OnInit, OnDestroy {
   calculateTotalComparisonSavings(): void {
     this.totalComparisonSavings = this.devices.reduce((total, device) => {
       return total + (device.monetaryDifference || 0);
+    }, 0);
+  }
+
+  calculateTotalSelectedMonthConsumption(): void {
+    this.totalSelectedMonthConsumption = this.devices.reduce((total, device) => {
+      return total + (device.previousMonthConsumption || 0); // Usamos `previousMonthConsumption` para el mes elegido
     }, 0);
   }
 
