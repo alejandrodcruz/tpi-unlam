@@ -122,6 +122,7 @@ public class AlertUseCase {
                 .value(alert.getValue())
                 .date(alert.getDate())
                 .name(alert.getName())
+                .unit(AlertMessageUtils.getUnit(alert.getType()))
                 .build();
     }
 }

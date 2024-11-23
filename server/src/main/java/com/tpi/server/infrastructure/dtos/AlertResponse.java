@@ -18,4 +18,5 @@ public class AlertResponse {
     private String alertMessage;
     private String name;
     private double value;
+    private String unit;
 }

@@ -26,7 +26,7 @@
         <td>{{ alert.name }}</td>
         <td>{{ alert.date | date: 'dd-MM-YYYY HH:mm' }}</td>
         <td>{{ alert.alertMessage }}</td>
-        <td>{{ alert.value.toFixed(0) }}</td>
+        <td>{{ alert.value.toFixed(0) }} {{ alert.unit }}</td>
       </tr>
       </tbody>
     </table>
