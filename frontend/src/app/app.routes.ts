@@ -37,7 +37,7 @@ export const routes: Routes = [
       { path: 'historico', component: DashboardHistoricoComponent },
       { path: 'guides', component: GuidesComponent},
       { path: 'huella', component:CarbonFootprintComponent},
-      { path: 'alerts', component: AlertsComponent },
+      { path: 'alerts/:deviceId', component: AlertsComponent },
       { path: 'consume', component: ConsumeComponent },
       { path: 'misuscription', component: MisuscriptionComponent },
       { path: 'mapa', component: GraphComponent }

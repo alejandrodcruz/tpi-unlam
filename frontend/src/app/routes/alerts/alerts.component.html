@@ -1,7 +1,9 @@
 <app-panel-title title="Alertas" description="Consulta tus alertas siempre que necesites saber más."></app-panel-title>
 <!-- alerts.component.html -->
+<div class="flex justify-center">
+  <button class="bg-primary text-white px-4 py-2 rounded mx-1" (click)="goBack()">Volver a Dispositivos</button>
+</div>
 <div class="px-10 py-4">
-
   <div class="mb-4 space-x-2 space-y-2">
     <button class="btn bg-white" (click)="filterAlertsByType('All')">Todas</button>
     <button class="btn bg-white" *ngFor="let type of alertTypes" (click)="filterAlertsByType(type.key)">

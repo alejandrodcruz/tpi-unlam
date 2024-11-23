@@ -133,4 +133,8 @@ export class MisDispositivosComponent implements OnInit {
     this.router.navigate(['/home/configuracion', deviceId]);
   }
 
+  goToAlerts(deviceId: string) {
+    this.router.navigate(['/home/alerts', deviceId]);
+  }
+
 }
