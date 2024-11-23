@@ -174,7 +174,7 @@ export class ReportesComponent {
         dato.deviceId,
         dato.name,
         totalEnergyValue.toFixed(2) + ' Kwh',
-        energyCostValue.toFixed(2) + ' $'
+        '$ '+ energyCostValue.toFixed(2)
       ]);
     }
 
@@ -210,7 +210,7 @@ export class ReportesComponent {
         "                                 ", // Espacio vacío para las columnas sin totales
         "                                 ",
         consumoTotal.toFixed(2) + ' Kwh',
-        costoTotal.toFixed(2) + ' $'
+        '$ '+ costoTotal.toFixed(2)
       ]],
       startY: finalY,
       styles: {

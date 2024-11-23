@@ -28,13 +28,13 @@
       <td class="border border-gray-300 p-4 text-center">{{ dato.deviceId }}</td>
       <td class="border border-gray-300 p-4 text-center">{{ dato.name }}</td>
       <td class="border border-gray-300 p-4 text-center">{{ dato.totalEnergy | number:'1.2-2' }} Kwh</td>
-      <td class="border border-gray-300 p-4 text-center">{{ dato.energyCost | number:'1.2-2' }} $</td>
+      <td class="border border-gray-300 p-4 text-center"> $ {{ dato.energyCost | number:'1.2-2' }}</td>
     </tr>
     <!-- Fila para el total de consumo -->
     <tr class="bg-gray-200 font-bold">
       <td colspan="3" class="border border-gray-300 p-4 text-center">Total Consumo</td>
       <td class="border border-gray-300 p-4 text-center">{{ consumoTotal | number:'1.2-2' }} Kwh</td>
-      <td class="border border-gray-300 p-4 text-center">{{ costoTotal | number:'1.2-2' }} $</td>
+      <td class="border border-gray-300 p-4 text-center">$ {{ costoTotal | number:'1.2-2' }}</td>
     </tr>
     </tbody>
   </table>
