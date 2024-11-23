@@ -35,5 +35,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: rgba(0, 123, 255, 0.4); /* No necesita cambios */
 }
 
+ngx-graph .node {
+  fill: #41b8d6; /* Usa el color primario que tienes configurado */
+  stroke: #3690d9;
+  stroke-width: 2px;
+}
+
+ngx-graph .edge {
+  stroke: #1ba63d; /* Color secundario */
+  stroke-width: 2px;
+  marker-end: url(#markerArrow);
+}
 
 

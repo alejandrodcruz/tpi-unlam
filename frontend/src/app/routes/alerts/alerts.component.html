@@ -1,17 +1,22 @@
 <app-panel-title title="Alertas" description="Consulta tus alertas siempre que necesites saber más."></app-panel-title>
-<!-- alerts.component.html -->
-<div class="px-10 py-4">
+<div class="flex flex-col min-h-screen px-10 py-4 space-y-4">
+  <!-- Botón de regreso -->
+  <div class="flex justify-center">
+    <button class="bg-primary text-white px-4 py-2 rounded mx-1" (click)="goBack()">Volver a Dispositivos</button>
+  </div>
 
-  <div class="mb-4 space-x-2 space-y-2">
+  <!-- Filtros -->
+  <div class="space-x-2 space-y-2">
     <button class="btn bg-white" (click)="filterAlertsByType('All')">Todas</button>
     <button class="btn bg-white" *ngFor="let type of alertTypes" (click)="filterAlertsByType(type.key)">
       {{ type.label }}
     </button>
   </div>
 
-  <div class="overflow-x-auto bg-white">
+  <!-- Tabla con scroll y altura limitada -->
+  <div class="overflow-x-auto overflow-y-auto bg-white min-h-[400px] rounded shadow-md">
     <table class="table w-full hover">
-      <thead>
+      <thead class="sticky top-0 bg-gray-100">
       <tr>
         <th>Dispositivo</th>
         <th>Fecha</th>
@@ -24,13 +29,14 @@
         <td>{{ alert.name }}</td>
         <td>{{ alert.date | date: 'dd-MM-YYYY HH:mm' }}</td>
         <td>{{ alert.alertMessage }}</td>
-        <td>{{ alert.value.toFixed(0) }}</td>
+        <td>{{ alert.value.toFixed(0) }} {{ alert.unit }}</td>
       </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="mt-4 flex justify-center">
+  <!-- Navegación -->
+  <div class="mt-auto flex justify-center">
     <button class="btn" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
     <span class="mx-2 mt-3">{{ currentPage }} de {{ totalPages }}</span>
     <button class="btn" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>

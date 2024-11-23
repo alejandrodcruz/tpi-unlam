@@ -10,7 +10,7 @@
       #scrollContainer
     >
       <div
-        class="snap-center flex-shrink-0 w-full md:w-1/2 lg:w-1/6 h-30 bg-white shadow-md rounded-lg flex flex-col items-center justify-center transform transition-transform hover:scale-105 cursor-pointer"
+        class="snap-center flex-shrink-0 w-full md:w-1/2 lg:w-1/6 h-30 p-1 bg-white shadow-md rounded-lg flex flex-col items-center justify-center transform transition-transform hover:scale-105 cursor-pointer"
         *ngFor="let device of devices"
         (click)="selectDevice(device.deviceId)"
         [ngClass]="{'border-2 border-blue-400': selectedDevice === device.deviceId}"
@@ -78,7 +78,7 @@
     <app-card-real-time id="step4"
       [iconClasses]="'fas fa-dollar-sign'"
       [titleCard]="'Consumo Mensual'"
-      [subtitleCard]="'Consumo $'"
+      [subtitleCard]="'Costo total este mes (ARS)'"
       [valueProgress]="10"
       [maxProgress]="100"
       [colorProgress]="'progress progress-warning w-ful'"
@@ -96,9 +96,9 @@
   </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3 " id="step5" *ngIf="voltUrl && ampUrl && wattUrl && kwhUrl">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6 px-3" id="step5" *ngIf="voltUrl && ampUrl && wattUrl && kwhUrl">
 
-  <dashboard-panel
+  <dashboard-panel id="step6"
     title= "Voltaje {{ voltage }} V"
     description="Muestra la fuerza de la electricidad que llega a tus dispositivos."
     [url]="voltUrl"
@@ -106,7 +106,7 @@
     tooltipText="El voltaje representa la fuerza con la que la electricidad se desplaza por los cables para alimentar sus dispositivos. Un nivel estable de voltaje es fundamental para proteger los equipos, ya que ayuda a evitar desperfectos o fallas. Piense en el voltaje como la presión necesaria para mantener la electricidad en movimiento de manera segura."
 />
 
-  <dashboard-panel
+  <dashboard-panel id="step7"
     title="Amperaje {{current}} A"
     description="Indica cuánta electricidad está pasando por el sistema."
     [url]="ampUrl"
@@ -114,7 +114,7 @@
     tooltipText="El amperaje mide la cantidad de electricidad que fluye hacia sus dispositivos en este instante. Es similar al caudal de agua en una cañería: un mayor amperaje indica un uso más intensivo de la electricidad. Un incremento en el amperaje puede reflejar que más dispositivos están en funcionamiento o que están operando a mayor potencia."
   />
 
-  <dashboard-panel
+  <dashboard-panel id="step8"
     title="Watts {{power}} W"
     description="Muestra cuánta energía estás usando en este momento"
     [url]="wattUrl"
@@ -122,7 +122,7 @@
     tooltipText="Los watts indican la cantidad de energía que está utilizando en este momento. Es el 'combustible' que requieren sus aparatos para funcionar. A mayor cantidad de watts, mayor será el consumo de energía en tiempo real. Esta medida le permite conocer cuánta electricidad demandan sus dispositivos en el presente."
   />
 
-  <dashboard-panel
+  <dashboard-panel id="step9"
     title="{{energy}} kWh"
     description="Indica la cantidad de electricidad que has usado en este instante"
     [url]="kwhUrl"

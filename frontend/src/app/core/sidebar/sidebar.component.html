@@ -28,12 +28,6 @@
         </a>
       </li>
       <li class="p-2">
-        <a [routerLink]="['alerts']" class="flex items-center p-2 rounded hover:bg-blue-100 transition" title="Alertas">
-          <i class="inline-block fa-lg fa-solid fa-bell"></i>
-          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Alertas</span>
-        </a>
-      </li>
-      <li class="p-2">
         <a [routerLink]="['consume']" class="flex items-center p-2 rounded hover:bg-blue-100 transition" title="Alertas">
           <i class="inline-block fas fa-lg fa-solid fa-dollar-sign"></i>
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Consumo</span>
@@ -57,6 +51,14 @@
           <span *ngIf="isSidebarOpen" class="ml-2 text-base">Huella de carbono</span>
         </a>
       </li>
+      <!--
+      <li class="p-2">
+        <a [routerLink]="['mapa']" class="flex items-center p-2 rounded hover:bg-blue-100 transition" title="Mapa">
+          <i class="fa-lg fa-solid fa-cubes"></i>
+          <span *ngIf="isSidebarOpen" class="ml-2 text-base">Mapa</span>
+        </a>
+      </li>
+      -->
       <li class="p-2">
         <a [routerLink]="['guides']" class="flex items-center p-2 rounded hover:bg-blue-100 transition" title="Guias y tutoriales">
           <i class="inline-block fa-lg fa-solid fa-book"></i>

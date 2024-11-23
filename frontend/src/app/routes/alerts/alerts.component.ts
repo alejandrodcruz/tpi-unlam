@@ -6,6 +6,8 @@ import { WebSocketService } from "../../shared/services/web-socket.service";
 import { DatePipe, CommonModule } from "@angular/common";
 import { PanelTitleComponent } from "../panel-title/panel-title.component";
 import {UserService} from "../../shared/services/user.service";
+import {ActivatedRoute} from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-alerts',
@@ -41,7 +43,9 @@ export class AlertsComponent implements OnInit {
 
   constructor(private userService: UserService,
               private alertService: AlertsService,
-              private webSocketService: WebSocketService) {}
+              private webSocketService: WebSocketService,
+              private route: ActivatedRoute,
+              private location: Location) {}
 
   ngOnInit(): void {
     this.userService.selectedDevice$.subscribe(device => {
@@ -55,12 +59,21 @@ export class AlertsComponent implements OnInit {
   }
 
   loadAlerts(): void {
+    this.userService.selectedDevice$.subscribe(() => {
+      this.deviceId = this.route.snapshot.paramMap.get('deviceId') || '';
+    });
+
+
     this.alertService.getAlertsForDeviceId(this.deviceId)
         .subscribe((alerts) => {
           this.alerts = alerts;
           this.filteredAlerts = alerts;
           this.updatePagination();
         });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   filterAlertsByType(type: string): void {

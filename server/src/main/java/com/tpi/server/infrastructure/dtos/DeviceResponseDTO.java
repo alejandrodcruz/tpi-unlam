@@ -11,4 +11,5 @@ public class DeviceResponseDTO {
     private boolean assigned;
     private String name;
     private double estimatedConsume;
+    private int addressId;
 }

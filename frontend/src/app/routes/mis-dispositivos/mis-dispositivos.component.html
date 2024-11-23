@@ -1,31 +1,65 @@
-<app-panel-title title="Mis Dispositivos" description="Gestión de Dispositivos: Encuentra, agrega, edita y configura alertas para todos tus dispositivos."></app-panel-title>
+<app-panel-title
+  title="Mis Dispositivos"
+  description="Gestión de Dispositivos: Encuentra, agrega, edita y configura alertas para todos tus dispositivos.">
+</app-panel-title>
 
 <div class="py-1 px-3">
-  <div class="p-2">
+  <app-generic-popup
+    #confirmationModal
+    [title]="modalTitle"
+    [message]="modalMessage"
+    [showInput]="isEditAction"
+    [inputPlaceholder]="inputPlaceholder"
+    [initialInputValue]="initialInputValue"
+    (confirm)="onModalConfirm($event)"
+    (cancel)="onModalCancel()">
+  </app-generic-popup>
 
-    <button class="bg-primary text-white px-4 py-2 rounded mb-4 mx-1" (click)="openDevicePopup()">Agregar Dispositivo</button>
+  <div class="p-2">
+    <button
+      class="bg-primary text-white px-4 py-2 rounded mb-4 mx-1"
+      (click)="openDevicePopup()">
+      Agregar Dispositivo
+    </button>
   </div>
 
   <section id="dispo" class="py-4 bg-gray-100">
     <div class="container mx-auto px-3 text-center">
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         <!-- Tarjeta de dispositivo -->
-        <div *ngFor="let dispositivo of dispositivos" class="bg-white p-4 rounded-lg shadow-md transform transition-transform hover:scale-105 flex flex-col items-center">
+        <div
+          *ngFor="let dispositivo of dispositivos"
+          class="bg-white p-4 rounded-lg shadow-md transform transition-transform hover:scale-105 flex flex-col items-center">
 
-          <div class="absolute top-2 right-2 flex space-x-2">
-            <button (click)="goToConfiguration(dispositivo.deviceId)" class="text-green-500 hover:text-green-700 p-1">
+          <div class="flex space-x-2 mb-4">
+            <button
+              (click)="goToAlerts(dispositivo.deviceId)"
+              class="text-blue-500 hover:text-blue-700 p-1">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+            <button
+              (click)="goToConfiguration(dispositivo.deviceId)"
+              class="text-green-500 hover:text-green-700 p-1">
               <i class="fa-solid fa-cog"></i>
             </button>
-            <button (click)="editDevice(dispositivo)" class="text-blue-500 hover:text-blue-700 p-1">
+            <button
+              (click)="openEditModal(dispositivo)"
+              class="text-blue-500 hover:text-blue-700 p-1">
               <i class="fa-solid fa-pencil"></i>
             </button>
-            <button (click)="deleteDevice(dispositivo.deviceId)" class="text-red-500 hover:text-red-700">
+            <button
+              (click)="openDeleteModal(dispositivo)"
+              class="text-red-500 hover:text-red-700">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
 
           <div class="bg-blue-100 rounded-full p-3 mb-2 flex items-center justify-center w-16 h-16">
-            <img [src]="'../../../assets/icon/' + dispositivo.name + '.png'" alt="{{ dispositivo.name }}" width="40" height="40">
+            <img
+              [src]="'../../../assets/icon/' + dispositivo.name + '.png'"
+              alt="{{ dispositivo.name }}"
+              width="40"
+              height="40">
           </div>
           <h3 class="text-sm font-semibold">{{ dispositivo.name }}</h3>
         </div>
@@ -38,4 +72,5 @@
     [isOpen]="isDevicePopupOpen"
     (closePopup)="closeDevicePopup()">
   </app-device-popup>
+
 </div>

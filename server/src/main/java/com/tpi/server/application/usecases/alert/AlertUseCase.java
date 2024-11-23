@@ -37,19 +37,20 @@ public class AlertUseCase {
 
     public void createAlert(AlertDTO alertData) {
         try {
+            logger.trace("ENTRA AL CREATE ALERT" );
             if (isDuplicateAlert(alertData)) {
                 logger.trace("Alerta duplicada detectada: no se creará una nueva alerta.");
                 return;
             }
-
+            logger.trace("NO ESTA DUPLICADA" );
             Alert alert = createAlertEntity(alertData);
-
-            String userMail = getEmail(alertData.getDeviceId());
-
-            sendAlertNotification(alertData, userMail);
-
+            logger.trace("Alert creada: {}", alert);
             alertRepository.save(alert);
             logger.trace("Alerta guardada: {}", alert);
+            String userMail = getEmail(alertData.getDeviceId());
+            logger.trace("Mail enviado: {}", userMail);
+            sendAlertNotification(alertData, userMail);
+            logger.trace("Notificacion enviada a WS : {}", alert);
 
         } catch (GetEmailForAlertException e) {
             logger.error("Error al obtener el email para el dispositivo {}: {}", alertData.getDeviceId(), e.getMessage());
@@ -87,7 +88,7 @@ public class AlertUseCase {
                 .body(alertData.getName() + ". " + alertData.getMessage())
                 .build();
 
-        emailService.sendAlertEmail(emailRequest);
+        //emailService.sendAlertEmail(emailRequest);
     }
 
     private String getEmail(String deviceId) throws GetEmailForAlertException {
@@ -121,6 +122,7 @@ public class AlertUseCase {
                 .value(alert.getValue())
                 .date(alert.getDate())
                 .name(alert.getName())
+                .unit(AlertMessageUtils.getUnit(alert.getType()))
                 .build();
     }
 }

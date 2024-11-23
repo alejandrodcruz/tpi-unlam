@@ -6,4 +6,9 @@ public class AlertMessageUtils {
     public static String getAlertMessage(AlertType type) {
         return type.getMessage();
     }
+
+    public static String getUnit(AlertType type) {
+        return type.getUnit();
+    }
+
 }
