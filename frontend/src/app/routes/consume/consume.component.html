@@ -1,9 +1,32 @@
 <app-panel-title title="Consumo" description="Este es el consumo que registramos de tus dispositivos."></app-panel-title>
 
-<div class="px-3 mb-4">
+<div class="flex justify-end gap-4 px-3 mb-4">
+  <!-- Total Gastado en el Mes Actual -->
   <div class="stat shadow bg-white">
-    <h3 class="stat-title text-gray-500">Total Gastado en el Mes Actual</h3>
+    <h3 class="stat-title text-xl font-semibold text-gray-500">Total Gastado en el Mes Actual</h3>
     <p class="text-2xl font-bold">{{ totalCurrentMonthConsumption | number:'1.2-2' }} $ AR</p>
+  </div>
+
+  <!-- Total de Comparaciones -->
+  <div class="stat shadow bg-white">
+    <h3 class="stat-title text-xl font-semibold text-gray-500">Resultado Total de la Comparación</h3>
+    <p class="text-2xl font-bold" [ngClass]="{'text-green-600': totalComparisonSavings < 0, 'text-red-600': totalComparisonSavings > 0}">
+      {{ totalComparisonSavings | number:'1.2-2' }} $ AR
+    </p>
+    <div class="flex items-center gap-2 mt-2">
+      <!-- Icono -->
+      <svg *ngIf="totalComparisonSavings < 0" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
+      </svg>
+      <svg *ngIf="totalComparisonSavings > 0" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
+      </svg>
+
+      <!-- Texto -->
+      <span [ngClass]="{'text-green-600': totalComparisonSavings < 0, 'text-red-600': totalComparisonSavings > 0}">
+        {{ totalComparisonSavings < 0 ? 'Estás ahorrando' : 'Estás gastando de más' }}
+      </span>
+    </div>
   </div>
 </div>
 
@@ -11,18 +34,18 @@
 <div class="stats shadow" *ngFor="let device of devices">
   <div class="stat grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6">
     <div class="flex items-center">
-      <div class="stat-figure text-primary p-2">
+      <div class="stat-figure text-primary text-xl p-2">
         <img [src]="'../../../assets/icon/' + device.name + '.png'" alt="{{ device.name }}" width="32" height="32">
       </div>
       <div class="text-lg font-semibold">{{ device.name }}</div>
     </div>
     <div class="stat">
-    <div class="stat-title font-bold text-gray-500">Último Día</div>
+    <div class="stat-title text-xl font-bold text-gray-500">Último Día</div>
     <div class="text-2xl font-bold">{{ device.lastDayConsumption | number:'1.2-2' }} $ AR</div>
 
     </div>
     <div class="stat">
-      <div class="stat-title font-bold text-gray-500">Mes Actual</div>
+      <div class="stat-title text-xl font-bold text-gray-500">Mes Actual</div>
       <div class="text-2xl font-bold">{{ device.currentMonthConsumption | number:'1.2-2' }} $ AR</div>
 
       </div>
@@ -31,37 +54,39 @@
             <button (click)="showModal = true" class="bg-blue-300 text-black rounded-full p-2 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400 animate-pulse">
               <i class="fa-solid fa-code-compare"></i>
             </button>
-            <div class="stat-title font-bold text-gray-500">{{ previousMonthTitle }}</div>
+            <div class="stat-title text-xl font-bold text-gray-500">{{ previousMonthTitle }}</div>
           </div>
         <div class="text-2xl font-bold">{{ device.previousMonthConsumption | number:'1.2-2' }} $ AR</div>
 
         </div>
         <div class="stat">
-          <div class="stat-title font-bold text-gray-500">Proyección Mes Actual</div>
+          <div class="stat-title text-xl font-bold text-gray-500">Proyección Mes Actual</div>
           <div class="text-2xl font-bold">{{ device.projectedCurrentMonthConsumption | number:'1.2-2' }} $ AR</div>
 
           </div>
           <div class="stat p-1">
-              <div class="stat-title font-bold text-gray-500">Comparación con Mes Elegido</div>
+            <div class="stat-title text-xl font-bold text-gray-500">Comparación con Mes Elegido</div>
 
-            <p class="stat-title flex items-center">
-              <span [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+            <p class="stat-title font-bold flex items-center">
+              <span [ngClass]="{'text-green-600 text-lg': device.isSaving, 'text-red-600 text-lg': !device.isSaving}">
                 {{ getAbsoluteValue(device.savingsPercentage) }}% ({{ device.isSaving ? 'Reducción del consumo' : 'Aumento del consumo'}})
               </span>
-              <!-- Iconos -->
+            </p>
+
+            <p class="stat-title flex items-center" [ngClass]="{'text-green-600 text-lg': device.isSaving, 'text-red-600 text-lg': !device.isSaving}">
+              <!-- Icono -->
               <span *ngIf="device.isSaving !== undefined">
-                <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg *ngIf="device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 7l5 5 4-4 7 7v-4h2v6h-6v-2h4l-6-6-4 4-7-7z"/>
                 </svg>
-                <svg *ngIf="!device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg *ngIf="!device.isSaving" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 17l5-5 4 4 7-7v4h2V6h-6v2h4l-6 6-4-4-7 7z"/>
                 </svg>
               </span>
-            </p>
-            <p class="stat-title" [ngClass]="{'text-green-600': device.isSaving, 'text-red-600': !device.isSaving}">
+              <!-- Mensaje -->
               {{ device.isSaving ? 'Ahorrarás' : 'Gastarás de más' }} {{ getAbsoluteValue(device.monetaryDifference) | number:'1.2-2' }} $ AR
             </p>
-            </div>
+          </div>
   </div>
 </div>
 </div>

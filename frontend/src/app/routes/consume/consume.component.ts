@@ -51,7 +51,7 @@ export class ConsumeComponent implements OnInit, OnDestroy {
       this.loadDeviceConsumptions();
     });
   }
-
+  totalComparisonSavings: number = 0;
   loadDeviceConsumptions(): void {
     this.devices.forEach(device => {
       const lastDay$ = this.consumptionService.getLastDayConsumption(this.userId, device.deviceId);
@@ -86,6 +86,7 @@ export class ConsumeComponent implements OnInit, OnDestroy {
           device.monetaryDifference = undefined;
         }
         this.calculateTotalCurrentMonthConsumption();
+        this.calculateTotalComparisonSavings();
       });
     });
   }
@@ -125,6 +126,12 @@ export class ConsumeComponent implements OnInit, OnDestroy {
   calculateTotalCurrentMonthConsumption(): void {
     this.totalCurrentMonthConsumption = this.devices.reduce((total, device) => {
       return total + (device.currentMonthConsumption || 0);
+    }, 0);
+  }
+
+  calculateTotalComparisonSavings(): void {
+    this.totalComparisonSavings = this.devices.reduce((total, device) => {
+      return total + (device.monetaryDifference || 0);
     }, 0);
   }
 
